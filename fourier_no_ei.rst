@@ -25,7 +25,7 @@ go along:
 
 -  basic trigonometry (SOH CAH TOA, Pythagoras' theorem);
 -  the :doc:`angle sum rule <angle_sum>`;
--  :doc:`basic algebra with sums <some_sums>`'
+-  :doc:`basic algebra with sums <some_sums>`;
 -  vector dot products;
 -  vector projection using the dot product.
 
@@ -72,8 +72,6 @@ Let us start with a DFT of some data:
     >>> N = 32  # the length of the time-series
     >>> plt.plot(x)
     [...]
-
-
 
 .. nbplot::
 
@@ -143,7 +141,6 @@ Here is the equation for the discrete Fourier transform:
 
 .. math::
 
-
    X_k = \sum_{n=0}^{N-1} x_n \; e^{-i 2 \pi \frac{k}{N} n}
 
 This is the transform from signal to frequency. We will call this the
@@ -152,7 +149,6 @@ This is the transform from signal to frequency. We will call this the
 Here is the equation for the inverse Fourier transform:
 
 .. math::
-
 
    x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k \; e^{i 2 \pi \frac{k}{N} n}
 
@@ -250,7 +246,6 @@ For the moment, let us concentrate on the forward transform.
 
 .. math::
 
-
    \vec{t_k} \triangleq \left[ k 2 \pi \frac{n}{N} \;\mathrm{for}\; n \in
    0,1,\ldots,N-1 \right] \\
    \vec{c_k} \triangleq \left[ \cos(t_{k,n}) \;\mathrm{for}\; n \in 0,1,\ldots,N-1
@@ -262,7 +257,6 @@ Now we can rewrite the sums in the forward transform as the sum of two
 dot products:
 
 .. math::
-
 
    X_k = \vec{x} \cdot \vec{c_k} - i \vec{x} \cdot \vec{s_k}
 
@@ -296,11 +290,10 @@ Here are some plots of :math:`\vec{c_k}`, :math:`\vec{s_k}` for
     ...     axes[k].plot(ns, np.sin(t_k), label='sin')
     ...     axes[k].set_xlim(0, N-1)
     ...     axes[k].set_ylim(-1.1, 1.1)
+    [...)
     >>> axes[0].legend()
+    <...>
     >>> plt.tight_layout()
-
-
-
 
 To rephrase: :math:`\vec{c_k}, \vec{s_k}` are cosine / sine waves with
 :math:`k` cycles over the :math:`N` indices.
@@ -314,7 +307,6 @@ notation for the inverse transform.
 
 .. math::
 
-
    \vec{t_n} \triangleq \left[ n 2 \pi \frac{k}{N} \;\mathrm{for}\; k \in
    =0,1,\ldots,N-1 \right] \\
    \vec{c_n} \triangleq \left[ \cos(t_{n,k}) \;\mathrm{for}\; k \in 0,1,\ldots,N-1
@@ -326,7 +318,6 @@ Because both :math:`n` and :math:`k` have indices from :math:`0 .. N-1`:
 
 .. math::
 
-
    \vec{t_k} = \vec{t_n} \;\mathrm{where}\; k=n \\
    \vec{c_k} = \vec{c_n} \;\mathrm{where}\; k=n \\
    \vec{s_k} = \vec{s_n} \;\mathrm{where}\; k=n
@@ -336,7 +327,6 @@ We will return to this point fairly soon.
 The inverse transform is now:
 
 .. math::
-
 
    x_n = \frac{1}{N} \vec{X} \cdot \vec{c_n} + i \frac{1}{N} \vec{X} \cdot
    \vec{s_n}
@@ -354,7 +344,6 @@ matrix :math:`\C` that has rows
 
 .. math::
 
-
    \C \triangleq
     \begin{bmatrix}
        c_{0,0}, c_{0, 1}, ..., c_{0, N-1} \\
@@ -370,7 +359,6 @@ Define a matrix :math:`\S` that has rows
 
 .. math::
 
-
    \S \triangleq
     \begin{bmatrix}
        s_{0,0}, s_{0, 1}, ..., s_{0, N-1} \\
@@ -384,7 +372,6 @@ Call :math:`\S` the *sine basis matrix*.
 Now we can rewrite the forward and inverse DFT as matrix products:
 
 .. math::
-
 
    \vec{X} = \C \cdot \vec{x} - i \S \cdot \vec{x} \\
    \vec{x} = \frac{1}{N} \C \cdot \vec{X} + i \frac{1}{N} \S \cdot \vec{X}
@@ -437,9 +424,8 @@ Displaying the DFT transform
 ============================
 
 We can show the matrix calculation of the DFT as images. To do this we
-will use some specialized code. If you are running this notebook
-yourself, download `dft\_plots.py <dft_plots.py>`__ to the directory
-containing the notebook.
+will use some specialized code. If you are running this tutorial yourself,
+download :download:`dft_plots.py` to the directory containing this page.
 
 .. nbplot::
 
@@ -450,7 +436,6 @@ Here we show the forward DFT given by the formula:
 
 .. math::
 
-
    \vec{X} = \C \cdot \vec{x} - i \S \cdot \vec{x}
 
 .. nbplot::
@@ -458,9 +443,6 @@ Here we show the forward DFT given by the formula:
     >>> # Show image sketch for forward DFT
     >>> sketch = dftp.DFTSketch(x)
     >>> sketch.sketch(figsize=(12, 5))
-
-
-
 
 The plot shows each matrix and vector as grayscale, where mid gray
 corresponds to 0, black corresponds to the most negative value and white
@@ -506,15 +488,11 @@ We can show the inverse DFT in the same way:
 
 .. math::
 
-
    \vec{x} = \frac{1}{N} \C \cdot \vec{X} + i \frac{1}{N} \S \cdot \vec{X}
 
 .. nbplot::
 
     >>> sketch.sketch(inverse=True, figsize=(12, 5))
-
-
-
 
 The output from the inverse transform is a complex vector, but in our
 case, where the input to the DFT was a vector of real numbers, the
@@ -577,11 +555,10 @@ Let's show :math:`\C` and :math:`\S` as grayscale images again:
     >>> fig, axes = plt.subplots(1, 2, figsize=(10, 5))
     >>> dftp.show_array(axes[0], dftp.scale_array(C))
     >>> axes[0].set_title("$\mathbf{C}$")
+    <...>
     >>> dftp.show_array(axes[1], dftp.scale_array(S))
     >>> axes[1].set_title("$\mathbf{S}$")
-    ...
-
-
+    <...>
 
 Mirror symmetry
 ===============
@@ -609,9 +586,7 @@ of :math:`\C`:
     >>> fig = dftp.plot_cs_rows('C', N, center_rows)
     >>> fig.suptitle('Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{C}$',
     ...              fontsize=20)
-    ...
-
-
+    <...>
 
 The first plot in this grid is for row :math:`k = N / 2 - 1`. This row
 starts sampling just before the peak and trough of the cosine. In the
@@ -632,7 +607,7 @@ This might be more obvious plotting rows 1 and N-1 of :math:`\C`:
     >>> fig = dftp.plot_cs_rows('C', N, [1, N-1])
     >>> fig.suptitle('Rows $1$ and $N - 1$ of $\mathbf{C}$',
     ...              fontsize=20)
-    ...
+    <...>
 
 
 
@@ -643,18 +618,14 @@ Of course we get the same kind of effect for :math:`\S`:
     >>> fig = dftp.plot_cs_rows('S', N, center_rows)
     >>> fig.suptitle('Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{S}$',
     ...              fontsize=20)
-    ...
-
-
+    <...>
 
 .. nbplot::
 
     >>> fig = dftp.plot_cs_rows('S', N, [1, N-1])
     >>> fig.suptitle('Rows $1$ and $N - 1$ of $\mathbf{S}$',
     ...              fontsize=20)
-    ...
-
-
+    <...>
 
 Notice that for :math:`\S`, the sine waves after :math:`k = N / 2` are
 sign-flipped relative to their matching rows before :math:`k = N / 2`.
@@ -739,51 +710,9 @@ with the matrix multiplication :math:`\C^T \C`:
 
 .. nbplot::
 
-    >>> my_x = C[:, 1] * 3
-    >>> plt.plot(my_x)
-    [...]
-
-
-
-.. nbplot::
-
-    >>> my_fft = np.fft.fft(my_x)
-    >>> my_fft
-    array([ -0.+0.j,  48.-0.j,   0.+0.j,   0.+0.j,  -0.-0.j,   0.+0.j,
-             0.+0.j,   0.+0.j,   0.-0.j,   0.+0.j,  -0.-0.j,   0.+0.j,
-            -0.+0.j,  -0.+0.j,   0.-0.j,   0.+0.j,   0.+0.j,   0.+0.j,
-             0.+0.j,  -0.+0.j,  -0.-0.j,  -0.+0.j,  -0.+0.j,  -0.+0.j,
-             0.+0.j,  -0.+0.j,   0.-0.j,  -0.+0.j,  -0.+0.j,  -0.+0.j,
-             0.-0.j,  48.-0.j])
-
-.. nbplot::
-
-    >>> np.sum(np.abs(my_x)**2), 9 * 16
-    (144.0, 144)
-
-.. nbplot::
-
-    >>> np.abs(my_fft)**2, 3*3 * (N / 2) **2
-    (array([    0.,  2304.,     0.,     0.,     0.,     0.,     0.,     0.,
-                0.,     0.,     0.,     0.,     0.,     0.,     0.,     0.,
-                0.,     0.,     0.,     0.,     0.,     0.,     0.,     0.,
-                0.,     0.,     0.,     0.,     0.,     0.,     0.,  2304.]),
-     2304.0)
-
-.. nbplot::
-
-    >>> 1 / N * np.sum(np.abs(my_fft)**2)
-    144.0
-
-.. nbplot::
-
-    >>> np.sum(my_x.dot(my_x))
-    144.0
-
-.. nbplot::
-
     >>> dftp.show_array(plt.gca(), dftp.scale_array(C.T.dot(C)))
     >>> plt.title("$\mathbf{C^TC}$")
+    <...>
 
 The image shows us that the dot product between the rows of :math:`\C`
 is 0 everywhere except:
@@ -800,6 +729,9 @@ The squared row lengths are:
 .. nbplot::
 
     >>> np.diag(C.T.dot(C))
+    array([ 32.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,
+            16.,  16.,  16.,  16.,  16.,  32.,  16.,  16.,  16.,  16.,  16.,
+            16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.])
 
 Notice that the rows :math:`\vec{c_0}` and :math:`\vec{c_{N / 2}}` have
 squared length :math:`N`, and the other rows have squared length
@@ -811,6 +743,7 @@ We can do the same for :math:`\S`:
 
     >>> dftp.show_array(plt.gca(), dftp.scale_array(S.T.dot(S)))
     >>> plt.title("$\mathbf{S^TS}$")
+    <...>
 
 Remember that :math:`\vec{s_0}` and :math:`\vec{s_{n/2}}` are all 0
 vectors. The dot product of these rows with any other row, including
@@ -829,6 +762,9 @@ The squared row lengths are:
 .. nbplot::
 
     >>> np.diag(S.T.dot(S))
+    array([  0.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,
+            16.,  16.,  16.,  16.,  16.,   0.,  16.,  16.,  16.,  16.,  16.,
+            16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.])
 
 The rows :math:`\vec{s_0}` and :math:`\vec{s_{N / 2}}` have squared
 length :math:`0`, and the other rows have squared length :math:`N / 2`.
@@ -839,6 +775,7 @@ and the rows of :math:`\S`:
 .. nbplot::
 
     >>> np.allclose(C.T.dot(S), 0)
+    True
 
 The rows of :math:`\C` and :math:`\S` are completely orthogonal.
 
@@ -857,7 +794,6 @@ We will take rows :math:`\vec{c_p} =\C_{p,:}` and
 
 .. math::
 
-
    \vec{c_p} = \left[ \cos(p n \frac{2 \pi}{N}) \;\mathrm{for}\;
    n \in 0,1,\ldots,N-1 \right] \\
    \vec{c_q} = \left[ \cos(q n \frac{2 \pi}{N}) \;\mathrm{for}\;
@@ -867,7 +803,6 @@ So:
 
 .. math::
 
-
    \vec{c_p} \cdot \vec{c_q} = \sum_{n=0}^{N-1} \cos(p n \frac{2 \pi}{N}) \cos(q
    n \frac{2 \pi}{N})
 
@@ -875,14 +810,12 @@ Our trigonometry tells us that:
 
 .. math::
 
-
    \cos \alpha \cos \beta = \frac{1}{2} [ \cos(\alpha + \beta) - \cos(\alpha -
    \beta) ]
 
 We can rewrite the dot product as the addition of two sums of cosines:
 
 .. math::
-
 
    \vec{c_p} \cdot \vec{c_q} =
    \frac{1}{2} \sum_{n=0}^{N-1} \cos((p + q) n \frac{2 \pi}{N}) +
@@ -893,7 +826,6 @@ cosines and sines <sum_of_cosines.html>`__ to solve these equations.
 Here are the formulae:
 
 .. math::
-
 
    R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
    \sum_{n=0}^{N-1} \cos(a + nd) =
@@ -917,7 +849,6 @@ integer.
 
 .. math::
 
-
    R = \frac{
    \sin( g N \frac{1}{2} \frac{2 \pi}{N} )
    }
@@ -937,7 +868,6 @@ Now we can calculate our dot product:
 
 .. math::
 
-
    \vec{c_p} \cdot \vec{c_q} =
    \begin{cases}
    \frac{1}{2} N + \frac{1}{2} N = N & \text{if } p = q, p \in 0, N/2 \\
@@ -950,14 +880,12 @@ We can apply the same kind of logic to the rows of :math:`\S`:
 
 .. math::
 
-
    \sin \alpha \sin \beta = \frac{1}{2} [ \cos(\alpha - \beta) - \cos(\alpha +
    \beta) ]
 
 So:
 
 .. math::
-
 
    \vec{s_p} \cdot \vec{s_q} =
    \frac{1}{2} \sum_{n=0}^{N-1} \cos((p - q) n \frac{2 \pi}{N}) -
@@ -966,7 +894,6 @@ So:
 This gives:
 
 .. math::
-
 
    \vec{s_p} \cdot \vec{s_q} =
    \begin{cases}
@@ -1004,7 +931,6 @@ is given by:
 
 .. math::
 
-
    proj_{\vec{b}}\vec{a} \triangleq g \vec{b}
 
 where :math:`g` is a scalar that we will call the *projection
@@ -1012,14 +938,12 @@ coefficient*:
 
 .. math::
 
-
    g = \frac{\vec{a} \cdot \vec{b}}{\vec{b} \cdot \vec{b}}
 
 Note that :math:`\vec{b} \cdot \vec{b}` is also :math:`\| \vec{b} \|^2`,
 so we can also write:
 
 .. math::
-
 
    g = \frac{\vec{a} \cdot \vec{b}}{\| \vec{b} \|^2}
 
@@ -1075,6 +999,9 @@ examples to show how the forward and inverse transform work in detail.
     >>> sin_projections = sin_gs[:, None] * unique_Ss
     >>> x_back = np.sum(np.vstack((cos_projections, sin_projections)), axis=0)
     >>> x_back - x
+    array([-0.,  0., -0.,  0., -0., -0.,  0., -0.,  0., -0.,  0., -0.,  0.,
+           -0., -0.,  0., -0.,  0., -0., -0.,  0.,  0., -0., -0.,  0., -0.,
+            0.,  0.,  0., -0.,  0., -0.])
 
 The first element in :math:`\vec{X}` for real input
 ===================================================
@@ -1083,7 +1010,6 @@ From our matrix multiplication, we know the first element of
 :math:`\vec{X}` comes from:
 
 .. math::
-
 
    X_0 = C_{0, :} \cdot \vec{x} - i S_{0, :} \cdot \vec{x}
        = \vec{c_0} \cdot \vec{x} - i \vec{s_0} \cdot \vec{x}
@@ -1096,14 +1022,12 @@ We can simplify further because we know what :math:`\vec{c_0}` and
 
 .. math::
 
-
    X_0 = \vec{1} \cdot \vec{x} - i \vec{0} \cdot \vec{x}
        = \vec{1} \cdot \vec{x}
 
 This final dot product can also be written as:
 
 .. math::
-
 
    X_0 = \sum_{n=0}^{N-1}{x_n}
 
@@ -1115,7 +1039,9 @@ Is this true of our original input vector :math:`\vec{x}`?
 .. nbplot::
 
     >>> print('Sum of x', np.sum(x))
+    Sum of x -4.3939
     >>> print('First DFT coefficient X[0]', X[0])
+    First DFT coefficient X[0] (-4.3939+0j)
 
 We can show how :math:`X_0` comes about in the matrix multiplication by
 highlighting
@@ -1154,6 +1080,9 @@ We could also write :math:`\vec{w}` as :math:`\vec{2}`.
 
     >>> w = np.ones(N) * 2
     >>> w
+    array([ 2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,
+            2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,
+            2.,  2.,  2.,  2.,  2.,  2.])
 
 What DFT output :math:`\vec{W}` will this generate?
 
@@ -1163,7 +1092,9 @@ We already know that :math:`W_0` must be the sum of :math:`\vec{w}`:
 
     >>> W = np.fft.fft(w)
     >>> print('Sum of w', np.sum(w))
+    Sum of w 64.0
     >>> print('First DFT coefficient W[0]', W[0])
+    First DFT coefficient W[0] (64+0j)
 
 How about the rest of :math:`\vec{W}`? All the remaining cosine and sine
 waves in :math:`\C, \S` sum to zero over the rows (and columns):
@@ -1171,7 +1102,11 @@ waves in :math:`\C, \S` sum to zero over the rows (and columns):
 .. nbplot::
 
     >>> print('Sums over rows of C after first', np.sum(C[1:], axis=1))
+    Sums over rows of C after first [-0. -0. -0. -0. -0. -0.  0. -0.  0. -0. -0.  0. -0. -0. -0.  0. -0.  0.
+     -0. -0.  0.  0. -0.  0. -0.  0.  0.  0.  0. -0.  0.]
     >>> print('Sums over rows of S', np.sum(S, axis=1))
+    Sums over rows of S [ 0. -0. -0. -0.  0.  0.  0. -0.  0.  0.  0.  0.  0. -0. -0.  0. -0. -0.
+      0. -0.  0.  0.  0.  0.  0. -0.  0.  0.  0. -0.  0.  0.]
 
 For any vector :math:`\vec{v}` that sums to zero, the dot product
 :math:`\vec{2} \cdot \vec{v}` will be
@@ -1183,6 +1118,12 @@ will be 0:
 .. nbplot::
 
     >>> W
+    array([ 64.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,
+             0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,
+             0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,
+             0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,
+             0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,
+             0.+0.j,   0.+0.j])
 
 Let us show this in the matrix form:
 
@@ -1212,13 +1153,11 @@ In that case our forward DFT would be:
 
 .. math::
 
-
    X = \C \cdot \vec{x}
 
 and the inverse DFT would be:
 
 .. math::
-
 
    X = \frac{1}{N} \C \cdot \vec{X}
 
@@ -1249,7 +1188,6 @@ and this is precisely what the inverse DFT will do:
 
 .. math::
 
-
    w_0 = \frac{1}{N} \vec{1} \cdot \vec{W} - i \frac{1}{N} \vec{0} \cdot \vec{W} =
    \frac{1}{N} \vec{1} \cdot \vec{W} \\
    w_1 = \frac{1}{N} \vec{1} \cdot \vec{W} \\
@@ -1263,12 +1201,22 @@ and this is precisely what the inverse DFT will do:
     >>> for n in np.arange(N):
     ...     w_again[n] = 1. / N * c_0.dot(W)
     >>> w_again
+    array([ 2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,
+            2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,
+            2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,
+            2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,
+            2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j])
 
 In matrix form:
 
 .. nbplot::
 
     >>> 1. / N * C.dot(W)
+    array([ 2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,
+            2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,
+            2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,
+            2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,
+            2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j])
 
 .. nbplot::
 
@@ -1303,9 +1251,13 @@ Here are plots of :math:`\vec{c_1}, \vec{s_1}`:
     >>> ns = np.arange(N)
     >>> t_1 = 2 * np.pi * ns / N
     >>> plt.plot(ns, np.cos(t_1), 'o:')
+    [...]
     >>> plt.plot(ns, np.sin(t_1), 'o:')
+    [...]
     >>> plt.xlim(0, N-1)
+    (...)
     >>> plt.xlabel('n')
+    <...>
 
 If the input signal is a single cosine wave of amplitude 3, with one
 cycle over the signal, then we can predict :math:`X_1`. It will be the
@@ -1319,8 +1271,11 @@ dot product of the input signal with :math:`c_1`, which is the same as
     >>> c_1 = np.cos(t_1)
     >>> X = np.fft.fft(cos_x)
     >>> print('First DFT coefficient for single cosine', X[1])
+    First DFT coefficient for single cosine (48-3.89264601266e-14j)
     >>> print('Dot product of single cosine with c_1', cos_x.dot(c_1))
+    Dot product of single cosine with c_1 48.0
     >>> print('3 * dot product of c_1 with itself', 3 * c_1.T.dot(c_1))
+    3 * dot product of c_1 with itself 48.0
 
 Fitting all cosine phases with an added sine
 ============================================
@@ -1342,7 +1297,9 @@ is shifted by 0.8,
 
     >>> cos_x_shifted = 3 * np.cos(t_1 + 0.8)
     >>> plt.plot(t_1, cos_x_shifted)
+    [...]
     >>> print('Dot product of shifted cosine with c_1', cos_x_shifted.dot(c_1))
+    Dot product of shifted cosine with c_1 33.4419220487
 
 When the cosine wave is shifted in our data, relative to the
 :math:`\vec{c_1}`, then the dot product of the signal against
@@ -1362,12 +1319,19 @@ unshifted cosine waves:
 
     >>> s_1 = np.sin(t_1)
     >>> plt.plot(t_1, cos_x, label='3 * cos wave')
+    [...]
     >>> plt.plot(t_1, cos_x_shifted, label='3 * cos wave, shifted')
+    [...]
     >>> plt.legend()
+    <...>
     >>> print('Dot product of unshifted cosine with c_1', cos_x.dot(c_1))
+    Dot product of unshifted cosine with c_1 48.0
     >>> print('Dot product of unshifted cosine with s_1', cos_x.dot(s_1))
+    Dot product of unshifted cosine with s_1 -8.53851287343e-16
     >>> print('Dot product of shifted cosine with c_1', cos_x_shifted.dot(c_1))
+    Dot product of shifted cosine with c_1 33.4419220487
     >>> print('Dot product of shifted cosine with s_1', cos_x_shifted.dot(s_1))
+    Dot product of shifted cosine with s_1 -34.4330923632
 
 Notice that the dot product with :math:`\vec{s_1}` is effectively zero
 in the unshifted case, and goes up to around 34 in the shifted case.
@@ -1385,7 +1349,9 @@ do not need it).
     >>> c_unshifted = cos_x.dot(c_1) / c_1.dot(c_1)
     >>> proj_onto_c1 = c_unshifted * c_1
     >>> plt.plot(ns, proj_onto_c1)
+    [...]
     >>> plt.title('Reconstructed unshifted cosine')
+    <...>
 
 Now we can use the cosine and sine dot product to reconstruct the
 shifted cosine vector:
@@ -1399,7 +1365,9 @@ shifted cosine vector:
     >>> proj_onto_s1 = c_sin_shifted * s_1
     >>> reconstructed = proj_onto_c1 + proj_onto_s1
     >>> plt.plot(ns, reconstructed)
+    [...]
     >>> plt.title('Reconstructed shifted cosine')
+    <...>
     >>> assert np.allclose(reconstructed, cos_x_shifted)
 
 The reason that this works for any phase shift is the angle sum rule.
@@ -1408,17 +1376,14 @@ The angle sum rule is:
 
 .. math::
 
-
    \cos(\alpha \pm \beta) = \cos \alpha \cos \beta \mp \sin \alpha \sin \beta
 
 To unpack the :math:`\pm, \mp`:
 
 .. math::
 
-
    \cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
-   \cos(\alpha - \beta) = \cos \alpha \cos \beta + \sin \alpha \sin \beta\
+   \cos(\alpha - \beta) = \cos \alpha \cos \beta + \sin \alpha \sin \beta
 
 See `angle sum proof <https://perrin.dynevor.org/angle_sum.html>`__ for
 a visual proof in the case of real angles :math:`\alpha, \beta`.
-
