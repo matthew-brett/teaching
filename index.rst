@@ -7,11 +7,11 @@ Tutorials on imaging, computing and mathematics
 ===============================================
 
 Mathematics
-=================================
+===========
 
+* :doc:`some_sums`.
 * :doc:`angle_sum`;
 * :doc:`sums_of_cosines`;
-* :doc:`some_sums`.
 
 .. The hidden toctree below is to suppress build warnings
 

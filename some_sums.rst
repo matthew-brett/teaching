@@ -1,6 +1,6 @@
-#################
-Working with sums
-#################
+###########################
+Some algebra with summation
+###########################
 
 We use the symbol $\Sigma$ for summation_.
 
