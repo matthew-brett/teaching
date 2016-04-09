@@ -1,0 +1,9 @@
+sphinx
+ghp-import
+matplotlib>=1.4.3
+nibabel
+numpy
+scipy
+sympy>=0.7.3
+texext>=0.2
+nb2plots>=0.2
