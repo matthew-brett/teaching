@@ -45,7 +45,7 @@ We write the *length* of a vector $\vec{v}$ as $\VL{v}$:
 
     \VL{v} \triangleq \sqrt{ \Sigma v_i^2 }
 
-This is a generalization of Pythonagoras' theorem to $n$ dimensions.  For
+This is a generalization of Pythagoras' theorem to $n$ dimensions.  For
 example, the length of a two dimensional vector $[ x, y ]$ is the length of the
 hypotenuse of the right-angle triangle formed by the points $(x, 0), (0, y),
 (x, y)$.  This length is $\sqrt{x^2 + y^2}$.  For a point in three dimensions
