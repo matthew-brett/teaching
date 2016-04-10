@@ -16,19 +16,20 @@ Theorems
 For a positive integer :math:`N` and real numbers :math:`a, d`:
 
 .. math::
+    :nowrap:
 
-   R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
-   \sum_{n=0}^{N-1} \cos(a + nd) =
-   \begin{cases}
-   N \cos a & \text{if } \sin(\frac{1}{2}d) = 0 \\
-   R \cos ( a + (N - 1) \frac{1}{2} d) & \text{otherwise}
-   \end{cases}
-   \\
-   \sum_{n=0}^{N-1} \sin(a + nd) =
-   \begin{cases}
-   N \sin a & \text{if } \sin(\frac{1}{2}d) = 0 \\
-   R \sin ( a + (N - 1) \frac{1}{2} d) & \text{otherwise}
-   \end{cases}
+    R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
+    \sum_{n=0}^{N-1} \cos(a + nd) =
+    \begin{cases}
+    N \cos a & \text{if } \sin(\frac{1}{2}d) = 0 \\
+    R \cos ( a + (N - 1) \frac{1}{2} d) & \text{otherwise}
+    \end{cases}
+    \\
+    \sum_{n=0}^{N-1} \sin(a + nd) =
+    \begin{cases}
+    N \sin a & \text{if } \sin(\frac{1}{2}d) = 0 \\
+    R \sin ( a + (N - 1) \frac{1}{2} d) & \text{otherwise}
+    \end{cases}
 
 *****
 Proof
@@ -52,13 +53,11 @@ If :math:`\sin(\frac{1}{2} d) = 0` then :math:`d` is a multiple of
 
 .. math::
 
-
    \cos(a) = \cos(a + d) = \cos(a + 2 d) ...
 
 and:
 
 .. math::
-
 
    \sum_{n=0}^{N-1} \cos(a + nd) = N \cos a
 
@@ -67,17 +66,16 @@ Now we cover the case where :math:`\sin(\frac{1}{2} d) \ne 0`.
 From the `angle sum rules <./angle_sum.html>`__:
 
 .. math::
+    :nowrap:
 
-
-   \sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \\
-   \sin(\alpha - \beta) = \sin \alpha \cos \beta - \cos \alpha \sin \beta \\
-   \implies \\
-   \sin(\alpha + \beta) - \sin(\alpha - \beta) = 2\cos \alpha \sin \beta
+    \sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \\
+    \sin(\alpha - \beta) = \sin \alpha \cos \beta - \cos \alpha \sin \beta \\
+    \implies \\
+    \sin(\alpha + \beta) - \sin(\alpha - \beta) = 2\cos \alpha \sin \beta
 
 Let:
 
 .. math::
-
 
    C \triangleq \sum_{n=0}^{N-1}\cos(a + nd)
 
@@ -93,24 +91,24 @@ Now we use the angle sum derivation above. Let :math:`\alpha = a + nd`,
 :math:`\beta = \frac{1}{2} d`:
 
 .. math::
+    :nowrap:
 
-
-   2 \sin(\frac{1}{2} d) C =
-   \sum_{n=0}^{N-1} \bigg ( \sin(a + (n + \frac{1}{2}) d) - \sin(a + (n -
-   \frac{1}{2}) d) \bigg )
+    2 \sin(\frac{1}{2} d) C =
+    \sum_{n=0}^{N-1} \bigg ( \sin(a + (n + \frac{1}{2}) d) - \sin(a + (n -
+    \frac{1}{2}) d) \bigg )
 
 Writing out the terms in the sum:
 
 .. math::
+    :nowrap:
 
-
-   2 \sin(\frac{1}{2} d) C = \\
-   \bigg ( \sin(a + \frac{1}{2}d) - \sin(a - \frac{1}{2}d) \bigg ) + \\
-   \bigg ( \sin(a + \frac{3}{2}d) - \sin(a + \frac{1}{2}d) \bigg ) + \\
-   ... \\
-   \bigg ( \sin(a + (N - \frac{3}{2}) d) - \sin(a + (N - \frac{5}{2} d) \bigg ) +
-   \\
-   \bigg ( \sin(a + (N - \frac{1}{2}) d) - \sin(a + (N - \frac{3}{2} d) \bigg )
+    2 \sin(\frac{1}{2} d) C = \\
+    \bigg ( \sin(a + \frac{1}{2}d) - \sin(a - \frac{1}{2}d) \bigg ) + \\
+    \bigg ( \sin(a + \frac{3}{2}d) - \sin(a + \frac{1}{2}d) \bigg ) + \\
+    ... \\
+    \bigg ( \sin(a + (N - \frac{3}{2}) d) - \sin(a + (N - \frac{5}{2} d) \bigg ) +
+    \\
+    \bigg ( \sin(a + (N - \frac{1}{2}) d) - \sin(a + (N - \frac{3}{2} d) \bigg )
 
 The series telescopes, because the second term at each iteration cancels
 the first term at the previous iteration. We are left only with the
@@ -118,9 +116,8 @@ first term in the last iteration and the second term from the first:
 
 .. math::
 
-
-   2 \sin(\frac{1}{2} d) C =
-   \sin(a + (N - \frac{1}{2}) d) - \sin(a - \frac{1}{2} d)
+    2 \sin(\frac{1}{2} d) C =
+    \sin(a + (N - \frac{1}{2}) d) - \sin(a - \frac{1}{2} d)
 
 Now we go the opposite direction with
 :math:`\sin(\alpha + \beta) - \sin(\alpha - \beta) = 2\cos \alpha \sin \beta`.
@@ -144,11 +141,12 @@ Sine sum
 This is almost identical, but applying:
 
 .. math::
+    :nowrap:
 
-   \cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
-   \cos(\alpha - \beta) = \cos \alpha \cos \beta + \sin \alpha \sin \beta \\
-   \implies \\
-   \cos(\alpha + \beta) - \cos(\alpha - \beta) = -2 \sin \alpha \sin \beta
+    \cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+    \cos(\alpha - \beta) = \cos \alpha \cos \beta + \sin \alpha \sin \beta \\
+    \implies \\
+    \cos(\alpha + \beta) - \cos(\alpha - \beta) = -2 \sin \alpha \sin \beta
 
 Let:
 
@@ -161,13 +159,14 @@ sides by :math:`-2 \sin(\frac{1}{2}d)` and continue with the same steps
 as for the cosine:
 
 .. math::
+    :nowrap:
 
-   -2 \sin(\frac{1}{2} d) S =
-   \sum_{n=0}^{N-1}-2 \sin( a + nd ) \sin( \frac{1}{2} d ) \\
-   = \sum_{n=0}^{N-1} \bigg ( \cos ( a + ( n + \frac{1}{2}) d )
-   - \cos ( a + (n - \frac{1}{2}) d ) \bigg ) \\
-   = \cos ( a + (N - \frac{1}{2}) d ) - \cos ( a - \frac{1}{2} d ) \\
-   = -2 \sin (a + (N - 1)\frac{1}{2} d ) \sin ( N \frac{1}{2} d )
+    -2 \sin(\frac{1}{2} d) S =
+    \sum_{n=0}^{N-1}-2 \sin( a + nd ) \sin( \frac{1}{2} d ) \\
+    = \sum_{n=0}^{N-1} \bigg ( \cos ( a + ( n + \frac{1}{2}) d )
+    - \cos ( a + (n - \frac{1}{2}) d ) \bigg ) \\
+    = \cos ( a + (N - \frac{1}{2}) d ) - \cos ( a - \frac{1}{2} d ) \\
+    = -2 \sin (a + (N - 1)\frac{1}{2} d ) \sin ( N \frac{1}{2} d )
 
 Then solve for :math:`S`.
 
