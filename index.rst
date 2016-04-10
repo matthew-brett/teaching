@@ -13,6 +13,7 @@ Mathematics
 * :doc:`some_sums`;
 * :doc:`angle_sum`;
 * :doc:`sums_of_cosines`;
+* :doc:`on_vectors`;
 * :doc:`simple_complex`;
 * :doc:`fourier_no_ei`.
 

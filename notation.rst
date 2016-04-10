@@ -12,7 +12,13 @@ Defined as
 
    i \triangleq \sqrt{-1}
 
-as ":math:`i` is defined as the square root of -1."
+as "$i$ is defined as the square root of -1."
+
+*******
+Implies
+*******
+
+Read $a \implies b$ as "$a$ implies $b$".
 
 **************
 Set membership
@@ -39,5 +45,6 @@ means that the value :math:`k` can *not* take any of the three values 1, 3 or
 Vectors
 *******
 
-I will often write a *vector* of numbers :math:`[v_0, v_1, ... v_{N}]` as
-:math:`\vec{v}`.
+Read $\vec{v}$ as "vector v".
+
+See :doc:`on_vectors`.

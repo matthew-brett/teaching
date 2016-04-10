@@ -213,6 +213,15 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'teachingdoc'
 
+_latex_macros = [
+    r'\newcommand{L}[1]{\| #1 \|}',
+    r'\newcommand{VL}[1]{\L{ \vec{#1} }}',
+    r'\newcommand{R}[1]{\operatorname{Re}\,(#1)}',
+    r'\newcommand{I}[1]{\operatorname{Im}\, (#1)}',
+]
+
+rst_prolog = ':math:`{}`\n'.format(''.join(macro for macro in _latex_macros))
+
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
@@ -227,6 +236,7 @@ latex_elements = {
 
 # Latex figure (float) alignment
 #'figure_align': 'htbp',
+    'preamble': '\n'.join(_latex_macros),
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -299,8 +309,7 @@ trim_doctest_flags = True
 
 # Config of mathcode directive
 mathcode_use_plot_ns = True
-import nb2plots.nbplots
-mathcode_plot_directive = nb2plots.nbplots
+mathcode_plot_context = 'nb2plots.nbplots.plot_context'
 
 # Add the 'copybutton' javascript, to hide/show the prompt in code
 # examples

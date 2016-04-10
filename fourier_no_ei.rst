@@ -2,8 +2,6 @@
 Fourier without the ei
 ######################
 
-.. include:: latex_defines.inc
-
 ************
 Introduction
 ************
@@ -23,11 +21,11 @@ the following concepts you might want to brush up on them. There are
 also links to proofs and explanations for these ideas in the page as we
 go along:
 
--  basic trigonometry (SOH CAH TOA, Pythagoras' theorem);
--  the :doc:`angle sum rule <angle_sum>`;
--  :doc:`basic algebra with sums <some_sums>`;
--  vector dot products;
--  vector projection using the dot product.
+* basic trigonometry (SOH CAH TOA, Pythagoras' theorem);
+* the :doc:`angle sum rule <angle_sum>`;
+* :doc:`basic algebra with sums <some_sums>`;
+* :doc:`on_vectors`;
+* vector projection using the dot product.
 
 You will not need to understand complex numbers in any depth, but see
 :doc:`simple_complex`.
@@ -35,7 +33,7 @@ You will not need to understand complex numbers in any depth, but see
 Loading and configuring code libraries
 ======================================
 
-Load and configure the Python libraries we will use in this notebook:
+Load and configure the Python libraries we will use:
 
 .. nbplot::
 
@@ -53,6 +51,9 @@ Load and configure the Python libraries we will use in this notebook:
 
     >>> # - tell numpy to print numbers to 4 decimal places only
     >>> np.set_printoptions(precision=4, suppress=True)
+    >>> # - function to print non-numpy scalars to 4 decimal places
+    >>> def to_4dp(f):
+    ...     return '{0:.4f}'.format(f)
 
 ****************************
 Some actual numbers to start
@@ -191,7 +192,7 @@ around a circle, of which you will hear no more in this page. In our
 case, it allows us to rewrite the forward and inverse Fourier
 transforms:
 
-First let's define a new value :math:`f`, that depends on :math:`N` -
+First let's define a new value :math:`D`, that depends on :math:`N` -
 the number of observations in our vector :math:`\vec{x}`.
 
 .. math::
@@ -429,7 +430,7 @@ download :download:`dft_plots.py` to the directory containing this page.
 
 .. nbplot::
 
-    >>> # Import the custom DFT plotting code for this notebook
+    >>> # Import the custom DFT plotting code
     >>> import dft_plots as dftp
 
 Here we show the forward DFT given by the formula:
@@ -661,7 +662,6 @@ Now consider the second row of :math:`\C`. This is a cosine sampled at
 horizontal axis values:
 
 .. math::
-
 
    \vec{t_1} \triangleq \left[ 2 \pi \frac{n}{N} \;\mathrm{for}\; n \in
    0,1,\ldots,N-1 \right]
@@ -1270,8 +1270,8 @@ dot product of the input signal with :math:`c_1`, which is the same as
     >>> cos_x = 3 * np.cos(t_1)
     >>> c_1 = np.cos(t_1)
     >>> X = np.fft.fft(cos_x)
-    >>> print('First DFT coefficient for single cosine', X[1])
-    First DFT coefficient for single cosine (48-3.89264601266e-14j)
+    >>> print('First DFT coefficient for single cosine', to_4dp(X[1]))
+    First DFT coefficient for single cosine 48.0000-0.0000j
     >>> print('Dot product of single cosine with c_1', cos_x.dot(c_1))
     Dot product of single cosine with c_1 48.0
     >>> print('3 * dot product of c_1 with itself', 3 * c_1.T.dot(c_1))
@@ -1298,8 +1298,9 @@ is shifted by 0.8,
     >>> cos_x_shifted = 3 * np.cos(t_1 + 0.8)
     >>> plt.plot(t_1, cos_x_shifted)
     [...]
-    >>> print('Dot product of shifted cosine with c_1', cos_x_shifted.dot(c_1))
-    Dot product of shifted cosine with c_1 33.4419220487
+    >>> print('Dot product of shifted cosine with c_1',
+    ...       to_4dp(cos_x_shifted.dot(c_1)))
+    Dot product of shifted cosine with c_1 33.4419
 
 When the cosine wave is shifted in our data, relative to the
 :math:`\vec{c_1}`, then the dot product of the signal against
@@ -1326,12 +1327,15 @@ unshifted cosine waves:
     <...>
     >>> print('Dot product of unshifted cosine with c_1', cos_x.dot(c_1))
     Dot product of unshifted cosine with c_1 48.0
-    >>> print('Dot product of unshifted cosine with s_1', cos_x.dot(s_1))
-    Dot product of unshifted cosine with s_1 -8.53851287343e-16
-    >>> print('Dot product of shifted cosine with c_1', cos_x_shifted.dot(c_1))
-    Dot product of shifted cosine with c_1 33.4419220487
-    >>> print('Dot product of shifted cosine with s_1', cos_x_shifted.dot(s_1))
-    Dot product of shifted cosine with s_1 -34.4330923632
+    >>> print('Dot product of unshifted cosine with s_1',
+    ...       to_4dp(cos_x.dot(s_1)))
+    Dot product of unshifted cosine with s_1 -0.0000
+    >>> print('Dot product of shifted cosine with c_1',
+    ...       to_4dp(cos_x_shifted.dot(c_1)))
+    Dot product of shifted cosine with c_1 33.4419
+    >>> print('Dot product of shifted cosine with s_1',
+    ...       to_4dp(cos_x_shifted.dot(s_1)))
+    Dot product of shifted cosine with s_1 -34.4331
 
 Notice that the dot product with :math:`\vec{s_1}` is effectively zero
 in the unshifted case, and goes up to around 34 in the shifted case.
