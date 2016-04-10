@@ -45,8 +45,7 @@
 <h1>Sum of sines and cosines<a class="headerlink" href="#sum-of-sines-and-cosines" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li>Samuel Greitzer &#8220;Many cheerful Facts&#8221; Arbelos 4 (1986), no. 5, 14-17.</li>
-<li>Michael P. Knapp <cite>Sines and cosines of angles in arithmetic progression
-&lt;http://evergreen.loyola.edu/mpknapp/www/papers/knapp-sv.pdf&gt;_</cite> Mathematics
+<li>Michael P. Knapp <a class="reference external" href="http://evergreen.loyola.edu/mpknapp/www/papers/knapp-sv.pdf">Sines and cosines of angles in arithmetic progression</a> Mathematics
 Magazine 82.5 (2009): 371-372.</li>
 </ul>
 <p>The proof on this page follows Samuel Greitzner&#8217;s &#8220;Many cheerful facts&#8221;.</p>
@@ -67,69 +66,15 @@ N \sin a &amp; \text{if } \sin(\frac{1}{2}d) = 0 \\
 R \sin ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
 \end{cases}\end{split}\]</div>
 </div>
-</div>
-<div class="section" id="numerical-check">
-<h1>Numerical check<a class="headerlink" href="#numerical-check" title="Permalink to this headline">¶</a></h1>
-<p>Is this numerically the case?</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">d2</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mf">2.</span>
-<span class="gp">... </span>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">return</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_sin_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">d2</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mf">2.</span>
-<span class="gp">... </span>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">return</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">actual_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">d</span> <span class="o">+</span> <span class="n">a</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">))</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">actual_sin_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">d</span> <span class="o">+</span> <span class="n">a</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles</span><span class="p">))</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># When sin(d / 2) != 0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;cos&#39;</span><span class="p">,</span>
-<span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
-<span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
-<span class="go">cos 7.7038472261 7.7038472261</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;sin&#39;</span><span class="p">,</span>
-<span class="gp">... </span>      <span class="n">predicted_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
-<span class="gp">... </span>      <span class="n">actual_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
-<span class="go">sin -6.27049470825 -6.27049470825</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># When sin(d / 2) ~ 0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
-<span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
-<span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
-<span class="go">cos : sin(d/2) ~ 0; -11.1119415547 -11.1119415547</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;sin : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
-<span class="gp">... </span>      <span class="n">predicted_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
-<span class="gp">... </span>      <span class="n">actual_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
-<span class="go">sin : sin(d/2) ~ 0; -12.8656424202 -12.8656424202</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="proof">
-<h1>Proof<a class="headerlink" href="#proof" title="Permalink to this headline">¶</a></h1>
+<h2>Proof<a class="headerlink" href="#proof" title="Permalink to this headline">¶</a></h2>
 <p>The basic order of play is to rearrange the sum so that the terms in the
 current iteration of the sum cancel terms in the previous iteration, and
 we can therefore get rid of the sum. This is a <a class="reference external" href="https://en.wikipedia.org/wiki/Telescoping_series">telescoping
 series</a>.</p>
 <p>We will do the cosine series first. The sine proof is almost identical.</p>
 <div class="section" id="cosine-sum">
-<h2>Cosine sum<a class="headerlink" href="#cosine-sum" title="Permalink to this headline">¶</a></h2>
+<h3>Cosine sum<a class="headerlink" href="#cosine-sum" title="Permalink to this headline">¶</a></h3>
 <p>For reasons that will become clear later, we start with the case where
 <span class="math">\(\sin(\frac{1}{2} d) = 0\)</span>.</p>
 <p>If <span class="math">\(\sin(\frac{1}{2} d) = 0\)</span> then <span class="math">\(d\)</span> is a multiple of
@@ -182,10 +127,11 @@ and <span class="math">\(\beta\)</span> we get:</p>
 <div class="math">
 \[2 \sin(\frac{1}{2} d) C =
 2 \cos( a + (N - 1) \frac{1}{2} d ) \sin( N \frac{1}{2} d )\]</div>
-<p>We solve for <span class="math">\(C\)</span> to finish the proof. <span class="math">\(\blacksquare\)</span></p>
+<p>We solve for <span class="math">\(C\)</span> to finish the proof.</p>
+<p><span class="math">\(\blacksquare\)</span></p>
 </div>
 <div class="section" id="sine-sum">
-<h2>Sine sum<a class="headerlink" href="#sine-sum" title="Permalink to this headline">¶</a></h2>
+<h3>Sine sum<a class="headerlink" href="#sine-sum" title="Permalink to this headline">¶</a></h3>
 <p>This is almost identical, but applying:</p>
 <div class="math">
 \[\begin{split}\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
@@ -209,6 +155,60 @@ as for the cosine:</p>
 <p><span class="math">\(\blacksquare\)</span></p>
 </div>
 </div>
+<div class="section" id="numerical-check">
+<h2>Numerical check<a class="headerlink" href="#numerical-check" title="Permalink to this headline">¶</a></h2>
+<p>We check that the formulae give the right answers from numerical sums.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">d2</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mf">2.</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_sin_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">d2</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mf">2.</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">actual_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">d</span> <span class="o">+</span> <span class="n">a</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">actual_sin_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">d</span> <span class="o">+</span> <span class="n">a</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>When <span class="math">\(\sin(\frac{1}{2}d) \ne 0\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;cos&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+<span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
+<span class="go">cos 7.7038472261 7.7038472261</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;sin&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">predicted_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+<span class="gp">... </span>      <span class="n">actual_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
+<span class="go">sin -6.27049470825 -6.27049470825</span>
+</pre></div>
+</div>
+<p>When <span class="math">\(\sin(\frac{1}{2}d) \approx 0\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+<span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
+<span class="go">cos : sin(d/2) ~ 0; -11.1119415547 -11.1119415547</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;sin : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">predicted_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+<span class="gp">... </span>      <span class="n">actual_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
+<span class="go">sin : sin(d/2) ~ 0; -12.8656424202 -12.8656424202</span>
+</pre></div>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -220,12 +220,12 @@ as for the cosine:</p>
   <ul>
 <li><a class="reference internal" href="#">Sum of sines and cosines</a><ul>
 <li><a class="reference internal" href="#theorems">Theorems</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#numerical-check">Numerical check</a></li>
 <li><a class="reference internal" href="#proof">Proof</a><ul>
 <li><a class="reference internal" href="#cosine-sum">Cosine sum</a></li>
 <li><a class="reference internal" href="#sine-sum">Sine sum</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#numerical-check">Numerical check</a></li>
 </ul>
 </li>
 </ul>

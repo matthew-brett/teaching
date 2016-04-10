@@ -1,4 +1,3 @@
-# When sin(d / 2) ~ 0
 print('cos : sin(d/2) ~ 0;',
       predicted_cos_sum(4, np.pi * 2, 17),
       actual_cos_sum(4, np.pi * 2, 17))

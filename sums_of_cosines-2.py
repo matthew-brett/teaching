@@ -1,4 +1,3 @@
-# When sin(d / 2) != 0
 print('cos',
       predicted_cos_sum(4, 0.2, 17),
       actual_cos_sum(4, 0.2, 17))
