@@ -53,19 +53,18 @@ Magazine 82.5 (2009): 371-372.</li>
 <h2>Theorems<a class="headerlink" href="#theorems" title="Permalink to this headline">¶</a></h2>
 <p>For a positive integer <span class="math">\(N\)</span> and real numbers <span class="math">\(a, d\)</span>:</p>
 <div class="math">
-\[\begin{split}R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
+\[R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
 \sum_{n=0}^{N-1} \cos(a + nd) =
 \begin{cases}
-N \cos a &amp; \text{if } \sin(\frac{1}{2}d) = 0 \\
-R \cos ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
+N \cos a & \text{if } \sin(\frac{1}{2}d) = 0 \\
+R \cos ( a + (N - 1) \frac{1}{2} d) & \text{otherwise}
 \end{cases}
 \\
 \sum_{n=0}^{N-1} \sin(a + nd) =
 \begin{cases}
-N \sin a &amp; \text{if } \sin(\frac{1}{2}d) = 0 \\
-R \sin ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
-\end{cases}\end{split}\]</div>
-</div>
+N \sin a & \text{if } \sin(\frac{1}{2}d) = 0 \\
+R \sin ( a + (N - 1) \frac{1}{2} d) & \text{otherwise}
+\end{cases}\]</div></div>
 <div class="section" id="proof">
 <h2>Proof<a class="headerlink" href="#proof" title="Permalink to this headline">¶</a></h2>
 <p>The basic order of play is to rearrange the sum so that the terms in the
@@ -87,11 +86,10 @@ series</a>.</p>
 <p>Now we cover the case where <span class="math">\(\sin(\frac{1}{2} d) \ne 0\)</span>.</p>
 <p>From the <a class="reference external" href="./angle_sum.html">angle sum rules</a>:</p>
 <div class="math">
-\[\begin{split}\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \\
+\[\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \\
 \sin(\alpha - \beta) = \sin \alpha \cos \beta - \cos \alpha \sin \beta \\
 \implies \\
-\sin(\alpha + \beta) - \sin(\alpha - \beta) = 2\cos \alpha \sin \beta\end{split}\]</div>
-<p>Let:</p>
+\sin(\alpha + \beta) - \sin(\alpha - \beta) = 2\cos \alpha \sin \beta\]</div><p>Let:</p>
 <div class="math">
 \[C \triangleq \sum_{n=0}^{N-1}\cos(a + nd)\]</div>
 <p>Only if <span class="math">\(\sin(\frac{1}{2} d) \ne 0\)</span>, we can safely multiply both
@@ -103,17 +101,15 @@ sides by <span class="math">\(2 \sin(\frac{1}{2} d)\)</span>:</p>
 <div class="math">
 \[2 \sin(\frac{1}{2} d) C =
 \sum_{n=0}^{N-1} \bigg ( \sin(a + (n + \frac{1}{2}) d) - \sin(a + (n -
-\frac{1}{2}) d) \bigg )\]</div>
-<p>Writing out the terms in the sum:</p>
+\frac{1}{2}) d) \bigg )\]</div><p>Writing out the terms in the sum:</p>
 <div class="math">
-\[\begin{split}2 \sin(\frac{1}{2} d) C = \\
+\[2 \sin(\frac{1}{2} d) C = \\
 \bigg ( \sin(a + \frac{1}{2}d) - \sin(a - \frac{1}{2}d) \bigg ) + \\
 \bigg ( \sin(a + \frac{3}{2}d) - \sin(a + \frac{1}{2}d) \bigg ) + \\
 ... \\
 \bigg ( \sin(a + (N - \frac{3}{2}) d) - \sin(a + (N - \frac{5}{2} d) \bigg ) +
 \\
-\bigg ( \sin(a + (N - \frac{1}{2}) d) - \sin(a + (N - \frac{3}{2} d) \bigg )\end{split}\]</div>
-<p>The series telescopes, because the second term at each iteration cancels
+\bigg ( \sin(a + (N - \frac{1}{2}) d) - \sin(a + (N - \frac{3}{2} d) \bigg )\]</div><p>The series telescopes, because the second term at each iteration cancels
 the first term at the previous iteration. We are left only with the
 first term in the last iteration and the second term from the first:</p>
 <div class="math">
@@ -134,24 +130,22 @@ and <span class="math">\(\beta\)</span> we get:</p>
 <h3>Sine sum<a class="headerlink" href="#sine-sum" title="Permalink to this headline">¶</a></h3>
 <p>This is almost identical, but applying:</p>
 <div class="math">
-\[\begin{split}\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+\[\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
 \cos(\alpha - \beta) = \cos \alpha \cos \beta + \sin \alpha \sin \beta \\
 \implies \\
-\cos(\alpha + \beta) - \cos(\alpha - \beta) = -2 \sin \alpha \sin \beta\end{split}\]</div>
-<p>Let:</p>
+\cos(\alpha + \beta) - \cos(\alpha - \beta) = -2 \sin \alpha \sin \beta\]</div><p>Let:</p>
 <div class="math">
 \[S \triangleq \sum_{n=0}^{N-1}\sin(a + nd)\]</div>
 <p>Only if <span class="math">\(\sin(\frac{1}{2}d) \ne 0\)</span>, we can safely multiply both
 sides by <span class="math">\(-2 \sin(\frac{1}{2}d)\)</span> and continue with the same steps
 as for the cosine:</p>
 <div class="math">
-\[\begin{split}-2 \sin(\frac{1}{2} d) S =
+\[-2 \sin(\frac{1}{2} d) S =
 \sum_{n=0}^{N-1}-2 \sin( a + nd ) \sin( \frac{1}{2} d ) \\
 = \sum_{n=0}^{N-1} \bigg ( \cos ( a + ( n + \frac{1}{2}) d )
 - \cos ( a + (n - \frac{1}{2}) d ) \bigg ) \\
 = \cos ( a + (N - \frac{1}{2}) d ) - \cos ( a - \frac{1}{2} d ) \\
-= -2 \sin (a + (N - 1)\frac{1}{2} d ) \sin ( N \frac{1}{2} d )\end{split}\]</div>
-<p>Then solve for <span class="math">\(S\)</span>.</p>
+= -2 \sin (a + (N - 1)\frac{1}{2} d ) \sin ( N \frac{1}{2} d )\]</div><p>Then solve for <span class="math">\(S\)</span>.</p>
 <p><span class="math">\(\blacksquare\)</span></p>
 </div>
 </div>
