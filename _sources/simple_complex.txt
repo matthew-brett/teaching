@@ -2,8 +2,6 @@
 Refresher on complex numbers
 ############################
 
-.. include:: latex_defines.inc
-
 :math:`i` is the *imaginary unit*:
 
 .. math::

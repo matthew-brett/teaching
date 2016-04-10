@@ -12,8 +12,8 @@ We can write the sum of these values as:
 
     \Sigma_{i=1}^{4} x_i
 
-You can read this summation as "the sum of values x subscript i from i=0 to
-i=4".
+You can read this summation as "the sum of values $x$ subscript $i$ from $i=0$
+through $i=4$".
 
 So:
 
@@ -40,6 +40,7 @@ Say we have two series of numbers $x_1, x_2 \cdots x_n$ and $y_1, y_2 \cdots
 y_n$.
 
 .. math::
+    :label: add-in_sum
 
     \Sigma_{i=1}^n (x_i + y_i) = \\
     (x_1 + y_1) + (x_2 + y_2) + \cdots (x_n + y_n) = \\

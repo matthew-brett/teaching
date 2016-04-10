@@ -40,15 +40,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="some-algebra-with-summation">
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="some-algebra-with-summation">
 <h1>Some algebra with summation<a class="headerlink" href="#some-algebra-with-summation" title="Permalink to this headline">¶</a></h1>
 <p>We use the symbol <span class="math">\(\Sigma\)</span> for <a class="reference external" href="https://en.wikipedia.org/wiki/Summation">summation</a>.</p>
 <p>Say we have a series of four values <span class="math">\(x_1, x_2, x_3, x_4\)</span>.</p>
 <p>We can write the sum of these values as:</p>
 <div class="math">
 \[\Sigma_{i=1}^{4} x_i\]</div>
-<p>You can read this summation as &#8220;the sum of values x subscript i from i=0 to
-i=4&#8221;.</p>
+<p>You can read this summation as &#8220;the sum of values <span class="math">\(x\)</span> subscript <span class="math">\(i\)</span> from <span class="math">\(i=0\)</span>
+through <span class="math">\(i=4\)</span>&#8221;.</p>
 <p>So:</p>
 <div class="math">
 \[\Sigma_{i=1}^{4} x_i = x_1 + x_2 + x_3 + x_4\]</div>
@@ -63,8 +64,8 @@ in which case we could write the sum with or without the indices written:</p>
 <h3>Addition inside sum<a class="headerlink" href="#addition-inside-sum" title="Permalink to this headline">¶</a></h3>
 <p>Say we have two series of numbers <span class="math">\(x_1, x_2 \cdots x_n\)</span> and <span class="math">\(y_1, y_2 \cdots
 y_n\)</span>.</p>
-<div class="math">
-\[\begin{split}\Sigma_{i=1}^n (x_i + y_i) = \\
+<div class="math" id="equation-add-in_sum">
+<span class="eqno">(1)</span>\[\begin{split}\Sigma_{i=1}^n (x_i + y_i) = \\
 (x_1 + y_1) + (x_2 + y_2) + \cdots (x_n + y_n) = \\
 (x_1 + x_2 + \cdots x_n) + (y_1 + y_2 + \cdots y_n) = \\
 \Sigma_{i=1}^n x_i + \Sigma_{i=1}^n y_i\end{split}\]</div>

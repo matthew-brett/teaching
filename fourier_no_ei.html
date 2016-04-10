@@ -38,9 +38,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="fourier-without-the-ei">
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="fourier-without-the-ei">
 <h1>Fourier without the ei<a class="headerlink" href="#fourier-without-the-ei" title="Permalink to this headline">¶</a></h1>
-<p><span class="math">\(\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>The standard equations for discrete Fourier transforms (DFTs) involve
@@ -59,7 +59,7 @@ go along:</p>
 <li>basic trigonometry (SOH CAH TOA, Pythagoras&#8217; theorem);</li>
 <li>the <a class="reference internal" href="angle_sum.html"><em>angle sum rule</em></a>;</li>
 <li><a class="reference internal" href="some_sums.html"><em>basic algebra with sums</em></a>;</li>
-<li>vector dot products;</li>
+<li><a class="reference internal" href="on_vectors.html"><em>Vectors and dot products</em></a>;</li>
 <li>vector projection using the dot product.</li>
 </ul>
 <p>You will not need to understand complex numbers in any depth, but see
@@ -67,7 +67,7 @@ go along:</p>
 </div>
 <div class="section" id="loading-and-configuring-code-libraries">
 <h3>Loading and configuring code libraries<a class="headerlink" href="#loading-and-configuring-code-libraries" title="Permalink to this headline">¶</a></h3>
-<p>Load and configure the Python libraries we will use in this notebook:</p>
+<p>Load and configure the Python libraries we will use:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># - compatibility with Python 3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>  <span class="c"># print(&#39;me&#39;) instead of print &#39;me&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>  <span class="c"># 1/2 == 0.5, not 0</span>
@@ -80,6 +80,9 @@ go along:</p>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># - tell numpy to print numbers to 4 decimal places only</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># - function to print non-numpy scalars to 4 decimal places</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">to_4dp</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="s">&#39;{0:.4f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -193,7 +196,7 @@ imaginary numbers - see <a class="reference internal" href="simple_complex.html"
 around a circle, of which you will hear no more in this page. In our
 case, it allows us to rewrite the forward and inverse Fourier
 transforms:</p>
-<p>First let&#8217;s define a new value <span class="math">\(f\)</span>, that depends on <span class="math">\(N\)</span> -
+<p>First let&#8217;s define a new value <span class="math">\(D\)</span>, that depends on <span class="math">\(N\)</span> -
 the number of observations in our vector <span class="math">\(\vec{x}\)</span>.</p>
 <div class="math">
 \[D \triangleq \frac{2 \pi}{N}\]</div>
@@ -366,7 +369,7 @@ canned DFT:</p>
 <p>We can show the matrix calculation of the DFT as images. To do this we
 will use some specialized code. If you are running this tutorial yourself,
 download <a class="reference download internal" href="_downloads/dft_plots.py"><code class="xref download docutils literal"><span class="pre">dft_plots.py</span></code></a> to the directory containing this page.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Import the custom DFT plotting code for this notebook</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Import the custom DFT plotting code</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dft_plots</span> <span class="kn">as</span> <span class="nn">dftp</span>
 </pre></div>
 </div>
@@ -1069,8 +1072,8 @@ dot product of the input signal with <span class="math">\(c_1\)</span>, which is
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cos_x</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">cos_x</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;First DFT coefficient for single cosine&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="go">First DFT coefficient for single cosine (48-3.89264601266e-14j)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;First DFT coefficient for single cosine&#39;</span><span class="p">,</span> <span class="n">to_4dp</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="go">First DFT coefficient for single cosine 48.0000-0.0000j</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of single cosine with c_1&#39;</span><span class="p">,</span> <span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
 <span class="go">Dot product of single cosine with c_1 48.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;3 * dot product of c_1 with itself&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">c_1</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
@@ -1093,8 +1096,9 @@ is shifted by 0.8,</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cos_x_shifted</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_1</span> <span class="o">+</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_1</span><span class="p">,</span> <span class="n">cos_x_shifted</span><span class="p">)</span>
 <span class="go">[...]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of shifted cosine with c_1&#39;</span><span class="p">,</span> <span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
-<span class="go">Dot product of shifted cosine with c_1 33.4419220487</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of shifted cosine with c_1&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">to_4dp</span><span class="p">(</span><span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)))</span>
+<span class="go">Dot product of shifted cosine with c_1 33.4419</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_no_ei-40.png">png</a>, <a class="reference external" href=".//fourier_no_ei-40.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_no_ei-40.pdf">pdf</a>)</p>
@@ -1120,12 +1124,15 @@ unshifted cosine waves:</p>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of unshifted cosine with c_1&#39;</span><span class="p">,</span> <span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
 <span class="go">Dot product of unshifted cosine with c_1 48.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of unshifted cosine with s_1&#39;</span><span class="p">,</span> <span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s_1</span><span class="p">))</span>
-<span class="go">Dot product of unshifted cosine with s_1 -8.53851287343e-16</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of shifted cosine with c_1&#39;</span><span class="p">,</span> <span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
-<span class="go">Dot product of shifted cosine with c_1 33.4419220487</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of shifted cosine with s_1&#39;</span><span class="p">,</span> <span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s_1</span><span class="p">))</span>
-<span class="go">Dot product of shifted cosine with s_1 -34.4330923632</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of unshifted cosine with s_1&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">to_4dp</span><span class="p">(</span><span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s_1</span><span class="p">)))</span>
+<span class="go">Dot product of unshifted cosine with s_1 -0.0000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of shifted cosine with c_1&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">to_4dp</span><span class="p">(</span><span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)))</span>
+<span class="go">Dot product of shifted cosine with c_1 33.4419</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Dot product of shifted cosine with s_1&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">to_4dp</span><span class="p">(</span><span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s_1</span><span class="p">)))</span>
+<span class="go">Dot product of shifted cosine with s_1 -34.4331</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_no_ei-41.png">png</a>, <a class="reference external" href=".//fourier_no_ei-41.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_no_ei-41.pdf">pdf</a>)</p>
