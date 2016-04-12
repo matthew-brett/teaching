@@ -52,7 +52,7 @@ this way can explain some features of the DFT.</p>
 <div class="section" id="how-hard-is-the-mathematics">
 <h3>How hard is the mathematics?<a class="headerlink" href="#how-hard-is-the-mathematics" title="Permalink to this headline">¶</a></h3>
 <p>You will not need heavy math to follow this page. If you don&#8217;t remember
-the following concepts you might want to brush up on them. There are
+the following concepts you might want to brush upcos on them. There are
 also links to proofs and explanations for these ideas in the page as we
 go along:</p>
 <ul class="simple">
@@ -60,7 +60,6 @@ go along:</p>
 <li>the <a class="reference internal" href="angle_sum.html"><em>angle sum rule</em></a>;</li>
 <li><a class="reference internal" href="some_sums.html"><em>basic algebra with sums</em></a>;</li>
 <li><a class="reference internal" href="on_vectors.html"><em>Vectors and dot products</em></a>;</li>
-<li>vector projection using the dot product.</li>
 </ul>
 <p>You will not need to go deep into math with complex numbers, but see
 <a class="reference internal" href="simple_complex.html"><em>Refresher on complex numbers</em></a>.</p>
@@ -92,7 +91,9 @@ go along:</p>
 <span class="gp">... </span>     <span class="o">-</span><span class="mf">1.7249</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5623</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0128</span><span class="p">,</span>  <span class="mf">0.3142</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.908</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.4123</span><span class="p">,</span>  <span class="mf">1.4656</span><span class="p">,</span>
 <span class="gp">... </span>     <span class="o">-</span><span class="mf">0.2258</span><span class="p">,</span>  <span class="mf">0.0675</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4247</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5444</span><span class="p">,</span>  <span class="mf">0.1109</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.151</span> <span class="p">,</span>  <span class="mf">0.3757</span><span class="p">,</span>
 <span class="gp">... </span>     <span class="o">-</span><span class="mf">0.6006</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2917</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6017</span><span class="p">,</span>  <span class="mf">1.8523</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">32</span>  <span class="c"># the length of the time-series</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span>
+<span class="go">32</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">[...]</span>
 </pre></div>
@@ -211,13 +212,12 @@ imaginary numbers - see <a class="reference internal" href="simple_complex.html"
 <h3>How to rewrite without <span class="math">\(e^i\)</span><a class="headerlink" href="#how-to-rewrite-without" title="Permalink to this headline">¶</a></h3>
 <p>Our first tool in this enterprise is Euler&#8217;s formula:</p>
 <div class="math">
-\[e^{ix} = \cos x + i\sin x\]</div>
-<p>This is the basis for thinking of <span class="math">\(e^{ix}\)</span> as being rotation
-around a circle, of which you will hear no more in this page. In our
-case, it allows us to rewrite the forward and inverse Fourier
-transforms:</p>
-<p>First let&#8217;s define a new value <span class="math">\(D\)</span>, that depends on <span class="math">\(N\)</span> -
-the number of observations in our vector <span class="math">\(\vec{x}\)</span>.</p>
+\[e^{i\theta} = \cos \theta + i \sin \theta\]</div>
+<p>This is the basis for thinking of <span class="math">\(e^{i \theta}\)</span> as being rotation
+around a circle, of which you will hear no more in this page. In our case, it
+allows us to rewrite the forward and inverse Fourier transforms:</p>
+<p>First let&#8217;s define a new value <span class="math">\(D\)</span>, that depends on <span class="math">\(N\)</span> - the
+number of observations in our vector <span class="math">\(\vec{x}\)</span>.</p>
 <div class="math" id="equation-D">
 <span class="eqno">(3)</span>\[D \triangleq \frac{2 \pi}{N}\]</div>
 <p>With that value:</p>
@@ -226,8 +226,8 @@ the number of observations in our vector <span class="math">\(\vec{x}\)</span>.<
 i \sum_{n=0}^{N-1} x_n \sin(-k n D)\]</div>
 <p>We can simplify this further, because, for any angle <span class="math">\(\alpha\)</span>:</p>
 <div class="math">
-\[\cos(-\alpha) = cos(\alpha) \\
-\sin(-\alpha) = -sin(\alpha)\]</div><div class="math">
+\[\cos(-\theta) = cos(\theta) \\
+\sin(-\theta) = -sin(\theta)\]</div><div class="math">
 \[X_k = \sum_{n=0}^{N-1} x_n \cos(k n D) -
 i \sum_{n=0}^{N-1} x_n \sin(k n D)\]</div>
 <p>Following the same logic for the inverse transform:</p>
@@ -245,7 +245,7 @@ i \sum_{n=0}^{N-1} x_n \sin(k n D)\]</div>
 <div class="math">
 \[\vec{r^k} \triangleq \left[ 0 k D, 1 k D, \ldots, (N - 1) k D \right]\]</div><p>Substituting the value of <span class="math">\(D\)</span> (equation <a href="#equation-D">(3)</a>):</p>
 <div class="math">
-\[\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N},
+\[\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N}, \ldots,
 k 2 \pi \frac{N-1}{N}]\]</div>
 <p>Now define:</p>
 <div class="math">
@@ -402,7 +402,7 @@ revealing.</p>
 <div class="math">
 \[V_1 = \VL{c^1}^2\]</div>
 <p><a class="reference internal" href="fourier_basis.html"><em>The Fourier basis</em></a> also shows that <span class="math">\(\VL{c_1}^2 = N / 2\)</span> for all N.  More
-generally <span class="math">\(\VL{c_p}^2 = \VL{c_p}^2 = N / 2\)</span> for all <span class="math">\(p \notin {1, N/2}\)</span>.</p>
+generally <span class="math">\(\VL{c_p}^2 = \VL{s_p}^2 = N / 2\)</span> for all <span class="math">\(p \notin {0, N/2}\)</span>.</p>
 <p>So:</p>
 <div class="math">
 \[V_1 = N / 2\]</div>
@@ -474,8 +474,8 @@ generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span clas
 \right] \\
 = \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}\]</div><p>Now apply the vector dot products to get <span class="math">\(V_1\)</span>:</p>
 <div class="math">
-\[V_1 = (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{c^1} -
-i (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{s^1} \\
+\[V_1 = (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
+i (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 = \cos(\beta) \VL{c^1}^2 + i \sin(\beta) \VL{s^1}^2\]</div><p>Do we get this answer from the DFT?</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
 <span class="go">array([-0.0000 +0.j    ,  7.2575+14.2593j,  0.0000 +0.j    ,</span>
@@ -513,8 +513,8 @@ a (\cos(r^1_1) \cos(\beta) - \sin(r^1_1) \sin(\beta)),
 a (\cos(r^1_{N-1}) \cos(\beta) - \sin(r^1_{N-1}) \sin(\beta))
 \right] \\
 = a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1})\]</div><div class="math">
-\[V_1 = a ( \cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{c^1} -
-i a (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{s^1} \\
+\[V_1 = a ( \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
+i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 = a \cos(\beta) \VL{c^1}^2 + i a \sin(\beta) \VL{s^1}^2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
 <span class="go">array([ -0.0000 +0.j   ,  21.7726+42.778j,   0.0000 +0.j   ,</span>
@@ -537,10 +537,10 @@ i a (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 \[\R{X_1} = a \cos(\beta) N / 2 \\
 \I{X_1} = a \sin(\beta) N / 2\]</div><p>So:</p>
 <div class="math">
-\[\R{X_1}^2 + I{X_1}^2 = a^2 N^2/4 \cos(\beta)^2 \sin(\beta)^2\]</div><p>By Pythagoras:</p>
+\[\R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 (\cos(\beta)^2 + \sin(\beta)^2)\]</div><p>By Pythagoras:</p>
 <div class="math">
-\[\R{X_1}^2 + I{X_1}^2 = a^2 N^2/4 \implies \\
-\sqrt{\R{X_1}^2 + I{X_1}^2} = a N / 2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+\[\R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 \implies \\
+\sqrt{\R{X_1}^2 + \I{X_1}^2} = a N / 2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">47.999999999999993</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span>
@@ -550,7 +550,8 @@ i a (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 <p>We can get the angle <span class="math">\(\beta\)</span> in a similar way:</p>
 <div class="math">
 \[\begin{split}\R{X_1} = a \cos(\beta) N / 2 \implies \\
-\cos(beta) = \R{X_1} / (a N / 2)\end{split}\]</div>
+\cos(\beta) = \R{X_1} / (a N / 2)\end{split}\]</div>
+<p><code class="docutils literal"><span class="pre">np.arccos</span></code> is the inverse of <code class="docutils literal"><span class="pre">np.cos</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
 <span class="go">0.4535961214255782</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>

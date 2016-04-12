@@ -17,7 +17,7 @@ How hard is the mathematics?
 ============================
 
 You will not need heavy math to follow this page. If you don't remember
-the following concepts you might want to brush up on them. There are
+the following concepts you might want to brush upcos on them. There are
 also links to proofs and explanations for these ideas in the page as we
 go along:
 
@@ -25,7 +25,6 @@ go along:
 * the :doc:`angle sum rule <angle_sum>`;
 * :doc:`basic algebra with sums <some_sums>`;
 * :doc:`on_vectors`;
-* vector projection using the dot product.
 
 You will not need to go deep into math with complex numbers, but see
 :doc:`simple_complex`.
@@ -65,7 +64,9 @@ Let us start with a DFT of some data.
     ...      -1.7249, -0.5623, -1.0128,  0.3142, -0.908 , -1.4123,  1.4656,
     ...      -0.2258,  0.0675, -1.4247, -0.5444,  0.1109, -1.151 ,  0.3757,
     ...      -0.6006, -0.2917, -0.6017,  1.8523])
-    >>> N = 32  # the length of the time-series
+    >>> N = len(x)
+    >>> N
+    32
     >>> plt.plot(x)
     [...]
 
@@ -212,15 +213,14 @@ Our first tool in this enterprise is Euler's formula:
 
 .. math::
 
-   e^{ix} = \cos x + i\sin x
+   e^{i\theta} = \cos \theta + i \sin \theta
 
-This is the basis for thinking of :math:`e^{ix}` as being rotation
-around a circle, of which you will hear no more in this page. In our
-case, it allows us to rewrite the forward and inverse Fourier
-transforms:
+This is the basis for thinking of :math:`e^{i \theta}` as being rotation
+around a circle, of which you will hear no more in this page. In our case, it
+allows us to rewrite the forward and inverse Fourier transforms:
 
-First let's define a new value :math:`D`, that depends on :math:`N` -
-the number of observations in our vector :math:`\vec{x}`.
+First let's define a new value :math:`D`, that depends on :math:`N` - the
+number of observations in our vector :math:`\vec{x}`.
 
 .. math::
     :label: D
@@ -239,8 +239,8 @@ We can simplify this further, because, for any angle :math:`\alpha`:
 .. math::
     :nowrap:
 
-    \cos(-\alpha) = cos(\alpha) \\
-    \sin(-\alpha) = -sin(\alpha)
+    \cos(-\theta) = cos(\theta) \\
+    \sin(-\theta) = -sin(\theta)
 
 .. math::
 
@@ -277,7 +277,7 @@ Substituting the value of $D$ (equation :eq:`D`):
 
 .. math::
 
-    \vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N},
+    \vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N}, \ldots,
     k 2 \pi \frac{N-1}{N}]
 
 Now define:
@@ -494,7 +494,7 @@ So:
     V_1 = \VL{c^1}^2
 
 :doc:`fourier_basis` also shows that $\VL{c_1}^2 = N / 2$ for all N.  More
-generally $\VL{c_p}^2 = \VL{c_p}^2 = N / 2$ for all $p \notin {1, N/2}$.
+generally $\VL{c_p}^2 = \VL{s_p}^2 = N / 2$ for all $p \notin {0, N/2}$.
 
 So:
 
@@ -595,8 +595,8 @@ Now apply the vector dot products to get $V_1$:
 .. math::
     :nowrap:
 
-    V_1 = (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{c^1} -
-    i (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{s^1} \\
+    V_1 = (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
+    i (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
     = \cos(\beta) \VL{c^1}^2 + i \sin(\beta) \VL{s^1}^2
 
 Do we get this answer from the DFT?
@@ -646,8 +646,8 @@ phase-shifted cosine:
 .. math::
     :nowrap:
 
-    V_1 = a ( \cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{c^1} -
-    i a (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{s^1} \\
+    V_1 = a ( \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
+    i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
     = a \cos(\beta) \VL{c^1}^2 + i a \sin(\beta) \VL{s^1}^2
 
 .. nbplot::
@@ -681,15 +681,15 @@ So:
 .. math::
     :nowrap:
 
-    \R{X_1}^2 + I{X_1}^2 = a^2 N^2/4 \cos(\beta)^2 \sin(\beta)^2
+    \R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 (\cos(\beta)^2 + \sin(\beta)^2)
 
 By Pythagoras:
 
 .. math::
     :nowrap:
 
-    \R{X_1}^2 + I{X_1}^2 = a^2 N^2/4 \implies \\
-    \sqrt{\R{X_1}^2 + I{X_1}^2} = a N / 2
+    \R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 \implies \\
+    \sqrt{\R{X_1}^2 + \I{X_1}^2} = a N / 2
 
 .. nbplot::
 
@@ -704,7 +704,9 @@ We can get the angle $\beta$ in a similar way:
 .. math::
 
     \R{X_1} = a \cos(\beta) N / 2 \implies \\
-    \cos(beta) = \R{X_1} / (a N / 2)
+    \cos(\beta) = \R{X_1} / (a N / 2)
+
+``np.arccos`` is the inverse of ``np.cos``:
 
 .. nbplot::
 
