@@ -90,7 +90,7 @@ numbers.
 Each value in ``X`` gives the scaling for a sinusoid for a particular
 frequency.
 
-If the input to the DFT is real, as here then:
+If the input to the DFT is real, as here, then:
 
 * The real part of ``X`` has the scaling for a cosine at the particular
   frequency;
@@ -114,7 +114,7 @@ image of `X[1:16]`, with the imaginary parts having the opposite sign.
             4.6237-1.5287j, -2.1211-4.4873j, -4.0175+0.3712j])
 
 These features constitute *conjugate symmetry* and are always true of a DFT on
-real numbers.  We will soon we will see why.
+real numbers.  We will soon see why.
 
 When we do the inverse DFT on ``X`` we return the original values of our
 input ``x``, but as complex numbers with imaginary part 0:
