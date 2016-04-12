@@ -53,6 +53,8 @@ The vector *dot product* is:
 
     \vec{v} \cdot \vec{w} \triangleq \Sigma_{i=1}^n v_i w_i
 
+.. _vector-length:
+
 *************
 Vector length
 *************

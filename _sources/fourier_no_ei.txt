@@ -273,6 +273,9 @@ where:
 
     \vec{r^k} \triangleq \left[ 0 k D, 1 k D, \ldots, (N - 1) k D \right]
 
+Call $\vec{r^k}$ the *angle vector* for $k$.  This vector depend only on $k
+and N$.
+
 Substituting the value of $D$ (equation :eq:`D`):
 
 .. math::
@@ -289,7 +292,7 @@ Now define:
    \vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots
    \sin(r^k_{N-1} \right]
 
-We now have:
+We have:
 
 .. math::
 
@@ -303,13 +306,13 @@ forward DFT as:
 
    X_k = \vec{x} \cdot \vec{c^k} - i \vec{x} \cdot \vec{s^k}
 
-Frequency as cycles across the sample length
+Frequency as cycles across the sample vector
 ============================================
 
 The key to the frequencies in the DFT are in the $n k D = k 2 \pi
 \frac{n}{N}$ values that we have put into $\vec{r^k}$.
 
-The $k$ in $\vec{r^k}$ is the number of cycles across the length of $\vec{x}$.
+The $k$ in $\vec{r^k}$ is the number of cycles across all $N$ values of $\vec{x}$.
 
 For example, consider the case of $k = 1$:
 
@@ -331,10 +334,10 @@ Here are the values in Python:
             4.1233,  4.3197,  4.516 ,  4.7124,  4.9087,  5.1051,  5.3014,
             5.4978,  5.6941,  5.8905,  6.0868])
 
-The values $\frac{0}{N}, \frac{1}{N}, \ldots \frac{N-1}{N}$ are fractions of the whole
-sample length $N$, running from 0 to close to 1.  Now multiplied by $2 \pi$,
-the values run from 0 to close to $2 \pi$ and therefore give the distance
-round a circle.
+The values $\frac{0}{N}, \frac{1}{N}, \ldots \frac{N-1}{N}$ are fractions of
+the number of samples $N$, running from 0 to close to 1.  Now multiplied by $2
+\pi$, the values run from 0 to close to $2 \pi$ and therefore give the
+distance round a circle.
 
 .. nbplot::
     :include-source: false
@@ -354,7 +357,7 @@ round a circle.
     ax.spines['left'].set_smart_bounds(True)
     ax.spines['bottom'].set_smart_bounds(True)
     plt.axis('equal')
-    plt.title("$r^1$ vector values as positions on a circle")
+    plt.title("Angle ($r^1$) vector values as positions on a circle")
 
 The vector $\vec{r^1}$ gives $\vec{c^1}, \vec{s^1}$ with a single cycle:
 
@@ -373,7 +376,7 @@ The vector $\vec{r^1}$ gives $\vec{c^1}, \vec{s^1}$ with a single cycle:
     >>> plt.legend()
     <...>
 
-$k = 2 gives 2 samples across the cycle length:
+$k = 2 gives 2 cycles across the N values:
 
 .. nbplot::
 
@@ -487,6 +490,9 @@ $\vec{c^k}, \vec{s^k}$ vectors that, for all $k, N$:
 
     \vec{c^k} \cdot \vec{s^k} = 0
 
+Remember from :ref:`vector-length` that we can write $\vec{w} \cdot \vec{w}$
+as $\VL{w}^2$
+
 So:
 
 .. math::
@@ -582,7 +588,9 @@ So:
 .. math::
     :nowrap:
 
-    \vec{v} = \left [
+    \vec{v} = \left [\cos(r^1_0 + \beta), \cos(r^1_1 + \beta), \ldots,
+    \cos(r^1_{N-1} + \beta) \right] \\
+    = \left [
     \cos(r^1_0) \cos(\beta) - \sin(r^1_0) \sin(\beta),
     \cos(r^1_1) \cos(\beta) - \sin(r^1_1) \sin(\beta),
     \ldots,

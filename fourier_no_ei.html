@@ -243,7 +243,9 @@ i \sum_{n=0}^{N-1} x_n \sin(k n D)\]</div>
 - i \sum_{n=0}^{N-1} x_n \sin(r^k_n)\]</div>
 <p>where:</p>
 <div class="math">
-\[\vec{r^k} \triangleq \left[ 0 k D, 1 k D, \ldots, (N - 1) k D \right]\]</div><p>Substituting the value of <span class="math">\(D\)</span> (equation <a href="#equation-D">(3)</a>):</p>
+\[\vec{r^k} \triangleq \left[ 0 k D, 1 k D, \ldots, (N - 1) k D \right]\]</div><p>Call <span class="math">\(\vec{r^k}\)</span> the <em>angle vector</em> for <span class="math">\(k\)</span>.  This vector depend only on <span class="math">\(k
+and N\)</span>.</p>
+<p>Substituting the value of <span class="math">\(D\)</span> (equation <a href="#equation-D">(3)</a>):</p>
 <div class="math">
 \[\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N}, \ldots,
 k 2 \pi \frac{N-1}{N}]\]</div>
@@ -253,7 +255,7 @@ k 2 \pi \frac{N-1}{N}]\]</div>
 \cos(r^k_{N-1} \right] \\
 \vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots
 \sin(r^k_{N-1} \right]\end{split}\]</div>
-<p>We now have:</p>
+<p>We have:</p>
 <div class="math">
 \[X_k = \sum_{n=0}^{N-1} x_n c^k_n
 - i \sum_{n=0}^{N-1} x_n s^k_n\]</div>
@@ -262,11 +264,11 @@ forward DFT as:</p>
 <div class="math">
 \[X_k = \vec{x} \cdot \vec{c^k} - i \vec{x} \cdot \vec{s^k}\]</div>
 </div>
-<div class="section" id="frequency-as-cycles-across-the-sample-length">
-<h3>Frequency as cycles across the sample length<a class="headerlink" href="#frequency-as-cycles-across-the-sample-length" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="frequency-as-cycles-across-the-sample-vector">
+<h3>Frequency as cycles across the sample vector<a class="headerlink" href="#frequency-as-cycles-across-the-sample-vector" title="Permalink to this headline">¶</a></h3>
 <p>The key to the frequencies in the DFT are in the <span class="math">\(n k D = k 2 \pi
 \frac{n}{N}\)</span> values that we have put into <span class="math">\(\vec{r^k}\)</span>.</p>
-<p>The <span class="math">\(k\)</span> in <span class="math">\(\vec{r^k}\)</span> is the number of cycles across the length of <span class="math">\(\vec{x}\)</span>.</p>
+<p>The <span class="math">\(k\)</span> in <span class="math">\(\vec{r^k}\)</span> is the number of cycles across all <span class="math">\(N\)</span> values of <span class="math">\(\vec{x}\)</span>.</p>
 <p>For example, consider the case of <span class="math">\(k = 1\)</span>:</p>
 <div class="math">
 \[\vec{r^1} = \left[ 2 \pi \frac{0}{N}, 2 \pi \frac{1}{N},
@@ -282,10 +284,10 @@ forward DFT as:</p>
 <span class="go">        5.4978,  5.6941,  5.8905,  6.0868])</span>
 </pre></div>
 </div>
-<p>The values <span class="math">\(\frac{0}{N}, \frac{1}{N}, \ldots \frac{N-1}{N}\)</span> are fractions of the whole
-sample length <span class="math">\(N\)</span>, running from 0 to close to 1.  Now multiplied by <span class="math">\(2 \pi\)</span>,
-the values run from 0 to close to <span class="math">\(2 \pi\)</span> and therefore give the distance
-round a circle.</p>
+<p>The values <span class="math">\(\frac{0}{N}, \frac{1}{N}, \ldots \frac{N-1}{N}\)</span> are fractions of
+the number of samples <span class="math">\(N\)</span>, running from 0 to close to 1.  Now multiplied by <span class="math">\(2
+\pi\)</span>, the values run from 0 to close to <span class="math">\(2 \pi\)</span> and therefore give the
+distance round a circle.</p>
 <p>(<a class="reference external" href=".//fourier_no_ei-9.png">png</a>, <a class="reference external" href=".//fourier_no_ei-9.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_no_ei-9.pdf">pdf</a>)</p>
 <div class="figure">
 <img alt="_images/fourier_no_ei-9.png" src="_images/fourier_no_ei-9.png" />
@@ -309,7 +311,7 @@ round a circle.</p>
 <div class="figure">
 <img alt="_images/fourier_no_ei-10.png" src="_images/fourier_no_ei-10.png" />
 </div>
-<p>$k = 2 gives 2 samples across the cycle length:</p>
+<p>$k = 2 gives 2 cycles across the N values:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_2</span> <span class="o">=</span> <span class="n">vec_r_1</span> <span class="o">*</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_c_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_s_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vec_r_2</span><span class="p">)</span>
@@ -398,6 +400,8 @@ revealing.</p>
 <span class="math">\(\vec{c^k}, \vec{s^k}\)</span> vectors that, for all <span class="math">\(k, N\)</span>:</p>
 <div class="math">
 \[\vec{c^k} \cdot \vec{s^k} = 0\]</div>
+<p>Remember from <a class="reference internal" href="on_vectors.html#vector-length"><span>Vector length</span></a> that we can write <span class="math">\(\vec{w} \cdot \vec{w}\)</span>
+as <span class="math">\(\VL{w}^2\)</span></p>
 <p>So:</p>
 <div class="math">
 \[V_1 = \VL{c^1}^2\]</div>
@@ -466,7 +470,9 @@ generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span clas
 \[\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta\]</div>
 <p>So:</p>
 <div class="math">
-\[\vec{v} = \left [
+\[\vec{v} = \left [\cos(r^1_0 + \beta), \cos(r^1_1 + \beta), \ldots,
+\cos(r^1_{N-1} + \beta) \right] \\
+= \left [
 \cos(r^1_0) \cos(\beta) - \sin(r^1_0) \sin(\beta),
 \cos(r^1_1) \cos(\beta) - \sin(r^1_1) \sin(\beta),
 \ldots,
@@ -596,7 +602,7 @@ functions:</p>
 <li><a class="reference internal" href="#why-rewrite-without">Why rewrite without <span class="math">\(e^i\)</span>?</a></li>
 <li><a class="reference internal" href="#how-to-rewrite-without">How to rewrite without <span class="math">\(e^i\)</span></a></li>
 <li><a class="reference internal" href="#rewriting-the-dft-with-vectors">Rewriting the DFT with vectors</a></li>
-<li><a class="reference internal" href="#frequency-as-cycles-across-the-sample-length">Frequency as cycles across the sample length</a></li>
+<li><a class="reference internal" href="#frequency-as-cycles-across-the-sample-vector">Frequency as cycles across the sample vector</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#calculating-the-dft-with-vectors">Calculating the DFT with vectors</a><ul>
