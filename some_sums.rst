@@ -46,6 +46,8 @@ y_n$.
     (x_1 + x_2 + \cdots x_n) + (y_1 + y_2 + \cdots y_n) = \\
     \Sigma_{i=1}^n x_i + \Sigma_{i=1}^n y_i
 
+.. _multiply-inside-sum:
+
 Multiplying by constant inside sum
 ==================================
 

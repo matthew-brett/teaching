@@ -78,6 +78,8 @@ the dot product of the vector with itself gives the vector length:
 
     \VL{v} = \sqrt{ \vec{v} \cdot \vec{v} }
 
+.. _dot-product-properties:
+
 **************************
 Properties of dot products
 **************************
