@@ -8,11 +8,19 @@ A vector is an ordered sequence of values:
 
     \vec{v} = [ v_1, v_2, \cdots v_n ] \\
 
+**************
+Vector scaling
+**************
+
 A vector can be *scaled* by a scalar $c$:
 
 .. math::
 
     c \vec{v} \triangleq [ c v_1, c v_2, \cdots c v_n ]
+
+***************
+Vector addition
+***************
 
 Say we have two vectors containing $n$ values:
 
@@ -33,11 +41,21 @@ Vector addition is commutative because $v_i + w_i = w_i + v_i$:
 
     \vec{v} + \vec{w} = \vec{w} + \vec{v}
 
+.. _vector-dot-product:
+
+******************
+Vector dot product
+******************
+
 The vector *dot product* is:
 
 .. math::
 
     \vec{v} \cdot \vec{w} \triangleq \Sigma_{i=1}^n v_i w_i
+
+*************
+Vector length
+*************
 
 We write the *length* of a vector $\vec{v}$ as $\VL{v}$:
 
@@ -59,6 +77,8 @@ the dot product of the vector with itself gives the vector length:
 .. math::
 
     \VL{v} = \sqrt{ \vec{v} \cdot \vec{v} }
+
+.. _dot-product-properties:
 
 **************************
 Properties of dot products

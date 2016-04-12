@@ -1,7 +1,6 @@
-# Reconstruct unshifted cos from dot product projection
-c_unshifted = cos_x.dot(c_1) / c_1.dot(c_1)
-proj_onto_c1 = c_unshifted * c_1
-plt.plot(ns, proj_onto_c1)
+cos_x_shifted = 3 * np.cos(t_1 + 0.8)
+plt.plot(t_1, cos_x_shifted)
 # [...]
-plt.title('Reconstructed unshifted cosine')
-# <...>
+print('Dot product of shifted cosine with c_1',
+      to_4dp(cos_x_shifted.dot(c_1)))
+# Dot product of shifted cosine with c_1 33.4419

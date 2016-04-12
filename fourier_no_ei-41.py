@@ -1,18 +1,10 @@
-s_1 = np.sin(t_1)
-plt.plot(t_1, cos_x, label='3 * cos wave')
-# [...]
-plt.plot(t_1, cos_x_shifted, label='3 * cos wave, shifted')
-# [...]
-plt.legend()
-# <...>
-print('Dot product of unshifted cosine with c_1', cos_x.dot(c_1))
-# Dot product of unshifted cosine with c_1 48.0
-print('Dot product of unshifted cosine with s_1',
-      to_4dp(cos_x.dot(s_1)))
-# Dot product of unshifted cosine with s_1 -0.0000
-print('Dot product of shifted cosine with c_1',
-      to_4dp(cos_x_shifted.dot(c_1)))
-# Dot product of shifted cosine with c_1 33.4419
-print('Dot product of shifted cosine with s_1',
-      to_4dp(cos_x_shifted.dot(s_1)))
-# Dot product of shifted cosine with s_1 -34.4331
+t_1 = 2 * np.pi * ns / N
+cos_x = 3 * np.cos(t_1)
+c_1 = np.cos(t_1)
+X = np.fft.fft(cos_x)
+print('First DFT coefficient for single cosine', to_4dp(X[1]))
+# First DFT coefficient for single cosine 48.0000-0.0000j
+print('Dot product of single cosine with c_1', cos_x.dot(c_1))
+# Dot product of single cosine with c_1 48.0
+print('3 * dot product of c_1 with itself', 3 * c_1.T.dot(c_1))
+# 3 * dot product of c_1 with itself 48.0

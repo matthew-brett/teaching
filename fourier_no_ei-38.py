@@ -1,10 +1,5 @@
-ns = np.arange(N)
-t_1 = 2 * np.pi * ns / N
-plt.plot(ns, np.cos(t_1), 'o:')
-# [...]
-plt.plot(ns, np.sin(t_1), 'o:')
-# [...]
-plt.xlim(0, N-1)
-# (...)
-plt.xlabel('n')
-# <...>
+sketch = dftp.DFTSketch(w)
+sketch.sketch(inverse=True, figsize=(12, 5))
+sketch.highlight('x_real', [':'])
+sketch.highlight('C', [[':', 0]])
+sketch.highlight('X_c_real', [0])

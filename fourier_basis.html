@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Fourier basis &mdash; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="the-fourier-basis">
+<h1>The Fourier basis<a class="headerlink" href="#the-fourier-basis" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="fourier_intro.html"><em>Fourier without the ei</em></a> shows that we can write the discrete Fourier transform
+DFT as vector dot products.  In <a class="reference internal" href="fourier_intro.html#rewriting-dft-with-vectors"><span>Rewriting the DFT with vectors</span></a> we found
+that:</p>
+<div class="math">
+\[X_k = \vec{x} \cdot \vec{c^k} - i \vec{x} \cdot \vec{s^k}\]</div>
+<p>where:</p>
+<div class="math">
+\[\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N},
+k 2 \pi \frac{N-1}{N}] \\
+\vec{c^k} \triangleq \left[ \cos(r^k_0), \cos(r^k_1), \ldots
+\cos(r^k_{N-1} \right] \\
+\vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots
+\sin(r^k_{N-1} \right]\]</div><p><span class="math">\(\vec{c_k}, \vec{s_k}\)</span> are <em>Fourier basis vectors</em>.</p>
+<p>We can compile all these vectors into matrices to form <em>Fourier basis
+matrices</em>.</p>
+<div class="section" id="rewriting-the-dft-with-cosine-and-sine-basis-matrices">
+<h2>Rewriting the DFT with cosine and sine basis matrices<a class="headerlink" href="#rewriting-the-dft-with-cosine-and-sine-basis-matrices" title="Permalink to this headline">¶</a></h2>
+<p>Instead of writing the formulae for the individual elements <span class="math">\(X_k\)</span> and
+<span class="math">\(x_n\)</span>, we can use matrices to express our formulae in terms of the
+vectors <span class="math">\(\vec{X}, \vec{x}\)</span>.</p>
+<p><span class="math">\(\newcommand{C}{\mathbf{C}} \newcommand{S}{\mathbf{S}}\)</span> Define a
+matrix <span class="math">\(\C\)</span> that has rows
+<span class="math">\([\vec{c_0}, \vec{c_1}, ..., \vec{c_{N-1}}]\)</span>:</p>
+<div class="math">
+\[\begin{split}\C \triangleq
+ \begin{bmatrix}
+    c_{0,0}, c_{0, 1}, ..., c_{0, N-1} \\
+    c_{1,0}, c_{1, 1}, ..., c_{1, N-1} \\
+    ... \\
+    c_{N-1,0}, c_{N-1, 1}, ..., c_{N-1, N-1} \\
+ \end{bmatrix}\end{split}\]</div>
+<p>Call <span class="math">\(\C\)</span> the <em>cosine basis matrix</em>.</p>
+<p>Define a matrix <span class="math">\(\S\)</span> that has rows
+<span class="math">\([\vec{s_0}, \vec{s_1}, ..., \vec{s_{N-1}}]\)</span>:</p>
+<div class="math">
+\[\begin{split}\S \triangleq
+ \begin{bmatrix}
+    s_{0,0}, s_{0, 1}, ..., s_{0, N-1} \\
+    s_{1,0}, s_{1, 1}, ..., s_{1, N-1} \\
+    ... \\
+    s_{N-1,0}, s_{N-1, 1}, ..., s_{N-1, N-1} \\
+ \end{bmatrix}\end{split}\]</div>
+<p>Call <span class="math">\(\S\)</span> the <em>sine basis matrix</em>.</p>
+<p>Now we can rewrite the forward and inverse DFT as matrix products:</p>
+<div class="math">
+\[\begin{split}\vec{X} = \C \cdot \vec{x} - i \S \cdot \vec{x} \\
+\vec{x} = \frac{1}{N} \C \cdot \vec{X} + i \frac{1}{N} \S \cdot \vec{X}\end{split}\]</div>
+</div>
+<div class="section" id="loading-display-libraries-and-data">
+<h2>Loading display libraries and data<a class="headerlink" href="#loading-display-libraries-and-data" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span> <span class="mf">0.4967</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1383</span><span class="p">,</span>  <span class="mf">0.6477</span><span class="p">,</span>  <span class="mf">1.523</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.2342</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2341</span><span class="p">,</span>  <span class="mf">1.5792</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="mf">0.7674</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4695</span><span class="p">,</span>  <span class="mf">0.5426</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4634</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4657</span><span class="p">,</span>  <span class="mf">0.242</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.9133</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="o">-</span><span class="mf">1.7249</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5623</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0128</span><span class="p">,</span>  <span class="mf">0.3142</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.908</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.4123</span><span class="p">,</span>  <span class="mf">1.4656</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="o">-</span><span class="mf">0.2258</span><span class="p">,</span>  <span class="mf">0.0675</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4247</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5444</span><span class="p">,</span>  <span class="mf">0.1109</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.151</span> <span class="p">,</span>  <span class="mf">0.3757</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="o">-</span><span class="mf">0.6006</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2917</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6017</span><span class="p">,</span>  <span class="mf">1.8523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dft_plots</span> <span class="kn">as</span> <span class="nn">dftp</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="some-properties-of-the-cosine-and-sine-basis-matrices">
+<h2>Some properties of the cosine and sine basis matrices<a class="headerlink" href="#some-properties-of-the-cosine-and-sine-basis-matrices" title="Permalink to this headline">¶</a></h2>
+<p>First we note that <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> are always real matrices,
+regardless of the input <span class="math">\(\vec{x}\)</span> or <span class="math">\(\vec{X}\)</span>.</p>
+<p>Let&#8217;s show <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> as grayscale images.</p>
+<p>First we build <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> for our case with <span class="math">\(N=32\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">one_cycle</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ns</span> <span class="o">/</span> <span class="n">N</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">t_k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">one_cycle</span>
+<span class="gp">... </span>    <span class="n">C</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_k</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">S</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t_k</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&quot;$\mathbf{C}$&quot;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&quot;$\mathbf{S}$&quot;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_basis-4.png">png</a>, <a class="reference external" href=".//fourier_basis-4.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-4.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_basis-4.png" src="_images/fourier_basis-4.png" />
+</div>
+<div class="section" id="mirror-symmetry">
+<h3>Mirror symmetry<a class="headerlink" href="#mirror-symmetry" title="Permalink to this headline">¶</a></h3>
+<p>From the images we see that the bottom half of <span class="math">\(\C\)</span> looks like a
+mirror image of the top half of <span class="math">\(\C\)</span>. The bottom half of
+<span class="math">\(\S\)</span> looks like a sign flipped (black <span class="math">\(\Leftrightarrow\)</span>
+white) mirror image of the top half of <span class="math">\(\S\)</span>. In fact this is
+correct:</p>
+<div class="math">
+\[\begin{split}C_{p,:} = C_{N-p,:} \; \mathrm{for} \; p &gt; 0 \\
+S_{p,:} = -S_{N-p,:} \; \mathrm{for} \; p &gt; 0\end{split}\]</div>
+<p>Why is this? Let&#8217;s look at lines from the center of <span class="math">\(\C\)</span>. Here we
+are plotting the continuous cosine function with dotted lines, with
+filled circles to represent the discrete samples we took to fill the row
+of <span class="math">\(\C\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">center_rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">center_rows</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&#39;Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{C}$&#39;</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_basis-5.png">png</a>, <a class="reference external" href=".//fourier_basis-5.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-5.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_basis-5.png" src="_images/fourier_basis-5.png" />
+</div>
+<p>The first plot in this grid is for row <span class="math">\(k = N / 2 - 1\)</span>. This row
+starts sampling just before the peak and trough of the cosine. In the
+center is row <span class="math">\(k = N / 2\)</span> of <span class="math">\(\C\)</span>. This is sampling the
+cosine wave exactly at the peak and trough. When we get to next row, at
+<span class="math">\(k = N / 2 + 1\)</span>, we start sampling after the peak and trough of
+the cosine, and these samples are identical to the samples just before
+the peak and trough, at row <span class="math">\(k = N / 2 - 1\)</span>. Row <span class="math">\(k = N / 2\)</span>
+is sampling at the Nyquist sampling frequency, and row
+<span class="math">\(k = N / 2 + 1\)</span> is sampling at a frequency lower than Nyquist and
+therefore it is being <em>aliased</em> to the same apparent frequency as row
+<span class="math">\(k = N / 2 - 1\)</span>.</p>
+<p>This might be more obvious plotting rows 1 and N-1 of <span class="math">\(\C\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s">&#39;C&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&#39;Rows $1$ and $N - 1$ of $\mathbf{C}$&#39;</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_basis-6.png">png</a>, <a class="reference external" href=".//fourier_basis-6.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-6.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_basis-6.png" src="_images/fourier_basis-6.png" />
+</div>
+<p>Of course we get the same kind of effect for <span class="math">\(\S\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">center_rows</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&#39;Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{S}$&#39;</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_basis-7.png">png</a>, <a class="reference external" href=".//fourier_basis-7.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-7.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_basis-7.png" src="_images/fourier_basis-7.png" />
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&#39;Rows $1$ and $N - 1$ of $\mathbf{S}$&#39;</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_basis-8.png">png</a>, <a class="reference external" href=".//fourier_basis-8.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-8.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_basis-8.png" src="_images/fourier_basis-8.png" />
+</div>
+<p>Notice that for <span class="math">\(\S\)</span>, the sine waves after <span class="math">\(k = N / 2\)</span> are
+sign-flipped relative to their matching rows before <span class="math">\(k = N / 2\)</span>.
+Thus row <span class="math">\(k = N / 2 + 1\)</span> will be aliased to the same frequency as
+for row <span class="math">\(k = N / 2 - 1\)</span>, but with a negative sign.</p>
+<p>It is this sign-flip that leads to the concept of <em>negative frequency</em>
+in the DFT, and to the property of <em>conjugate symmetry</em> from the DFT on
+a vector of real numbers. We will hear more about these later.</p>
+</div>
+<div class="section" id="matrix-symmetry">
+<h3>Matrix symmetry<a class="headerlink" href="#matrix-symmetry" title="Permalink to this headline">¶</a></h3>
+<p>The next thing we notice about <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> is that they
+are transpose <em>symmetric</em> matrices:</p>
+<div class="math">
+\[\begin{split}\C = \C^T \\
+\S = \S^T \\\end{split}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Why is this? Consider the first <em>column</em> of <span class="math">\(\C\)</span>. This is given by
+<span class="math">\(\cos(k 2 \pi 0 / N) = \cos(0)\)</span>, and thus, like the first <em>row</em> of
+<span class="math">\(\C\)</span>, is always = 1.</p>
+<p>Now consider the second row of <span class="math">\(\C\)</span>. This is a cosine sampled at
+horizontal axis values:</p>
+<div class="math">
+\[\vec{t_1} \triangleq \left[ 2 \pi \frac{n}{N} \;\mathrm{for}\; n \in
+0,1,\ldots,N-1 \right]\]</div>
+<p>Call <span class="math">\(t_{k, n}\)</span> the value of <span class="math">\(\vec{t_k}\)</span> at index <span class="math">\(n\)</span>.
+Now consider the second <em>column</em> of <span class="math">\(\C\)</span>. This is a cosine sampled
+at horizontal axis values for <span class="math">\(n = 1\)</span>:</p>
+<div class="math">
+\[\begin{split}t_{0,1} = (0) 2 \pi \frac{1}{N} \\
+t_{1,1} = (1) 2 \pi \frac{1}{N} \\
+... \\
+t_{N-1,1} = (N-1) 2 \pi \frac{1}{N} \\\end{split}\]</div>
+<p>In general, because the sequence <span class="math">\(k 0,1,,N-1 \)</span> is equal to the sequence
+<span class="math">\(n \in 0,1,\ldots,N-1\)</span>, this means that the column sampling
+positions for row <span class="math">\(n \in t_{0, n}, t_{1, n}, ... , t_{N-1, n}\)</span> are
+equal to the row sampling positions for corresponding (<span class="math">\(k = n\)</span>)
+row <span class="math">\(k \in t_{k, 0}, t_{k, 1}, ... , t_{k, N-1}\)</span>. Write column
+<span class="math">\(z\)</span> of <span class="math">\(\C\)</span> as <span class="math">\(C_{:,z}\)</span>; column <span class="math">\(z\)</span> of
+<span class="math">\(\S\)</span> is <span class="math">\(S_{:, z}\)</span>. Therefore
+<span class="math">\(C_{z, :} = C_{:, z}, S_{z, :} = S_{:, z}\)</span>.</p>
+</div>
+<div class="section" id="row-dot-products-and-lengths">
+<h3>Row dot products and lengths<a class="headerlink" href="#row-dot-products-and-lengths" title="Permalink to this headline">¶</a></h3>
+<p>It is useful to look at the dot products of the rows of <span class="math">\(\C\)</span> and
+<span class="math">\(\S\)</span>. The dot product of each row with itself gives the squared
+<em>length</em> of the vector in that row.</p>
+<p>The vector length of a vector <span class="math">\(\vec{v}\)</span> with <span class="math">\(N\)</span> elements is
+written as <span class="math">\(\| \vec{v} \|\)</span>, and defined as:</p>
+<div class="math">
+\[\| \vec{v} \| \triangleq \sqrt{\sum_{n=0}^{N-1} v_n^2}
+= \sqrt{ \vec{v} \cdot \vec{v} }\]</div>
+<p>The dot products of different rows of <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> give an
+index of the strength of the relationship between the rows. We can look
+at the dot products of all the rows of <span class="math">\(\C\)</span> with all other rows
+with the matrix multiplication <span class="math">\(\C^T \C\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;$\mathbf{C^TC}$&quot;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_basis-10.png">png</a>, <a class="reference external" href=".//fourier_basis-10.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-10.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_basis-10.png" src="_images/fourier_basis-10.png" />
+</div>
+<p>The image shows us that the dot product between the rows of <span class="math">\(\C\)</span>
+is 0 everywhere except:</p>
+<ul class="simple">
+<li>the dot products of the rows with themselves (the squared vector
+lengths);</li>
+<li>the dot products of the mirror image vectors such as
+<span class="math">\(\vec{c_1}\)</span> and <span class="math">\(\vec{c_{N-1}}\)</span>. Because
+<span class="math">\(\vec{c_n} = \vec{c_{N-n}}\)</span>, these dot products are the same as
+the <span class="math">\(\| \vec{c_n} \|^2\)</span>.</li>
+</ul>
+<p>The squared row lengths are:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
+<span class="go">array([ 32.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,</span>
+<span class="go">        16.,  16.,  16.,  16.,  16.,  32.,  16.,  16.,  16.,  16.,  16.,</span>
+<span class="go">        16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.])</span>
+</pre></div>
+</div>
+<p>Notice that the rows <span class="math">\(\vec{c_0}\)</span> and <span class="math">\(\vec{c_{N / 2}}\)</span> have
+squared length <span class="math">\(N\)</span>, and the other rows have squared length
+<span class="math">\(N / 2\)</span>.</p>
+<p>We can do the same for <span class="math">\(\S\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;$\mathbf{S^TS}$&quot;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_basis-12.png">png</a>, <a class="reference external" href=".//fourier_basis-12.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-12.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_basis-12.png" src="_images/fourier_basis-12.png" />
+</div>
+<p>Remember that <span class="math">\(\vec{s_0}\)</span> and <span class="math">\(\vec{s_{n/2}}\)</span> are all 0
+vectors. The dot product of these rows with any other row, including
+themselves, is 0. All other entries in this <span class="math">\(\S^T \S\)</span> matrix are
+zero except:</p>
+<ul class="simple">
+<li>the dot products of rows with themselves (other than
+<span class="math">\(\vec{s_0}\)</span> and <span class="math">\(\vec{s_{n/2}}\)</span>);</li>
+<li>the dot products of the flipped mirror image vectors such as
+<span class="math">\(\vec{s_1}\)</span> and <span class="math">\(\vec{s_{N-1}}\)</span>. Because
+<span class="math">\(\vec{s_n} = -\vec{s_{N-n}}\)</span>, these dot products are the same
+as <span class="math">\(-\| \vec{s_n} \|^2\)</span>.</li>
+</ul>
+<p>The squared row lengths are:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
+<span class="go">array([  0.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,</span>
+<span class="go">        16.,  16.,  16.,  16.,  16.,   0.,  16.,  16.,  16.,  16.,  16.,</span>
+<span class="go">        16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.])</span>
+</pre></div>
+</div>
+<p>The rows <span class="math">\(\vec{s_0}\)</span> and <span class="math">\(\vec{s_{N / 2}}\)</span> have squared
+length <span class="math">\(0\)</span>, and the other rows have squared length <span class="math">\(N / 2\)</span>.</p>
+<p>Finally, let&#8217;s look at the relationship between the rows of <span class="math">\(\C\)</span>
+and the rows of <span class="math">\(\S\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The rows of <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> are completely orthogonal.</p>
+<p>In fact these relationships hold for <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> for any
+<span class="math">\(N\)</span>.</p>
+<div class="section" id="proof-for-dot-products">
+<h4>Proof for <span class="math">\(\C, \S\)</span> dot products<a class="headerlink" href="#proof-for-dot-products" title="Permalink to this headline">¶</a></h4>
+<p>We can show these relationships with some more or less basic
+trigonometry.</p>
+<p>Let&#8217;s start by looking at the dot product of two rows from <span class="math">\(\C\)</span>.
+We will take rows <span class="math">\(\vec{c_p} =\C_{p,:}\)</span> and
+<span class="math">\(\vec{c_q} = \C_{q,:}\)</span>. As we remember, these vectors are:</p>
+<div class="math">
+\[\begin{split}\vec{c_p} = \left[ \cos(p n \frac{2 \pi}{N}) \;\mathrm{for}\;
+n \in 0,1,\ldots,N-1 \right] \\
+\vec{c_q} = \left[ \cos(q n \frac{2 \pi}{N}) \;\mathrm{for}\;
+n \in 0,1,\ldots,N-1 \right]\end{split}\]</div>
+<p>So:</p>
+<div class="math">
+\[\vec{c_p} \cdot \vec{c_q} = \sum_{n=0}^{N-1} \cos(p n \frac{2 \pi}{N}) \cos(q
+n \frac{2 \pi}{N})\]</div>
+<p>Our trigonometry tells us that:</p>
+<div class="math">
+\[\cos \alpha \cos \beta = \frac{1}{2} [ \cos(\alpha + \beta) - \cos(\alpha -
+\beta) ]\]</div>
+<p>We can rewrite the dot product as the addition of two sums of cosines:</p>
+<div class="math">
+\[\vec{c_p} \cdot \vec{c_q} =
+\frac{1}{2} \sum_{n=0}^{N-1} \cos((p + q) n \frac{2 \pi}{N}) +
+\frac{1}{2} \sum_{n=0}^{N-1} \cos((p - q) n \frac{2 \pi}{N})\]</div>
+<p>Now we can use the formulae for sums of <a class="reference external" href="sum_of_cosines.html">arithmetic progressions of
+cosines and sines</a> to solve these equations.
+Here are the formulae:</p>
+<div class="math">
+\[\begin{split}R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
+\sum_{n=0}^{N-1} \cos(a + nd) =
+\begin{cases}
+N \cos a &amp; \text{if } \sin(\frac{1}{2}d) = 0 \\
+R \cos ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
+\end{cases}
+\\
+\sum_{n=0}^{N-1} \sin(a + nd) =
+\begin{cases}
+N \sin a &amp; \text{if } \sin(\frac{1}{2}d) = 0 \\
+R \sin ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
+\end{cases}\end{split}\]</div>
+<p>For our <span class="math">\(\C, \S\)</span> row dot product sums, starting angle <span class="math">\(a\)</span> is
+always 0, and the <span class="math">\(d\)</span> value in the formulae are always integer
+multiples of <span class="math">\(\frac{2 \pi}{N}\)</span>. For example,
+<span class="math">\(d = (p \pm q) \frac{2 \pi}{N}\)</span> in the equations above. For our
+case, we can write <span class="math">\(d = g \frac{2 \pi}{N}\)</span> where <span class="math">\(g\)</span> is an
+integer.</p>
+<div class="math">
+\[\begin{split}R = \frac{
+\sin( g N \frac{1}{2} \frac{2 \pi}{N} )
+}
+{
+\sin( g \frac{1}{2} \frac{2 \pi}{N} )
+} \\
+= \frac{ \sin( g \pi ) } { \sin( \frac{g}{N} \pi ) }\end{split}\]</div>
+<p>Because <span class="math">\(g\)</span> is an integer, the numerator of <span class="math">\(R\)</span> will always
+be 0, so the resulting sum is zero unless the denominator of <span class="math">\(R\)</span>
+is zero. The denominator is zero only if <span class="math">\(g\)</span> is a multiple of N,
+including 0. When the denominator is zero, the sum will be equal to
+<span class="math">\(N \cos(a) = N \cos(0) = N\)</span> for a cosine series or
+<span class="math">\(N \sin(a) = N \sin(0) = 0\)</span> for a sine series.</p>
+<p>Now we can calculate our dot product:</p>
+<div class="math">
+\[\begin{split}\vec{c_p} \cdot \vec{c_q} =
+\begin{cases}
+\frac{1}{2} N + \frac{1}{2} N = N &amp; \text{if } p = q, p \in 0, N/2 \\
+\frac{1}{2} N &amp; \text{if } p = q, p \notin 0, N/2 \\
+\frac{1}{2} N &amp; \text{if } p + q = N, p \ne N/2 \\
+0 &amp; \text{otherwise}
+\end{cases}\end{split}\]</div>
+<p>We can apply the same kind of logic to the rows of <span class="math">\(\S\)</span>:</p>
+<div class="math">
+\[\sin \alpha \sin \beta = \frac{1}{2} [ \cos(\alpha - \beta) - \cos(\alpha +
+\beta) ]\]</div>
+<p>So:</p>
+<div class="math">
+\[\vec{s_p} \cdot \vec{s_q} =
+\frac{1}{2} \sum_{n=0}^{N-1} \cos((p - q) n \frac{2 \pi}{N}) -
+\frac{1}{2} \sum_{n=0}^{N-1} \cos((p + q) n \frac{2 \pi}{N})\]</div>
+<p>This gives:</p>
+<div class="math">
+\[\begin{split}\vec{s_p} \cdot \vec{s_q} =
+\begin{cases}
+0 &amp; \text{if } p = q, p \in 0, N/2 \\
+\frac{1}{2} N &amp; \text{if } p = q, p \notin 0, N/2 \\
+-\frac{1}{2} N &amp; \text{if } p + q = N, p \ne N/2 \\
+0 &amp; \text{otherwise}
+\end{cases}\end{split}\]</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Fourier basis</a><ul>
+<li><a class="reference internal" href="#rewriting-the-dft-with-cosine-and-sine-basis-matrices">Rewriting the DFT with cosine and sine basis matrices</a></li>
+<li><a class="reference internal" href="#loading-display-libraries-and-data">Loading display libraries and data</a></li>
+<li><a class="reference internal" href="#some-properties-of-the-cosine-and-sine-basis-matrices">Some properties of the cosine and sine basis matrices</a><ul>
+<li><a class="reference internal" href="#mirror-symmetry">Mirror symmetry</a></li>
+<li><a class="reference internal" href="#matrix-symmetry">Matrix symmetry</a></li>
+<li><a class="reference internal" href="#row-dot-products-and-lengths">Row dot products and lengths</a><ul>
+<li><a class="reference internal" href="#proof-for-dot-products">Proof for <span class="math">\(\C, \S\)</span> dot products</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/fourier_basis.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/fourier_basis.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

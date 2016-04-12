@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Fourier without the ei &mdash; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="fourier-without-the-ei">
+<h1>Fourier without the ei<a class="headerlink" href="#fourier-without-the-ei" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The standard equations for discrete Fourier transforms (DFTs) involve
+exponentials to the power of <span class="math">\(i\)</span> - the imaginary unit. I
+personally find these difficult to think about, and it turns out, the
+DFT is fairly easy to recast in terms of <span class="math">\(\sin\)</span> and <span class="math">\(\cos\)</span>.
+This page goes through this process, and tries to show how thinking in
+this way can explain some features of the DFT.</p>
+<div class="section" id="how-hard-is-the-mathematics">
+<h3>How hard is the mathematics?<a class="headerlink" href="#how-hard-is-the-mathematics" title="Permalink to this headline">¶</a></h3>
+<p>You will not need heavy math to follow this page. If you don&#8217;t remember
+the following concepts you might want to brush up on them. There are
+also links to proofs and explanations for these ideas in the page as we
+go along:</p>
+<ul class="simple">
+<li>basic trigonometry (SOH CAH TOA, Pythagoras&#8217; theorem);</li>
+<li>the <a class="reference internal" href="angle_sum.html"><em>angle sum rule</em></a>;</li>
+<li><a class="reference internal" href="some_sums.html"><em>basic algebra with sums</em></a>;</li>
+<li><a class="reference internal" href="on_vectors.html"><em>Vectors and dot products</em></a>;</li>
+<li>vector projection using the dot product.</li>
+</ul>
+<p>You will not need to go deep into math with complex numbers, but see
+<a class="reference internal" href="simple_complex.html"><em>Refresher on complex numbers</em></a>.</p>
+</div>
+<div class="section" id="loading-and-configuring-code-libraries">
+<h3>Loading and configuring code libraries<a class="headerlink" href="#loading-and-configuring-code-libraries" title="Permalink to this headline">¶</a></h3>
+<p>Load and configure the Python libraries we will use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Compatibility with Python 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>  <span class="c"># the Python array package</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>  <span class="c"># the Python plotting package</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Tell numpy to print numbers to 4 decimal places only</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="some-actual-numbers-to-start">
+<h2>Some actual numbers to start<a class="headerlink" href="#some-actual-numbers-to-start" title="Permalink to this headline">¶</a></h2>
+<p>Let us start with a DFT of some data.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># An example input vector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span> <span class="mf">0.4967</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1383</span><span class="p">,</span>  <span class="mf">0.6477</span><span class="p">,</span>  <span class="mf">1.523</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.2342</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2341</span><span class="p">,</span>  <span class="mf">1.5792</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="mf">0.7674</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4695</span><span class="p">,</span>  <span class="mf">0.5426</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4634</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4657</span><span class="p">,</span>  <span class="mf">0.242</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.9133</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="o">-</span><span class="mf">1.7249</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5623</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0128</span><span class="p">,</span>  <span class="mf">0.3142</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.908</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.4123</span><span class="p">,</span>  <span class="mf">1.4656</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="o">-</span><span class="mf">0.2258</span><span class="p">,</span>  <span class="mf">0.0675</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4247</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5444</span><span class="p">,</span>  <span class="mf">0.1109</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.151</span> <span class="p">,</span>  <span class="mf">0.3757</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="o">-</span><span class="mf">0.6006</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2917</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6017</span><span class="p">,</span>  <span class="mf">1.8523</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">32</span>  <span class="c"># the length of the time-series</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">[...]</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_intro-4.png">png</a>, <a class="reference external" href=".//fourier_intro-4.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_intro-4.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_intro-4.png" src="_images/fourier_intro-4.png" />
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Now the DFT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="go">array([-4.3939+0.j    ,  9.0217-3.7036j, -0.5874-6.2268j,  2.5184+3.7749j,</span>
+<span class="go">        0.5008-0.8433j,  1.2904-0.4024j,  4.3391+0.8079j, -6.2614+2.1596j,</span>
+<span class="go">        1.8974+2.4889j,  0.1042+7.6169j,  0.3606+5.162j ,  4.7965+0.0755j,</span>
+<span class="go">       -5.3064-3.2329j,  4.6237+1.5287j, -2.1211+4.4873j, -4.0175-0.3712j,</span>
+<span class="go">       -2.0297+0.j    , -4.0175+0.3712j, -2.1211-4.4873j,  4.6237-1.5287j,</span>
+<span class="go">       -5.3064+3.2329j,  4.7965-0.0755j,  0.3606-5.162j ,  0.1042-7.6169j,</span>
+<span class="go">        1.8974-2.4889j, -6.2614-2.1596j,  4.3391-0.8079j,  1.2904+0.4024j,</span>
+<span class="go">        0.5008+0.8433j,  2.5184-3.7749j, -0.5874+6.2268j,  9.0217+3.7036j])</span>
+</pre></div>
+</div>
+<p>Notice that <code class="docutils literal"><span class="pre">X</span></code> - the output of the forward DFT - is a vector of complex
+numbers.</p>
+<p>Each value in <code class="docutils literal"><span class="pre">X</span></code> gives the scaling for a sinusoid for a particular
+frequency.</p>
+<p>If the input to the DFT is real, as here then:</p>
+<ul class="simple">
+<li>The real part of <code class="docutils literal"><span class="pre">X</span></code> has the scaling for a cosine at the particular
+frequency;</li>
+<li>The imaginary part of <code class="docutils literal"><span class="pre">X</span></code> has the scaling for a sine at that frequency.</li>
+</ul>
+<p>There are some patterns to these numbers.  Notice that the numbers at index 0
+and N/2 (=16) have 0 for their imaginary part, and that <cite>X[17:]</cite> is a mirror
+image of <cite>X[1:16]</cite>, with the imaginary parts having the opposite sign.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
+<span class="go">array([ 9.0217-3.7036j, -0.5874-6.2268j,  2.5184+3.7749j,  0.5008-0.8433j,</span>
+<span class="go">        1.2904-0.4024j,  4.3391+0.8079j, -6.2614+2.1596j,  1.8974+2.4889j,</span>
+<span class="go">        0.1042+7.6169j,  0.3606+5.162j ,  4.7965+0.0755j, -5.3064-3.2329j,</span>
+<span class="go">        4.6237+1.5287j, -2.1211+4.4873j, -4.0175-0.3712j])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="mi">17</span><span class="p">:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">array([ 9.0217+3.7036j, -0.5874+6.2268j,  2.5184-3.7749j,  0.5008+0.8433j,</span>
+<span class="go">        1.2904+0.4024j,  4.3391-0.8079j, -6.2614-2.1596j,  1.8974-2.4889j,</span>
+<span class="go">        0.1042-7.6169j,  0.3606-5.162j ,  4.7965-0.0755j, -5.3064+3.2329j,</span>
+<span class="go">        4.6237-1.5287j, -2.1211-4.4873j, -4.0175+0.3712j])</span>
+</pre></div>
+</div>
+<p>These features constitute <em>conjugate symmetry</em> and are always true of a DFT on
+real numbers.  We will soon we will see why.</p>
+<p>When we do the inverse DFT on <code class="docutils literal"><span class="pre">X</span></code> we return the original values of our
+input <code class="docutils literal"><span class="pre">x</span></code>, but as complex numbers with imaginary part 0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Apply the inverse DFT to the output of the forward DFT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_back</span>
+<span class="go">array([ 0.4967-0.j, -0.1383-0.j,  0.6477-0.j,  1.5230-0.j, -0.2342-0.j,</span>
+<span class="go">       -0.2341+0.j,  1.5792+0.j,  0.7674+0.j, -0.4695-0.j,  0.5426-0.j,</span>
+<span class="go">       -0.4634-0.j, -0.4657+0.j,  0.2420-0.j, -1.9133-0.j, -1.7249-0.j,</span>
+<span class="go">       -0.5623+0.j, -1.0128-0.j,  0.3142+0.j, -0.9080+0.j, -1.4123+0.j,</span>
+<span class="go">        1.4656+0.j, -0.2258+0.j,  0.0675+0.j, -1.4247-0.j, -0.5444+0.j,</span>
+<span class="go">        0.1109+0.j, -1.1510+0.j,  0.3757-0.j, -0.6006-0.j, -0.2917-0.j,</span>
+<span class="go">       -0.6017-0.j,  1.8523-0.j])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="traditional-notation-for-the-discrete-fourier-transform">
+<h2>Traditional notation for the discrete Fourier transform<a class="headerlink" href="#traditional-notation-for-the-discrete-fourier-transform" title="Permalink to this headline">¶</a></h2>
+<p>Let us say we have a vector of <span class="math">\(N\)</span> values in time, or space
+<span class="math">\(\vec{x} = [x_0, x_1 ... x_{N-1}]\)</span>. We generally index
+<span class="math">\(\vec{x}\)</span> with subscript <span class="math">\(n\)</span>, so the sample at index
+<span class="math">\(n\)</span> is <span class="math">\(x_n\)</span>.</p>
+<p>The DFT converts <span class="math">\(\vec{x}\)</span> from a vector in time, or space, to a
+vector <span class="math">\(\vec{X}\)</span> representing temporal or spatial frequency
+components.</p>
+<p>We will call our original <span class="math">\(\vec{x}\)</span> the <em>signal</em>, meaning, the
+signal not transformed to frequency.</p>
+<p>The DFT converts <span class="math">\(\vec{x}\)</span> to <span class="math">\(\vec{X}\)</span> where
+<span class="math">\(\vec{X} = [X_0, X_1, ... X_{N-1}]\)</span>. We generally index
+<span class="math">\(\vec{X}\)</span> with subscript <span class="math">\(k\)</span>, so the sample at index
+<span class="math">\(k\)</span> is <span class="math">\(X_k\)</span>.</p>
+<p>Here is the equation for the discrete Fourier transform:</p>
+<div class="math" id="equation-forward-dft">
+<span class="eqno">(1)</span>\[X_k = \sum_{n=0}^{N-1} x_n \; e^{-i 2 \pi \frac{k}{N} n}\]</div>
+<p>This is the transform from signal to frequency. We will call this the
+<em>forward</em> Fourier transform.</p>
+<p>Here is the equation for the inverse Fourier transform:</p>
+<div class="math" id="equation-inverse-dft">
+<span class="eqno">(2)</span>\[x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k \; e^{i 2 \pi \frac{k}{N} n}\]</div>
+<p>The inverse Fourier transform converts from frequency back to signal.</p>
+<div class="section" id="dft-and-fft">
+<h3>DFT and FFT<a class="headerlink" href="#dft-and-fft" title="Permalink to this headline">¶</a></h3>
+<p>The fast fourier transform (FFT) refers to a particular set of - er -
+fast algorithms for calculating the DFT. It is common, but confusing, to
+use &#8220;FFT&#8221; to mean DFT.</p>
+</div>
+</div>
+<div class="section" id="rewriting-the-dft-without-the">
+<h2>Rewriting the DFT without the <span class="math">\(e^i\)</span><a class="headerlink" href="#rewriting-the-dft-without-the" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-rewrite-without">
+<h3>Why rewrite without <span class="math">\(e^i\)</span>?<a class="headerlink" href="#why-rewrite-without" title="Permalink to this headline">¶</a></h3>
+<p>The forward and inverse equations are very similar; both share a term
+<span class="math">\(e^{iz}\)</span>, where <span class="math">\(z = -2 \pi \frac{k}{N} n\)</span> for the forward
+transform; <span class="math">\(z = 2 \pi \frac{k}{N} n\)</span> for the inverse transform.</p>
+<p>Some people are used to looking at the form <span class="math">\(e^{iz}\)</span> and thinking
+&#8220;aha, that&#8217;s a rotation around a circle&#8221;. Apparently this is an
+intuition that builds up over time working with these sorts of
+equations.</p>
+<p>Unfortunately, some of us find it hard to think in complex exponentials,
+or in terms of complex numbers.</p>
+<p>So, in this tutorial, we will express the Fourier transform in terms of
+<span class="math">\(\sin\)</span> and <span class="math">\(\cos\)</span>. We will be using complex numbers, but
+almost entirely as a pair of numbers to represent two components of the
+same thing, rather than a single number with a real and imaginary part.</p>
+<p>Having said that, we will need some very basic properties of complex and
+imaginary numbers - see <a class="reference internal" href="simple_complex.html"><em>Refresher on complex numbers</em></a>.</p>
+</div>
+<div class="section" id="how-to-rewrite-without">
+<h3>How to rewrite without <span class="math">\(e^i\)</span><a class="headerlink" href="#how-to-rewrite-without" title="Permalink to this headline">¶</a></h3>
+<p>Our first tool in this enterprise is Euler&#8217;s formula:</p>
+<div class="math">
+\[e^{ix} = \cos x + i\sin x\]</div>
+<p>This is the basis for thinking of <span class="math">\(e^{ix}\)</span> as being rotation
+around a circle, of which you will hear no more in this page. In our
+case, it allows us to rewrite the forward and inverse Fourier
+transforms:</p>
+<p>First let&#8217;s define a new value <span class="math">\(D\)</span>, that depends on <span class="math">\(N\)</span> -
+the number of observations in our vector <span class="math">\(\vec{x}\)</span>.</p>
+<div class="math" id="equation-D">
+<span class="eqno">(3)</span>\[D \triangleq \frac{2 \pi}{N}\]</div>
+<p>With that value:</p>
+<div class="math">
+\[X_k = \sum_{n=0}^{N-1} x_n \cos(-k n D) +
+i \sum_{n=0}^{N-1} x_n \sin(-k n D)\]</div>
+<p>We can simplify this further, because, for any angle <span class="math">\(\alpha\)</span>:</p>
+<div class="math">
+\[\cos(-\alpha) = cos(\alpha) \\
+\sin(-\alpha) = -sin(\alpha)\]</div><div class="math">
+\[X_k = \sum_{n=0}^{N-1} x_n \cos(k n D) -
+i \sum_{n=0}^{N-1} x_n \sin(k n D)\]</div>
+<p>Following the same logic for the inverse transform:</p>
+<div class="math">
+\[x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k \cos(n k D)
++ i \frac{1}{N} \sum_{k=0}^{N-1} X_k \sin(n k D)\]</div>
+</div>
+<div class="section" id="rewriting-the-dft-with-vectors">
+<span id="rewriting-dft-with-vectors"></span><h3>Rewriting the DFT with vectors<a class="headerlink" href="#rewriting-the-dft-with-vectors" title="Permalink to this headline">¶</a></h3>
+<p>We can write the elements inside the DFT summations as values from vectors:</p>
+<div class="math">
+\[X_k = \sum_{n=0}^{N-1} x_n \cos(r^k_n)
+- i \sum_{n=0}^{N-1} x_n \sin(r^k_n)\]</div>
+<p>where:</p>
+<div class="math">
+\[\vec{r^k} \triangleq \left[ 0 k D, 1 k D, \ldots, (N - 1) k D \right]\]</div><p>Substituting the value of <span class="math">\(D\)</span> (equation <a href="#equation-D">(3)</a>):</p>
+<div class="math">
+\[\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N},
+k 2 \pi \frac{N-1}{N}]\]</div>
+<p>Now define:</p>
+<div class="math">
+\[\begin{split}\vec{c^k} \triangleq \left[ \cos(r^k_0), \cos(r^k_1), \ldots
+\cos(r^k_{N-1} \right] \\
+\vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots
+\sin(r^k_{N-1} \right]\end{split}\]</div>
+<p>We now have:</p>
+<div class="math">
+\[X_k = \sum_{n=0}^{N-1} x_n c^k_n
+- i \sum_{n=0}^{N-1} x_n s^k_n\]</div>
+<p>Given the definition of the <a class="reference internal" href="on_vectors.html#vector-dot-product"><span>Vector dot product</span></a>, we can write the
+forward DFT as:</p>
+<div class="math">
+\[X_k = \vec{x} \cdot \vec{c^k} - i \vec{x} \cdot \vec{s^k}\]</div>
+</div>
+<div class="section" id="frequency-as-cycles-across-the-sample-length">
+<h3>Frequency as cycles across the sample length<a class="headerlink" href="#frequency-as-cycles-across-the-sample-length" title="Permalink to this headline">¶</a></h3>
+<p>The key to the frequencies in the DFT are in the <span class="math">\(n k D = k 2 \pi
+\frac{n}{N}\)</span> values that we have put into <span class="math">\(\vec{r^k}\)</span>.</p>
+<p>The <span class="math">\(k\)</span> in <span class="math">\(\vec{r^k}\)</span> is the number of cycles across the length of <span class="math">\(\vec{x}\)</span>.</p>
+<p>For example, consider the case of <span class="math">\(k = 1\)</span>:</p>
+<div class="math">
+\[\vec{r^1} = \left[ 2 \pi \frac{0}{N}, 2 \pi \frac{1}{N},
+\ldots 2 \pi \frac{N-1}{N} \right]\]</div>
+<p>Here are the values in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">vec_n</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_1</span>
+<span class="go">array([ 0.    ,  0.1963,  0.3927,  0.589 ,  0.7854,  0.9817,  1.1781,</span>
+<span class="go">        1.3744,  1.5708,  1.7671,  1.9635,  2.1598,  2.3562,  2.5525,</span>
+<span class="go">        2.7489,  2.9452,  3.1416,  3.3379,  3.5343,  3.7306,  3.927 ,</span>
+<span class="go">        4.1233,  4.3197,  4.516 ,  4.7124,  4.9087,  5.1051,  5.3014,</span>
+<span class="go">        5.4978,  5.6941,  5.8905,  6.0868])</span>
+</pre></div>
+</div>
+<p>The values <span class="math">\(\frac{0}{N}, \frac{1}{N}, \ldots \frac{N-1}{N}\)</span> are fractions of the whole
+sample length <span class="math">\(N\)</span>, running from 0 to close to 1.  Now multiplied by <span class="math">\(2 \pi\)</span>,
+the values run from 0 to close to <span class="math">\(2 \pi\)</span> and therefore give the distance
+round a circle.</p>
+<p>(<a class="reference external" href=".//fourier_intro-9.png">png</a>, <a class="reference external" href=".//fourier_intro-9.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_intro-9.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_intro-9.png" src="_images/fourier_intro-9.png" />
+</div>
+<p>The vector <span class="math">\(\vec{r^1}\)</span> gives <span class="math">\(\vec{c^1}, \vec{s^1}\)</span> with a single cycle:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_c_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec_s_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vec_r_1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_1</span><span class="p">,</span> <span class="s">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">r&#39;$\vec{c^1}$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_s_1</span><span class="p">,</span> <span class="s">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">r&#39;$\vec{s^1}$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Vector index $n$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;$c^1_n$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_intro-10.png">png</a>, <a class="reference external" href=".//fourier_intro-10.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_intro-10.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_intro-10.png" src="_images/fourier_intro-10.png" />
+</div>
+<p>$k = 2 gives 2 samples across the cycle length:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_2</span> <span class="o">=</span> <span class="n">vec_r_1</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec_c_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec_s_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vec_r_2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_2</span><span class="p">,</span> <span class="s">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">r&#39;$\vec{c^2}$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_s_2</span><span class="p">,</span> <span class="s">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">r&#39;$\vec{s^2}$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Vector index $n$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;$c^2_n$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_intro-11.png">png</a>, <a class="reference external" href=".//fourier_intro-11.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_intro-11.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_intro-11.png" src="_images/fourier_intro-11.png" />
+</div>
+</div>
+</div>
+<div class="section" id="calculating-the-dft-with-vectors">
+<h2>Calculating the DFT with vectors<a class="headerlink" href="#calculating-the-dft-with-vectors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="first-dft-output-value-is-the-vector-sum">
+<h3>First DFT output value is the vector sum<a class="headerlink" href="#first-dft-output-value-is-the-vector-sum" title="Permalink to this headline">¶</a></h3>
+<p>Consider <span class="math">\(\vec{r_0}, \vec{c^0}, \vec{s^0}\)</span>:</p>
+<div class="math">
+\[\begin{split}\vec{r^0} = \left[
+0 2 \pi \frac{0}{N}, 0 2 \pi \frac{1}{N}, \ldots
+\right] \\
+= \left[ 0, 0, \ldots \right] = \vec{0}
+\vec{c^0} = \left[ 1, 1, \ldots \right] = \vec{1} \\
+\vec{s^0} = \left[ 0, 0, \ldots \right] = \vec{0}\end{split}\]</div>
+<p>Therefore:</p>
+<div class="math">
+\[\begin{split}X_0 = \vec{x} \cdot \vec{1} - i \vec{x} \vec{0} \\
+= \Sigma x_n\end{split}\]</div>
+<p>The first value in the DFT output vector is the sum of the values in
+<span class="math">\(\vec{x}\)</span>. If <span class="math">\(\vec{x}\)</span> has real and not complex values, as here, then <span class="math">\(X_0\)</span>
+has zero imaginary part:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="go">-4.3939</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">(-4.3939+0j)</span>
+</pre></div>
+</div>
+<p>Now let&#8217;s imagine that our input vector is a constant, say a vector of ones.
+What is the DFT?</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_ones</span><span class="p">)</span>
+<span class="go">array([ 32.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,   0.+0.j])</span>
+</pre></div>
+</div>
+<p>We were expecting the first value of 32, because it is the sum of 32 values of
+one.  All the other values are 0.  This is because all of <span class="math">\(\vec{c^1},
+\vec{c^2}, \ldots, \vec{c^{N-1}}\)</span> and all of <span class="math">\(\vec{s^1}, \vec{s^2}, \ldots,
+\vec{s^{N-1}}\)</span> sum to zero, and therefore the dot product of all these vectors
+with constant is also zero.</p>
+</div>
+<div class="section" id="second-dft-output-corresponds-to-a-sinusoid-at-frequency">
+<h3>Second DFT output corresponds to a sinusoid at frequency <span class="math">\(1 / N\)</span>.<a class="headerlink" href="#second-dft-output-corresponds-to-a-sinusoid-at-frequency" title="Permalink to this headline">¶</a></h3>
+<p>We have already seen <span class="math">\(\vec{r^1}, \vec{c^1}, \vec{s^1}\)</span>.</p>
+<p><span class="math">\(\vec{c^1}, \vec{s^1}\)</span> are the cosine, sine at frequency 1 / N where one unit
+is the time between samples in <span class="math">\(\vec{x}\)</span>.</p>
+<div class="math">
+\[X_1 = \vec{x} \cdot \vec{c^1} - i \vec{x} \vec{s^1}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_c_1</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_s_1</span><span class="p">))</span>
+<span class="go">9.02170725475 3.70356074953</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">(9.02170725475-3.70356074953j)</span>
+</pre></div>
+</div>
+<p>This confirms our calculation gives the same result as the DFT, but isn&#8217;t very
+revealing.</p>
+<p>Let&#8217;s make another input vector <span class="math">\(\vec{v}\)</span> that is a cosine at the same frequency as
+<span class="math">\(\vec{c^1}, \vec{s^1}\)</span>.  Start with <span class="math">\(\vec{v} = \vec{c^1}\)</span>.</p>
+<p>Our prediction for <span class="math">\(V_1\)</span> is:</p>
+<div class="math">
+\[V_1 = \vec{v} \cdot \vec{c^1} - i \vec{v} \cdot \vec{s^1} \\
+= \vec{c^1} \cdot \vec{c^1} - i \vec{c^1} \cdot \vec{s^1}\]</div><p>In fact, as you can see in <a class="reference internal" href="fourier_basis.html"><em>The Fourier basis</em></a>, it is a property of the
+<span class="math">\(\vec{c^k}, \vec{s^k}\)</span> vectors that, for all <span class="math">\(k, N\)</span>:</p>
+<div class="math">
+\[\vec{c^k} \cdot \vec{s^k} = 0\]</div>
+<p>So:</p>
+<div class="math">
+\[V_1 = \VL{c^1}^2\]</div>
+<p><a class="reference internal" href="fourier_basis.html"><em>The Fourier basis</em></a> also shows that <span class="math">\(\VL{c_1}^2 = N / 2\)</span> for all N.  More
+generally <span class="math">\(\VL{c_p}^2 = \VL{c_p}^2 = N / 2\)</span> for all <span class="math">\(p \notin {1, N/2}\)</span>.</p>
+<p>So:</p>
+<div class="math">
+\[V_1 = N / 2\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">vec_c_1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">V</span>
+<span class="go">array([ -0.+0.j,  16.-0.j,   0.+0.j,   0.+0.j,  -0.-0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,   0.+0.j,   0.-0.j,   0.+0.j,  -0.+0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,  -0.+0.j,   0.-0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,  -0.+0.j,   0.-0.j,  -0.+0.j,  -0.-0.j,  -0.+0.j,</span>
+<span class="go">         0.+0.j,  -0.+0.j,   0.-0.j,  -0.+0.j,  -0.+0.j,  -0.+0.j,</span>
+<span class="go">         0.-0.j,  16.-0.j])</span>
+</pre></div>
+</div>
+<p>Notice that <span class="math">\(V_{N-1} = N/2 = V_1\)</span>.  This is the property of <em>conjugate
+symmetry</em>.   It is so because of the properties of the vectors <span class="math">\(\vec{c^k}\)</span>.
+As you see in <a class="reference internal" href="fourier_basis.html"><em>The Fourier basis</em></a> <span class="math">\(\vec{c_1} = \vec{c_{N-1}}\)</span>, and, more
+generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span class="math">\(p \in 1, 2 \ldots, N / 2\)</span>.</p>
+<div class="section" id="adding-a-scaling-factor-to-the-cosine">
+<h4>Adding a scaling factor to the cosine<a class="headerlink" href="#adding-a-scaling-factor-to-the-cosine" title="Permalink to this headline">¶</a></h4>
+<p>Now set <span class="math">\(v = a \vec{c^1}\)</span> where <span class="math">\(a\)</span> is a constant:</p>
+<div class="math">
+\[V_1 = \vec{c^1} \cdot a \vec{c^1} - i \vec{c^1} \cdot a \vec{s^1}\]</div>
+<p>By the <a class="reference internal" href="on_vectors.html#dot-product-properties"><span>properties of the dot product</span></a>:</p>
+<div class="math">
+\[V_1 = a \vec{c^1} \cdot \vec{c^1} - i a \vec{c^1} \cdot \vec{s^1} \\
+= a \VL{c^1}^2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">vec_c_1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
+<span class="go">array([ -0.+0.j,  48.-0.j,   0.+0.j,   0.+0.j,  -0.-0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,   0.+0.j,   0.-0.j,   0.+0.j,  -0.-0.j,   0.+0.j,</span>
+<span class="go">        -0.+0.j,  -0.+0.j,   0.-0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
+<span class="go">         0.+0.j,  -0.+0.j,  -0.-0.j,  -0.+0.j,  -0.+0.j,  -0.+0.j,</span>
+<span class="go">         0.+0.j,  -0.+0.j,   0.-0.j,  -0.+0.j,  -0.+0.j,  -0.+0.j,</span>
+<span class="go">         0.-0.j,  48.-0.j])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-a-phase-shift-brings-the-sine-into-play">
+<h4>Adding a phase shift brings the sine into play<a class="headerlink" href="#adding-a-phase-shift-brings-the-sine-into-play" title="Permalink to this headline">¶</a></h4>
+<p>What happens if we add a phase shift of <span class="math">\(\beta\)</span> radians to the input cosine?</p>
+<div class="math">
+\[\vec{v} = \left [\cos(r^1_0 + \beta), \cos(r^1_1 + \beta), \ldots,
+\cos(r^1_{N-1} + \beta) \right]\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">beta</span> <span class="o">=</span> <span class="mf">1.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_1</span><span class="p">,</span> <span class="s">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Unshifted cos&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_v</span><span class="p">,</span> <span class="s">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Shifted cos&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fourier_intro-17.png">png</a>, <a class="reference external" href=".//fourier_intro-17.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_intro-17.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fourier_intro-17.png" src="_images/fourier_intro-17.png" />
+</div>
+<p>We can rewrite the shifted cosine using the <a class="reference internal" href="angle_sum.html"><em>The angle sum rule</em></a>:</p>
+<div class="math">
+\[\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta\]</div>
+<p>So:</p>
+<div class="math">
+\[\vec{v} = \left [
+\cos(r^1_0) \cos(\beta) - \sin(r^1_0) \sin(\beta),
+\cos(r^1_1) \cos(\beta) - \sin(r^1_1) \sin(\beta),
+\ldots,
+\cos(r^1_{N-1}) \cos(\beta) - \sin(r^1_{N-1}) \sin(\beta)
+\right] \\
+= \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}\]</div><p>Now apply the vector dot products to get <span class="math">\(V_1\)</span>:</p>
+<div class="math">
+\[V_1 = (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{c^1} -
+i (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{s^1} \\
+= \cos(\beta) \VL{c^1}^2 + i \sin(\beta) \VL{s^1}^2\]</div><p>Do we get this answer from the DFT?</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
+<span class="go">array([-0.0000 +0.j    ,  7.2575+14.2593j,  0.0000 +0.j    ,</span>
+<span class="go">        0.0000 +0.j    ,  0.0000 +0.j    ,  0.0000 +0.j    ,</span>
+<span class="go">       -0.0000 +0.j    ,  0.0000 -0.j    , -0.0000 -0.j    ,</span>
+<span class="go">       -0.0000 +0.j    , -0.0000 -0.j    ,  0.0000 +0.j    ,</span>
+<span class="go">       -0.0000 +0.j    ,  0.0000 -0.j    ,  0.0000 +0.j    ,</span>
+<span class="go">        0.0000 +0.j    , -0.0000 +0.j    ,  0.0000 +0.j    ,</span>
+<span class="go">        0.0000 -0.j    ,  0.0000 +0.j    , -0.0000 -0.j    ,</span>
+<span class="go">        0.0000 +0.j    , -0.0000 +0.j    ,  0.0000 +0.j    ,</span>
+<span class="go">       -0.0000 +0.j    , -0.0000 +0.j    , -0.0000 -0.j    ,</span>
+<span class="go">       -0.0000 +0.j    ,  0.0000 -0.j    , -0.0000 +0.j    ,</span>
+<span class="go">        0.0000 -0.j    ,  7.2575-14.2593j])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
+<span class="go">7.25753794281 14.259317761</span>
+</pre></div>
+</div>
+<p>Notice that <span class="math">\(V_{N-1}\)</span> has the same value as <span class="math">\(V_{1}\)</span>, but with the imaginary
+part flipped in sign.  This is the <em>conjugate</em> in <em>conjugate symmetry</em>.  It
+comes about because of the construction of the vectors <span class="math">\(\vec{s^k}\)</span>.  As you
+see in <a class="reference internal" href="fourier_basis.html"><em>The Fourier basis</em></a> <span class="math">\(\vec{s_1} = -\vec{s_{N-1}}\)</span>, and, more generally
+<span class="math">\(\vec{s_p} = -\vec{s_{N-p}}\)</span> for <span class="math">\(p \in 1, 2 \ldots, N / 2\)</span>.</p>
+</div>
+<div class="section" id="reconstructing-amplitude-and-phase-from-the-dft">
+<h4>Reconstructing amplitude and phase from the DFT<a class="headerlink" href="#reconstructing-amplitude-and-phase-from-the-dft" title="Permalink to this headline">¶</a></h4>
+<p>To complete our journey into <span class="math">\(X_1\)</span>, let us add a scaling <span class="math">\(a\)</span> to the
+phase-shifted cosine:</p>
+<div class="math">
+\[\vec{v} = \left [a \cos(r^1_0 + \beta), a \cos(r^1_1 + \beta), \ldots,
+a \cos(r^1_{N-1} + \beta) \right] \\
+= \left [
+a (\cos(r^1_0) \cos(\beta) - \sin(r^1_0) \sin(\beta)),
+a (\cos(r^1_1) \cos(\beta) - \sin(r^1_1) \sin(\beta)),
+\ldots,
+a (\cos(r^1_{N-1}) \cos(\beta) - \sin(r^1_{N-1}) \sin(\beta))
+\right] \\
+= a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1})\]</div><div class="math">
+\[V_1 = a ( \cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{c^1} -
+i a (\cos(\beta) \vec{c^1} - \cos(\beta) \vec{s^1}) \cdot \vec{s^1} \\
+= a \cos(\beta) \VL{c^1}^2 + i a \sin(\beta) \VL{s^1}^2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
+<span class="go">array([ -0.0000 +0.j   ,  21.7726+42.778j,   0.0000 +0.j   ,</span>
+<span class="go">         0.0000 +0.j   ,   0.0000 +0.j   ,   0.0000 +0.j   ,</span>
+<span class="go">        -0.0000 +0.j   ,   0.0000 -0.j   ,  -0.0000 -0.j   ,</span>
+<span class="go">        -0.0000 +0.j   ,  -0.0000 -0.j   ,   0.0000 +0.j   ,</span>
+<span class="go">        -0.0000 +0.j   ,   0.0000 -0.j   ,   0.0000 +0.j   ,</span>
+<span class="go">         0.0000 +0.j   ,  -0.0000 +0.j   ,   0.0000 +0.j   ,</span>
+<span class="go">         0.0000 -0.j   ,   0.0000 +0.j   ,  -0.0000 -0.j   ,</span>
+<span class="go">         0.0000 +0.j   ,  -0.0000 +0.j   ,   0.0000 +0.j   ,</span>
+<span class="go">        -0.0000 +0.j   ,  -0.0000 +0.j   ,  -0.0000 -0.j   ,</span>
+<span class="go">        -0.0000 +0.j   ,   0.0000 -0.j   ,  -0.0000 +0.j   ,</span>
+<span class="go">         0.0000 -0.j   ,  21.7726-42.778j])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
+<span class="go">21.7726138284 42.7779532829</span>
+</pre></div>
+</div>
+<p>What if I want to reconstruct <span class="math">\(a\)</span> and <span class="math">\(\beta\)</span> from the DFT coefficients?</p>
+<div class="math">
+\[\R{X_1} = a \cos(\beta) N / 2 \\
+\I{X_1} = a \sin(\beta) N / 2\]</div><p>So:</p>
+<div class="math">
+\[\R{X_1}^2 + I{X_1}^2 = a^2 N^2/4 \cos(\beta)^2 \sin(\beta)^2\]</div><p>By Pythagoras:</p>
+<div class="math">
+\[\R{X_1}^2 + I{X_1}^2 = a^2 N^2/4 \implies \\
+\sqrt{\R{X_1}^2 + I{X_1}^2} = a N / 2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">47.999999999999993</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span>
+<span class="go">48.0</span>
+</pre></div>
+</div>
+<p>We can get the angle <span class="math">\(\beta\)</span> in a similar way:</p>
+<div class="math">
+\[\begin{split}\R{X_1} = a \cos(\beta) N / 2 \implies \\
+\cos(beta) = \R{X_1} / (a N / 2)\end{split}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+<span class="go">0.4535961214255782</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+<span class="go">0.45359612142557731</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
+<span class="go">1.099999999999999</span>
+</pre></div>
+</div>
+<p>In fact, these are the calculations done by the standard <code class="docutils literal"><span class="pre">np.abs,</span> <span class="pre">np.angle</span></code>
+functions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span>
+<span class="go">47.999999999999993</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span>
+<span class="go">1.099999999999999</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Fourier without the ei</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li><a class="reference internal" href="#how-hard-is-the-mathematics">How hard is the mathematics?</a></li>
+<li><a class="reference internal" href="#loading-and-configuring-code-libraries">Loading and configuring code libraries</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#some-actual-numbers-to-start">Some actual numbers to start</a></li>
+<li><a class="reference internal" href="#traditional-notation-for-the-discrete-fourier-transform">Traditional notation for the discrete Fourier transform</a><ul>
+<li><a class="reference internal" href="#dft-and-fft">DFT and FFT</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rewriting-the-dft-without-the">Rewriting the DFT without the <span class="math">\(e^i\)</span></a><ul>
+<li><a class="reference internal" href="#why-rewrite-without">Why rewrite without <span class="math">\(e^i\)</span>?</a></li>
+<li><a class="reference internal" href="#how-to-rewrite-without">How to rewrite without <span class="math">\(e^i\)</span></a></li>
+<li><a class="reference internal" href="#rewriting-the-dft-with-vectors">Rewriting the DFT with vectors</a></li>
+<li><a class="reference internal" href="#frequency-as-cycles-across-the-sample-length">Frequency as cycles across the sample length</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#calculating-the-dft-with-vectors">Calculating the DFT with vectors</a><ul>
+<li><a class="reference internal" href="#first-dft-output-value-is-the-vector-sum">First DFT output value is the vector sum</a></li>
+<li><a class="reference internal" href="#second-dft-output-corresponds-to-a-sinusoid-at-frequency">Second DFT output corresponds to a sinusoid at frequency <span class="math">\(1 / N\)</span>.</a><ul>
+<li><a class="reference internal" href="#adding-a-scaling-factor-to-the-cosine">Adding a scaling factor to the cosine</a></li>
+<li><a class="reference internal" href="#adding-a-phase-shift-brings-the-sine-into-play">Adding a phase shift brings the sine into play</a></li>
+<li><a class="reference internal" href="#reconstructing-amplitude-and-phase-from-the-dft">Reconstructing amplitude and phase from the DFT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/fourier_intro.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/fourier_intro.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

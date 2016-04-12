@@ -1,5 +1,3 @@
-sketch = dftp.DFTSketch(x)
-sketch.sketch(figsize=(12, 5))
-sketch.highlight('X_real', [0])
-sketch.highlight('C', [[0, ':']])
-sketch.highlight('x_c', [':'])
+# - function to print non-numpy scalars to 4 decimal places
+def to_4dp(f):
+    return '{0:.4f}'.format(f)
