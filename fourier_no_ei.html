@@ -119,7 +119,7 @@ go along:</p>
 numbers.</p>
 <p>Each value in <code class="docutils literal"><span class="pre">X</span></code> gives the scaling for a sinusoid for a particular
 frequency.</p>
-<p>If the input to the DFT is real, as here then:</p>
+<p>If the input to the DFT is real, as here, then:</p>
 <ul class="simple">
 <li>The real part of <code class="docutils literal"><span class="pre">X</span></code> has the scaling for a cosine at the particular
 frequency;</li>
@@ -141,7 +141,7 @@ image of <cite>X[1:16]</cite>, with the imaginary parts having the opposite sign
 </pre></div>
 </div>
 <p>These features constitute <em>conjugate symmetry</em> and are always true of a DFT on
-real numbers.  We will soon we will see why.</p>
+real numbers.  We will soon see why.</p>
 <p>When we do the inverse DFT on <code class="docutils literal"><span class="pre">X</span></code> we return the original values of our
 input <code class="docutils literal"><span class="pre">x</span></code>, but as complex numbers with imaginary part 0:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Apply the inverse DFT to the output of the forward DFT</span>
