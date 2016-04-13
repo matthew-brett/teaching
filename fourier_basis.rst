@@ -89,6 +89,9 @@ Loading display libraries and data
     ...      -0.6006, -0.2917, -0.6017,  1.8523])
     >>> N = len(x)
 
+In order to run the commands in this page, you will need to download the file
+:download:`dft_plots.py` to the directory where you running the code.
+
 .. nbplot::
 
     >>> import matplotlib.pyplot as plt
