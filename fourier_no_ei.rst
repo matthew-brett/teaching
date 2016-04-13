@@ -308,7 +308,7 @@ forward DFT as:
 Frequency as cycles across the sample vector
 ============================================
 
-The key to the frequencies in the DFT are in the $n k D = k 2 \pi \frac{n}{N}$
+The key to the frequencies in the DFT is in the $n k D = k 2 \pi \frac{n}{N}$
 values that we have put into the angle vector $\vec{r^k}$.
 
 The $k$ in $\vec{r^k}$ gives the number of cycles across all $N$ values of
@@ -397,7 +397,7 @@ Therefore:
 
 .. math::
 
-    X_0 = \vec{x} \cdot \vec{1} - i \vec{x} \vec{0} \\
+    X_0 = \vec{x} \cdot \vec{1} - i \vec{x} \cdot \vec{0} \\
     = \Sigma x_n
 
 The first value in the DFT output vector is the sum of the values in
@@ -437,7 +437,7 @@ Second DFT output corresponds to a sinusoid at frequency :math:`1 / N`.
 We have already seen $\vec{r^1}, \vec{c^1}, \vec{s^1}$.
 
 $\vec{c^1}, \vec{s^1}$ are the cosine, sine at frequency 1 / N where one unit
-is distance between two consecutive samples in $\vec{x}$.
+is the distance between two consecutive samples in $\vec{x}$.
 
 .. math::
 
@@ -450,8 +450,8 @@ is distance between two consecutive samples in $\vec{x}$.
     >>> print(X[1])
     (9.02170725475-3.70356074953j)
 
-This confirms our calculation gives the same result as the DFT, but isn't very
-revealing.
+This confirms our calculation gives the same result as numpy's DFT, but isn't
+very revealing.
 
 Let's make another input vector $\vec{v}$ that is a cosine at the same
 frequency as $\vec{c^1}$.  Start with $\vec{v} = \vec{c^1}$.
@@ -471,8 +471,8 @@ $\vec{c^k}, \vec{s^k}$ vectors that, for all $k, N$:
 
     \vec{c^k} \cdot \vec{s^k} = 0
 
-Remember from :ref:`vector-length` that we can write $\vec{w} \cdot \vec{w}$
-as $\VL{w}^2$
+Remember from :ref:`vector-length` that, for any vector $\vec{w}$, we can
+write $\vec{w} \cdot \vec{w}$ as $\VL{w}^2$
 
 So:
 
@@ -592,6 +592,8 @@ Do we get this answer from the DFT?
 
 .. nbplot::
 
+    >>> print(np.cos(beta) * (N / 2.), np.sin(beta) * (N / 2.))
+    7.25753794281 14.259317761
     >>> np.fft.fft(vec_v)
     array([-0.0000 +0.j    ,  7.2575+14.2593j,  0.0000 +0.j    ,
             0.0000 +0.j    ,  0.0000 +0.j    ,  0.0000 +0.j    ,
@@ -604,8 +606,6 @@ Do we get this answer from the DFT?
            -0.0000 +0.j    , -0.0000 +0.j    , -0.0000 -0.j    ,
            -0.0000 +0.j    ,  0.0000 -0.j    , -0.0000 +0.j    ,
             0.0000 -0.j    ,  7.2575-14.2593j])
-    >>> print(np.cos(beta) * (N / 2.), np.sin(beta) * (N / 2.))
-    7.25753794281 14.259317761
 
 Notice that $V_{N-1}$ has the same value as $V_{1}$, but with the imaginary
 part flipped in sign.  This is the *conjugate* in *conjugate symmetry*.  It
@@ -634,6 +634,7 @@ phase-shifted cosine:
 
 .. math::
     :nowrap:
+    :label: scale-and-offset
 
     V_1 = a ( \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
     i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
@@ -641,6 +642,8 @@ phase-shifted cosine:
 
 .. nbplot::
 
+    >>> print(a * np.cos(beta) * (N / 2.), a * np.sin(beta) * (N / 2.))
+    21.7726138284 42.7779532829
     >>> vec_v = a * np.cos(vec_r_1 + beta)
     >>> np.fft.fft(vec_v)
     array([ -0.0000 +0.j   ,  21.7726+42.778j,   0.0000 +0.j   ,
@@ -654,10 +657,10 @@ phase-shifted cosine:
             -0.0000 +0.j   ,  -0.0000 +0.j   ,  -0.0000 -0.j   ,
             -0.0000 +0.j   ,   0.0000 -0.j   ,  -0.0000 +0.j   ,
              0.0000 -0.j   ,  21.7726-42.778j])
-    >>> print(a * np.cos(beta) * (N / 2.), a * np.sin(beta) * (N / 2.))
-    21.7726138284 42.7779532829
 
 What if I want to reconstruct $a$ and $\beta$ from the DFT coefficients?
+
+From :eq:`scale-and-offset`:
 
 .. math::
     :nowrap:
