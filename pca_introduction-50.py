@@ -1,2 +1,3 @@
-S_vcov
-# array([ 143.973173,   11.696117])
+scaled_U, scaled_S, scaled_VT = npl.svd(np.cov(X))
+np.allclose(scaled_U, U), np.allclose(scaled_VT, VT_vcov)
+# (True, True)

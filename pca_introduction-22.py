@@ -1,10 +1,5 @@
-remaining_ss = []
-for u in u_vectors.T: # iterate over columns
-    remaining = line_remaining(u, X)
-    remaining_ss.append(np.sum(remaining ** 2))
-plt.plot(angles, remaining_ss)
+plt.plot(u_vectors[0], u_vectors[1], '+')
 # [...]
-plt.xlabel('Angle of unit vector')
-# <...>
-plt.ylabel('Remaining sum of squares')
-# <...>
+plt.axis('equal')
+# (...)
+plt.tight_layout()

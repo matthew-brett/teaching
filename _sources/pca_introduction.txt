@@ -24,7 +24,6 @@ Start by loading the libraries we need, and doing some configuration:
     >>> # Display array values to 6 digits of precision
     >>> np.set_printoptions(precision=6, suppress=True)
 
-
 Make the data:
 
 .. nbplot::
@@ -848,3 +847,5 @@ explained by the components. If we do the SVD on the true covariance matrix,
 then we can describe the PCA as breaking up the *variance* of the data (across
 samples) into parts explained by the components. The only difference between
 these two is the scaling of the ``S`` vector.
+
+.. include:: links_names.inc

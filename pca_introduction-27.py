@@ -1,11 +1,17 @@
-remaining = X - projected
-plt.scatter(remaining[0], remaining[1], label='remaining')
+projected = line_projection(u_best, X)
+plt.scatter(X[0], X[1], label='actual')
 # <...>
-plt.arrow(0, 0, u_best[0], u_best[1], width=0.01, color='r')
+plt.scatter(projected[0], projected[1], color='r', label='projected')
 # <...>
-plt.annotate('$\hat{u_{best}}$', u_best, xytext=(20, 20), textcoords='offset points', fontsize=20)
-# <...>
-plt.legend(loc='upper left')
-# <...>
+for i in range(X.shape[1]):
+    # Plot line between projected and actual point
+    proj_pt = projected[:, i]
+    actual_pt = X[:, i]
+    plt.plot([proj_pt[0], actual_pt[0]], [proj_pt[1], actual_pt[1]], 'k')
+# [...]
 plt.axis('equal')
 # (...)
+plt.legend(loc='upper left')
+# <...>
+plt.title("Actual and projected points for $\hat{u_{best}}$")
+# <...>

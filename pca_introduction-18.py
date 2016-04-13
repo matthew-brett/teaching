@@ -1,6 +1,7 @@
-def line_remaining(u, X):
-    """ Return vectors remaining after removing cols of X projected onto u
+def line_projection(u, X):
+    """ Return columns of X projected onto line defined by u
     """
-    projected = line_projection(u, X)
-    remaining = X - projected
-    return remaining
+    u = u.reshape(1, 2)  # A row vector
+    c_values = u.dot(X)  # c values for scaling u
+    projected = u.T.dot(c_values)
+    return projected

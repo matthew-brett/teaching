@@ -1,4 +1,10 @@
-min_i = np.argmin(remaining_ss)
-angle_best = angles[min_i]
-print(angle_best)
-# 0.498620616186
+remaining_ss = []
+for u in u_vectors.T: # iterate over columns
+    remaining = line_remaining(u, X)
+    remaining_ss.append(np.sum(remaining ** 2))
+plt.plot(angles, remaining_ss)
+# [...]
+plt.xlabel('Angle of unit vector')
+# <...>
+plt.ylabel('Remaining sum of squares')
+# <...>

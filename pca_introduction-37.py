@@ -1,3 +1,3 @@
-# Total sum of squares
-print(np.sum(X ** 2))
-# 155.669289858
+data_again = components.T.dot(c_values)
+np.allclose(data_again, X)
+# True

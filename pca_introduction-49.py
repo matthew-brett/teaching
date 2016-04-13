@@ -1,3 +1,6 @@
-scaled_U, scaled_S, scaled_VT = npl.svd(np.cov(X))
-np.allclose(scaled_U, U), np.allclose(scaled_VT, VT_vcov)
-# (True, True)
+# Calculate unscaled variance covariance again
+unscaled_cov = X.dot(X.T)
+# When divided by N-1, same as result of 'np.cov'
+N = X.shape[1]
+np.allclose(unscaled_cov / (N - 1), np.cov(X))
+# True

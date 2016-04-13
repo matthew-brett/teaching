@@ -1,3 +1,5 @@
-squares = X ** 2
-print(np.sum(squares))
-# 155.669289858
+import matplotlib.pyplot as plt
+plt.scatter(X[0], X[1])
+# <...>
+plt.axis('equal')
+# (...)

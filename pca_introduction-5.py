@@ -1,3 +1,3 @@
-v1 = X[:, 0]
-v1
-# array([ 3.378322,  2.068158])
+squares = X ** 2
+print(np.sum(squares))
+# 155.669289858

@@ -1,2 +1,6 @@
-print(np.sum(line_remaining(u_guessed, X) ** 2))
-# 22.2879691152
+def line_remaining(u, X):
+    """ Return vectors remaining after removing cols of X projected onto u
+    """
+    projected = line_projection(u, X)
+    remaining = X - projected
+    return remaining

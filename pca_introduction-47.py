@@ -1,2 +1,2 @@
-S_vcov
-# array([ 143.973173,   11.696117])
+np.allclose(U, VT_vcov.T)
+# True

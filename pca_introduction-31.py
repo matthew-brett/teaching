@@ -1,5 +1,5 @@
-# Components as rows in a 2 by 2 array
-components = np.vstack((u_best, u_best_orth))
-components
-# array([[ 0.878243,  0.478215],
-# [-0.478215,  0.878243]])
+# project onto second component direct from data
+projected_onto_orth_again = line_projection(u_best_orth, X)
+# Gives same answer as projecting remainder from first component
+np.allclose(projected_onto_orth_again - projected_onto_orth, 0)
+# True

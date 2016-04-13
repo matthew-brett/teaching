@@ -1,9 +1,5 @@
-# Calculating projection coefficients with array dot
-c_values = components.dot(X)
-# Result of projecting on first component, via array dot
-u = u_best.reshape(1, 2)  # first component as row vector
-c = c_values[0].reshape(1, 50)  # c for first component as row vector
-projected_1 = u.T.dot(c)
-# The same as doing the original calculation
-np.allclose(projected_1, line_projection(u_best, X))
-# True
+# Components as rows in a 2 by 2 array
+components = np.vstack((u_best, u_best_orth))
+components
+# array([[ 0.878243,  0.478215],
+# [-0.478215,  0.878243]])

@@ -1,3 +1,2 @@
-data_again = components.T.dot(c_values)
-np.allclose(data_again, X)
+np.allclose(projected_1 + projected_2, X)
 # True
