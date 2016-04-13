@@ -42,7 +42,7 @@
 <div class="section" id="the-fourier-basis">
 <h1>The Fourier basis<a class="headerlink" href="#the-fourier-basis" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="fourier_intro.html"><em>Fourier without the ei</em></a> shows that we can write the discrete Fourier transform
-DFT as vector dot products.  In <a class="reference internal" href="fourier_intro.html#rewriting-dft-with-vectors"><span>Rewriting the DFT with vectors</span></a> we found
+DFT as vector dot products.  In <a class="reference internal" href="fourier_no_ei.html#rewriting-dft-with-vectors"><span>Rewriting the DFT with vectors</span></a> we found
 that:</p>
 <div class="math">
 \[X_k = \vec{x} \cdot \vec{c^k} - i \vec{x} \cdot \vec{s^k}\]</div>
@@ -102,6 +102,8 @@ matrix <span class="math">\(\C\)</span> that has rows
 <span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>In order to run the commands in this page, you will need to download the file
+<a class="reference download internal" href="_downloads/dft_plots.py"><code class="xref download docutils literal"><span class="pre">dft_plots.py</span></code></a> to the directory where you running the code.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dft_plots</span> <span class="kn">as</span> <span class="nn">dftp</span>
 </pre></div>

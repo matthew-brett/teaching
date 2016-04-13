@@ -1,4 +1,5 @@
 import numpy as np
+np.set_printoptions(precision=4, suppress=True)
 x = np.array(
     [ 0.4967, -0.1383,  0.6477,  1.523 , -0.2342, -0.2341,  1.5792,
       0.7674, -0.4695,  0.5426, -0.4634, -0.4657,  0.242 , -1.9133,

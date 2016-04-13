@@ -333,15 +333,14 @@ around a circle.</p>
 <h2>Calculating the DFT with vectors<a class="headerlink" href="#calculating-the-dft-with-vectors" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="first-dft-output-value-is-the-vector-sum">
 <h3>First DFT output value is the vector sum<a class="headerlink" href="#first-dft-output-value-is-the-vector-sum" title="Permalink to this headline">¶</a></h3>
-<p>Consider <span class="math">\(\vec{r_0}, \vec{c^0}, \vec{s^0}\)</span>:</p>
+<p>Consider <span class="math">\(\vec{r^0}, \vec{c^0}, \vec{s^0}\)</span>:</p>
 <div class="math">
-\[\begin{split}\vec{r^0} = \left[
+\[\vec{r^0} = \left[
 0 2 \pi \frac{0}{N}, 0 2 \pi \frac{1}{N}, \ldots
 \right] \\
-= \left[ 0, 0, \ldots \right] = \vec{0}
+= \left[ 0, 0, \ldots \right] = \vec{0} \\
 \vec{c^0} = \left[ 1, 1, \ldots \right] = \vec{1} \\
-\vec{s^0} = \left[ 0, 0, \ldots \right] = \vec{0}\end{split}\]</div>
-<p>Therefore:</p>
+\vec{s^0} = \left[ 0, 0, \ldots \right] = \vec{0}\]</div><p>Therefore:</p>
 <div class="math">
 \[\begin{split}X_0 = \vec{x} \cdot \vec{1} - i \vec{x} \vec{0} \\
 = \Sigma x_n\end{split}\]</div>
@@ -370,13 +369,13 @@ What is the DFT?</p>
 one.  All the other values are 0.  This is because all of <span class="math">\(\vec{c^1},
 \vec{c^2}, \ldots, \vec{c^{N-1}}\)</span> and all of <span class="math">\(\vec{s^1}, \vec{s^2}, \ldots,
 \vec{s^{N-1}}\)</span> sum to zero, and therefore the dot product of all these vectors
-with constant is also zero.</p>
+with a constant vector is also zero.</p>
 </div>
 <div class="section" id="second-dft-output-corresponds-to-a-sinusoid-at-frequency">
 <h3>Second DFT output corresponds to a sinusoid at frequency <span class="math">\(1 / N\)</span>.<a class="headerlink" href="#second-dft-output-corresponds-to-a-sinusoid-at-frequency" title="Permalink to this headline">¶</a></h3>
 <p>We have already seen <span class="math">\(\vec{r^1}, \vec{c^1}, \vec{s^1}\)</span>.</p>
 <p><span class="math">\(\vec{c^1}, \vec{s^1}\)</span> are the cosine, sine at frequency 1 / N where one unit
-is the time between samples in <span class="math">\(\vec{x}\)</span>.</p>
+is distance between two consecutive samples in <span class="math">\(\vec{x}\)</span>.</p>
 <div class="math">
 \[X_1 = \vec{x} \cdot \vec{c^1} - i \vec{x} \cdot \vec{s^1}\]</div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_c_1</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_s_1</span><span class="p">))</span>
@@ -423,7 +422,7 @@ As you see in <a class="reference internal" href="fourier_basis.html"><em>The Fo
 generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span class="math">\(p \in 1, 2 \ldots, N / 2\)</span>.</p>
 <div class="section" id="adding-a-scaling-factor-to-the-cosine">
 <h4>Adding a scaling factor to the cosine<a class="headerlink" href="#adding-a-scaling-factor-to-the-cosine" title="Permalink to this headline">¶</a></h4>
-<p>Now set <span class="math">\(v = a \vec{c^1}\)</span> where <span class="math">\(a\)</span> is a constant:</p>
+<p>Now set <span class="math">\(\vec{v} = a \vec{c^1}\)</span> where <span class="math">\(a\)</span> is a constant:</p>
 <div class="math">
 \[V_1 = \vec{c^1} \cdot a \vec{c^1} - i \vec{c^1} \cdot a \vec{s^1}\]</div>
 <p>By the <a class="reference internal" href="on_vectors.html#dot-product-properties"><span>properties of the dot product</span></a>:</p>

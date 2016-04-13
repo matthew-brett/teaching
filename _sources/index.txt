@@ -16,6 +16,12 @@ Mathematics
 * :doc:`on_vectors`;
 * :doc:`simple_complex`;
 * :doc:`fourier_no_ei`.
+* :doc:`pca_introduction`
+
+Statistics
+==========
+
+* :doc:`glm_intro`
 
 .. The hidden toctree below is to suppress build warnings
 

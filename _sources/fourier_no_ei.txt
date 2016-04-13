@@ -381,14 +381,15 @@ Calculating the DFT with vectors
 First DFT output value is the vector sum
 ========================================
 
-Consider $\vec{r_0}, \vec{c^0}, \vec{s^0}$:
+Consider $\vec{r^0}, \vec{c^0}, \vec{s^0}$:
 
 .. math::
+    :nowrap:
 
     \vec{r^0} = \left[
     0 2 \pi \frac{0}{N}, 0 2 \pi \frac{1}{N}, \ldots
     \right] \\
-    = \left[ 0, 0, \ldots \right] = \vec{0}
+    = \left[ 0, 0, \ldots \right] = \vec{0} \\
     \vec{c^0} = \left[ 1, 1, \ldots \right] = \vec{1} \\
     \vec{s^0} = \left[ 0, 0, \ldots \right] = \vec{0}
 
@@ -428,7 +429,7 @@ We were expecting the first value of 32, because it is the sum of 32 values of
 one.  All the other values are 0.  This is because all of $\vec{c^1},
 \vec{c^2}, \ldots, \vec{c^{N-1}}$ and all of $\vec{s^1}, \vec{s^2}, \ldots,
 \vec{s^{N-1}}$ sum to zero, and therefore the dot product of all these vectors
-with constant is also zero.
+with a constant vector is also zero.
 
 Second DFT output corresponds to a sinusoid at frequency :math:`1 / N`.
 =======================================================================
@@ -436,7 +437,7 @@ Second DFT output corresponds to a sinusoid at frequency :math:`1 / N`.
 We have already seen $\vec{r^1}, \vec{c^1}, \vec{s^1}$.
 
 $\vec{c^1}, \vec{s^1}$ are the cosine, sine at frequency 1 / N where one unit
-is the time between samples in $\vec{x}$.
+is distance between two consecutive samples in $\vec{x}$.
 
 .. math::
 
@@ -509,7 +510,7 @@ generally $\vec{c_p} = \vec{c_{N-p}}$ for $p \in 1, 2 \ldots, N / 2$.
 Adding a scaling factor to the cosine
 -------------------------------------
 
-Now set $v = a \vec{c^1}$ where $a$ is a constant:
+Now set $\vec{v} = a \vec{c^1}$ where $a$ is a constant:
 
 .. math::
 
