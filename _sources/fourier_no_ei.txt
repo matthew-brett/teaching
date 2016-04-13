@@ -270,10 +270,10 @@ where:
 .. math::
     :nowrap:
 
-    \vec{r^k} \triangleq \left[ 0 k D, 1 k D, \ldots, (N - 1) k D \right]
+    \vec{r^k} \triangleq \left[ k 0 D, k 1 D, \ldots, k (N - 1) D \right]
 
-Call $\vec{r^k}$ the *angle vector* for $k$.  This vector depend only on $k
-and N$.
+Call $\vec{r^k}$ the *angle vector* for $k$.  This vector depend only on $k$
+and $N$.
 
 Substituting the value of $D$ (equation :eq:`D`):
 
@@ -286,10 +286,10 @@ Now define:
 
 .. math::
 
-   \vec{c^k} \triangleq \left[ \cos(r^k_0), \cos(r^k_1), \ldots
-   \cos(r^k_{N-1} \right] \\
-   \vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots
-   \sin(r^k_{N-1} \right]
+   \vec{c^k} \triangleq \left[ \cos(r^k_0), \cos(r^k_1), \ldots,
+   \cos(r^k_{N-1}) \right] \\
+   \vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots,
+   \sin(r^k_{N-1}) \right]
 
 We have:
 
@@ -308,10 +308,11 @@ forward DFT as:
 Frequency as cycles across the sample vector
 ============================================
 
-The key to the frequencies in the DFT are in the $n k D = k 2 \pi
-\frac{n}{N}$ values that we have put into $\vec{r^k}$.
+The key to the frequencies in the DFT are in the $n k D = k 2 \pi \frac{n}{N}$
+values that we have put into the angle vector $\vec{r^k}$.
 
-The $k$ in $\vec{r^k}$ is the number of cycles across all $N$ values of $\vec{x}$.
+The $k$ in $\vec{r^k}$ gives the number of cycles across all $N$ values of
+$\vec{x}$.
 
 For example, consider the case of $k = 1$:
 
@@ -335,28 +336,8 @@ Here are the values in Python:
 
 The values $\frac{0}{N}, \frac{1}{N}, \ldots \frac{N-1}{N}$ are fractions of
 the number of samples $N$, running from 0 to close to 1.  Now multiplied by $2
-\pi$, the values run from 0 to close to $2 \pi$ and therefore give the
-distance round a circle.
-
-.. nbplot::
-    :include-source: false
-
-    full_circle = np.linspace(0, 2 * np.pi, 500)
-    plt.plot(np.cos(full_circle), np.sin(full_circle))
-    pts = np.c_[np.cos(vec_r_1), np.sin(vec_r_1)]
-    plt.plot(pts[:, 0], pts[:, 1], 'o')
-    ax = plt.gca()
-    for i in [0, 1, 2, 3, 30, 31]:
-        pos = pts[i]
-        ax.annotate('n=%d' % i, xy=pos, xytext=pos + [0.1, 0])
-    ax.spines['left'].set_position('center')
-    ax.spines['right'].set_color('none')
-    ax.spines['bottom'].set_position('center')
-    ax.spines['top'].set_color('none')
-    ax.spines['left'].set_smart_bounds(True)
-    ax.spines['bottom'].set_smart_bounds(True)
-    plt.axis('equal')
-    plt.title("Angle ($r^1$) vector values as positions on a circle")
+\pi$, the values run from 0 to close to $2 \pi$ and therefore give angles
+around a circle.
 
 The vector $\vec{r^1}$ gives $\vec{c^1}, \vec{s^1}$ with a single cycle:
 
@@ -375,7 +356,7 @@ The vector $\vec{r^1}$ gives $\vec{c^1}, \vec{s^1}$ with a single cycle:
     >>> plt.legend()
     <...>
 
-$k = 2 gives 2 cycles across the N values:
+$k = 2$ gives 2 cycles across the N values:
 
 .. nbplot::
 

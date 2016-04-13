@@ -1,9 +1,8 @@
-a = 3
-vec_v = a * vec_c_1
-np.fft.fft(vec_v)
-# array([ -0.+0.j,  48.-0.j,   0.+0.j,   0.+0.j,  -0.-0.j,   0.+0.j,
-# 0.+0.j,   0.+0.j,   0.-0.j,   0.+0.j,  -0.-0.j,   0.+0.j,
-# -0.+0.j,  -0.+0.j,   0.-0.j,   0.+0.j,   0.+0.j,   0.+0.j,
-# 0.+0.j,  -0.+0.j,  -0.-0.j,  -0.+0.j,  -0.+0.j,  -0.+0.j,
-# 0.+0.j,  -0.+0.j,   0.-0.j,  -0.+0.j,  -0.+0.j,  -0.+0.j,
-# 0.-0.j,  48.-0.j])
+beta = 1.1
+vec_v = np.cos(vec_r_1 + beta)
+plt.plot(vec_n, vec_c_1, 'o:', label='Unshifted cos')
+# [...]
+plt.plot(vec_n, vec_v, 'x:', label='Shifted cos')
+# [...]
+plt.legend()
+# <...>
