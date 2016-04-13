@@ -766,4 +766,4 @@ We can then see our ANCOVA design above at a glance:
 
     >>> show_design(X, 'ANCOVA')
 
-.. include:: ../links_names.inc
+.. include:: links_names.inc
