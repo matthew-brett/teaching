@@ -51,17 +51,16 @@ This page goes through this process, and tries to show how thinking in
 this way can explain some features of the DFT.</p>
 <div class="section" id="how-hard-is-the-mathematics">
 <h3>How hard is the mathematics?<a class="headerlink" href="#how-hard-is-the-mathematics" title="Permalink to this headline">¶</a></h3>
-<p>You will not need heavy math to follow this page. If you don&#8217;t remember
-the following concepts you might want to brush upcos on them. There are
-also links to proofs and explanations for these ideas in the page as we
-go along:</p>
+<p>You will not need heavy mathematics to follow this page. If you don&#8217;t remember
+the following concepts you might want to brush up on them. There are also links
+to proofs and explanations for these ideas in the page as we go along:</p>
 <ul class="simple">
 <li>basic trigonometry (SOH CAH TOA, Pythagoras&#8217; theorem);</li>
 <li>the <a class="reference internal" href="angle_sum.html"><em>angle sum rule</em></a>;</li>
 <li><a class="reference internal" href="some_sums.html"><em>basic algebra with sums</em></a>;</li>
 <li><a class="reference internal" href="on_vectors.html"><em>Vectors and dot products</em></a>;</li>
 </ul>
-<p>You will not need to go deep into math with complex numbers, but see
+<p>You will not need to go deep into complex numbers, but see
 <a class="reference internal" href="simple_complex.html"><em>Refresher on complex numbers</em></a>.</p>
 </div>
 <div class="section" id="loading-and-configuring-code-libraries">
@@ -183,9 +182,9 @@ signal not transformed to frequency.</p>
 <p>The inverse Fourier transform converts from frequency back to signal.</p>
 <div class="section" id="dft-and-fft">
 <h3>DFT and FFT<a class="headerlink" href="#dft-and-fft" title="Permalink to this headline">¶</a></h3>
-<p>The fast fourier transform (FFT) refers to a particular set of - er -
-fast algorithms for calculating the DFT. It is common, but confusing, to
-use &#8220;FFT&#8221; to mean DFT.</p>
+<p>The fast Fourier transform (FFT) refers to a particular set of - er - fast
+algorithms for calculating the DFT. It is common, but confusing, to use &#8220;FFT&#8221;
+to mean DFT.</p>
 </div>
 </div>
 <div class="section" id="rewriting-the-dft-without-the">
@@ -382,7 +381,7 @@ with constant is also zero.</p>
 <p><span class="math">\(\vec{c^1}, \vec{s^1}\)</span> are the cosine, sine at frequency 1 / N where one unit
 is the time between samples in <span class="math">\(\vec{x}\)</span>.</p>
 <div class="math">
-\[X_1 = \vec{x} \cdot \vec{c^1} - i \vec{x} \vec{s^1}\]</div>
+\[X_1 = \vec{x} \cdot \vec{c^1} - i \vec{x} \cdot \vec{s^1}\]</div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_c_1</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_s_1</span><span class="p">))</span>
 <span class="go">9.02170725475 3.70356074953</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -391,9 +390,9 @@ is the time between samples in <span class="math">\(\vec{x}\)</span>.</p>
 </div>
 <p>This confirms our calculation gives the same result as the DFT, but isn&#8217;t very
 revealing.</p>
-<p>Let&#8217;s make another input vector <span class="math">\(\vec{v}\)</span> that is a cosine at the same frequency as
-<span class="math">\(\vec{c^1}, \vec{s^1}\)</span>.  Start with <span class="math">\(\vec{v} = \vec{c^1}\)</span>.</p>
-<p>Our prediction for <span class="math">\(V_1\)</span> is:</p>
+<p>Let&#8217;s make another input vector <span class="math">\(\vec{v}\)</span> that is a cosine at the same
+frequency as <span class="math">\(\vec{c^1}\)</span>.  Start with <span class="math">\(\vec{v} = \vec{c^1}\)</span>.</p>
+<p>Our prediction for the DFT of <span class="math">\(\vec{v}\)</span> is:</p>
 <div class="math">
 \[V_1 = \vec{v} \cdot \vec{c^1} - i \vec{v} \cdot \vec{s^1} \\
 = \vec{c^1} \cdot \vec{c^1} - i \vec{c^1} \cdot \vec{s^1}\]</div><p>In fact, as you can see in <a class="reference internal" href="fourier_basis.html"><em>The Fourier basis</em></a>, it is a property of the
