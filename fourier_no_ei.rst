@@ -16,17 +16,16 @@ this way can explain some features of the DFT.
 How hard is the mathematics?
 ============================
 
-You will not need heavy math to follow this page. If you don't remember
-the following concepts you might want to brush upcos on them. There are
-also links to proofs and explanations for these ideas in the page as we
-go along:
+You will not need heavy mathematics to follow this page. If you don't remember
+the following concepts you might want to brush up on them. There are also links
+to proofs and explanations for these ideas in the page as we go along:
 
 * basic trigonometry (SOH CAH TOA, Pythagoras' theorem);
 * the :doc:`angle sum rule <angle_sum>`;
 * :doc:`basic algebra with sums <some_sums>`;
 * :doc:`on_vectors`;
 
-You will not need to go deep into math with complex numbers, but see
+You will not need to go deep into complex numbers, but see
 :doc:`simple_complex`.
 
 Loading and configuring code libraries
@@ -175,9 +174,9 @@ The inverse Fourier transform converts from frequency back to signal.
 DFT and FFT
 ===========
 
-The fast fourier transform (FFT) refers to a particular set of - er -
-fast algorithms for calculating the DFT. It is common, but confusing, to
-use "FFT" to mean DFT.
+The fast Fourier transform (FFT) refers to a particular set of - er - fast
+algorithms for calculating the DFT. It is common, but confusing, to use "FFT"
+to mean DFT.
 
 *****************************************
 Rewriting the DFT without the :math:`e^i`
@@ -460,7 +459,7 @@ is the time between samples in $\vec{x}$.
 
 .. math::
 
-    X_1 = \vec{x} \cdot \vec{c^1} - i \vec{x} \vec{s^1}
+    X_1 = \vec{x} \cdot \vec{c^1} - i \vec{x} \cdot \vec{s^1}
 
 .. nbplot::
 
@@ -472,10 +471,10 @@ is the time between samples in $\vec{x}$.
 This confirms our calculation gives the same result as the DFT, but isn't very
 revealing.
 
-Let's make another input vector $\vec{v}$ that is a cosine at the same frequency as
-$\vec{c^1}, \vec{s^1}$.  Start with $\vec{v} = \vec{c^1}$.
+Let's make another input vector $\vec{v}$ that is a cosine at the same
+frequency as $\vec{c^1}$.  Start with $\vec{v} = \vec{c^1}$.
 
-Our prediction for $V_1$ is:
+Our prediction for the DFT of $\vec{v}$ is:
 
 .. math::
     :nowrap:
