@@ -1,0 +1,692 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Thresholding with random field theory &mdash; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="thresholding-with-random-field-theory">
+<h1>Thresholding with random field theory<a class="headerlink" href="#thresholding-with-random-field-theory" title="Permalink to this headline">¶</a></h1>
+<p>You can read this page without knowing any Python programming, by skipping
+over the code, but reading the code will often help understand the ideas.</p>
+<p>I based the page on my understanding of the 1992 paper by Keith Worsley (see
+refs below). For me, this paper is the most comprehensible paper on random
+fields in neuroimaging. Please refer to this paper and the Worsley 1996 paper
+for more detail.</p>
+<p>An earlier version of this page became the <a class="reference external" href="http://www.fil.ion.ucl.ac.uk/spm/doc/books/hbf2/pdfs/Ch14.pdf">Random fields introduction</a> chapter in
+the book <a class="reference external" href="http://www.fil.ion.ucl.ac.uk/spm/doc/books/hbf2">Human Brain Function second edition</a>.</p>
+<div class="section" id="the-problem">
+<h2>The problem<a class="headerlink" href="#the-problem" title="Permalink to this headline">¶</a></h2>
+<p>Most statistics packages for functional imaging data create statistical
+parametric maps. These maps have a value for a certain statistic at each
+voxel in the brain, which is the result of the statistical test done on
+the scan data for that voxel, across scans. <span class="math">\(t\)</span> values and
+<span class="math">\(F\)</span> values are the most common.</p>
+<p>For the sake of simplicity, I&#8217;ll assume that we have <span class="math">\(Z\)</span> values
+instead of <span class="math">\(t\)</span> or <span class="math">\(F\)</span> values. <span class="math">\(Z\)</span> values are values
+from the standard normal distribution. The same sort of arguments apply
+to <span class="math">\(t\)</span> and <span class="math">\(F\)</span> values, just with slightly different
+formulae.</p>
+<p>The null hypothesis for a particular statistical comparison probably
+will be that there is no change anywhere in the brain. For example, in a
+comparison of activation against rest, the null hypothesis would be that
+there are no differences between the scans in the activation condition,
+and the scans in the rest condition. This null hypothesis implies that
+the whole brain volume full of statistic values for the comparison will
+be similar to a equivalent set of values from a random distribution.</p>
+</div>
+<div class="section" id="the-multiple-comparison-problem">
+<h2>The multiple comparison problem<a class="headerlink" href="#the-multiple-comparison-problem" title="Permalink to this headline">¶</a></h2>
+<p>Given we have a brain full of <span class="math">\(Z\)</span> values, how do we decide whether
+some of the <span class="math">\(Z\)</span> values are larger (more positive) than we would
+expect in a similar volume of random numbers? So, in a typical brain
+volume, we have, say, 200000 voxels and therefore 200000 <span class="math">\(Z\)</span>
+scores. Because we have so many <span class="math">\(Z\)</span> scores, even if the null
+hypothesis is true, we can be confident that some of these <span class="math">\(Z\)</span>
+scores will appear to be significant at standard statistical thresholds
+for the the individual <span class="math">\(Z\)</span> scores. For example, <span class="math">\(p\)</span> value
+thresholds such as <span class="math">\(p&lt;0.05 \)</span> or <span class="math">\(p&lt;0.01 \)</span> correspond to <span class="math">\(Z = 1.64 \)</span> and
+<span class="math">\(Z = 2.33 \)</span> respectively.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Tell numpy to print numbers to 4 decimal places only</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normal_distribution</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># The inverse normal CDF</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inv_n_cdf</span> <span class="o">=</span> <span class="n">normal_distribution</span><span class="o">.</span><span class="n">ppf</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inv_n_cdf</span><span class="p">([</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">])</span>
+<span class="go">array([ 1.6449,  2.3263])</span>
+</pre></div>
+</div>
+<p>So, if we threshold our brain <span class="math">\(Z\)</span> scores at <span class="math">\(2.33 \)</span> or above, we
+would expect a number of false positives, even if the null hypothesis is
+true. So, how high should we set our <span class="math">\(Z\)</span> threshold, so that we can
+be confident that the remaining peak <span class="math">\(Z\)</span> scores are indeed too
+high to be expected by chance? This is the multiple comparison problem.</p>
+<p>We could call all the <span class="math">\(Z\)</span> scores in the brain a &#8220;family&#8221; of tests.
+We want to find a threshold so that we can correct for a whole &#8220;family&#8221;
+of tests. For this reason, these multiple comparison correction methods
+are often known as <em>family-wise</em> correction methods.</p>
+</div>
+<div class="section" id="why-not-a-bonferroni-correction">
+<h2>Why not a Bonferroni correction?<a class="headerlink" href="#why-not-a-bonferroni-correction" title="Permalink to this headline">¶</a></h2>
+<p>The problem of false positives with multiple statistical tests is an old
+one. One standard method for dealing with this problem is to use the
+Bonferroni correction. For the Bonferroni correction, you set your p
+value threshold for accepting a test as being significant as
+<span class="math">\(alpha\)</span> / (number of tests), where <span class="math">\(alpha\)</span> is the false
+positive rate you are prepared to accept. <span class="math">\(alpha\)</span> is often 0.05,
+or one false positive in 20 repeats of your experiment. Thus, for a
+statistical map with 200000 voxels, the Bonferroni corrected p value
+would be 0.05 / 200000 = [equivalent Z] 5.03. We could then threshold
+our Z map to show us only Z scores higher than 5.03, and be confident
+that all the remaining Z scores are unlikely to have occurred by chance.
+For some functional imaging data this is a perfectly reasonable
+approach, but in most cases the Bonferroni threshold will be
+considerably too conservative. This is because, for most stastistic
+maps, the Z scores at each voxel are highly correlated with their
+neighbours.</p>
+</div>
+<div class="section" id="spatial-correlation">
+<h2>Spatial correlation<a class="headerlink" href="#spatial-correlation" title="Permalink to this headline">¶</a></h2>
+<p>Functional imaging data usually have some spatial correlation. By this,
+we mean that data in one voxel are correlated with the data from the
+neighbouring voxels. This correlation is caused by several factors:</p>
+<ul class="simple">
+<li>With low resolution imaging such as PET, data from an individual
+voxel will contain some signal from the tissue around that voxel;</li>
+<li>Unmodeled brain activation signal, which is very common, will tend to
+cover several voxels and induce correlations between them;</li>
+<li>Resampling of the images during preprocessing causes some smoothing
+across voxels;</li>
+<li>Most neuromaging statistical analyses work on smoothed images, and
+this creates strong spatial correlation. Smoothing is often used to
+improve signal to noise according to the matched filter theorem (the
+signal we are looking for is almost invariably spread across several
+voxels).</li>
+</ul>
+<p>The reason this spatial correlation is a problem for the Bonferroni
+correction is that the Bonferroni correction assumes that you have
+performed some number of <em>independent</em> tests. If the voxels are
+spatially correlated, then the <span class="math">\(Z\)</span> scores at each voxel are not
+independent. This will make the correction too conservative.</p>
+</div>
+<div class="section" id="spatial-correlation-and-independent-observations">
+<h2>Spatial correlation and independent observations<a class="headerlink" href="#spatial-correlation-and-independent-observations" title="Permalink to this headline">¶</a></h2>
+<p>An example can show why the Bonferroni correction is too conservative
+with non-independent tests. Let us first make an example image out of
+random numbers. We generate 16384 random numbers, and then put them into
+a 128 by 128 array. This results in a 2D image of spatially independent
+random numbers.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Constants for image simulations etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">]</span> <span class="c"># No of pixels in X, Y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_voxels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="c"># Total pixels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s_fwhm</span> <span class="o">=</span> <span class="mi">8</span> <span class="c"># Smoothing in number of pixels in x, y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1939</span> <span class="c"># Seed for random no generator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c"># Default alpha level</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Image of independent random nos</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="c"># Seed the generator to get same numbers each time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">test_img</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">set_cmap</span><span class="p">(</span><span class="s">&#39;bone&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Pixel position in X&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Pixel position in Y&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Image 1 - array of independent random numbers&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//random_fields-3.png">png</a>, <a class="reference external" href=".//random_fields-3.hires.png">hires.png</a>, <a class="reference external" href=".//random_fields-3.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/random_fields-3.png" src="_images/random_fields-3.png" />
+</div>
+<p>In this picture, whiter pixels are more positive, darker pixels more
+negative.</p>
+<p>The Bonferroni correction is the right one for this image, because the
+image is made up of 128*128 = 16384 random numbers from a normal
+distribution. Therefore, from the Bonferroni correction
+(<span class="math">\(\alpha / N = 0.05 / 16384\)</span> = [Z equivalent] 4.52), we would
+expect only 5 out of 100 such images to have one or more random numbers
+in the whole image larger than 4.52.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Bonferroni threshold for this image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bonf_thresh</span> <span class="o">=</span> <span class="n">inv_n_cdf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="n">n_voxels</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">bonf_thresh</span><span class="p">)</span>
+<span class="go">4.52277137559</span>
+</pre></div>
+</div>
+<p>The situation changes if we add some spatial correlation to this image.
+We can take our image above, and perform the following procedure:</p>
+<ul class="simple">
+<li>Break up the image into 8 by 8 squares;</li>
+<li>For each square, calculate the mean of all 64 random numbers in the
+square;</li>
+<li>Replace the 64 random numbers in the square by the mean value.</li>
+</ul>
+<p>(In fact, we have one more thing to do to our new image values. When we
+take the mean of 64 random numbers, the mean and variance will tend to
+zero. We have therefore to multiply our mean numbers by 8 to restore a
+variance of 1. This will make the numbers correspond to the normal
+distribution again. Why 8? Because the variance of the mean of 64
+numbers with variance 1 is 1/64, and so we need to multiply the numbers
+by <span class="math">\(\sqrt{64}\)</span> to restore a variance of 1. See: <a class="reference external" href="http://en.wikipedia.org/wiki/Variance#Sum_of_uncorrelated_variables_.28Bienaym.C3.A9_formula.29">Sum of
+uncorrelated
+variables</a>).</p>
+<p>The following is the image that results from the procedure above applied
+to our first set of random numbers:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Divide into FWHM chunks and fill square from mean value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sqmean_img</span> <span class="o">=</span> <span class="n">test_img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s_fwhm</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">i_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">s_fwhm</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s_fwhm</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">j_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">s_fwhm</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">vals</span> <span class="o">=</span> <span class="n">sqmean_img</span><span class="p">[</span><span class="n">i_slice</span><span class="p">,</span> <span class="n">j_slice</span><span class="p">]</span>
+<span class="gp">... </span>        <span class="n">sqmean_img</span><span class="p">[</span><span class="n">i_slice</span><span class="p">,</span> <span class="n">j_slice</span><span class="p">]</span> <span class="o">=</span> <span class="n">vals</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Multiply up to unit variance again</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sqmean_img</span> <span class="o">*=</span> <span class="n">s_fwhm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Show as image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sqmean_img</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">set_cmap</span><span class="p">(</span><span class="s">&#39;bone&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Pixel position in X&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Pixel position in Y&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Taking means over </span><span class="si">%s</span><span class="s"> by </span><span class="si">%s</span><span class="s"> elements from image 1&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">s_fwhm</span><span class="p">,</span> <span class="n">s_fwhm</span><span class="p">))</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//random_fields-5.png">png</a>, <a class="reference external" href=".//random_fields-5.hires.png">hires.png</a>, <a class="reference external" href=".//random_fields-5.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/random_fields-5.png" src="_images/random_fields-5.png" />
+</div>
+<p>We still have 16384 numbers in our image. However, it is clear that we
+now have only (128 / 8) * (128 / 8) = 256 independent numbers. The
+appropriate Bonferroni correction would then be (<span class="math">\(\alpha / N\)</span> =
+0.05 / 256 = [<span class="math">\(Z\)</span> equivalent] 3.55). We would expect that if we
+took 100 such mean-by-square-processed random number images, then only 5
+of the 100 would have a square of values greater than 3.55 by chance.
+However, if we took the original Bonferroni correction for the number of
+pixels rather than the number of independent pixels, then our <span class="math">\(Z\)</span>
+threshold would be far too conservative.</p>
+</div>
+<div class="section" id="smoothed-images-and-independent-observations">
+<h2>Smoothed images and independent observations<a class="headerlink" href="#smoothed-images-and-independent-observations" title="Permalink to this headline">¶</a></h2>
+<p>The mean-by-square process we have used above is a form of smoothing. In
+the mean-by-square case, the averaging takes place only within the
+squares, but in the case of smoothing with a smoothing kernel, the
+averaging takes place in a continuous way across the image. We can
+smooth our first random number image with a Gaussian kernel of FWHM 8 by
+8 pixels. (As for the mean-by-square example, the smoothing reduces the
+variance of the numbers in the image, because an average of random
+numbers tends to zero. In order to return the variance of the numbers in
+the image to one, to match the normal distribution, the image must be
+multiplied by a scale factor. The derivation of this scaling factor is
+rather technical, and not relevant to the discussion here).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># smooth random number image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="kn">as</span> <span class="nn">spn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sd</span> <span class="o">=</span> <span class="n">s_fwhm</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">8.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="c"># sigma for this FWHM</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stest_img</span> <span class="o">=</span> <span class="n">spn</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">test_img</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;wrap&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">gauss_2d_varscale</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Variance scaling for smoothing with 2D Gaussian of sigma `sigma`</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">    The code in this function isn&#39;t important for understanding</span>
+<span class="gp">... </span><span class="sd">    the rest of the tutorial.</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="c"># Make a single 2D Gaussian using given sigma</span>
+<span class="gp">... </span>    <span class="n">limit</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="mi">5</span> <span class="c"># go to limits where Gaussian will be at or near 0</span>
+<span class="gp">... </span>    <span class="n">x_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">limit</span><span class="p">,</span> <span class="n">limit</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">y_inds</span> <span class="o">=</span> <span class="n">x_inds</span> <span class="c"># Symmetrical Gaussian (sd same in X and Y)</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">y_inds</span><span class="p">,</span> <span class="n">x_inds</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># http://en.wikipedia.org/wiki/Gaussian_function#Two-dimensional_Gaussian_function</span>
+<span class="gp">... </span>    <span class="n">gf</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">gf</span>    <span class="o">=</span> <span class="n">gf</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">gf</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># Expectation of variance for this kernel</span>
+<span class="gp">... </span>    <span class="n">AG</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft2</span><span class="p">(</span><span class="n">gf</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">Pag</span>   <span class="o">=</span> <span class="n">AG</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">AG</span><span class="p">)</span> <span class="c"># Power of the noise</span>
+<span class="gp">... </span>    <span class="n">COV</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft2</span><span class="p">(</span><span class="n">Pag</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">COV</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Restore smoothed image to unit variance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svar</span> <span class="o">=</span> <span class="n">gauss_2d_varscale</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">svar</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stest_img</span> <span class="o">=</span> <span class="n">stest_img</span> <span class="o">*</span> <span class="n">scf</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># display smoothed image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stest_img</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">set_cmap</span><span class="p">(</span><span class="s">&#39;bone&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Pixel position in X&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Pixel position in Y&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Image 1 - smoothed with Gaussian kernel of FWHM </span><span class="si">%s</span><span class="s"> by </span><span class="si">%s</span><span class="s"> pixels&#39;</span> <span class="o">%</span>
+<span class="gp">... </span>          <span class="p">(</span><span class="n">s_fwhm</span><span class="p">,</span> <span class="n">s_fwhm</span><span class="p">))</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//random_fields-6.png">png</a>, <a class="reference external" href=".//random_fields-6.hires.png">hires.png</a>, <a class="reference external" href=".//random_fields-6.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/random_fields-6.png" src="_images/random_fields-6.png" />
+</div>
+<p>In our smoothed image, as for the mean-by-square image, we no longer
+have 16384 independent observations, but some smaller number, because of
+the averaging across pixels. If we knew how many independent
+observations there were, we could use a Bonferroni correction as we did
+for the mean-by-square example. Unfortunately it is not easy to work out
+how many independent observations there are in a smoothed image. So, we
+must take a different approach to determine our <span class="math">\(Z\)</span> score
+threshold. One approach used by <code class="docutils literal"><span class="pre">SPM</span></code> and other packages is to use
+Random Field Theory (RFT).</p>
+</div>
+<div class="section" id="using-random-field-theory">
+<h2>Using random field theory<a class="headerlink" href="#using-random-field-theory" title="Permalink to this headline">¶</a></h2>
+<p>You can think of the application of RFT as proceeding in three steps.
+First, you determine how many resels there are in your image. Then you
+use the resel count and some sophisticated maths to work out the
+expected <em>Euler characteristic</em> (EC) of your image, when it is
+thresholded at various levels. These expected ECs can be used to give
+the correct threshold for the required control of false positives
+(<span class="math">\(\alpha\)</span>).</p>
+</div>
+<div class="section" id="what-is-a-resel">
+<h2>What is a resel?<a class="headerlink" href="#what-is-a-resel" title="Permalink to this headline">¶</a></h2>
+<p>A resel is a &#8220;resolution element&#8221;. The number of resels in an image is
+similar to the number of independent observations in the image. However,
+they are not the same, as we will see below. A resel is defined as a
+block of pixels of the same size as the FWHM of the smoothness of the
+image. In our smoothed image above, the smoothness of the image is 8
+pixels by 8 pixels (the smoothing that we applied). A resel is therefore
+a 8 by 8 pixel block, and the number of resels in our image is (128 / 8)
+* (128 / 8) = 256. Note that the number of resels depends only on the
+number of pixels, and the FWHM.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># No of resels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">s_fwhm</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span>
+<span class="go">256</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-is-the-euler-characteristic">
+<h2>What is the Euler characteristic?<a class="headerlink" href="#what-is-the-euler-characteristic" title="Permalink to this headline">¶</a></h2>
+<p>The Euler characteristic of an image is a property of the image after it
+has been thresholded. For our purposes, the EC can be thought of as the
+number of blobs in an image after it has been thresholded. This is best
+explained by example. Let us take our smoothed image, and threshold it
+at <span class="math">\(Z &gt; 2.75\)</span>. This means we set to zero all the pixels with
+<span class="math">\(Z\)</span> scores less than or equal to 2.75, and set to one all the
+pixels with <span class="math">\(Z\)</span> scores greater than 2.75.</p>
+<p>We make a function to show the thresholded image:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">show_threshed</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">th</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">thimg</span> <span class="o">=</span> <span class="p">(</span><span class="n">img</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">thimg</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">set_cmap</span><span class="p">(</span><span class="s">&#39;bone&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Pixel position in X&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Pixel position in Y&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Smoothed image thresholded at Z &gt; </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">th</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># threshold at 2.75 and display</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">show_threshed</span><span class="p">(</span><span class="n">stest_img</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//random_fields-9.png">png</a>, <a class="reference external" href=".//random_fields-9.hires.png">hires.png</a>, <a class="reference external" href=".//random_fields-9.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/random_fields-9.png" src="_images/random_fields-9.png" />
+</div>
+<p>Zero in the image displays as black and one as white. In this picture,
+there are some blobs, corresponding to areas with <span class="math">\(Z\)</span> scores
+higher than 2.75. The EC of this image is just the number of blobs. If
+we increase the threshold to <span class="math">\(3.25\)</span>, we find that some of the
+blobs disappear (the highest <span class="math">\(Z\)</span> values at the blob peaks were
+less than 3.25).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># threshold at 3.25 and display</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">show_threshed</span><span class="p">(</span><span class="n">stest_img</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//random_fields-10.png">png</a>, <a class="reference external" href=".//random_fields-10.hires.png">hires.png</a>, <a class="reference external" href=".//random_fields-10.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/random_fields-10.png" src="_images/random_fields-10.png" />
+</div>
+<p>One blob remains; the EC of the image above is therefore 1. It turns out
+that if we know the number of resels in our image, it is possible to
+estimate the most likely value of the EC at any given threshold. The
+formula for this estimate, for two dimensions, is on page 906 of Worsley
+1992, implemented below. The graph shows the expected EC of our smoothed
+image, of 256 resels, when thresholded at different <span class="math">\(Z\)</span> values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># expected EC at various Z thresholds, for two dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">expected_ec_2d</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">resel_count</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c"># From Worsley 1992</span>
+<span class="gp">... </span>    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">resel_count</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">3.</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expEC</span> <span class="o">=</span> <span class="n">expected_ec_2d</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">resels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">expEC</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Z score threshold&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Expected EC for thresholded image&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Expected EC for smoothed image with </span><span class="si">%s</span><span class="s"> resels&#39;</span> <span class="o">%</span> <span class="n">resels</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//random_fields-11.png">png</a>, <a class="reference external" href=".//random_fields-11.hires.png">hires.png</a>, <a class="reference external" href=".//random_fields-11.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/random_fields-11.png" src="_images/random_fields-11.png" />
+</div>
+<p>Note that the graph does a reasonable job of predicting the EC in our
+image; at <span class="math">\(Z = 2.75\)</span> threshold it predicted an EC of 2.8, and at a
+<span class="math">\(Z = 3.25 \)</span> it predicted an EC of 0.74</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">expected_ec_2d</span><span class="p">([</span><span class="mf">2.75</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">],</span> <span class="n">resels</span><span class="p">)</span>
+<span class="go">array([ 2.825 ,  0.7449])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-does-the-euler-characteristic-give-a-z-threshold">
+<h2>How does the Euler characteristic give a Z threshold?<a class="headerlink" href="#how-does-the-euler-characteristic-give-a-z-threshold" title="Permalink to this headline">¶</a></h2>
+<p>The useful feature of the expected EC is this: when the <span class="math">\(Z\)</span>
+thresholds become high and the predicted EC drops towards zero, the
+expected EC is a good approximation of the probability of observing one
+or more blobs at that threshold. So, in the graph above, when the
+<span class="math">\(Z\)</span> threshold is set to 4, the expected EC is 0.06. This can be
+rephrased thus: the probability of getting one or more regions where
+<span class="math">\(Z\)</span> is greater than 4, in a 2D image with 256 resels, is 0.06. So,
+we can use this for thresholding. If <span class="math">\(x\)</span> is the <span class="math">\(Z\)</span> score
+threshold that gives an expected EC of 0.05, then, if we threshold our
+image at <span class="math">\(x\)</span>, we can expect that any blobs that remain have a
+probability of less than or equal to 0.05 that they have occurred by
+chance. The threshold <span class="math">\(x\)</span> depends only on the number of resels in
+our image.</p>
+</div>
+<div class="section" id="is-the-threshold-accurate-show-me">
+<h2>Is the threshold accurate? Show me!<a class="headerlink" href="#is-the-threshold-accurate-show-me" title="Permalink to this headline">¶</a></h2>
+<p>We can test the treshold with a simulation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Simulation to test the RFT threshold.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Find approx threshold from the vector above.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># We&#39;re trying to find the Z value for which the expected EC is 0.05</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">Z</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">expEC</span><span class="o">&lt;=</span><span class="n">alpha</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alphaTH</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">tmp</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;Using Z threshold of </span><span class="si">%f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">alphaTH</span><span class="p">)</span>
+<span class="go">Using Z threshold of 4.054054</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Make lots of smoothed images and find how many have one or more</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># blobs above threshold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">repeats</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">falsepos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">repeats</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">repeats</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">edgepix</span> <span class="o">=</span> <span class="n">s_fwhm</span>  <span class="c"># to add edges to image - see below</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">big_size</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="n">edgepix</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">edgepix</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">edgepix</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">j_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">edgepix</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">edgepix</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeats</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c"># Make random square with extra edges to throw away</span>
+<span class="gp">... </span>    <span class="n">timg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">big_size</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">stimg</span> <span class="o">=</span> <span class="n">spn</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">timg</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;wrap&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># throw away edges to avoid artefactually high values</span>
+<span class="gp">... </span>    <span class="c"># at image edges generated by the smoothing</span>
+<span class="gp">... </span>    <span class="n">stimg</span> <span class="o">=</span> <span class="n">stimg</span><span class="p">[</span><span class="n">i_slice</span><span class="p">,</span> <span class="n">j_slice</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="c"># Reset variance using scale factor from calculation above</span>
+<span class="gp">... </span>    <span class="n">stimg</span> <span class="o">*=</span> <span class="n">scf</span>
+<span class="gp">... </span>    <span class="n">falsepos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">stimg</span> <span class="o">&gt;=</span> <span class="n">alphaTH</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">maxes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stimg</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;False positive rate in simulation was </span><span class="si">%s</span><span class="s"> (</span><span class="si">%s</span><span class="s"> expected)&#39;</span> <span class="o">%</span>
+<span class="gp">... </span>      <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">falsepos</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">repeats</span><span class="p">),</span> <span class="n">alpha</span><span class="p">))</span>
+<span class="go">False positive rate in simulation was 0.049 (0.05 expected)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-does-the-random-field-correction-compare-to-the-bonferroni-correction">
+<h2>How does the random field correction compare to the Bonferroni correction?<a class="headerlink" href="#how-does-the-random-field-correction-compare-to-the-bonferroni-correction" title="Permalink to this headline">¶</a></h2>
+<p>I stated above that the resel count in an image is not exactly the same
+as the number of independent observations. If it was the same, then
+instead of using RFT for the expected EC, we could use a Bonferroni
+correction for the number of resels. However, these two corrections give
+different answers. Thus, for an alpha of 0.05, the <span class="math">\(Z\)</span> threshold
+according to RFT, for our 256 resel image, is <span class="math">\(Z=4.05\)</span>. However,
+the Bonferroni threshold, for 256 independent tests, is 0.05/256 =
+[<span class="math">\(Z\)</span> equivalent] 3.55. So, although the RFT maths gives us a
+Bonferroni-like correction, it is not the same as a Bonferroni
+correction. As you can see from the simulation above, the random field
+correction gives a threshold very close the the observed value for a
+sequence of smoothed images. A Bonferroni correction with the resel
+count gives a much lower threshold and would therefore be way off the
+correct threshold for 0.05 false positive rate.</p>
+</div>
+<div class="section" id="to-three-dimensions">
+<h2>To three dimensions<a class="headerlink" href="#to-three-dimensions" title="Permalink to this headline">¶</a></h2>
+<p>Exactly the same principles apply to a smoothed random number image in
+three dimensions. In this case, the EC is the number of 3D blobs -
+perhaps &#8220;globules&#8221; - of <span class="math">\(Z\)</span> scores above a certain threshold.
+Pixels might better be described as voxels (pixels with volume). The
+resels are now in 3D, and one resel is a cube of voxels that is of size
+(FWHM in x) by (FWHM in y) by (FWHM in z). The formula for the expected
+EC is different in the 3D case, but still depends only on the resels in
+the image. If we find the threshold giving an expected EC of 0.05, in
+3D, we have a threshold above which we can expect that any remaining
+<span class="math">\(Z\)</span> scores are unlikely to have occurred by chance, with a
+<span class="math">\(p&lt;0.05\)</span>.</p>
+</div>
+<div class="section" id="more-sophisticated-random-fielding">
+<h2>More sophisticated random fielding<a class="headerlink" href="#more-sophisticated-random-fielding" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="random-fields-and-search-volumes">
+<h3>Random fields and search volumes<a class="headerlink" href="#random-fields-and-search-volumes" title="Permalink to this headline">¶</a></h3>
+<p>I oversimplified when I said above that the expected EC depends only on
+the number of resels in the image. In fact, this is an approximation,
+which works well when the volume that we are looking at has a reasonable
+number of resels. This is true for our two dimensional example, where
+the FWHM was 8 and our image was 128 by 128. However, the precise EC
+depends not only on the number of resels, but the shape of the volume in
+which the resels are contained. It is possible to derive a formula for
+the expected EC, based on the number of resels in the area we are
+thresholding, and the shape of the area (see Worsley 1996). This formula
+is more precise than the formula taking account of the number of resels
+alone. When the area to be thresholded is large, compared to the FWHM,
+as is the case when we are thresholding the whole brain, the two
+formulae give very similar results. However, when the volume for
+thresholding is small, the formulae give different results, and the
+shape of the area must be taken into account. This is the case when you
+require a threshold for a small volume, such as a region of interest.</p>
+</div>
+<div class="section" id="t-and-f-statistic-volumes">
+<h3>t and F statistic volumes<a class="headerlink" href="#t-and-f-statistic-volumes" title="Permalink to this headline">¶</a></h3>
+<p>Keith Worsley&#8217;s 1996 paper gives the random field formulae for <span class="math">\(t\)</span>
+and <span class="math">\(F\)</span> statistics. <code class="docutils literal"><span class="pre">SPM</span></code> and other imaging packages generate
+<span class="math">\(t\)</span> and <span class="math">\(F\)</span> statistics maps. They use the random fields
+formulae for <span class="math">\(t\)</span>, <span class="math">\(F\)</span> to work out the corrected
+(family-wise) error rate at each <span class="math">\(t\)</span>, <span class="math">\(F\)</span> value.</p>
+</div>
+<div class="section" id="estimated-instead-of-assumed-smoothness">
+<h3>Estimated instead of assumed smoothness<a class="headerlink" href="#estimated-instead-of-assumed-smoothness" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">SPM</span></code> and other packages also <em>estimate</em> how smooth the images are,
+rather than assuming the smoothness as we have done here. <code class="docutils literal"><span class="pre">SPM</span></code> in
+particular looks at the the residuals from the statistical analysis to
+calculate the smoothness of the image, in terms of FWHM. From these
+calculations it derives estimates for the FWHM in x, y and z. Other than
+this, the corrected statistics are calculated just as described above.</p>
+</div>
+</div>
+<div class="section" id="a-brain-activation-example-in-spm">
+<h2>A brain activation example in SPM<a class="headerlink" href="#a-brain-activation-example-in-spm" title="Permalink to this headline">¶</a></h2>
+<p>Here is an <code class="docutils literal"><span class="pre">SPM8</span></code> results printout for a first level FMRI analysis.</p>
+<img src="_images/spm_t_results.svg" /><p>You will see the FWHM values at the bottom of the page - here they are
+4.1 voxels in x, 4.0 voxels in y, and 4.1 voxels in z. These values are
+rounded; I can get the exact values from MATLAB by looking at
+<code class="docutils literal"><span class="pre">xSPM.FWHM</span></code>. These are:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0528</span><span class="p">,</span> <span class="mf">4.0172</span><span class="p">,</span> <span class="mf">4.1192</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>A resel is therefore a block of volume approx:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resel_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">FWHM</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">resel_volume</span><span class="p">)</span>
+<span class="go">67.0643168927</span>
+</pre></div>
+</div>
+<p>That&#8217;s the value you see at the bottom the SPM printout after
+<code class="docutils literal"><span class="pre">resel</span> <span class="pre">=</span></code>. The resel count of 592.9 in the printout comes from a
+calculation based on this estimated FWHM smoothness and the shape of the
+brain. In other words it applies the search volume correction I
+mentioned above. If it did not apply this correction then the resel
+count would simply be the number of voxels divided by the resel volume:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="mi">44532</span> <span class="o">/</span> <span class="n">resel_volume</span><span class="p">)</span>
+<span class="go">664.019288697</span>
+</pre></div>
+</div>
+<p>The table gives statistics for each detected cluster in the analysis,
+ordered by significance level. Each line in bold in the table is the
+peak voxel for a particular cluster. Lines in standard type are
+sub-clusters within the same cluster.</p>
+<p>Look at the peak voxel for the third-most significant cluster. This is
+the third bold line in the table, and the seventh line overall. On the
+left-hand side of the table, you see the values for the &#8220;peak-level&#8221;
+statistics. The extreme left gives the voxel location in millimeters.
+Our voxel of interest is at location x=-42, y=18, z=3.</p>
+<p>The value in the &#8220;T&#8221; column for this voxel is 4.89. This is the raw
+<span class="math">\(t\)</span> statistic. The column <span class="math">\(P_{FWE-corr}\)</span> gives the random
+field corrected <span class="math">\(p\)</span> value. In this case the value is 0.037. 0.037
+is the expected EC, in a 3D image of 592.9 resels when thresholded at
+<span class="math">\(t = 4.89\)</span>. This is equivalent to saying that the probability of
+getting one or more blobs of <span class="math">\(t\)</span> value 4.89 or greater, is 0.037.</p>
+<p>There are other corrected <span class="math">\(p\)</span> values here, based on cluster size,
+and based on the false discovery rate, but I didn&#8217;t cover those
+corrections here.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>Worsley, K.J., Marrett, S., Neelin, P., and Evans, A.C. (1992). <a class="reference external" href="http://www.math.mcgill.ca/~keith/jcbf/jcbf.abstract.html">A
+three-dimensional statistical analysis for CBF activation studies in
+human
+brain</a>
+Journal of Cerebral Blood Flow and Metabolism, 12:900-918.</p>
+<p>Worsley, K.J., Marrett, S., Neelin, P., Vandal, A.C., Friston, K.J., and
+Evans, A.C. (1996). <a class="reference external" href="http://www.math.mcgill.ca/~keith/unified/unified.abstract.html">A unified statistical approach for determining
+significant signals in images of cerebral
+activation</a>
+Human Brain Mapping, 4:58-73.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Thresholding with random field theory</a><ul>
+<li><a class="reference internal" href="#the-problem">The problem</a></li>
+<li><a class="reference internal" href="#the-multiple-comparison-problem">The multiple comparison problem</a></li>
+<li><a class="reference internal" href="#why-not-a-bonferroni-correction">Why not a Bonferroni correction?</a></li>
+<li><a class="reference internal" href="#spatial-correlation">Spatial correlation</a></li>
+<li><a class="reference internal" href="#spatial-correlation-and-independent-observations">Spatial correlation and independent observations</a></li>
+<li><a class="reference internal" href="#smoothed-images-and-independent-observations">Smoothed images and independent observations</a></li>
+<li><a class="reference internal" href="#using-random-field-theory">Using random field theory</a></li>
+<li><a class="reference internal" href="#what-is-a-resel">What is a resel?</a></li>
+<li><a class="reference internal" href="#what-is-the-euler-characteristic">What is the Euler characteristic?</a></li>
+<li><a class="reference internal" href="#how-does-the-euler-characteristic-give-a-z-threshold">How does the Euler characteristic give a Z threshold?</a></li>
+<li><a class="reference internal" href="#is-the-threshold-accurate-show-me">Is the threshold accurate? Show me!</a></li>
+<li><a class="reference internal" href="#how-does-the-random-field-correction-compare-to-the-bonferroni-correction">How does the random field correction compare to the Bonferroni correction?</a></li>
+<li><a class="reference internal" href="#to-three-dimensions">To three dimensions</a></li>
+<li><a class="reference internal" href="#more-sophisticated-random-fielding">More sophisticated random fielding</a><ul>
+<li><a class="reference internal" href="#random-fields-and-search-volumes">Random fields and search volumes</a></li>
+<li><a class="reference internal" href="#t-and-f-statistic-volumes">t and F statistic volumes</a></li>
+<li><a class="reference internal" href="#estimated-instead-of-assumed-smoothness">Estimated instead of assumed smoothness</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-brain-activation-example-in-spm">A brain activation example in SPM</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/random_fields.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/random_fields.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

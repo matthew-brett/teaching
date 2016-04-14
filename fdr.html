@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Thresholding with false discovery rate &mdash; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+    <link rel="prev" title="Notes on the Bonferroni threshold" href="bonferroni_correction.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="thresholding-with-false-discovery-rate">
+<h1>Thresholding with false discovery rate<a class="headerlink" href="#thresholding-with-false-discovery-rate" title="Permalink to this headline">¶</a></h1>
+<p>With J-B Poline.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<p>The false discovery rate is a different <em>type</em> of correction than
+family-wise correction. Instead of controlling for the risk of <em>any
+tests</em> falsely being declared significant under the null hypothesis, FDR
+will control the <em>number of tests falsely declared significant as a
+proportion of the number of all tests declared significant</em>.</p>
+<p>A basic idea on how the FDR works is the following.</p>
+<p>We have got a large number of p values from a set of individual tests.
+These might be p values from tests on a set of brain voxels.</p>
+<p>We are trying to a find a p value threshold <span class="math">\(\theta\)</span> to do a
+reasonable job of distinguishing true positive tests from true
+negatives. p values that are less than or equal to <span class="math">\(\theta\)</span> are
+<em>detections</em> and <span class="math">\(\theta\)</span> is a <em>detection threshold</em>.</p>
+<p>We want to choose a detection threshold that will only allow a small
+number of false positive detections.</p>
+<p>A <em>detection</em> can also be called a <em>discovery</em>; hence false discovery
+rate.</p>
+<p>For the FDR, we will try to find a p value within the family of tests
+(the set of p values), that we can use as a detection threshold.</p>
+<p>Let&#8217;s look at the p value for a particular test. Let&#8217;s say there are
+<span class="math">\(N\)</span> tests, indexed with <span class="math">\(i \in 1 .. N\)</span>. We look at a test
+<span class="math">\(i\)</span>, and consider using p value from this test as a detection
+threshold; <span class="math">\(\theta = p(i)\)</span>. The expected number of false positives
+(FP) in N tests at this detection threshold would be:</p>
+<div class="math">
+\[E(FP) = N p(i)\]</div>
+<p>For example, if we had 100 tests, and the particular p value
+<span class="math">\(p(i)\)</span> was 0.1, then the expected number of false positive
+detections, thresholding at 0.1, is 0.1 * 100 = 10.</p>
+<p>Let&#8217;s take some data from a random normal distribution to illustrate:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c"># so we always get the same random numbers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Turn the Z values into p values:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="kn">as</span> <span class="nn">sst</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normal_distribution</span> <span class="o">=</span> <span class="n">sst</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span> <span class="c">#loc is the mean, scale is the variance.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># The normal CDF</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p_values</span> <span class="o">=</span> <span class="n">normal_distribution</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z_values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To make it easier to show, we sort the p values from smallest to
+largest:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">p_values</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="c"># the 1-based i index of the p values, as in p(i)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;$i$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;p value&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fdr-4.png">png</a>, <a class="reference external" href=".//fdr-4.hires.png">hires.png</a>, <a class="reference external" href=".//fdr-4.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fdr-4.png" src="_images/fdr-4.png" />
+</div>
+<p>Notice the (more or less) straight line of p value against <span class="math">\(i\)</span>
+index in this case, where there is no signal in the random noise.</p>
+<p>We want to find a p value threshold <span class="math">\(p(i)\)</span> where there is only a
+small <em>proportion</em> of false positives among the detections. For example,
+we might accept a threshold such that 5% of all detections (discoveries)
+are likely to be false positives. If <span class="math">\(d\)</span> is the number of
+discoveries at threshold <span class="math">\(\theta\)</span>, and <span class="math">\(q\)</span> is the proportion
+of false positives we will accept (e.g. 0.05), then we want a threshold
+<span class="math">\(\theta\)</span> such that <span class="math">\(E(FP) / d &lt; q\)</span> where <span class="math">\(E(x)\)</span> is the
+expectation of <span class="math">\(x\)</span>, here the number of FP I would get <em>on average</em>
+if I was to repeat my experiment many times.</p>
+<p>So - what is <span class="math">\(d\)</span> in the plot above? Now that we have ordered the p
+values, for any index <span class="math">\(i\)</span>, if we threshold at
+<span class="math">\(\theta \le p(i)\)</span> we will have <span class="math">\(i\)</span> detections
+(<span class="math">\(d = i\)</span>). Therefore we want to find the largest <span class="math">\(p(i)\)</span> such
+that <span class="math">\(E(FP) / i &lt; q\)</span>. We know <span class="math">\(E(FP) = N p(i)\)</span> so we want
+the largest <span class="math">\(p(i)\)</span> such that:</p>
+<div class="math">
+\[\begin{split}N p(i) / i &lt; q \implies p(i) &lt; q i / N\end{split}\]</div>
+<p>Let&#8217;s take <span class="math">\(q\)</span> (the proportion of false discoveries = detections)
+as 0.05. We plot <span class="math">\(q i / N\)</span> (in red) on the same graph as
+<span class="math">\(p(i)\)</span> (in blue):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="s">&#39;b.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$p(i)$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">q</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$q i / N$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;$i$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;$p$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fdr-5.png">png</a>, <a class="reference external" href=".//fdr-5.hires.png">hires.png</a>, <a class="reference external" href=".//fdr-5.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fdr-5.png" src="_images/fdr-5.png" />
+</div>
+<p>Our job is to look for the largest <span class="math">\(p(i)\)</span> value (blue dot) that is
+still underneath <span class="math">\(q i / N\)</span> (the red line).</p>
+<p>The red line <span class="math">\(q i / N\)</span> is the acceptable number of false positives
+<span class="math">\(q i\)</span> as a proportion of all the tests <span class="math">\(N\)</span>. Further to the
+right on the red line corresponds to a larger acceptable number of false
+positives. For example, for <span class="math">\(i = 1\)</span>, the acceptable number of
+false positives <span class="math">\(q * i\)</span> is <span class="math">\(0.05 * 1\)</span>, but at
+<span class="math">\(i = 50\)</span>, the acceptable number of expected false positives
+<span class="math">\(q * i\)</span> is <span class="math">\(0.05 * 50 = 2.5\)</span>.</p>
+<p>Notice that, if only the first p value passes threshold, then
+<span class="math">\(p(1) &lt; q \space 1 \space / \space N\)</span>. So, if <span class="math">\(q = 0.05\)</span>,
+<span class="math">\(p(1) &lt; 0.05 / N\)</span>. This is the Bonferroni correction for <span class="math">\(N\)</span>
+tests.</p>
+<p>The FDR becomes more interesting when there is signal in the noise. In
+this case there will be p values that are smaller than expected on the
+null hypothesis. This causes the p value line to start below the
+diagonal on the ordered plot, because of the high density of low p
+values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">N_signal</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">N_noise</span> <span class="o">=</span> <span class="n">N</span> <span class="o">-</span> <span class="n">N_signal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">noise_z_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N_noise</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Add some signal with very low z scores / p values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_z_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=-</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N_signal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mixed_z_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">noise_z_values</span><span class="p">,</span> <span class="n">signal_z_values</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mixed_p_values</span> <span class="o">=</span> <span class="n">normal_distribution</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">mixed_z_values</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">mixed_p_values</span><span class="p">,</span> <span class="s">&#39;b.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$p(i)$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">q</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$q i / N$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;$i$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;$p$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fdr-6.png">png</a>, <a class="reference external" href=".//fdr-6.hires.png">hires.png</a>, <a class="reference external" href=".//fdr-6.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fdr-6.png" src="_images/fdr-6.png" />
+</div>
+<p>The interesting part is the beginning of the graph, where the blue p
+values stay below the red line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">first_i</span> <span class="o">=</span> <span class="n">i</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">first_i</span><span class="p">,</span> <span class="n">mixed_p_values</span><span class="p">[:</span><span class="mi">30</span><span class="p">],</span> <span class="s">&#39;b.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$p(i)$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">first_i</span><span class="p">,</span> <span class="n">q</span> <span class="o">*</span> <span class="n">first_i</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$q i / N$&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;$i$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;$p$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//fdr-7.png">png</a>, <a class="reference external" href=".//fdr-7.hires.png">hires.png</a>, <a class="reference external" href=".//fdr-7.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/fdr-7.png" src="_images/fdr-7.png" />
+</div>
+<p>We are looking for the largest <span class="math">\(p(i) &lt; qi/N\)</span>, which corresponds to
+the last blue point below the red line.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">below</span> <span class="o">=</span> <span class="n">mixed_p_values</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span> <span class="c"># True where p(i)&lt;qi/N</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">max_below</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">below</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="c"># Max Python array index where p(i)&lt;qi/N</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;p_i:&#39;</span><span class="p">,</span> <span class="n">mixed_p_values</span><span class="p">[</span><span class="n">max_below</span><span class="p">])</span>
+<span class="go">p_i: 0.00323007466783</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;i:&#39;</span><span class="p">,</span> <span class="n">max_below</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># Python indices 0-based, we want 1-based</span>
+<span class="go">i: 9</span>
+</pre></div>
+</div>
+<p>The Bonferroni threshold is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mf">0.05</span> <span class="o">/</span> <span class="n">N</span>
+<span class="go">0.0005</span>
+</pre></div>
+</div>
+<p>In this case, where there is signal in the noise, the FDR threshold
+<em>adapts</em> to the presence of the signal, by taking into account that some
+values have small enough p values that they can be assumed to be signal,
+so that there are fewer noise comparisons to correct for, and the
+threshold is correspondingly less stringent.</p>
+<p>As the FDR threshold becomes less stringent, the number of detections
+increases, and the expected number of false positive detections
+increases, because the FDR controls the <em>proportion</em> of false positives
+in the detections. In our case, the expected number of false positives
+in the detections is <span class="math">\(q i = 0.05 * 9 = 0.45\)</span>. In other words, at
+this threshold, we have a 45% chance of seeing a false positive among
+the detected positive tests.</p>
+<p>So, there are a number of interesting properties of the FDR - and some
+not so interesting if you want to do brain imaging.</p>
+<ul class="simple">
+<li>In the case of no signal at all, the FDR threshold will be the
+Bonferroni threshold</li>
+<li>Under some conditions (see Benjamini and hochberg, JRSS-B 1995), the
+FDR threshold can be applied to correlated data</li>
+<li>FDR is an &#8220;adaptive&#8221; threshold</li>
+</ul>
+<p>Not so &#8220;interesting&#8221;</p>
+<ul class="simple">
+<li>FDR can be very variable</li>
+<li>When there are lots of true positives, and many detections, the
+number of false positive detections increases. This can make FDR
+detections more difficult to interpret.</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="bonferroni_correction.html" title="previous chapter">Notes on the Bonferroni threshold</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/fdr.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/fdr.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

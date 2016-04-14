@@ -79,8 +79,8 @@ The Bonferroni correction
 :math:`\newcommand{\P}{\mathbb P}` The Bonferroni correction uses a
 result from probability theory, called Boole's inequality. The result is
 by George Boole, of *boolean* fame. Boole's inequality applies to the
-situation where we have a set of events $A\_1, A\_2, A\_3, ... $, each
-with some probability of occurring ${P}(A\_1), {P}(A\_2), {P}(A\_3) ...
+situation where we have a set of events $A_1, A_2, A_3, \ldots $, each
+with some probability of occurring ${P}(A_1), {P}(A_2), {P}(A_3) \ldots
 $. The inequality states that the probability of one or more of these
 events occurring is no greater than the sum of the probabilities of the
 individual events:
