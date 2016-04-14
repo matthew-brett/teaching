@@ -3,8 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+###############################################
 Tutorials on imaging, computing and mathematics
-===============================================
+###############################################
 
 Mathematics
 ===========
@@ -12,6 +13,7 @@ Mathematics
 * :doc:`notation`;
 * :doc:`some_sums`;
 * :doc:`angle_sum`;
+* :doc:`rotation_2d`;
 * :doc:`sums_of_cosines`;
 * :doc:`on_vectors`;
 * :doc:`simple_complex`;
@@ -26,7 +28,10 @@ Statistics
 Imaging
 =======
 
+* `Coordinate systems and affine transforms
+  <http://nipy.org/nibabel/coordinate_systems.html>`_;
 * :doc:`slice_timing`;
+* :doc:`optimizing_space`;
 * :doc:`smoothing_intro`;
 * :doc:`on_convolution`;
 * :doc:`smoothing_as_convolution`;
@@ -34,6 +39,12 @@ Imaging
 * :doc:`bonferroni_correction`;
 * :doc:`fdr`;
 * :doc:`random_fields`.
+
+Computing
+=========
+
+* :doc:`floating_point`;
+* :doc:`floating_error`.
 
 .. The hidden toctree below is to suppress build warnings
 
@@ -58,3 +69,9 @@ Imaging
     correlated_regressors
     bonferroni_correction
     fdr
+    slice_timing
+    optimizing_space
+    random_fields
+    rotation_2d
+    floating_point
+    floating_error
