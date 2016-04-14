@@ -26,6 +26,7 @@ Statistics
 Imaging
 =======
 
+* :doc:`slice_timing`;
 * :doc:`smoothing_intro`;
 * :doc:`on_convolution`;
 * :doc:`smoothing_as_convolution`;
