@@ -31,7 +31,8 @@ Imaging
 * :doc:`smoothing_as_convolution`;
 * :doc:`correlated_regressors`;
 * :doc:`bonferroni_correction`;
-* :doc:`fdr`.
+* :doc:`fdr`;
+* :doc:`random_fields`.
 
 .. The hidden toctree below is to suppress build warnings
 
