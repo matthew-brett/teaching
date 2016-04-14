@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Formula for rotating a vector in 2D &mdash; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="formula-for-rotating-a-vector-in-2d">
+<h1>Formula for rotating a vector in 2D<a class="headerlink" href="#formula-for-rotating-a-vector-in-2d" title="Permalink to this headline">¶</a></h1>
+<p>Let&#8217;s say we have a point <span class="math">\((x_1, y_1)\)</span>.  The point also defines the vector <span class="math">\((x_1, y_1)\)</span>.</p>
+<p>We rotate this vector anticlockwise around the origin by <span class="math">\(\beta\)</span> degrees.</p>
+<p>The rotated vector has coordinates <span class="math">\((x_2, y_2)\)</span>.</p>
+<p>Can we get the coordintes of <span class="math">\((x_2, y_2)\)</span> given <span class="math">\((x_1, y_1)\)</span> and <span class="math">\(\beta\)</span>?</p>
+<img alt="_images/rotation_2d.png" src="_images/rotation_2d.png" />
+<p><span class="math">\(L\)</span> is the length of the vectors <span class="math">\((x_1, y_1)\)</span> and <span class="math">\((x_2, y_2)\)</span> : <span class="math">\(L =
+\|(x_1, y_1)\| = \|(x_2, y_2)\|\)</span>.</p>
+<p><span class="math">\(\alpha\)</span> is the angle between the x axis and <span class="math">\((x_1, y_1)\)</span>.</p>
+<p>We can see from the picture that:</p>
+<div class="math">
+\[x_2 = r - u\]\[y_2 = t + s\]</div>
+<p>We are going to use some basic trigonometry to get the lengths of <span class="math">\(r, u, t,
+s\)</span>.</p>
+<p>Because the angles in a triangle sum to 180 degrees, <span class="math">\(\phi\)</span> on the picture is
+<span class="math">\(90 - \alpha\)</span> and therefore the angle between lines <span class="math">\(q, t\)</span> is also <span class="math">\(\alpha\)</span>.</p>
+<p>Remembering the definitions of <span class="math">\(\cos\)</span> and <span class="math">\(\sin\)</span>:</p>
+<div class="math">
+\[\cos\theta = \frac{A}{H} \implies A = \cos \theta H\]\[\sin\theta = \frac{O}{H} \implies O = \sin \theta H\]</div>
+<p>Thus:</p>
+<div class="math">
+\[x_1 = \cos \alpha L\]\[y_1 = \sin \alpha L\]\[p = \cos \beta L\]\[q = \sin \beta L\]\[r = \cos \alpha p = \cos \alpha \cos \beta L = \cos \beta x_1\]\[s = \sin \alpha p = \sin \alpha \cos \beta L = \cos \beta y_1\]\[t = \cos \alpha q = \cos \alpha \sin \beta L = \sin \beta x_1\]\[u = \sin \alpha q = \sin \alpha \sin \beta L = \sin \beta y_1\]</div>
+<p>So:</p>
+<div class="math">
+\[x_2 = r - u = \cos \beta x_1 - \sin \beta y_1\]\[y_2 = t + s = \sin \beta x_1 + \cos \beta y_1\]</div>
+<p>Luckily this is the same result as <a class="reference external" href="https://en.wikipedia.org/wiki/Rotation_matrix">wikipedia on rotation matrices</a>.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rotation_2d.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/rotation_2d.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

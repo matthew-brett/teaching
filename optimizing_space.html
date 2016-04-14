@@ -1,0 +1,823 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Calculating transformations between images &mdash; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="calculating-transformations-between-images">
+<h1>Calculating transformations between images<a class="headerlink" href="#calculating-transformations-between-images" title="Permalink to this headline">¶</a></h1>
+<p>In which we discover optimization, cost functions and how to use them.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># - compatibility with Python 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>  <span class="c"># print(&#39;me&#39;) instead of print &#39;me&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>  <span class="c"># 1/2 == 0.5, not 0</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># - import common modules</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>  <span class="c"># the Python array package</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>  <span class="c"># the Python plotting package</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># - set gray colormap and nearest neighbor interpolation by default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;image.cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;image.interpolation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;nearest&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Tell numpy to print numbers to 4 decimal places only</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>We often want to work out some set of spatial transformations that will
+make one image be a better match to another.</p>
+<p>One example is motion correction in FMRI. We know that the subject moves
+over the course of an FMRI run. To correct for this, we may want to take
+each volume in the run, and match this volume to the first volume in the
+run. To do this, we need to work out what the best set of
+transformations are to match - say - volume 1 to volume 0.</p>
+</div>
+<div class="section" id="get-the-data">
+<h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h2>
+<p>We start with a single slice from the each of the first two volumes in
+the EPI (BOLD) data.</p>
+<p>We load the 4D EPI image, and get the data:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="kn">as</span> <span class="nn">nib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;ds107_sub012_t1r2.nii&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(64, 64, 35, 166)</span>
+</pre></div>
+</div>
+<p>We need to make our data into floating point to make processing easier
+later</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Get the first and second volumes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vol0</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vol1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vol1</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(64, 64, 35)</span>
+</pre></div>
+</div>
+<p>Now we get our slices. Here I am getting slice index 17 in z, from the
+first volume:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mid_vol0</span> <span class="o">=</span> <span class="n">vol0</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">17</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mid_vol0</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-8.png">png</a>, <a class="reference external" href=".//optimizing_space-8.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-8.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-8.png" src="_images/optimizing_space-8.png" />
+</div>
+<p>Here is the corresponding slice from volume 1:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mid_vol1</span> <span class="o">=</span> <span class="n">vol1</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">17</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mid_vol1</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-9.png">png</a>, <a class="reference external" href=".//optimizing_space-9.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-9.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-9.png" src="_images/optimizing_space-9.png" />
+</div>
+<p>We might want to match these two slices so they are in the same
+position. We will try and match the slices by moving the voxel values in
+slice 1 so that they are a better match to the voxel values in slice 0.
+Our job is to find the best set of transformations to do this.</p>
+<p>We would like to have some automatic way to calculate these
+transformations.</p>
+<p>The rest of this page is about how this automated method could (and
+does) work.</p>
+<p>At the moment it is hard to see any difference between the two images.
+That is still true even if we put the slices side by side:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mid_vol0</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;slice 0&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mid_vol1</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;slice 1&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-10.png">png</a>, <a class="reference external" href=".//optimizing_space-10.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-10.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-10.png" src="_images/optimizing_space-10.png" />
+</div>
+<p>The slices are very similar, because the movement between the two
+volumes is very small - often the movements in an FMRI run are less than
+a single voxel.</p>
+<p>In order to show the automated matching procedure in action, let&#8217;s start
+with an image that is obviously badly matched with slice 0. We will do
+this by pushing slice 0 (<code class="docutils literal"><span class="pre">mid_vol1</span></code>) 8 voxels down.</p>
+<p>After that we will try to match the shifted version
+(<code class="docutils literal"><span class="pre">shifted_mid_vol1</span></code>) to <code class="docutils literal"><span class="pre">mid_vol0</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Make slice full of zeros like mid_vol1 slice</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted_mid_vol1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">mid_vol1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Fill the lower 54 (of 64) x lines with mid_vol1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted_mid_vol1</span><span class="p">[</span><span class="mi">8</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">mid_vol1</span><span class="p">[:</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="p">:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Now we have something like mid_vol1 but translated</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># in the first dimension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-11.png">png</a>, <a class="reference external" href=".//optimizing_space-11.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-11.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-11.png" src="_images/optimizing_space-11.png" />
+</div>
+</div>
+<div class="section" id="formulating-the-matching-problem">
+<h2>Formulating the matching problem<a class="headerlink" href="#formulating-the-matching-problem" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s say we did not know how many voxels the image had been translated.
+We want a good way to find out.</p>
+<p>Let&#8217;s put our problem in a more concrete form. We are going to try
+translating our <code class="docutils literal"><span class="pre">shifted_mid_vol1</span></code> over the first (<span class="math">\(x\)</span>) axis.
+Call this translation <span class="math">\(t\)</span>, so a movement of -5 voxels in <span class="math">\(x\)</span>
+gives <span class="math">\(t=-5\)</span>.</p>
+<p>Call the first image <span class="math">\(\mathbf{X}\)</span> (<code class="docutils literal"><span class="pre">mid_vol0</span></code> in our case). Call
+the second image <span class="math">\(\mathbf{Y}\)</span> (<code class="docutils literal"><span class="pre">shifted_mid_vol1</span></code> in our case).
+<span class="math">\(\mathbf{Y}_t\)</span> is <span class="math">\(\mathbf{Y}\)</span> translated in <span class="math">\(x\)</span> by
+<span class="math">\(t\)</span> voxels.</p>
+<p><span class="math">\(t\)</span> is a good translation if the image <span class="math">\(\mathbf{Y}_t\)</span> is a
+good match for image <span class="math">\(\mathbf{X}\)</span>.</p>
+<p>We need to quantify what we mean by good match. That is, we need some
+measure of quality of match, given two images <span class="math">\(\mathbf{X}\)</span> and
+<span class="math">\(\mathbf{Y}\)</span>. Call this measure <span class="math">\(M(\mathbf{X}, \mathbf{Y})\)</span>,
+and let us specify that the value of <span class="math">\(M(\mathbf{X}, \mathbf{Y})\)</span>
+should be lower when the images match well. We could therefore call
+<span class="math">\(M(\mathbf{X}, \mathbf{Y})\)</span> a <em>mismatch</em> function.</p>
+<p>Now we can formulate our problem - we want to find the translation
+<span class="math">\(t\)</span> that gives the lowest value of
+<span class="math">\(M(\mathbf{X}, \mathbf{Y_t})\)</span>.</p>
+<p>Practically, we are going to need the following things:</p>
+<ul class="simple">
+<li>A function to generate <span class="math">\(\mathbf{Y_t}\)</span>;</li>
+<li>A function to give the mismatch between two images.</li>
+</ul>
+<p>Here&#8217;s the function to generate <span class="math">\(\mathbf{Y_t}\)</span> - the image
+<span class="math">\(\mathbf{Y}\)</span> shifted by <span class="math">\(t\)</span> voxels in <span class="math">\(x\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">x_trans_slice</span><span class="p">(</span><span class="n">img_slice</span><span class="p">,</span> <span class="n">x_vox_trans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Make a new copy of `img_slice` translated by `x_vox_trans` voxels</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">    `x_vox_trans` can be positive or negative</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="c"># Make a 0-filled array of same shape as `img_slice`</span>
+<span class="gp">... </span>    <span class="n">trans_slice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">img_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># Use slicing to select voxels out of the image and move them</span>
+<span class="gp">... </span>    <span class="c"># Up or down on the first (x) axis</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">x_vox_trans</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">trans_slice</span><span class="p">[:</span><span class="n">x_vox_trans</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">img_slice</span><span class="p">[</span><span class="o">-</span><span class="n">x_vox_trans</span><span class="p">:,</span> <span class="p">:]</span>
+<span class="gp">... </span>    <span class="k">elif</span> <span class="n">x_vox_trans</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">trans_slice</span><span class="p">[:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">img_slice</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">trans_slice</span><span class="p">[</span><span class="n">x_vox_trans</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">img_slice</span><span class="p">[:</span><span class="o">-</span><span class="n">x_vox_trans</span><span class="p">,</span> <span class="p">:]</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">trans_slice</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="choosing-a-metric-for-image-mismatch">
+<h2>Choosing a metric for image mismatch<a class="headerlink" href="#choosing-a-metric-for-image-mismatch" title="Permalink to this headline">¶</a></h2>
+<p>Next we need a mismatch function that accepts two images, and returns a
+scalar value that is low when the images are well matched.</p>
+<p>We could imagine a mismatch measure that used the values from
+subtracting the two images:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mid_vol0</span> <span class="o">-</span> <span class="n">shifted_mid_vol1</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-13.png">png</a>, <a class="reference external" href=".//optimizing_space-13.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-13.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-13.png" src="_images/optimizing_space-13.png" />
+</div>
+<p>Can we take the sum of this difference as our scalar measure of
+mismatch?</p>
+<p>No, because the negative numbers (black) will cancel out the positive
+numbers (white). We need something better:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mean_abs_mismatch</span><span class="p">(</span><span class="n">slice0</span><span class="p">,</span> <span class="n">slice1</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Mean absoute difference between images</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">slice0</span> <span class="o">-</span> <span class="n">slice1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Now we can check different values of translation with our mismatch
+function. We move the image up and down for a range of values of
+<span class="math">\(t\)</span> and recalculate the mismatch measure for every candidate
+translation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mismatches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c"># Candidate values for t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">translations</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="c"># Make the translated image Y_t</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">x_trans_slice</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># Calculate the mismatch</span>
+<span class="gp">... </span>    <span class="n">mismatch</span> <span class="o">=</span> <span class="n">mean_abs_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">mid_vol0</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># Store it for later</span>
+<span class="gp">... </span>    <span class="n">mismatches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mismatch</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">translations</span><span class="p">,</span> <span class="n">mismatches</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;translation (t)&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;mean absolute difference&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-16.png">png</a>, <a class="reference external" href=".//optimizing_space-16.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-16.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-16.png" src="_images/optimizing_space-16.png" />
+</div>
+<p>We can try other measures of mismatch. Another measure of how well the
+images match might be the correlation of the voxel values at each voxel.
+When the images are well matched, we expect black values in one image to
+be matched with black in the other, ditto for white.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Number of voxels in the image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_voxels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">mid_vol1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Reshape vol0 slice as 1D vector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mid_vol0_as_1d</span> <span class="o">=</span> <span class="n">mid_vol0</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_voxels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Reshape vol1 slice as 1D vector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mid_vol1_as_1d</span> <span class="o">=</span> <span class="n">mid_vol1</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">n_voxels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># These original slices should be very close to each other already</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># So - plotting one set of image values against the other should</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># be close to a straight line</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mid_vol0_as_1d</span><span class="p">,</span> <span class="n">mid_vol1_as_1d</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;voxels in vol0 slice&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;voxels in original vol1 slice&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Correlation coefficient between them</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">mid_vol0_as_1d</span><span class="p">,</span> <span class="n">mid_vol1_as_1d</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">0.998119433113</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-17.png">png</a>, <a class="reference external" href=".//optimizing_space-17.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-17.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-17.png" src="_images/optimizing_space-17.png" />
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># The shifted slice will be less well matched</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Therefore the line will be less straight and narrow</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mid_vol0_as_1d</span><span class="p">,</span> <span class="n">shifted_mid_vol1</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s">&#39;.&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;voxels in vol0 slice&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;voxels in shifted vol1 slice&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Correlation coefficient between them will be nearer 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">mid_vol0_as_1d</span><span class="p">,</span> <span class="n">shifted_mid_vol1</span><span class="o">.</span><span class="n">ravel</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="go">0.446286936383</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-18.png">png</a>, <a class="reference external" href=".//optimizing_space-18.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-18.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-18.png" src="_images/optimizing_space-18.png" />
+</div>
+<p>We expect that the correlation will be high and positive when the images
+are well matched. Our <em>mismatch measure</em>, on the other hand, should be
+<em>low</em> when the images are well-matched. So, we can use the negative
+correlation as our mismatch measure:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">correl_mismatch</span><span class="p">(</span><span class="n">slice0</span><span class="p">,</span> <span class="n">slice1</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Negative correlation between the two images, flattened to 1D &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="n">correl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">slice0</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">slice1</span><span class="o">.</span><span class="n">ravel</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="o">-</span><span class="n">correl</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">correl_mismatches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c"># Candidate values for t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">translations</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">x_trans_slice</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">mismatch</span> <span class="o">=</span> <span class="n">correl_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">mid_vol0</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">correl_mismatches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mismatch</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">translations</span><span class="p">,</span> <span class="n">correl_mismatches</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;translation (t)&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;correlation mismatch&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-21.png">png</a>, <a class="reference external" href=".//optimizing_space-21.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-21.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-21.png" src="_images/optimizing_space-21.png" />
+</div>
+<p>So far we have only tried translations of integer numbers of voxels (0,
+1, 2, 3...).</p>
+<p>How about non-integer translations? Will these work?</p>
+<p>To do a non-integer translation, we have to think more generally about
+how to make an image that matches another image, after a transformation.</p>
+</div>
+<div class="section" id="resampling-in-2d">
+<h2>Resampling in 2D<a class="headerlink" href="#resampling-in-2d" title="Permalink to this headline">¶</a></h2>
+<p>We need a more general resampling algorithm. This is like the
+interpolation we do for slice timing, but in two dimensions.</p>
+<p>Let&#8217;s say we want to do a voxel translation of 0.5 voxels in X. The way
+we might go about this is the following.</p>
+<p>To start, here are some names:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">img0</span></code> is the image we are trying to match to (in our case
+<code class="docutils literal"><span class="pre">mid_vol0</span></code>);</li>
+<li><code class="docutils literal"><span class="pre">img1</span></code> is the image we are trying to match by moving (in our case
+<code class="docutils literal"><span class="pre">shifted_mid_vol1</span></code>);</li>
+<li><code class="docutils literal"><span class="pre">trans</span></code> is the transformation from pixel coordinates in <code class="docutils literal"><span class="pre">img1</span></code> to
+pixel coordinates in <code class="docutils literal"><span class="pre">img0</span></code> (in our case adding 0.5 to the first
+coordinate value, so that [0, 0] becomes [0.5, 0]);</li>
+<li><code class="docutils literal"><span class="pre">itrans</span></code> is the inverse of <code class="docutils literal"><span class="pre">trans</span></code>, and gives the transformation
+to go from pixel coordinates in <code class="docutils literal"><span class="pre">img0</span></code> to pixel coordinates in
+<code class="docutils literal"><span class="pre">img1</span></code>. In our case this is <em>subtracting</em> 0.5 from the first
+coordinate value.</li>
+</ul>
+<p>The procedure for resampling is:</p>
+<ul class="simple">
+<li>Make a 2D image the same shape as the image we want to match to
+(<code class="docutils literal"><span class="pre">img0</span></code>) - call this <code class="docutils literal"><span class="pre">new_img0</span></code>;</li>
+<li>For each pixel in <code class="docutils literal"><span class="pre">new_img0</span></code>;<ul>
+<li>call the pixel coordinate for this pixel: <code class="docutils literal"><span class="pre">coord_for_img0</span></code>;</li>
+<li>transform <code class="docutils literal"><span class="pre">coord_for_img0</span></code> using <code class="docutils literal"><span class="pre">itrans</span></code>. In our case this
+would be to subtract 0.5 from the first coordinate value ([0, 0]
+becomes [-0.5, 0]). Call the transformed coordinate
+<code class="docutils literal"><span class="pre">coord_for_img1</span></code>;</li>
+<li>Estimate the pixel value in <code class="docutils literal"><span class="pre">img1</span></code> at coordinate
+<code class="docutils literal"><span class="pre">coord_for_img1</span></code>. Call this value <code class="docutils literal"><span class="pre">img1_value_estimate</span></code>;</li>
+<li>Insert <code class="docutils literal"><span class="pre">img1_value</span></code> into <code class="docutils literal"><span class="pre">new_img0</span></code> at coordinate
+<code class="docutils literal"><span class="pre">coord_for_img0</span></code>.</li>
+</ul>
+</li>
+</ul>
+<p>The &#8220;Estimate pixel value&#8221; step is called <em>resampling</em>. As you can see
+this is the same general idea as interpolating in one dimension. We saw
+one dimensional interpolation for slice timing. There are various ways
+of interpolating in two or three dimensions, but one of the most obvious
+is the simple extension of linear interpolation to two (or more)
+dimensions - <a class="reference external" href="http://en.wikipedia.org/wiki/Bilinear_interpolation">bilinear
+interpolation</a>.</p>
+<p>The <code class="docutils literal"><span class="pre">scipy.ndimage</span></code> library has routines for resampling in 2 or 3
+dimensions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="kn">as</span> <span class="nn">snd</span>
+</pre></div>
+</div>
+<p>In fact the <code class="docutils literal"><span class="pre">affine_transform</span></code> function from <code class="docutils literal"><span class="pre">scipy.ndimage</span></code> will do
+the whole process for us.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fancy_x_trans_slice</span><span class="p">(</span><span class="n">img_slice</span><span class="p">,</span> <span class="n">x_vox_trans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Make a new copy of `img_slice` translated by `x_vox_trans` voxels</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">    `x_vox_trans` can be positive or negative, and can be a float.</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="c"># Resample image using bilinear interpolation (order=1)</span>
+<span class="gp">... </span>    <span class="n">trans_slice</span> <span class="o">=</span> <span class="n">snd</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span><span class="n">img_slice</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">x_vox_trans</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">trans_slice</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fine_mismatches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fine_translations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">fine_translations</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">fancy_x_trans_slice</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">mismatch</span> <span class="o">=</span> <span class="n">correl_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">mid_vol0</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">fine_mismatches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mismatch</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fine_translations</span><span class="p">,</span> <span class="n">fine_mismatches</span><span class="p">)</span>
+<span class="go">[...]</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-25.png">png</a>, <a class="reference external" href=".//optimizing_space-25.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-25.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-25.png" src="_images/optimizing_space-25.png" />
+</div>
+<p>We are looking for the best x translation. At the moment we have to
+sample lots of x translations and then choose the best. Is there a
+better way?</p>
+</div>
+<div class="section" id="optimization">
+<h2>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h2>
+<p><em>Optimization</em> is a field of mathematics / computer science that solves
+this exact problem:</p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Mathematical_optimization">http://en.wikipedia.org/wiki/Mathematical_optimization</a></p>
+<p>There are many optimization routines in Python, MATLAB and other
+languages. These routines typically allow you to pass some function,
+called the <em>objective</em> function, or the <em>cost</em> function. The
+optimization routine returns the parameters of the cost function that
+give the lowest value.</p>
+<p>In our case, the cost function we need to minimize will accept one
+parameter (the translation), and return the mismatch value for that
+translation. So, it will need to create the image <span class="math">\(\mathbf{X_t}\)</span>
+and return <span class="math">\(M(\mathbf{X}, \mathbf{Y_t})\)</span>.</p>
+<p>What does it mean to &#8220;pass&#8221; a function in Python. Remember, in Python,
+<a class="reference external" href="functions_are_objects.ipynb">functions are objects too</a>.</p>
+<p>The optimization works by running the cost function at some starting
+value of the parameter (in our case, x translation), and using an
+algorithm to choose the next value of the parameter to try. It continues
+trying new values until it finds a parameter value for which very small
+changes of the parameter up or down only increase the cost function
+value. At this point the routine stops and returns the parameter value.</p>
+<p>To write our cost function, we will use the fact that Python functions
+can access variables defined in the <a class="reference external" href="global_scope.ipynb">global
+scope</a>. In our case the function
+<code class="docutils literal"><span class="pre">cost_function</span></code> can access variables <code class="docutils literal"><span class="pre">shifted_mid_vol1</span></code> and
+<code class="docutils literal"><span class="pre">mid_vol0</span></code> that we defined in the top level (global) scope of the
+notebook:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cost_function</span><span class="p">(</span><span class="n">x_trans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c"># Function can use image slices defined in the global (notebook) scope</span>
+<span class="gp">... </span>    <span class="c"># Calculate X_t - image translated by x_trans</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">fancy_x_trans_slice</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">,</span> <span class="n">x_trans</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># Return mismatch measure for the translated image X_t</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">correl_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">mid_vol0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># value of the negative correlation for no translatino</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">cost_function</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="go">-0.446286936383</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># value of the negative correlation for translation of -8 voxels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">cost_function</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">))</span>
+<span class="go">-0.997030807352</span>
+</pre></div>
+</div>
+<p>Now we get a general optimizing routine from the <code class="docutils literal"><span class="pre">scipy</span></code> Python
+library. <code class="docutils literal"><span class="pre">fmin_powell</span></code> finds the minimum of a function using <a class="reference external" href="https://en.wikipedia.org/wiki/Powell%27s_method">Powell&#8217;s
+method</a> of numerical
+optimization:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fmin_powell</span>
+</pre></div>
+</div>
+<p>We pass the <code class="docutils literal"><span class="pre">fmin_powell</span></code> routine our Python cost function, and a
+starting value of zero for the translation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">fmin_powell</span><span class="p">(</span><span class="n">cost_function</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="go">Optimization terminated successfully.</span>
+<span class="go">         Current function value: -0.997032</span>
+<span class="go">         Iterations: 2</span>
+<span class="go">         Function evaluations: 27</span>
+<span class="go">-7.99602669122</span>
+</pre></div>
+</div>
+<p>The function ran, and found that a translation of very nearly -8 gave
+the smallest value for our cost function.</p>
+<p>What actually happened there? Let&#8217;s track the progress of
+<code class="docutils literal"><span class="pre">fmin_powell</span></code> using a callback function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">my_callback</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">print</span><span class="p">(</span><span class="s">&quot;Trying parameters &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">params</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">fmin_powell</span></code> calls this <code class="docutils literal"><span class="pre">my_callback</span></code> function when it is testing a
+new set of parameters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">best_params</span> <span class="o">=</span> <span class="n">fmin_powell</span><span class="p">(</span><span class="n">cost_function</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">callback</span><span class="o">=</span><span class="n">my_callback</span><span class="p">)</span>
+<span class="go">Trying parameters [-7.995]</span>
+<span class="go">Trying parameters [-7.996]</span>
+<span class="go">Optimization terminated successfully.</span>
+<span class="go">         Current function value: -0.997032</span>
+<span class="go">         Iterations: 2</span>
+<span class="go">         Function evaluations: 27</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">best_params</span><span class="p">)</span>
+<span class="go">-7.99602669122</span>
+</pre></div>
+</div>
+<p>The optimization routine <code class="docutils literal"><span class="pre">fmin_powell</span></code> is trying various different
+translations, finally coming to the optimimum (minimum) translation of
+very nearly -8.</p>
+</div>
+<div class="section" id="more-than-one-parameter">
+<h2>More than one parameter<a class="headerlink" href="#more-than-one-parameter" title="Permalink to this headline">¶</a></h2>
+<p>How about adding y translation as well?</p>
+<p>Our optimization routine could deal with this in a very simple way - by
+optimizing the x translation, then the y translation, like this:</p>
+<ul class="simple">
+<li>Adjust the x translation until it has reached a minimum, then;</li>
+<li>Adjust the y translation until it has reached a minimum, then;</li>
+<li>Repeat x, y minimization until the minimum for both is stable.</li>
+</ul>
+<p>Although we could do that, in fact <code class="docutils literal"><span class="pre">fmin_powell</span></code> does something
+slightly more complicated when looking for the next best set of
+parameters to try. The details aren&#8217;t important to the general idea of
+searching over different parameter values to find the lowest value for
+the cost function.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fancy_xy_trans_slice</span><span class="p">(</span><span class="n">img_slice</span><span class="p">,</span> <span class="n">x_y_trans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Make a copy of `img_slice` translated by `x_y_trans` voxels</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">    x_y_trans is a sequence or array length 2, containing</span>
+<span class="gp">... </span><span class="sd">    the (x, y) translations in voxels.</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">    Values in `x_y_trans` can be positive or negative, and</span>
+<span class="gp">... </span><span class="sd">    can be floats.</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="n">x_y_trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_y_trans</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># Resample image using bilinear interpolation (order=1)</span>
+<span class="gp">... </span>    <span class="n">trans_slice</span> <span class="o">=</span> <span class="n">snd</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span><span class="n">img_slice</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">x_y_trans</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">trans_slice</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fancy_cost_at_xy</span><span class="p">(</span><span class="n">x_y_trans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Give cost function at xy translation values `x_y_trans`</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">fancy_xy_trans_slice</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">,</span> <span class="n">x_y_trans</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">correl_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">mid_vol0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Do the optimization of <code class="docutils literal"><span class="pre">fancy_cost_at_xy</span></code> using <code class="docutils literal"><span class="pre">fmin_powell</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">best_params</span> <span class="o">=</span> <span class="n">fmin_powell</span><span class="p">(</span><span class="n">fancy_cost_at_xy</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">callback</span><span class="o">=</span><span class="n">my_callback</span><span class="p">)</span>
+<span class="go">Trying parameters [-7.995  0.   ]</span>
+<span class="go">Trying parameters [-7.996  0.   ]</span>
+<span class="go">Optimization terminated successfully.</span>
+<span class="go">         Current function value: -0.997032</span>
+<span class="go">         Iterations: 2</span>
+<span class="go">         Function evaluations: 133</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">best_params</span>
+<span class="go">array([-7.996,  0.   ])</span>
+</pre></div>
+</div>
+<p>(You probably noticed that <code class="docutils literal"><span class="pre">fmin_powell</span></code> appears to be sticking to the
+right answer for y translation (0), without printing out any evidence
+that it is trying other y values. This is because of the way that the
+Powell optimization works - it is in effect doing separate 1-parameter
+minimizations in order to get the final 2-parameter minimization, and it
+is not reporting the intermediate steps in the 1-parameter
+minimizations)</p>
+</div>
+<div class="section" id="full-3d-estimate">
+<h2>Full 3D estimate<a class="headerlink" href="#full-3d-estimate" title="Permalink to this headline">¶</a></h2>
+<p>Now we know how to do two parameters, it&#8217;s easy to extend this to six
+parameters.</p>
+<p>The six parameters are:</p>
+<ul class="simple">
+<li>x translation</li>
+<li>y translation</li>
+<li>z translation</li>
+<li>rotation around x axis (pitch)</li>
+<li>rotation around y axis (roll)</li>
+<li>rotation around z axis (yaw)</li>
+</ul>
+<p>Any transformation with these parameters is called a <em>rigid body</em>
+transformation because the transformation cannot make the object change
+shape (the object is <em>rigid</em>).</p>
+<p>Implementing the rotations is just slightly out of scope for this
+tutorial (we would have to convert between angles and <a class="reference external" href="http://en.wikipedia.org/wiki/Rotation_matrix">rotation
+matrices</a>), so here is
+the 3D optimization with the three translation parameters:</p>
+<p>To make it a bit more interesting, shift the second volume 8 voxels on
+the first axis, as we did for the 2D case. We will also push the image 5
+voxels forward on the second axis:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">shifted_vol1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">vol1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted_vol1</span><span class="p">[</span><span class="mi">8</span><span class="p">:,</span> <span class="mi">5</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">vol1</span><span class="p">[:</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="p">:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">shifted_vol1</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">17</span><span class="p">])</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-36.png">png</a>, <a class="reference external" href=".//optimizing_space-36.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-36.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-36.png" src="_images/optimizing_space-36.png" />
+</div>
+<p>We define resampling for any given x, y, z translation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">xyz_trans_vol</span><span class="p">(</span><span class="n">vol</span><span class="p">,</span> <span class="n">x_y_z_trans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Make a new copy of `vol` translated by `x_y_z_trans` voxels</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">    x_y_z_trans is a sequence or array length 3, containing</span>
+<span class="gp">... </span><span class="sd">    the (x, y, z) translations in voxels.</span>
+<span class="gp">...</span><span class="sd"></span>
+<span class="gp">... </span><span class="sd">    Values in `x_y_z_trans` can be positive or negative,</span>
+<span class="gp">... </span><span class="sd">    and can be floats.</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="n">x_y_z_trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_y_z_trans</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># [1, 1, 1] says to do no zooming or rotation</span>
+<span class="gp">... </span>    <span class="c"># Resample image using trilinear interpolation (order=1)</span>
+<span class="gp">... </span>    <span class="n">trans_vol</span> <span class="o">=</span> <span class="n">snd</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span><span class="n">vol</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">x_y_z_trans</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">trans_vol</span>
+</pre></div>
+</div>
+<p>Our cost function (picking up <code class="docutils literal"><span class="pre">vol0</span></code>, <code class="docutils literal"><span class="pre">shifted_vol1</span></code> from the global
+scope):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cost_at_xyz</span><span class="p">(</span><span class="n">x_y_z_trans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Give cost function value at xyz translation values `x_y_z_trans`</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">xyz_trans_vol</span><span class="p">(</span><span class="n">shifted_vol1</span><span class="p">,</span> <span class="n">x_y_z_trans</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">correl_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">vol0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Do the optimization of <code class="docutils literal"><span class="pre">cost_at_xyz</span></code> using <code class="docutils literal"><span class="pre">fmin_powell</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">best_params</span> <span class="o">=</span> <span class="n">fmin_powell</span><span class="p">(</span><span class="n">cost_at_xyz</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">callback</span><span class="o">=</span><span class="n">my_callback</span><span class="p">)</span>
+<span class="go">Trying parameters [-7.5722 -4.9661  0.    ]</span>
+<span class="go">Trying parameters [-7.9968 -4.9997  0.    ]</span>
+<span class="go">Trying parameters [-8. -5.  0.]</span>
+<span class="go">Optimization terminated successfully.</span>
+<span class="go">         Current function value: -0.995145</span>
+<span class="go">         Iterations: 3</span>
+<span class="go">         Function evaluations: 270</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">best_params</span>
+<span class="go">array([-8., -5.,  0.])</span>
+</pre></div>
+</div>
+<p>Finally, we make a new volume from <code class="docutils literal"><span class="pre">shifted_vol1</span></code> with these
+transformations applied:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">unshifted_vol1</span> <span class="o">=</span> <span class="n">snd</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span><span class="n">shifted_vol1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">best_params</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">vol0</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">17</span><span class="p">])</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;vol0&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">unshifted_vol1</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">17</span><span class="p">])</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;unshifted vol1&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-41.png">png</a>, <a class="reference external" href=".//optimizing_space-41.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-41.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-41.png" src="_images/optimizing_space-41.png" />
+</div>
+</div>
+<div class="section" id="getting-stuck-in-the-wrong-place">
+<h2>Getting stuck in the wrong place<a class="headerlink" href="#getting-stuck-in-the-wrong-place" title="Permalink to this headline">¶</a></h2>
+<p>So far, all our cost function plots are simple, in the sense that they
+have one single obvious minimum. For example, here is a repeat of our
+ealier plot of the negative correlation value, as a function of
+translation in x, for the shifted single slice:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">correl_mismatches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>  <span class="c"># Candidate values for t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">translations</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">x_trans_slice</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">mismatch</span> <span class="o">=</span> <span class="n">correl_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">mid_vol0</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">correl_mismatches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mismatch</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">translations</span><span class="p">,</span> <span class="n">correl_mismatches</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Cost as a function of $t$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-43.png">png</a>, <a class="reference external" href=".//optimizing_space-43.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-43.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-43.png" src="_images/optimizing_space-43.png" />
+</div>
+<p>Notice the nice single minimum at around <span class="math">\(t=-8\)</span>.</p>
+<p>Unfortunately, many cost functions don&#8217;t have one single minimum, but
+several. In fact this is so even for our simple correlation measure, if
+we look at larger translations (values of <span class="math">\(t\)</span>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">correl_mismatches</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">translations</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>  <span class="c"># Candidate values for t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">translations</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">x_trans_slice</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">mismatch</span> <span class="o">=</span> <span class="n">correl_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">mid_vol0</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">correl_mismatches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mismatch</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">translations</span><span class="p">,</span> <span class="n">correl_mismatches</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Cost as a function of more $t$&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//optimizing_space-45.png">png</a>, <a class="reference external" href=".//optimizing_space-45.hires.png">hires.png</a>, <a class="reference external" href=".//optimizing_space-45.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/optimizing_space-45.png" src="_images/optimizing_space-45.png" />
+</div>
+<p>Remember that a minimum is a value for which the values to the left and
+right are higher. So, the -8 value of <span class="math">\(t\)</span> is minimum (with a
+negative correlation value of -1), but the value at around <span class="math">\(t=44\)</span>
+is also a minimum, with a negative correlation value of around 0.2. The
+value at <span class="math">\(t=-8\)</span> is a <em>global minimum</em> in the sense that it is the
+minimum with the lowest cost value across all values of <span class="math">\(t\)</span>. The
+value at around <span class="math">\(t=44\)</span> is a <em>local minimum</em>.</p>
+<p>In general, our optimization routines are only able to guarantee that
+they have found a local minimum. So, if we start our search in the wrong
+place, then the optimization routine may well find the wrong minimum.</p>
+<p>Here is our original 1 parameter cost function (it is the same as the
+version above):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cost_function</span><span class="p">(</span><span class="n">x_trans</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c"># Function can use image slices defined in the</span>
+<span class="gp">... </span>    <span class="c"># global Python scope.</span>
+<span class="gp">... </span>    <span class="c"># Calculate X_t - image translated by x_trans</span>
+<span class="gp">... </span>    <span class="n">unshifted</span> <span class="o">=</span> <span class="n">fancy_x_trans_slice</span><span class="p">(</span><span class="n">shifted_mid_vol1</span><span class="p">,</span> <span class="n">x_trans</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="c"># Return mismatch measure for the translated image X_t</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">correl_mismatch</span><span class="p">(</span><span class="n">unshifted</span><span class="p">,</span> <span class="n">mid_vol0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we minimize this cost function with <code class="docutils literal"><span class="pre">fmin_powell</span></code>, but starting
+nearer the local minimum:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fmin_powell</span><span class="p">(</span><span class="n">cost_function</span><span class="p">,</span> <span class="p">[</span><span class="mi">35</span><span class="p">])</span>
+<span class="go">Optimization terminated successfully.</span>
+<span class="go">         Current function value: 0.241603</span>
+<span class="go">         Iterations: 2</span>
+<span class="go">         Function evaluations: 55</span>
+<span class="go">array(43.00000063722926)</span>
+</pre></div>
+</div>
+<p>Here we took a very bad starting value, but we would run the same risk
+if the images started off much further apart and we gave a starting
+value of 0.</p>
+<p>One major part of using optimization, is being aware that it is possible
+for the optimization to find a &#8220;best&#8221; value that is a local rather than
+a global minimum. The art of optimization is finding a minimization
+algorithm and mismatch metric that are well-adapted to the particular
+problem.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Calculating transformations between images</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#get-the-data">Get the data</a></li>
+<li><a class="reference internal" href="#formulating-the-matching-problem">Formulating the matching problem</a></li>
+<li><a class="reference internal" href="#choosing-a-metric-for-image-mismatch">Choosing a metric for image mismatch</a></li>
+<li><a class="reference internal" href="#resampling-in-2d">Resampling in 2D</a></li>
+<li><a class="reference internal" href="#optimization">Optimization</a></li>
+<li><a class="reference internal" href="#more-than-one-parameter">More than one parameter</a></li>
+<li><a class="reference internal" href="#full-3d-estimate">Full 3D estimate</a></li>
+<li><a class="reference internal" href="#getting-stuck-in-the-wrong-place">Getting stuck in the wrong place</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/optimizing_space.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/optimizing_space.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
