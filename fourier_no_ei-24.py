@@ -1,5 +1,0 @@
-sketch = dftp.DFTSketch(w)
-sketch.sketch(figsize=(12, 5))
-sketch.highlight('X_real', [0])
-sketch.highlight('C', [[0, ':']])
-sketch.highlight('x_c', [':'])

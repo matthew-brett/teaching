@@ -15,13 +15,21 @@ Mathematics
 * :doc:`sums_of_cosines`;
 * :doc:`on_vectors`;
 * :doc:`simple_complex`;
-* :doc:`fourier_no_ei`.
-* :doc:`pca_introduction`
+* :doc:`fourier_no_ei`;
+* :doc:`pca_introduction`.
 
 Statistics
 ==========
 
-* :doc:`glm_intro`
+* :doc:`glm_intro`.
+
+Imaging
+=======
+
+* :doc:`smoothing_intro`;
+* :doc:`on_convolution`;
+* :doc:`smoothing_as_convolution`;
+* :doc:`correlated_regressors`.
 
 .. The hidden toctree below is to suppress build warnings
 
@@ -32,3 +40,15 @@ Statistics
     sums_of_cosines
     some_sums
     README
+    fourier_basis
+    fourier_no_ei
+    fourier_no_ei_orig
+    glm_intro
+    notation
+    on_convolution
+    on_vectors
+    pca_introduction
+    simple_complex
+    smoothing_intro
+    smoothing_as_convolution
+    correlated_regressors
