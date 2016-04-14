@@ -58,6 +58,9 @@
 .. _summation identities:
 .. _wikipedia on summation identities:
    https://en.wikipedia.org/wiki/Summation#Identities
+.. _rotation matrices:
+.. _wikipedia on rotation matrices:
+   https://en.wikipedia.org/wiki/Rotation_matrix
 
 .. Licenses
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode
