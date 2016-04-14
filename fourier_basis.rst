@@ -2,7 +2,7 @@
 The Fourier basis
 #################
 
-:doc:`fourier_intro` shows that we can write the discrete Fourier transform
+:doc:`fourier_no_ei` shows that we can write the discrete Fourier transform
 DFT as vector dot products.  In :ref:`rewriting-dft-with-vectors` we found
 that:
 
