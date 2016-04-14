@@ -1,5 +1,5 @@
 ############################
-An Introduction to Smoothing
+An introduction to smoothing
 ############################
 
 Smoothing is a process by which data points are averaged with their neighbors
