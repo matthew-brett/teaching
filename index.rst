@@ -29,7 +29,8 @@ Imaging
 * :doc:`smoothing_intro`;
 * :doc:`on_convolution`;
 * :doc:`smoothing_as_convolution`;
-* :doc:`correlated_regressors`.
+* :doc:`correlated_regressors`;
+* :doc:`bonferroni_correction`.
 
 .. The hidden toctree below is to suppress build warnings
 
@@ -52,3 +53,4 @@ Imaging
     smoothing_intro
     smoothing_as_convolution
     correlated_regressors
+    bonferroni_correction
