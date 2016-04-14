@@ -26,6 +26,8 @@
     <script type="text/javascript" src="_static/copybutton.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+    <link rel="next" title="Points on floats" href="floating_point.html" />
+    <link rel="prev" title="Thresholding with random field theory" href="random_fields.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -42,13 +44,47 @@
 <div class="section" id="formula-for-rotating-a-vector-in-2d">
 <h1>Formula for rotating a vector in 2D<a class="headerlink" href="#formula-for-rotating-a-vector-in-2d" title="Permalink to this headline">¶</a></h1>
 <p>Let&#8217;s say we have a point <span class="math">\((x_1, y_1)\)</span>.  The point also defines the vector <span class="math">\((x_1, y_1)\)</span>.</p>
+<p>The vector <span class="math">\((x_1, y_1)\)</span> has length <span class="math">\(L\)</span>.</p>
 <p>We rotate this vector anticlockwise around the origin by <span class="math">\(\beta\)</span> degrees.</p>
-<p>The rotated vector has coordinates <span class="math">\((x_2, y_2)\)</span>.</p>
-<p>Can we get the coordintes of <span class="math">\((x_2, y_2)\)</span> given <span class="math">\((x_1, y_1)\)</span> and <span class="math">\(\beta\)</span>?</p>
+<p>The rotated vector has coordinates <span class="math">\((x_2, y_2)\)</span></p>
+<p>The rotated vector must also have length <span class="math">\(L\)</span>.</p>
+<div class="section" id="theorem">
+<h2>Theorem<a class="headerlink" href="#theorem" title="Permalink to this headline">¶</a></h2>
+<div class="math">
+\[x_2 = \cos \beta x_1 - \sin \beta y_1 \\
+y_2 = \sin \beta x_1 + \cos \beta y_1\]</div><p>See: <a class="reference external" href="https://en.wikipedia.org/wiki/Rotation_matrix">wikipedia on rotation matrices</a>.</p>
+</div>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+<p>Call the angle between <span class="math">\((x_1, y_1)\)</span> and the x-axis : <span class="math">\(\alpha\)</span>.  Then:</p>
+<div class="math" id="equation-x_1_y_1">
+<span class="eqno">(1)</span>\[\begin{split}x_1 = L \cos(\alpha) \\
+y_1 = L \sin(\alpha)\end{split}\]</div>
+<p>We rotate <span class="math">\((x_1, y_1)\)</span> by angle <span class="math">\(\beta\)</span> to get <span class="math">\((x_2, y_2)\)</span>.  So the angle
+between <span class="math">\((x_2, y_2)\)</span> and the x-axis is <span class="math">\(\alpha + \beta\)</span>:</p>
+<div class="math" id="equation-x_2_y_2">
+<span class="eqno">(2)</span>\[\begin{split}x_2 = L \cos(\alpha + \beta) \\
+y_2 = L \sin(\alpha + \beta)\end{split}\]</div>
+</div>
+<div class="section" id="proof-by-the-angle-sum-rule">
+<h2>Proof by the angle sum rule<a class="headerlink" href="#proof-by-the-angle-sum-rule" title="Permalink to this headline">¶</a></h2>
+<p>If you are happy with <a class="reference internal" href="angle_sum.html"><em>The angle sum rule</em></a> proof, then we are most of the way
+there.</p>
+<p>The angle sum rule gives us:</p>
+<div class="math">
+\[\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta\]</div><p>So, substituting from equations <a href="#equation-x_1_y_1">(1)</a>, <a href="#equation-x_2_y_2">(2)</a>:</p>
+<div class="math">
+\[L \cos(\alpha + \beta) =
+L \cos \alpha \cos \beta - L \sin \alpha \sin \beta \implies \\
+x_2 = x_1 \cos \beta - y_1 \sin \beta \\\]</div><p>We do the matching substitutions into <span class="math">\(\sin(\alpha + \beta)\)</span> to get <span class="math">\(y_2\)</span>.</p>
+<p><span class="math">\(\blacksquare\)</span></p>
+</div>
+<div class="section" id="proof-by-long-hand-variant-of-angle-sum-proof">
+<h2>Proof by long-hand variant of angle sum proof<a class="headerlink" href="#proof-by-long-hand-variant-of-angle-sum-proof" title="Permalink to this headline">¶</a></h2>
+<p>This section doesn&#8217;t assume the angle sum rule, but uses a version of the
+angle-sum proof to prove the rotation formulae.</p>
 <img alt="_images/rotation_2d.png" src="_images/rotation_2d.png" />
-<p><span class="math">\(L\)</span> is the length of the vectors <span class="math">\((x_1, y_1)\)</span> and <span class="math">\((x_2, y_2)\)</span> : <span class="math">\(L =
-\|(x_1, y_1)\| = \|(x_2, y_2)\|\)</span>.</p>
-<p><span class="math">\(\alpha\)</span> is the angle between the x axis and <span class="math">\((x_1, y_1)\)</span>.</p>
 <p>We can see from the picture that:</p>
 <div class="math">
 \[x_2 = r - u\]\[y_2 = t + s\]</div>
@@ -65,7 +101,8 @@ s\)</span>.</p>
 <p>So:</p>
 <div class="math">
 \[x_2 = r - u = \cos \beta x_1 - \sin \beta y_1\]\[y_2 = t + s = \sin \beta x_1 + \cos \beta y_1\]</div>
-<p>Luckily this is the same result as <a class="reference external" href="https://en.wikipedia.org/wiki/Rotation_matrix">wikipedia on rotation matrices</a>.</p>
+<p><span class="math">\(\blacksquare\)</span>.</p>
+</div>
 </div>
 
 
@@ -73,10 +110,23 @@ s\)</span>.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Formula for rotating a vector in 2D</a><ul>
+<li><a class="reference internal" href="#theorem">Theorem</a></li>
+<li><a class="reference internal" href="#preliminaries">Preliminaries</a></li>
+<li><a class="reference internal" href="#proof-by-the-angle-sum-rule">Proof by the angle sum rule</a></li>
+<li><a class="reference internal" href="#proof-by-long-hand-variant-of-angle-sum-proof">Proof by long-hand variant of angle sum proof</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="random_fields.html" title="previous chapter">Thresholding with random field theory</a></li>
+      <li>Next: <a href="floating_point.html" title="next chapter">Points on floats</a></li>
   </ul></li>
 </ul>
 </div>

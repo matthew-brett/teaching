@@ -48,3 +48,9 @@ Vectors
 Read $\vec{v}$ as "vector v".
 
 See :doc:`on_vectors`.
+
+************
+End of proof
+************
+
+Read $\blacksquare$ as "This completes the proof".
