@@ -23,6 +23,13 @@ Statistics
 
 * :doc:`glm_intro`
 
+Imaging
+=======
+
+* :doc:`smoothing_intro`
+* :doc:`on_convolution`
+* :doc:`correlated_regressors`
+
 .. The hidden toctree below is to suppress build warnings
 
 .. toctree::
