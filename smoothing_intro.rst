@@ -162,8 +162,7 @@ Smoothing as convolution
 ************************
 
 Smoothing can also be implemented and understood as *convolution* - see
-`smoothing as convolution <smoothing_as_convolution.html>`_ for an
-explanation.
+:doc:`smoothing_as_convolution` for an explanation.
 
 ***************
 Smoothing in 2D
