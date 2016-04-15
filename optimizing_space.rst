@@ -521,7 +521,7 @@ new set of parameters.
     -7.99602669122
 
 The optimization routine ``fmin_powell`` is trying various different
-translations, finally coming to the optimimum (minimum) translation of
+translations, finally coming to the optimum (minimum) translation of
 very nearly -8.
 
 ***********************
@@ -695,7 +695,7 @@ Getting stuck in the wrong place
 
 So far, all our cost function plots are simple, in the sense that they
 have one single obvious minimum. For example, here is a repeat of our
-ealier plot of the negative correlation value, as a function of
+earlier plot of the negative correlation value, as a function of
 translation in x, for the shifted single slice:
 
 .. nbplot::
@@ -766,12 +766,12 @@ nearer the local minimum:
 
 .. nbplot::
 
-    >>> fmin_powell(cost_function, [35])
+    >>> print(fmin_powell(cost_function, [35]))
     Optimization terminated successfully.
              Current function value: 0.241603
              Iterations: 2
              Function evaluations: 55
-    array(43.00000063722926)
+    43.0000006372
 
 Here we took a very bad starting value, but we would run the same risk
 if the images started off much further apart and we gave a starting

@@ -98,7 +98,7 @@ binary, which is, in decimal, a range of $1$ to $(2^{24}-1) * 2^{-23}$.  In symp
     >>> Float(biggest_s_32)
     1.99999988079071
 
-With 1 bit for the sign, and 23 bits for the sigificand, there are 8 bits
+With 1 bit for the sign, and 23 bits for the significand, there are 8 bits
 remaining for the exponent.
 
 The exponent is not stored as a standard signed integer.  An exponent of all 0s
@@ -124,8 +124,8 @@ What's the largest positive 32 bit IEEE float?  Easy:
     >>> biggest_float32 = biggest_s_32 * two**biggest_e_32
     >>> biggest_float32
     340282346638528859811704183484516925440
-    >>> Float(biggest_float32)
-    3.40282346638529e+38
+    >>> float(biggest_float32)
+    3.4028234663852886e+38
 
 The most negative value? Just the same number with -1 sign (sign bit is 1).
 
@@ -138,8 +138,8 @@ And the smallest value? [#except_subnormal]_
     >>> smallest_float32 = smallest_s_32 * two**most_neg_e_32
     >>> smallest_float32
     1/85070591730234615865843651857942052864
-    >>> Float(smallest_float32)
-    1.17549435082229e-38
+    >>> float(smallest_float32)
+    1.1754943508222875e-38
 
 *************************
 IEEE 64-bit binary float.
@@ -160,8 +160,8 @@ and the exponent *bias* is 1023 (`wikipedia floating point`_):
     >>> biggest_s_64 = (two**(s_bits_64+1)-1) * (two**(-s_bits_64))
     >>> biggest_s_64
     9007199254740991/4503599627370496
-    >>> Float(biggest_s_64)
-    2.00000000000000
+    >>> float(biggest_s_64)
+    1.9999999999999998
 
 Well - it's not quite 2.0 - but within the limits of the printing precision.
 
@@ -173,8 +173,8 @@ Largest 64-bit float:
     >>> biggest_e_64
     1023
     >>> biggest_float64 = biggest_s_64 * two**biggest_e_64
-    >>> Float(biggest_float64)
-    1.79769313486232e+308
+    >>> float(biggest_float64)
+    1.7976931348623157e+308
 
 Smallest [#except_subnormal]_:
 
@@ -183,8 +183,8 @@ Smallest [#except_subnormal]_:
     -1022
     >>> smallest_s_64 = 1
     >>> smallest_float64 = smallest_s_64 * two**most_neg_e_64
-    >>> Float(smallest_float64)
-    2.22507385850720e-308
+    >>> float(smallest_float64)
+    2.2250738585072014e-308
 
 ***************************
 Floating point and integers
