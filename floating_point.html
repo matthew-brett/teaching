@@ -30,7 +30,7 @@
     <link rel="prev" title="Formula for rotating a vector in 2D" href="rotation_2d.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body role="document">  
@@ -99,7 +99,7 @@ the significand can only be <span class="math">\(1.1\)</span> or <span class="ma
 first digit of 1, this gives it an effective 24 bits of storage for the
 significand.  The significand can thus be from <span class="math">\(1.0\)</span> (binary) to 1.(23 ones) in
 binary, which is, in decimal, a range of <span class="math">\(1\)</span> to <span class="math">\((2^{24}-1) * 2^{-23}\)</span>.  In sympy:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">two</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s_bits_32</span> <span class="o">=</span> <span class="mi">23</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_s_32</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="p">(</span><span class="n">s_bits_32</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">s_bits_32</span><span class="p">))</span>
@@ -109,7 +109,7 @@ binary, which is, in decimal, a range of <span class="math">\(1\)</span> to <spa
 <span class="go">1.99999988079071</span>
 </pre></div>
 </div>
-<p>With 1 bit for the sign, and 23 bits for the sigificand, there are 8 bits
+<p>With 1 bit for the sign, and 23 bits for the significand, there are 8 bits
 remaining for the exponent.</p>
 <p>The exponent is not stored as a standard signed integer.  An exponent of all 0s
 indicates a zero number or a <em>subnormal</em> number <a class="footnote-reference" href="#except-subnormal" id="id1">[1]</a>.  An
@@ -122,29 +122,29 @@ bits, <span class="math">\(u\)</span> could be 0 to 255, but both 0 and 255 are 
 subnormals; 255 for non-finite, as above).  Thus the effective range of <span class="math">\(u\)</span> is
 1-254, and the effective range of <span class="math">\(e\)</span> is -126 to 127.</p>
 <p>What&#8217;s the largest positive 32 bit IEEE float?  Easy:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">e_bits_32</span> <span class="o">=</span> <span class="mi">8</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e_bits_32</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e_bias_32</span> <span class="o">=</span> <span class="mi">127</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_32</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="n">e_bits_32</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e_bias_32</span> <span class="o">-</span> <span class="mi">1</span> <span class="c"># -1 for all-ones reserved</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_32</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="n">e_bits_32</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e_bias_32</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1"># -1 for all-ones reserved</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_32</span>
 <span class="go">127</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_float32</span> <span class="o">=</span> <span class="n">biggest_s_32</span> <span class="o">*</span> <span class="n">two</span><span class="o">**</span><span class="n">biggest_e_32</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_float32</span>
 <span class="go">340282346638528859811704183484516925440</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">biggest_float32</span><span class="p">)</span>
-<span class="go">3.40282346638529e+38</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">float</span><span class="p">(</span><span class="n">biggest_float32</span><span class="p">)</span>
+<span class="go">3.4028234663852886e+38</span>
 </pre></div>
 </div>
 <p>The most negative value? Just the same number with -1 sign (sign bit is 1).</p>
 <p>And the smallest value? <a class="footnote-reference" href="#except-subnormal" id="id2">[1]</a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_32</span> <span class="o">=</span> <span class="o">-</span><span class="n">e_bias_32</span> <span class="o">+</span> <span class="mi">1</span> <span class="c"># +1 for zeros reserved</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_32</span> <span class="o">=</span> <span class="o">-</span><span class="n">e_bias_32</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># +1 for zeros reserved</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_32</span>
 <span class="go">-126</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_s_32</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_float32</span> <span class="o">=</span> <span class="n">smallest_s_32</span> <span class="o">*</span> <span class="n">two</span><span class="o">**</span><span class="n">most_neg_e_32</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_float32</span>
 <span class="go">1/85070591730234615865843651857942052864</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">smallest_float32</span><span class="p">)</span>
-<span class="go">1.17549435082229e-38</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">float</span><span class="p">(</span><span class="n">smallest_float32</span><span class="p">)</span>
+<span class="go">1.1754943508222875e-38</span>
 </pre></div>
 </div>
 </div>
@@ -159,34 +159,34 @@ float.</p>
 <li>11 bits for the exponent</li>
 </ul>
 <p>and the exponent <em>bias</em> is 1023 (<a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">wikipedia floating point</a>):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s_bits_64</span> <span class="o">=</span> <span class="mi">52</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s_bits_64</span> <span class="o">=</span> <span class="mi">52</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_s_64</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="p">(</span><span class="n">s_bits_64</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">s_bits_64</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_s_64</span>
 <span class="go">9007199254740991/4503599627370496</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">biggest_s_64</span><span class="p">)</span>
-<span class="go">2.00000000000000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">float</span><span class="p">(</span><span class="n">biggest_s_64</span><span class="p">)</span>
+<span class="go">1.9999999999999998</span>
 </pre></div>
 </div>
 <p>Well - it&#8217;s not quite 2.0 - but within the limits of the printing precision.</p>
 <p>Largest 64-bit float:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">e_bits_64</span> <span class="o">=</span> <span class="mi">11</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e_bits_64</span> <span class="o">=</span> <span class="mi">11</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e_bias_64</span> <span class="o">=</span> <span class="mi">1023</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_64</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="n">e_bits_64</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e_bias_64</span> <span class="o">-</span> <span class="mi">1</span> <span class="c"># -1 for all-ones reserved</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_64</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="n">e_bits_64</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e_bias_64</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1"># -1 for all-ones reserved</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_64</span>
 <span class="go">1023</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_float64</span> <span class="o">=</span> <span class="n">biggest_s_64</span> <span class="o">*</span> <span class="n">two</span><span class="o">**</span><span class="n">biggest_e_64</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">biggest_float64</span><span class="p">)</span>
-<span class="go">1.79769313486232e+308</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">float</span><span class="p">(</span><span class="n">biggest_float64</span><span class="p">)</span>
+<span class="go">1.7976931348623157e+308</span>
 </pre></div>
 </div>
 <p>Smallest <a class="footnote-reference" href="#except-subnormal" id="id3">[1]</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_64</span> <span class="o">=</span> <span class="o">-</span><span class="n">e_bias_64</span> <span class="o">+</span> <span class="mi">1</span> <span class="c"># +1 for zeros reserved</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_64</span> <span class="o">=</span> <span class="o">-</span><span class="n">e_bias_64</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># +1 for zeros reserved</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_64</span>
 <span class="go">-1022</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_s_64</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_float64</span> <span class="o">=</span> <span class="n">smallest_s_64</span> <span class="o">*</span> <span class="n">two</span><span class="o">**</span><span class="n">most_neg_e_64</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">smallest_float64</span><span class="p">)</span>
-<span class="go">2.22507385850720e-308</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">float</span><span class="p">(</span><span class="n">smallest_float64</span><span class="p">)</span>
+<span class="go">2.2250738585072014e-308</span>
 </pre></div>
 </div>
 </div>
@@ -232,23 +232,23 @@ by the 23 significand bits, with the most significant bits first.</p>
 <li>0 for the significand (implicit 1.0)</li>
 </ul>
 <p>The binary representation of 151 is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="mi">151</span><span class="p">)</span>
 <span class="go">&#39;10010111&#39;</span>
 </pre></div>
 </div>
 <p>We get the memory from our float represented as an unsigned 32 bit integer:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">float32_mem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mi">16777216</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">float32_mem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mi">16777216</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and show it as binary:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="n">float32_mem</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="n">float32_mem</span><span class="p">)</span>
 <span class="go">&#39;1001011100000000000000000000000&#39;</span>
 </pre></div>
 </div>
 <p>How about -16777215?  It should be 1 for the sign, 23 for the exponent (<span class="math">\(u = 23 +
 127\)</span> = 50), and all ones for the significand:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
 <span class="go">&#39;10010110&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="o">-</span><span class="mi">16777215</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">))</span>
 <span class="go">&#39;11001011011111111111111111111111&#39;</span>
@@ -324,8 +324,8 @@ of 0 - see the wikipedia page for details.</td></tr>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="_sources/floating_point.txt"

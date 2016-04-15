@@ -207,7 +207,6 @@ Gaussian kernel centered at point (10, 10) on a size (20, 20) plane:
     >>> kernel_2d = kernel_2d / np.sum(kernel_2d)
     >>> x2d, y2d, kernel_2d = x2d.ravel(), y2d.ravel(), kernel_2d.ravel()
     >>> ax.bar3d(x2d, y2d, x2d * 0, 1, 1, kernel_2d)
-    <...>
 
 .. nbplot::
     :include-source: false
