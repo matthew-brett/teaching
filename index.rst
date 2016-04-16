@@ -24,7 +24,9 @@ Statistics
 ==========
 
 * :doc:`glm_intro`;
-* :doc:`ioannidis_2005`.
+* :doc:`ioannidis_2005`;
+* `Exploring the R formula
+  <http://nbviewer.jupyter.org/github/matthew-brett/teaching/blob/master/exploring_r_formula.ipynb>`_.
 
 Imaging
 =======
@@ -76,3 +78,4 @@ Computing
     rotation_2d
     floating_point
     floating_error
+    ioannidis_2005
