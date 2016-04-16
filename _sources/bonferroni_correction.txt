@@ -1,19 +1,15 @@
-
+#################################
 Notes on the Bonferroni threshold
-=================================
+#################################
 
 The Bonferroni threshold is a family-wise error threshold. That is, it
 treats a set of tests as one *family*, and the threshold is designed to
 control the probability of detecting *any* positive tests in the family
 (set) of tests, if the null hypothesis is true.
 
-.. nbplot::
-
-    >>> # Import numerical library
-    >>> import numpy as np
-
+*****************
 Family-wise error
------------------
+*****************
 
 The Bonferroni correction uses a result from probability theory to
 estimate the probability of finding *any* p value below a threshold
@@ -24,8 +20,9 @@ When we have found a threshold :math:`\theta` that gives a probability
 the threshold :math:`\theta` can be said to control the *family-wise
 error rate* at level :math:`\alpha`.
 
+*****************************
 Not the Bonferroni correction
------------------------------
+*****************************
 
 The inequality used for the Bonferroni is harder to explain than a
 simpler but related correction, called the Šidák correction.
@@ -63,7 +60,7 @@ Solve for :math:`\theta`:
    \theta = 1 - (1 - \alpha_{fwe})^{1 / n}
 
 So, if we have 10 tests, and we want the threshold :math:`\theta` to
-control :math:`\alpha_{fwe}` at $0.05:
+control :math:`\alpha_{fwe}` at $0.05$:
 
 .. nbplot::
 
@@ -73,8 +70,9 @@ control :math:`\alpha_{fwe}` at $0.05:
     >>> print(sidak_thresh(0.05, 10))
     0.00511619689182
 
+*************************
 The Bonferroni correction
--------------------------
+*************************
 
 :math:`\newcommand{\P}{\mathbb P}` The Bonferroni correction uses a
 result from probability theory, called Boole's inequality. The result is
@@ -149,6 +147,7 @@ smaller (more conservative) than the Šidák correction
 
 .. nbplot::
 
+    >>> import numpy as np
     >>> n_tests = np.arange(1, 11)  # n = 1 through 10
     >>> # The exact threshold for independent p values
     >>> print(sidak_thresh(0.05, n_tests))

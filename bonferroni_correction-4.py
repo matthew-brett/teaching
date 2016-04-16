@@ -1,5 +1,4 @@
-n_tests = np.arange(1, 11)  # n = 1 through 10
-# The exact threshold for independent p values
-print(sidak_thresh(0.05, n_tests))
-# [ 0.05    0.0253  0.017   0.0127  0.0102  0.0085  0.0073  0.0064  0.0057
-# 0.0051]
+# The Bonferroni threshold for the same alpha, n
+print(bonferroni_thresh(0.05, n_tests))
+# [ 0.05    0.025   0.0167  0.0125  0.01    0.0083  0.0071  0.0063  0.0056
+# 0.005 ]
