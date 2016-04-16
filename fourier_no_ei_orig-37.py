@@ -1,0 +1,5 @@
+sketch = dftp.DFTSketch(w)
+sketch.sketch(inverse=True, figsize=(12, 5))
+sketch.highlight('x_real', [':'])
+sketch.highlight('C', [[':', 0]])
+sketch.highlight('X_c_real', [0])

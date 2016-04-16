@@ -30,7 +30,7 @@
     <link rel="prev" title="The Fourier basis" href="fourier_basis.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">  
@@ -68,15 +68,15 @@ to proofs and explanations for these ideas in the page as we go along:</p>
 <div class="section" id="loading-and-configuring-code-libraries">
 <h3>Loading and configuring code libraries<a class="headerlink" href="#loading-and-configuring-code-libraries" title="Permalink to this headline">¶</a></h3>
 <p>Load and configure the Python libraries we will use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compatibility with Python 3</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Compatibility with Python 3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>  <span class="c1"># the Python array package</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>  <span class="c1"># the Python plotting package</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>  <span class="c"># the Python array package</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>  <span class="c"># the Python plotting package</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Tell numpy to print numbers to 4 decimal places only</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Tell numpy to print numbers to 4 decimal places only</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -85,7 +85,7 @@ to proofs and explanations for these ideas in the page as we go along:</p>
 <div class="section" id="some-actual-numbers-to-start">
 <h2>Some actual numbers to start<a class="headerlink" href="#some-actual-numbers-to-start" title="Permalink to this headline">¶</a></h2>
 <p>Let us start with a DFT of some data.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># An example input vector</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># An example input vector</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="p">[</span> <span class="mf">0.4967</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1383</span><span class="p">,</span>  <span class="mf">0.6477</span><span class="p">,</span>  <span class="mf">1.523</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.2342</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2341</span><span class="p">,</span>  <span class="mf">1.5792</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="mf">0.7674</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4695</span><span class="p">,</span>  <span class="mf">0.5426</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4634</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4657</span><span class="p">,</span>  <span class="mf">0.242</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.9133</span><span class="p">,</span>
@@ -103,7 +103,7 @@ to proofs and explanations for these ideas in the page as we go along:</p>
 <div class="figure">
 <img alt="_images/fourier_no_ei-4.png" src="_images/fourier_no_ei-4.png" />
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Now the DFT</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Now the DFT</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
 <span class="go">array([-4.3939+0.j    ,  9.0217-3.7036j, -0.5874-6.2268j,  2.5184+3.7749j,</span>
@@ -129,7 +129,7 @@ frequency;</li>
 <p>There are some patterns to these numbers.  Notice that the numbers at index 0
 and N/2 (=16) have 0 for their imaginary part, and that <cite>X[17:]</cite> is a mirror
 image of <cite>X[1:16]</cite>, with the imaginary parts having the opposite sign.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
 <span class="go">array([ 9.0217-3.7036j, -0.5874-6.2268j,  2.5184+3.7749j,  0.5008-0.8433j,</span>
 <span class="go">        1.2904-0.4024j,  4.3391+0.8079j, -6.2614+2.1596j,  1.8974+2.4889j,</span>
 <span class="go">        0.1042+7.6169j,  0.3606+5.162j ,  4.7965+0.0755j, -5.3064-3.2329j,</span>
@@ -145,7 +145,7 @@ image of <cite>X[1:16]</cite>, with the imaginary parts having the opposite sign
 real numbers.  We will soon see why.</p>
 <p>When we do the inverse DFT on <code class="docutils literal"><span class="pre">X</span></code> we return the original values of our
 input <code class="docutils literal"><span class="pre">x</span></code>, but as complex numbers with imaginary part 0:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply the inverse DFT to the output of the forward DFT</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Apply the inverse DFT to the output of the forward DFT</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_back</span>
 <span class="go">array([ 0.4967-0.j, -0.1383-0.j,  0.6477-0.j,  1.5230-0.j, -0.2342-0.j,</span>
@@ -276,7 +276,7 @@ values that we have put into the angle vector <span class="math">\(\vec{r^k}\)</
 \[\vec{r^1} = \left[ 2 \pi \frac{0}{N}, 2 \pi \frac{1}{N},
 \ldots 2 \pi \frac{N-1}{N} \right]\]</div>
 <p>Here are the values in Python:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">vec_n</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_1</span>
 <span class="go">array([ 0.    ,  0.1963,  0.3927,  0.589 ,  0.7854,  0.9817,  1.1781,</span>
@@ -291,15 +291,15 @@ the number of samples <span class="math">\(N\)</span>, running from 0 to close t
 \pi\)</span>, the values run from 0 to close to <span class="math">\(2 \pi\)</span> and therefore give angles
 around a circle.</p>
 <p>The vector <span class="math">\(\vec{r^1}\)</span> gives <span class="math">\(\vec{c^1}, \vec{s^1}\)</span> with a single cycle:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_c_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_c_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_s_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vec_r_1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_1</span><span class="p">,</span> <span class="s1">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">r&#39;$\vec{c^1}$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_1</span><span class="p">,</span> <span class="s">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">r&#39;$\vec{c^1}$&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_s_1</span><span class="p">,</span> <span class="s1">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">r&#39;$\vec{s^1}$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_s_1</span><span class="p">,</span> <span class="s">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">r&#39;$\vec{s^1}$&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Vector index $n$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Vector index $n$&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$c^1_n$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;$c^1_n$&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="go">&lt;...&gt;</span>
@@ -310,16 +310,16 @@ around a circle.</p>
 <img alt="_images/fourier_no_ei-9.png" src="_images/fourier_no_ei-9.png" />
 </div>
 <p><span class="math">\(k = 2\)</span> gives 2 cycles across the N values:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_2</span> <span class="o">=</span> <span class="n">vec_r_1</span> <span class="o">*</span> <span class="mi">2</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_2</span> <span class="o">=</span> <span class="n">vec_r_1</span> <span class="o">*</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_c_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_s_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vec_r_2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_2</span><span class="p">,</span> <span class="s1">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">r&#39;$\vec{c^2}$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_2</span><span class="p">,</span> <span class="s">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">r&#39;$\vec{c^2}$&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_s_2</span><span class="p">,</span> <span class="s1">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">r&#39;$\vec{s^2}$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_s_2</span><span class="p">,</span> <span class="s">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">r&#39;$\vec{s^2}$&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Vector index $n$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Vector index $n$&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$c^2_n$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;$c^2_n$&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="go">&lt;...&gt;</span>
@@ -349,7 +349,7 @@ around a circle.</p>
 <p>The first value in the DFT output vector is the sum of the values in
 <span class="math">\(\vec{x}\)</span>. If <span class="math">\(\vec{x}\)</span> has real and not complex values, as here, then <span class="math">\(X_0\)</span>
 has zero imaginary part:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="go">-4.3939</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">(-4.3939+0j)</span>
@@ -357,7 +357,7 @@ has zero imaginary part:</p>
 </div>
 <p>Now let&#8217;s imagine that our input vector is a constant, say a vector of ones.
 What is the DFT?</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_ones</span><span class="p">)</span>
 <span class="go">array([ 32.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
 <span class="go">         0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
@@ -380,7 +380,7 @@ with a constant vector is also zero.</p>
 is the distance between two consecutive samples in <span class="math">\(\vec{x}\)</span>.</p>
 <div class="math">
 \[X_1 = \vec{x} \cdot \vec{c^1} - i \vec{x} \cdot \vec{s^1}\]</div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_c_1</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_s_1</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_c_1</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_s_1</span><span class="p">))</span>
 <span class="go">9.02170725475 3.70356074953</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="go">(9.02170725475-3.70356074953j)</span>
@@ -407,7 +407,7 @@ generally <span class="math">\(\VL{c_p}^2 = \VL{s_p}^2 = N / 2\)</span> for all 
 <p>So:</p>
 <div class="math">
 \[V_1 = N / 2\]</div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">vec_c_1</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">vec_c_1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">V</span>
 <span class="go">array([ -0.+0.j,  16.-0.j,   0.+0.j,   0.+0.j,  -0.-0.j,   0.+0.j,</span>
@@ -430,7 +430,7 @@ generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span clas
 <p>By the <a class="reference internal" href="on_vectors.html#dot-product-properties"><span>properties of the dot product</span></a>:</p>
 <div class="math">
 \[V_1 = a \vec{c^1} \cdot \vec{c^1} - i a \vec{c^1} \cdot \vec{s^1} \\
-= a \VL{c^1}^2\]</div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+= a \VL{c^1}^2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">vec_c_1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
 <span class="go">array([ -0.+0.j,  48.-0.j,   0.+0.j,   0.+0.j,  -0.-0.j,   0.+0.j,</span>
@@ -448,11 +448,11 @@ generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span clas
 <div class="math">
 \[\vec{v} = \left [\cos(r^1_0 + \beta), \cos(r^1_1 + \beta), \ldots,
 \cos(r^1_{N-1} + \beta) \right]\]</div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">beta</span> <span class="o">=</span> <span class="mf">1.1</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">beta</span> <span class="o">=</span> <span class="mf">1.1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_1</span><span class="p">,</span> <span class="s1">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Unshifted cos&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_1</span><span class="p">,</span> <span class="s">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Unshifted cos&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_v</span><span class="p">,</span> <span class="s1">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Shifted cos&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_v</span><span class="p">,</span> <span class="s">&#39;x:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Shifted cos&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="go">&lt;...&gt;</span>
@@ -480,7 +480,7 @@ generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span clas
 \[V_1 = (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
 i (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 = \cos(\beta) \VL{c^1}^2 + i \sin(\beta) \VL{s^1}^2\]</div><p>Do we get this answer from the DFT?</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
 <span class="go">7.25753794281 14.259317761</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
 <span class="go">array([-0.0000 +0.j    ,  7.2575+14.2593j,  0.0000 +0.j    ,</span>
@@ -518,7 +518,7 @@ a (\cos(r^1_{N-1}) \cos(\beta) - \sin(r^1_{N-1}) \sin(\beta))
 = a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1})\]</div><div class="math" id="equation-scale-and-offset">
 \[V_1 = a ( \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
 i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
-= a \cos(\beta) \VL{c^1}^2 + i a \sin(\beta) \VL{s^1}^2\]</div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
+= a \cos(\beta) \VL{c^1}^2 + i a \sin(\beta) \VL{s^1}^2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
 <span class="go">21.7726138284 42.7779532829</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
@@ -544,7 +544,7 @@ i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 \[\R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 (\cos(\beta)^2 + \sin(\beta)^2)\]</div><p>By Pythagoras:</p>
 <div class="math">
 \[\R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 \implies \\
-\sqrt{\R{X_1}^2 + \I{X_1}^2} = a N / 2\]</div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+\sqrt{\R{X_1}^2 + \I{X_1}^2} = a N / 2\]</div><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">47.999999999999993</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span>
@@ -556,7 +556,7 @@ i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 \[\begin{split}\R{X_1} = a \cos(\beta) N / 2 \implies \\
 \cos(\beta) = \R{X_1} / (a N / 2)\end{split}\]</div>
 <p><code class="docutils literal"><span class="pre">np.arccos</span></code> is the inverse of <code class="docutils literal"><span class="pre">np.cos</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
 <span class="go">0.4535961214255782</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
 <span class="go">0.45359612142557731</span>
@@ -566,7 +566,7 @@ i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 </div>
 <p>In fact, these are the calculations done by the standard <code class="docutils literal"><span class="pre">np.abs,</span> <span class="pre">np.angle</span></code>
 functions:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span>
 <span class="go">47.999999999999993</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span>
 <span class="go">1.099999999999999</span>
@@ -653,8 +653,8 @@ functions:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/fourier_no_ei.txt"

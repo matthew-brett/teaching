@@ -30,7 +30,7 @@
     <link rel="prev" title="An introduction to smoothing" href="smoothing_intro.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">  
@@ -44,7 +44,7 @@
 <div class="section" id="smoothing-as-convolution">
 <h1>Smoothing as convolution<a class="headerlink" href="#smoothing-as-convolution" title="Permalink to this headline">¶</a></h1>
 <p>We load and configure the libraries we need:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import numerical and plotting libraries</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Import numerical and plotting libraries</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="kn">as</span> <span class="nn">npl</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -54,7 +54,7 @@
 <h2>Smoothing as weighted average<a class="headerlink" href="#smoothing-as-weighted-average" title="Permalink to this headline">¶</a></h2>
 <p>In the introduction to smoothing tutorial, we had the following random
 data:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># To get predictable random numbers</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c"># To get predictable random numbers</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_points</span> <span class="o">=</span> <span class="mi">40</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_points</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_points</span><span class="p">)</span>
@@ -69,19 +69,19 @@ data:</p>
 <p>In the example, we generated a Gaussian kernel over the x axis at index
 13. The kernel had a full-width-at-half-maximum value of 4. This
 corresponds to a Gaussian sigma value of about 1.7:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fwhm2sigma</span><span class="p">(</span><span class="n">fwhm</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fwhm2sigma</span><span class="p">(</span><span class="n">fwhm</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">fwhm</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigma</span> <span class="o">=</span> <span class="n">fwhm2sigma</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sigma</span> <span class="o">=</span> <span class="n">fwhm2sigma</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sigma</span>
 <span class="go">1.6986436005760381</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_position</span> <span class="o">=</span> <span class="mi">13</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make Gaussian centered at 13 with given sigma</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x_position</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Make Gaussian centered at 13 with given sigma</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_at_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x_vals</span> <span class="o">-</span> <span class="n">x_position</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make kernel sum to 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Make kernel sum to 1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_at_pos</span> <span class="o">=</span> <span class="n">kernel_at_pos</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kernel_at_pos</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">kernel_at_pos</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
@@ -96,14 +96,14 @@ corresponds to a Gaussian sigma value of about 1.7:</p>
 y values (<span class="math">\(k_i : i \in 0, 1, .. 39\)</span>):</p>
 <div class="math">
 \[y_{13} = \sum _{i=0} ^{i=39} y_i k_i\]</div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_vals</span> <span class="o">*</span> <span class="n">kernel_at_pos</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_vals</span> <span class="o">*</span> <span class="n">kernel_at_pos</span><span class="p">))</span>
 <span class="go">-0.347968590118</span>
 </pre></div>
 </div>
 <p>Of course this is also the <a class="reference external" href="https://en.wikipedia.org/wiki/Dot_product">dot
 product</a> of the two
 vectors:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">y_vals</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">kernel_at_pos</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">y_vals</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">kernel_at_pos</span><span class="p">))</span>
 <span class="go">-0.347968590118</span>
 </pre></div>
 </div>
@@ -115,13 +115,13 @@ values, far from the central x=13 point. Maybe we could be more
 efficient, by only doing the y value multiplication for kernel values
 that are larger than some threshold, like 0.0001.</p>
 <p>Let&#8217;s have another look at the Gaussian</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make a +/- x range large enough to let kernel drop to zero</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Make a +/- x range large enough to let kernel drop to zero</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_for_kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Calculate kernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Calculate kernel</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x_for_kernel</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Threshold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Threshold</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_above_thresh</span> <span class="o">=</span> <span class="n">kernel</span> <span class="o">&gt;</span> <span class="mf">0.0001</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find x values where kernel is above threshold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Find x values where kernel is above threshold</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_within_thresh</span> <span class="o">=</span> <span class="n">x_for_kernel</span><span class="p">[</span><span class="n">kernel_above_thresh</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_for_kernel</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span>
 <span class="go">[...]</span>
@@ -137,8 +137,8 @@ that are larger than some threshold, like 0.0001.</p>
 </div>
 <p>We can make a new kernel, with finite width, where the near-zero values
 have been trimmed:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">finite_kernel</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">[</span><span class="n">kernel_above_thresh</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make kernel sum to 1 again</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">finite_kernel</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">[</span><span class="n">kernel_above_thresh</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Make kernel sum to 1 again</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">finite_kernel</span> <span class="o">=</span> <span class="n">finite_kernel</span> <span class="o">/</span> <span class="n">finite_kernel</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_within_thresh</span><span class="p">,</span> <span class="n">finite_kernel</span><span class="p">)</span>
 <span class="go">[...]</span>
@@ -149,14 +149,14 @@ have been trimmed:</p>
 <img alt="_images/smoothing_as_convolution-9.png" src="_images/smoothing_as_convolution-9.png" />
 </div>
 <p>This kernel has a finite width:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">finite_kernel</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">finite_kernel</span><span class="p">)</span>
 <span class="go">15</span>
 </pre></div>
 </div>
 <p>To get our smoothed value for x=13, we can shift this trimmed kernel be
 centered over x=13, and only multiply by the y values that are within
 the kernel width:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Number of kernel points before center (at 0)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Number of kernel points before center (at 0)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_n_below_0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">finite_kernel</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_n_below_0</span>
 <span class="go">7</span>
@@ -165,7 +165,7 @@ the kernel width:</p>
 <p>Because we cut the kernel at a low threshold, the result from using the
 finite kernel is very similar to using the infinite kernel that we used
 above:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Multiply and sum y values within the finite kernel</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Multiply and sum y values within the finite kernel</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_starts_at</span> <span class="o">=</span> <span class="mi">13</span> <span class="o">-</span> <span class="n">kernel_n_below_0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_within_kernel</span> <span class="o">=</span> <span class="n">y_vals</span><span class="p">[</span><span class="n">kernel_starts_at</span> <span class="p">:</span> <span class="n">kernel_starts_at</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">finite_kernel</span><span class="p">)]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">finite_kernel</span><span class="p">,</span> <span class="n">y_within_kernel</span><span class="p">))</span>
@@ -187,7 +187,7 @@ because it is symmetrical.</p>
 <p>In fact, it might be possible to see that, we can get exactly our
 required result for x=13, by convolving the y values with the finite
 smoothing kernel.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convolved_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">y_vals</span><span class="p">,</span> <span class="n">finite_kernel</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">convolved_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">y_vals</span><span class="p">,</span> <span class="n">finite_kernel</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">convolved_y</span><span class="p">[</span><span class="mi">13</span><span class="o">+</span> <span class="n">kernel_n_below_0</span><span class="p">])</span>
 <span class="go">-0.347973672994</span>
 </pre></div>
@@ -202,7 +202,7 @@ multiplication. Thus, in order to get the same smoothed values as we did
 when we were multiplying by a centered kernel, we have to get the values
 from the convolved output from half the kernel width ahead of the index
 we are interested in.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed_by_convolving</span> <span class="o">=</span> <span class="n">convolved_y</span><span class="p">[</span><span class="n">kernel_n_below_0</span><span class="p">:(</span><span class="n">n_points</span><span class="o">+</span><span class="n">kernel_n_below_0</span><span class="p">)]</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed_by_convolving</span> <span class="o">=</span> <span class="n">convolved_y</span><span class="p">[</span><span class="n">kernel_n_below_0</span><span class="p">:(</span><span class="n">n_points</span><span class="o">+</span><span class="n">kernel_n_below_0</span><span class="p">)]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">smoothed_by_convolving</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
@@ -223,7 +223,7 @@ property of convolution.</p>
 results above differ slightly from the convolution using the simple
 crude method in the <a class="reference internal" href="smoothing_intro.html"><em>An introduction to smoothing</em></a>.</p>
 <p>Here are those results for comparison:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">y_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">y_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x_position</span> <span class="ow">in</span> <span class="n">x_vals</span><span class="p">:</span>
 <span class="gp">... </span>     <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x_vals</span> <span class="o">-</span> <span class="n">x_position</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="gp">... </span>     <span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
@@ -318,8 +318,8 @@ description of the <code class="docutils literal"><span class="pre">mode</span><
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/smoothing_as_convolution.txt"
