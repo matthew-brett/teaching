@@ -23,7 +23,8 @@ Mathematics
 Statistics
 ==========
 
-* :doc:`glm_intro`.
+* :doc:`glm_intro`;
+* :doc:`ioannidis_2005`.
 
 Imaging
 =======
