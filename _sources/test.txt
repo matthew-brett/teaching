@@ -1,0 +1,6 @@
+
+
+.. math::
+
+    \begin{tabular}{l} 1 \\ 2 \end{tabular}
+

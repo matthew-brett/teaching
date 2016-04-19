@@ -16,6 +16,7 @@ Mathematics
 * :doc:`rotation_2d`;
 * :doc:`sums_of_cosines`;
 * :doc:`on_vectors`;
+* :doc:`vector_projection`;
 * :doc:`simple_complex`;
 * :doc:`fourier_no_ei`;
 * :doc:`pca_introduction`.
@@ -79,3 +80,5 @@ Computing
     floating_point
     floating_error
     ioannidis_2005
+    vector_projection
+    vector_angles
