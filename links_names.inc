@@ -61,6 +61,14 @@
 .. _rotation matrices:
 .. _wikipedia on rotation matrices:
    https://en.wikipedia.org/wiki/Rotation_matrix
+.. _vector projection:
+.. _wikipedia on vector projection:
+   https://en.wikipedia.org/wiki/Vector_projection
+.. _scalar projection:
+.. _wikipedia on scalar projection:
+   https://en.wikipedia.org/wiki/Scalar_projection
+.. _dot products and projections:
+   http://www.math.oregonstate.edu/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/dotprod/dotprod.html
 
 .. Licenses
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode

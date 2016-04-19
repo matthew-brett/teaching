@@ -191,6 +191,9 @@ pseudoxml:
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
+graphics:
+	python3 tools/vector_projection.py images/vector_projection
+
 github:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	ghp-import -n $(BUILDDIR)/html/

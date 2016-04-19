@@ -152,18 +152,11 @@ of squares is:
     155.669289858
 
 For the following you will need to know how to use vector dot products to
-project one vector on another. There is good background in `this Khan academy
-video on projection
-<https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/introduction-to-projections>`__
-if you need to revise that - and more background from the same series of
-videos if you need to freshen up on `vector length
-<https://www.khanacademy.org/math/linear-algebra/vectors_and_spaces/dot_cross_products/v/vector-dot-product-and-vector-length>`__,
-`mathematical properties of dot products
-<https://www.khanacademy.org/math/linear-algebra/vectors_and_spaces/dot_cross_products/v/vector-dot-product-and-vector-length>`__,
-`unit vectors
-<https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/unit-vectors>`__
-and `angles between vectors
-<https://www.khanacademy.org/math/linear-algebra/vectors_and_spaces/dot_cross_products/v/defining-the-angle-between-vectors>`__.
+project one vector on another.
+
+See :doc:`on_vectors` and :doc:`vector_projection` for the details, and please
+try the excellent Khan academy videos linked from those pages if you are new to
+vector dot products or are feeling rusty.
 
 Let us now say that we want to try and find a line that will explain the
 maximum sum of squares in the data.

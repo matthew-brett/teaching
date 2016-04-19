@@ -8,6 +8,19 @@ A vector is an ordered sequence of values:
 
     \vec{v} = [ v_1, v_2, \cdots v_n ] \\
 
+******
+Videos
+******
+
+See these Khan academy videos for nice introductions to vector dot products:
+
+* `mathematical properties of dot products
+  <https://www.khanacademy.org/math/linear-algebra/vectors_and_spaces/dot_cross_products/v/vector-dot-product-and-vector-length>`__,
+* `vector length
+  <https://www.khanacademy.org/math/linear-algebra/vectors_and_spaces/dot_cross_products/v/vector-dot-product-and-vector-length>`__,
+* `unit vectors
+  <https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/unit-vectors>`__
+
 **************
 Vector scaling
 **************
@@ -210,5 +223,13 @@ By the `converse of Pythagoras' theorem
 <https://en.wikipedia.org/wiki/Pythagorean_theorem#Converse>`_, if $\VL{v}^2 +
 \VL{w}^2 \ne \L{\vec{v} - \vec{w}}^2$ then vectors $\vec{v}$ and $\vec{w}$ do
 not form a right angle and are not perpendicular.
+
+********
+Also see
+********
+
+* :doc:`vector_projection`;
+* :doc:`vector_angles`.
+
 
 .. include:: links_names.inc
