@@ -29,13 +29,11 @@
     <link rel="next" title="Vector projection" href="vector_projection.html" />
     <link rel="prev" title="Floating point error" href="floating_error.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body role="document">
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -121,8 +119,8 @@ test is not significant.</li>
 <p>In this section we work up slowly to Ioannidis table 1.</p>
 <p>First we need to load functions for symbolic mathematics from the Sympy
 library:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">init_printing</span><span class="p">,</span> <span class="n">latex</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;old&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">init_printing</span><span class="p">,</span> <span class="n">latex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;old&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If we do not take any prior probabilities into account, then we have the
@@ -193,7 +191,7 @@ column of the table above. Substituting into the equation:</p>
 <p>and:</p>
 <p><span class="math">\(P(H_A | T_S) = \Frac{(1 - \beta) \pi}{(1 - \beta) \pi + \alpha (1 - \pi)}\)</span></p>
 <p>Let&#8217;s put that formula into Sympy for later:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="k">import</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span> <span class="c1"># get symbolic variables</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span> <span class="c1"># get symbolic variables</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob</span>
 <span class="go">pi*(-beta + 1)/(alpha*(-pi + 1) + pi*(-beta + 1))</span>
@@ -242,7 +240,7 @@ odds ratio</em>. <span class="math">\(R := \Frac{Pr(H_A)}{Pr(H_0)}\)</span>. Als
 <p>Ioannidis&#8217; formula for PPV is
 <span class="math">\(\Frac{(1 - \beta) R}{R - \beta R + \alpha}\)</span>. This is the same as
 our formula above, only rephrased in terms of <span class="math">\(R\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">R</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">R</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">R</span> <span class="o">/</span> <span class="p">(</span><span class="n">R</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Is this the same as our formula above?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">ppv</span> <span class="o">-</span> <span class="n">post_prob</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
@@ -301,7 +299,7 @@ not-significant findings) and multiplying by <span class="math">\(u\)</span>. We
 effect to the first column (significant findings) and subtract from the
 second column (not-significant findings). Before applying the priors,
 this looks like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">f_s</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span>
@@ -335,7 +333,7 @@ this looks like:</p>
 </tbody>
 </table>
 <p>After applying the prior:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span> <span class="o">=</span> <span class="n">bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span> <span class="o">=</span> <span class="n">bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
@@ -371,13 +369,13 @@ this looks like:</p>
 <p>The first cell in the table is <span class="math">\(Pr(T_S | H_A) Pr(H_A)\)</span>. The total
 for the first column gives <span class="math">\(Pr(T_S)\)</span>. Therefore the posterior
 probability <span class="math">\(Pr(H_A | T_S)\)</span> is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span> <span class="o">=</span> <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span> <span class="o">=</span> <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span>
 <span class="gp">... </span>                                      <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span>
 <span class="go">pi*(beta*u - beta + 1)/(pi*(beta*u - beta + 1) + (alpha + u*(-alpha + 1))*(-pi + 1))</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Same as Ioannidis formulation?</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Same as Ioannidis formulation?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># This from Ioannidis 2005:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv_bias</span> <span class="o">=</span> <span class="p">(</span>
 <span class="gp">... </span>    <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">R</span><span class="p">)</span> <span class="o">/</span>
@@ -413,7 +411,7 @@ studies will be not significant, given <span class="math">\(H_0\)</span>, is
 <span class="math">\((1 - \alpha)^n\)</span>. The probability of at least one false positive
 is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 <p>The probability table (without the priors) is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">),</span>
 <span class="gp">... </span>                          <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">f_s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
@@ -447,7 +445,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </tbody>
 </table>
 <p>Considering the prior:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span> <span class="o">=</span> <span class="n">multi_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span> <span class="o">=</span> <span class="n">multi_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
@@ -481,12 +479,12 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </tbody>
 </table>
 <p>Giving posterior probability of:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span> <span class="o">=</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span> <span class="o">=</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span>
 <span class="go">pi*(-beta**n + 1)/(pi*(-beta**n + 1) + (-pi + 1)*(-(-alpha + 1)**n + 1))</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Formula from Ioannidis 2005:</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Formula from Ioannidis 2005:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv_multi</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="o">-</span> <span class="n">R</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Is this the same as our formula above?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">ppv_multi</span> <span class="o">-</span> <span class="n">post_prob_multi</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
@@ -501,7 +499,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 <div class="section" id="putting-it-together">
 <h1>Putting it together<a class="headerlink" href="#putting-it-together" title="Permalink to this headline">¶</a></h1>
 <p>Considering analysis bias and positive publication bias together:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
 <span class="gp">... </span>   <span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>   <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>   <span class="n">f_s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
@@ -534,7 +532,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span> <span class="o">=</span> <span class="n">multi_bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span> <span class="o">=</span> <span class="n">multi_bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
@@ -567,7 +565,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi_bias</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi_bias</span> <span class="o">=</span> <span class="p">(</span>
 <span class="gp">... </span>   <span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span>
 <span class="gp">... </span>   <span class="p">(</span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">... </span>   <span class="p">)</span>
@@ -577,7 +575,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </div>
 <p>Now we make a numerical version of this symbolic expression, so we can
 evaluate it for different values of <span class="math">\(\alpha, \beta, \pi, u, n\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numerical version of symbolic expression</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numerical version of symbolic expression</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pp_mb_func</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">post_prob_multi_bias</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -602,12 +600,12 @@ bias, the significant finding <span class="math">\(T_S\)</span> does not change 
 very much from our prior.</p>
 <p>If we do some study with an hypothesis that is suitably unlikely apriori
 - say <span class="math">\(Pr(H_A) = 0.25\)</span> - then our posterior probability is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">0.29724637862</span>
 </pre></div>
 </div>
 <p>What if the result was significant at <span class="math">\(p &lt; 0.01\)</span>?:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">0.402452827001</span>
 </pre></div>
 </div>
@@ -669,7 +667,7 @@ probability that <span class="math">\(H_A\)</span> is correct is still less than
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/ioannidis_2005.txt"

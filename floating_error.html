@@ -29,13 +29,11 @@
     <link rel="next" title="The argument in “Why most published research findings are false”" href="ioannidis_2005.html" />
     <link rel="prev" title="Points on floats" href="floating_point.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body role="document">
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -126,7 +124,7 @@ number in terms of significand and exponent.</p>
 <p>But — what if we have a some infinite precision number <span class="math">\(x\)</span> and we want to
 know how to represent it in floating point?</p>
 <p>A simple algorithm might be to get the exponent by an algorithm like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">e1</span> <span class="o">=</span> <span class="n">logB</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
 <span class="n">exponent</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
 </pre></div>
@@ -137,7 +135,7 @@ y\)</span> <a class="footnote-reference" href="#floor" id="id1">[1]</a>.</p>
 <p>We can then get the mantissa part with <span class="math">\(round(x / \beta^{e2}, p-1)\)</span>, where
 <span class="math">\(round(y, z)\)</span> rounds the number <span class="math">\(y\)</span> to <span class="math">\(z\)</span> digits after the decimal point.</p>
 <p>Worked example in Python with our original system of <span class="math">\(p = 3, \beta = 10\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="nb">abs</span><span class="p">,</span> <span class="n">log10</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="nb">round</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="nb">abs</span><span class="p">,</span> <span class="n">log10</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="nb">round</span>
 <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1234</span> <span class="c1"># a number with greater precision than format allows</span>
 <span class="n">p</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># number of digits in mantissa</span>
 <span class="n">x1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 0.1234</span>
@@ -202,7 +200,7 @@ definitions</a>.  MATLAB and Octave return <span class="math">\(\beta^{1-p}\)</s
 function. <a class="reference external" href="http://www.numpy.org">numpy</a> uses the same convention in its <code class="docutils literal"><span class="pre">np.finfo</span></code> function.  For
 example, the standard <code class="docutils literal"><span class="pre">float64</span></code> double precision type in numpy has <span class="math">\(\beta = 2;
 p=53\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">==</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">53</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
@@ -286,7 +284,7 @@ than <span class="math">\(9.99 \times 10^0\)</span>, even though <code class="do
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/floating_error.txt"

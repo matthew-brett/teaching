@@ -29,13 +29,11 @@
     <link rel="next" title="Slice timing correction" href="slice_timing.html" />
     <link rel="prev" title="Notes on the Bonferroni threshold" href="bonferroni_correction.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body role="document">
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -46,9 +44,9 @@
 <div class="section" id="thresholding-with-false-discovery-rate">
 <h1>Thresholding with false discovery rate<a class="headerlink" href="#thresholding-with-false-discovery-rate" title="Permalink to this headline">¶</a></h1>
 <p>With J-B Poline.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 <p>The false discovery rate is a different <em>type</em> of correction than
@@ -80,13 +78,13 @@ threshold; <span class="math">\(\theta = p(i)\)</span>. The expected number of f
 <span class="math">\(p(i)\)</span> was 0.1, then the expected number of false positive
 detections, thresholding at 0.1, is 0.1 * 100 = 10.</p>
 <p>Let&#8217;s take some data from a random normal distribution to illustrate:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># so we always get the same random numbers</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># so we always get the same random numbers</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">z_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Turn the Z values into p values:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">sst</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="kn">as</span> <span class="nn">sst</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">normal_distribution</span> <span class="o">=</span> <span class="n">sst</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span> <span class="c1">#loc is the mean, scale is the variance.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The normal CDF</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p_values</span> <span class="o">=</span> <span class="n">normal_distribution</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z_values</span><span class="p">)</span>
@@ -94,7 +92,7 @@ detections, thresholding at 0.1, is 0.1 * 100 = 10.</p>
 </div>
 <p>To make it easier to show, we sort the p values from smallest to
 largest:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">p_values</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">p_values</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># the 1-based i index of the p values, as in p(i)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
@@ -130,7 +128,7 @@ the largest <span class="math">\(p(i)\)</span> such that:</p>
 <p>Let&#8217;s take <span class="math">\(q\)</span> (the proportion of false discoveries = detections)
 as 0.05. We plot <span class="math">\(q i / N\)</span> (in red) on the same graph as
 <span class="math">\(p(i)\)</span> (in blue):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="mf">0.05</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p_values</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$p(i)$&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">q</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$q i / N$&#39;</span><span class="p">)</span>
@@ -165,7 +163,7 @@ this case there will be p values that are smaller than expected on the
 null hypothesis. This causes the p value line to start below the
 diagonal on the ordered plot, because of the high density of low p
 values.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">N_signal</span> <span class="o">=</span> <span class="mi">20</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">N_signal</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">N_noise</span> <span class="o">=</span> <span class="n">N</span> <span class="o">-</span> <span class="n">N_signal</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">noise_z_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N_noise</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add some signal with very low z scores / p values</span>
@@ -190,7 +188,7 @@ values.</p>
 </div>
 <p>The interesting part is the beginning of the graph, where the blue p
 values stay below the red line:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first_i</span> <span class="o">=</span> <span class="n">i</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">first_i</span> <span class="o">=</span> <span class="n">i</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">first_i</span><span class="p">,</span> <span class="n">mixed_p_values</span><span class="p">[:</span><span class="mi">30</span><span class="p">],</span> <span class="s1">&#39;b.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$p(i)$&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">first_i</span><span class="p">,</span> <span class="n">q</span> <span class="o">*</span> <span class="n">first_i</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$q i / N$&#39;</span><span class="p">)</span>
@@ -209,16 +207,16 @@ values stay below the red line:</p>
 </div>
 <p>We are looking for the largest <span class="math">\(p(i) &lt; qi/N\)</span>, which corresponds to
 the last blue point below the red line.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">below</span> <span class="o">=</span> <span class="n">mixed_p_values</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span> <span class="c1"># True where p(i)&lt;qi/N</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">below</span> <span class="o">=</span> <span class="n">mixed_p_values</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span> <span class="c1"># True where p(i)&lt;qi/N</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">max_below</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">below</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># Max Python array index where p(i)&lt;qi/N</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p_i:&#39;</span><span class="p">,</span> <span class="n">mixed_p_values</span><span class="p">[</span><span class="n">max_below</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;p_i:&#39;</span><span class="p">,</span> <span class="n">mixed_p_values</span><span class="p">[</span><span class="n">max_below</span><span class="p">])</span>
 <span class="go">p_i: 0.00323007466783</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;i:&#39;</span><span class="p">,</span> <span class="n">max_below</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Python indices 0-based, we want 1-based</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;i:&#39;</span><span class="p">,</span> <span class="n">max_below</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Python indices 0-based, we want 1-based</span>
 <span class="go">i: 9</span>
 </pre></div>
 </div>
 <p>The Bonferroni threshold is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mf">0.05</span> <span class="o">/</span> <span class="n">N</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mf">0.05</span> <span class="o">/</span> <span class="n">N</span>
 <span class="go">0.0005</span>
 </pre></div>
 </div>
@@ -292,7 +290,7 @@ detections more difficult to interpret.</li>
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/fdr.txt"

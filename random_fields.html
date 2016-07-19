@@ -29,13 +29,11 @@
     <link rel="next" title="Formula for rotating a vector in 2D" href="rotation_2d.html" />
     <link rel="prev" title="Calculating transformations between images" href="optimizing_space.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body role="document">
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -85,13 +83,13 @@ scores will appear to be significant at standard statistical thresholds
 for the the individual <span class="math">\(Z\)</span> scores. For example, <span class="math">\(p\)</span> value
 thresholds such as <span class="math">\(p&lt;0.05 \)</span> or <span class="math">\(p&lt;0.01 \)</span> correspond to <span class="math">\(Z = 1.64 \)</span> and
 <span class="math">\(Z = 2.33 \)</span> respectively.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Tell numpy to print numbers to 4 decimal places only</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">normal_distribution</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The inverse normal CDF</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inv_n_cdf</span> <span class="o">=</span> <span class="n">normal_distribution</span><span class="o">.</span><span class="n">ppf</span>
@@ -159,7 +157,7 @@ with non-independent tests. Let us first make an example image out of
 random numbers. We generate 16384 random numbers, and then put them into
 a 128 by 128 array. This results in a 2D image of spatially independent
 random numbers.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Constants for image simulations etc</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Constants for image simulations etc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">]</span> <span class="c1"># No of pixels in X, Y</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_voxels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># Total pixels</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s_fwhm</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># Smoothing in number of pixels in x, y</span>
@@ -192,9 +190,9 @@ distribution. Therefore, from the Bonferroni correction
 (<span class="math">\(\alpha / N = 0.05 / 16384\)</span> = [Z equivalent] 4.52), we would
 expect only 5 out of 100 such images to have one or more random numbers
 in the whole image larger than 4.52.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Bonferroni threshold for this image</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Bonferroni threshold for this image</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bonf_thresh</span> <span class="o">=</span> <span class="n">inv_n_cdf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="n">n_voxels</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bonf_thresh</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">bonf_thresh</span><span class="p">)</span>
 <span class="go">4.52277137559</span>
 </pre></div>
 </div>
@@ -217,7 +215,7 @@ uncorrelated
 variables</a>).</p>
 <p>The following is the image that results from the procedure above applied
 to our first set of random numbers:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Divide into FWHM chunks and fill square from mean value</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Divide into FWHM chunks and fill square from mean value</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sqmean_img</span> <span class="o">=</span> <span class="n">test_img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s_fwhm</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">i_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">s_fwhm</span><span class="p">)</span>
@@ -266,8 +264,8 @@ numbers tends to zero. In order to return the variance of the numbers in
 the image to one, to match the normal distribution, the image must be
 multiplied by a scale factor. The derivation of this scaling factor is
 rather technical, and not relevant to the discussion here).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># smooth random number image</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="k">as</span> <span class="nn">spn</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># smooth random number image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="kn">as</span> <span class="nn">spn</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sd</span> <span class="o">=</span> <span class="n">s_fwhm</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">8.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># sigma for this FWHM</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stest_img</span> <span class="o">=</span> <span class="n">spn</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">test_img</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;wrap&#39;</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -344,7 +342,7 @@ pixels by 8 pixels (the smoothing that we applied). A resel is therefore
 a 8 by 8 pixel block, and the number of resels in our image is (128 / 8)
 * (128 / 8) = 256. Note that the number of resels depends only on the
 number of pixels, and the FWHM.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># No of resels</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># No of resels</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">s_fwhm</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span>
 <span class="go">256</span>
@@ -361,7 +359,7 @@ at <span class="math">\(Z &gt; 2.75\)</span>. This means we set to zero all the 
 <span class="math">\(Z\)</span> scores less than or equal to 2.75, and set to one all the
 pixels with <span class="math">\(Z\)</span> scores greater than 2.75.</p>
 <p>We make a function to show the thresholded image:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">show_threshed</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">th</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">show_threshed</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">th</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">thimg</span> <span class="o">=</span> <span class="p">(</span><span class="n">img</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">thimg</span><span class="p">)</span>
@@ -371,7 +369,7 @@ pixels with <span class="math">\(Z\)</span> scores greater than 2.75.</p>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Smoothed image thresholded at Z &gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">th</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># threshold at 2.75 and display</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># threshold at 2.75 and display</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">show_threshed</span><span class="p">(</span><span class="n">stest_img</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -385,7 +383,7 @@ higher than 2.75. The EC of this image is just the number of blobs. If
 we increase the threshold to <span class="math">\(3.25\)</span>, we find that some of the
 blobs disappear (the highest <span class="math">\(Z\)</span> values at the blob peaks were
 less than 3.25).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># threshold at 3.25 and display</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># threshold at 3.25 and display</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">show_threshed</span><span class="p">(</span><span class="n">stest_img</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -399,11 +397,11 @@ estimate the most likely value of the EC at any given threshold. The
 formula for this estimate, for two dimensions, is on page 906 of Worsley
 1992, implemented below. The graph shows the expected EC of our smoothed
 image, of 256 resels, when thresholded at different <span class="math">\(Z\)</span> values.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># expected EC at various Z thresholds, for two dimensions</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># expected EC at various Z thresholds, for two dimensions</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">expected_ec_2d</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">resel_count</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">expected_ec_2d</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">resel_count</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="c1"># From Worsley 1992</span>
 <span class="gp">... </span>    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">resel_count</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">3.</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">))</span>
@@ -426,7 +424,7 @@ image, of 256 resels, when thresholded at different <span class="math">\(Z\)</sp
 <p>Note that the graph does a reasonable job of predicting the EC in our
 image; at <span class="math">\(Z = 2.75\)</span> threshold it predicted an EC of 2.8, and at a
 <span class="math">\(Z = 3.25 \)</span> it predicted an EC of 0.74</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expected_ec_2d</span><span class="p">([</span><span class="mf">2.75</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">],</span> <span class="n">resels</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expected_ec_2d</span><span class="p">([</span><span class="mf">2.75</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">],</span> <span class="n">resels</span><span class="p">)</span>
 <span class="go">array([ 2.825 ,  0.7449])</span>
 </pre></div>
 </div>
@@ -450,12 +448,12 @@ our image.</p>
 <div class="section" id="is-the-threshold-accurate-show-me">
 <h2>Is the threshold accurate? Show me!<a class="headerlink" href="#is-the-threshold-accurate-show-me" title="Permalink to this headline">¶</a></h2>
 <p>We can test the treshold with a simulation:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simulation to test the RFT threshold.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simulation to test the RFT threshold.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find approx threshold from the vector above.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># We&#39;re trying to find the Z value for which the expected EC is 0.05</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">Z</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">expEC</span><span class="o">&lt;=</span><span class="n">alpha</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">alphaTH</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">tmp</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using Z threshold of </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">alphaTH</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Using Z threshold of </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">alphaTH</span><span class="p">)</span>
 <span class="go">Using Z threshold of 4.054054</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make lots of smoothed images and find how many have one or more</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># blobs above threshold</span>
@@ -477,7 +475,7 @@ our image.</p>
 <span class="gp">... </span>    <span class="n">stimg</span> <span class="o">*=</span> <span class="n">scf</span>
 <span class="gp">... </span>    <span class="n">falsepos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">stimg</span> <span class="o">&gt;=</span> <span class="n">alphaTH</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">maxes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stimg</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;False positive rate in simulation was </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1"> expected)&#39;</span> <span class="o">%</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;False positive rate in simulation was </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1"> expected)&#39;</span> <span class="o">%</span>
 <span class="gp">... </span>      <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">falsepos</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">repeats</span><span class="p">),</span> <span class="n">alpha</span><span class="p">))</span>
 <span class="go">False positive rate in simulation was 0.049 (0.05 expected)</span>
 </pre></div>
@@ -560,12 +558,12 @@ this, the corrected statistics are calculated just as described above.</p>
 4.1 voxels in x, 4.0 voxels in y, and 4.1 voxels in z. These values are
 rounded; I can get the exact values from MATLAB by looking at
 <code class="docutils literal"><span class="pre">xSPM.FWHM</span></code>. These are:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0528</span><span class="p">,</span> <span class="mf">4.0172</span><span class="p">,</span> <span class="mf">4.1192</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0528</span><span class="p">,</span> <span class="mf">4.0172</span><span class="p">,</span> <span class="mf">4.1192</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>A resel is therefore a block of volume approx:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resel_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">FWHM</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">resel_volume</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resel_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">FWHM</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">resel_volume</span><span class="p">)</span>
 <span class="go">67.0643168927</span>
 </pre></div>
 </div>
@@ -575,7 +573,7 @@ calculation based on this estimated FWHM smoothness and the shape of the
 brain. In other words it applies the search volume correction I
 mentioned above. If it did not apply this correction then the resel
 count would simply be the number of voxels divided by the resel volume:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="mi">44532</span> <span class="o">/</span> <span class="n">resel_volume</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="mi">44532</span> <span class="o">/</span> <span class="n">resel_volume</span><span class="p">)</span>
 <span class="go">664.019288697</span>
 </pre></div>
 </div>
@@ -681,7 +679,7 @@ Human Brain Mapping, 4:58-73.</p>
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/random_fields.txt"

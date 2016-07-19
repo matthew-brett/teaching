@@ -29,13 +29,11 @@
     <link rel="next" title="Introduction to the general linear model" href="glm_intro.html" />
     <link rel="prev" title="Fourier without the ei" href="fourier_no_ei.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body role="document">
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -72,21 +70,21 @@ go along:</p>
 <div class="section" id="loading-and-configuring-code-libraries">
 <h3>Loading and configuring code libraries<a class="headerlink" href="#loading-and-configuring-code-libraries" title="Permalink to this headline">¶</a></h3>
 <p>Load and configure the Python libraries we will use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - compatibility with Python 3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>  <span class="c1"># print(&#39;me&#39;) instead of print &#39;me&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>  <span class="c1"># 1/2 == 0.5, not 0</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - compatibility with Python 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>  <span class="c1"># print(&#39;me&#39;) instead of print &#39;me&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>  <span class="c1"># 1/2 == 0.5, not 0</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - import common modules</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># the Python array package</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># the Python plotting package</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - import common modules</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>  <span class="c1"># the Python array package</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>  <span class="c1"># the Python plotting package</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - tell numpy to print numbers to 4 decimal places only</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - tell numpy to print numbers to 4 decimal places only</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># - function to print non-numpy scalars to 4 decimal places</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">to_4dp</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="s1">&#39;{0:.4f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -94,7 +92,7 @@ go along:</p>
 <div class="section" id="some-actual-numbers-to-start">
 <h2>Some actual numbers to start<a class="headerlink" href="#some-actual-numbers-to-start" title="Permalink to this headline">¶</a></h2>
 <p>Let us start with a DFT of some data:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># An example input vector</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># An example input vector</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="p">[</span> <span class="mf">0.4967</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1383</span><span class="p">,</span>  <span class="mf">0.6477</span><span class="p">,</span>  <span class="mf">1.523</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.2342</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2341</span><span class="p">,</span>  <span class="mf">1.5792</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="mf">0.7674</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4695</span><span class="p">,</span>  <span class="mf">0.5426</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4634</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4657</span><span class="p">,</span>  <span class="mf">0.242</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.9133</span><span class="p">,</span>
@@ -110,7 +108,7 @@ go along:</p>
 <div class="figure">
 <img alt="_images/fourier_no_ei_orig-4.png" src="_images/fourier_no_ei_orig-4.png" />
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Now the DFT</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Now the DFT</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
 <span class="go">array([-4.3939+0.j    ,  9.0217-3.7036j, -0.5874-6.2268j,  2.5184+3.7749j,</span>
@@ -127,7 +125,7 @@ go along:</p>
 complex numbers. We will go into this in detail later.</p>
 <p>When we do the inverse DFT on <code class="docutils literal"><span class="pre">X</span></code> we return the original values of our
 input <code class="docutils literal"><span class="pre">x</span></code>, but as complex numbers with imaginary part 0:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply the inverse DFT to the output of the forward DFT</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply the inverse DFT to the output of the forward DFT</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_back</span>
 <span class="go">array([ 0.4967-0.j, -0.1383-0.j,  0.6477-0.j,  1.5230-0.j, -0.2342-0.j,</span>
@@ -259,7 +257,7 @@ indices <span class="math">\(0 .. N-1\)</span>. <span class="math">\(\vec{t_2}\)
 (not including) <span class="math">\(4 \pi\)</span> - two cycles.</p>
 <p>Here are some plots of <span class="math">\(\vec{c_k}\)</span>, <span class="math">\(\vec{s_k}\)</span> for
 <span class="math">\(k \in 0, 1, 2, 3, 4, 5\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">one_cycle</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ns</span> <span class="o">/</span> <span class="n">N</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
@@ -347,7 +345,7 @@ have above using the vector dot products. Write row <span class="math">\(k\)</sp
 \[\begin{split}x_n = \frac{1}{N} C_{n,:} \cdot \vec{X} + i \frac{1}{N} S_{n,:} \cdot \vec{X} \\
 = \frac{1}{N} \vec{X} \cdot \vec{c_n} + i \frac{1}{N} \vec{X} \cdot \vec{s_n}\end{split}\]</div>
 <p>We can build <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> for our case with <span class="math">\(N=32\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">one_cycle</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ns</span> <span class="o">/</span> <span class="n">N</span>
@@ -359,11 +357,11 @@ have above using the vector dot products. Write row <span class="math">\(k\)</sp
 </div>
 <p>We get the same result using this matrix formula, as we do using the
 canned DFT:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Recalculate the forward transform with C and S</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X_again</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Recalculate the forward transform with C and S</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_again</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1j</span> <span class="o">*</span> <span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X_again</span><span class="p">)</span>  <span class="c1"># same result as for np.fft.fft</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Recalculate the inverse transform</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x_again</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_again</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1j</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_again</span><span class="p">)</span>  <span class="c1"># as for np.fft.ifft, we get x back</span>
 </pre></div>
 </div>
@@ -373,14 +371,14 @@ canned DFT:</p>
 <p>We can show the matrix calculation of the DFT as images. To do this we
 will use some specialized code. If you are running this tutorial yourself,
 download <a class="reference download internal" href="_downloads/dft_plots.py" download=""><code class="xref download docutils literal"><span class="pre">dft_plots.py</span></code></a> to the directory containing this page.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import the custom DFT plotting code</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dft_plots</span> <span class="k">as</span> <span class="nn">dftp</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import the custom DFT plotting code</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dft_plots</span> <span class="kn">as</span> <span class="nn">dftp</span>
 </pre></div>
 </div>
 <p>Here we show the forward DFT given by the formula:</p>
 <div class="math">
 \[\vec{X} = \C \cdot \vec{x} - i \S \cdot \vec{x}\]</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Show image sketch for forward DFT</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Show image sketch for forward DFT</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">sketch</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 </pre></div>
@@ -393,7 +391,7 @@ download <a class="reference download internal" href="_downloads/dft_plots.py" d
 corresponds to 0, black corresponds to the most negative value and white
 to the most positive value. For example the first four values in the
 vector <span class="math">\(\vec{x}\)</span> are:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
 <span class="go">array([ 0.4967, -0.1383,  0.6477,  1.523 ])</span>
 </pre></div>
 </div>
@@ -420,7 +418,7 @@ explore in the next section.</p>
 <p>We can show the inverse DFT in the same way:</p>
 <div class="math">
 \[\vec{x} = \frac{1}{N} \C \cdot \vec{X} + i \frac{1}{N} \S \cdot \vec{X}\]</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">sketch</span><span class="p">(</span><span class="n">inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">sketch</span><span class="p">(</span><span class="n">inverse</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_no_ei_orig-13.png">png</a>, <a class="reference external" href=".//fourier_no_ei_orig-13.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_no_ei_orig-13.pdf">pdf</a>)</p>
@@ -439,22 +437,22 @@ are all zero in the following sections.</p>
 the forward DFT is a vector of real numbers. The mathematics also works
 for the case where the input to the forward DFT is a vector of complex
 numbers:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">complex_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>  <span class="c1"># A Random array of complex numbers</span>
-<span class="gp">... </span>      <span class="p">[</span> <span class="mf">0.61</span><span class="o">-</span><span class="mf">0.83</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.82</span><span class="o">-</span><span class="mf">0.12</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.50</span><span class="o">+</span><span class="mf">1.14</span><span class="n">j</span><span class="p">,</span>  <span class="mf">2.37</span><span class="o">+</span><span class="mf">1.67</span><span class="n">j</span><span class="p">,</span>  <span class="mf">1.62</span><span class="o">+</span><span class="mf">0.69</span><span class="n">j</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="mf">1.61</span><span class="o">-</span><span class="mf">0.06</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.54</span><span class="o">-</span><span class="mf">0.73</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.89</span><span class="o">-</span><span class="mf">1.</span><span class="n">j</span>  <span class="p">,</span>  <span class="mf">0.17</span><span class="o">-</span><span class="mf">0.71</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.75</span><span class="o">-</span><span class="mf">0.01</span><span class="n">j</span><span class="p">,</span>
-<span class="gp">... </span>       <span class="o">-</span><span class="mf">1.06</span><span class="o">-</span><span class="mf">0.14</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.53</span><span class="o">-</span><span class="mf">0.33</span><span class="n">j</span><span class="p">,</span>  <span class="mf">1.74</span><span class="o">+</span><span class="mf">0.83</span><span class="n">j</span><span class="p">,</span>  <span class="mf">1.34</span><span class="o">-</span><span class="mf">0.64</span><span class="n">j</span><span class="p">,</span>  <span class="mf">1.47</span><span class="o">+</span><span class="mf">0.71</span><span class="n">j</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="mf">0.82</span><span class="o">+</span><span class="mf">0.4</span><span class="n">j</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.59</span><span class="o">-</span><span class="mf">0.58</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.13</span><span class="o">-</span><span class="mf">1.02</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.47</span><span class="o">-</span><span class="mf">0.73</span><span class="n">j</span><span class="p">,</span>  <span class="mf">1.45</span><span class="o">+</span><span class="mf">1.31</span><span class="n">j</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="mf">1.32</span><span class="o">-</span><span class="mf">0.28</span><span class="n">j</span><span class="p">,</span>  <span class="mf">1.58</span><span class="o">-</span><span class="mf">2.13</span><span class="n">j</span><span class="p">,</span>  <span class="mf">0.75</span><span class="o">-</span><span class="mf">0.43</span><span class="n">j</span><span class="p">,</span>  <span class="mf">1.24</span><span class="o">+</span><span class="mf">0.4</span><span class="n">j</span> <span class="p">,</span>  <span class="mf">0.02</span><span class="o">+</span><span class="mf">1.08</span><span class="n">j</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="mf">0.07</span><span class="o">-</span><span class="mf">0.57</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.21</span><span class="o">+</span><span class="mf">1.08</span><span class="n">j</span><span class="p">,</span>  <span class="mf">1.38</span><span class="o">+</span><span class="mf">0.54</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.35</span><span class="o">+</span><span class="mf">0.3</span><span class="n">j</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.61</span><span class="o">+</span><span class="mf">1.08</span><span class="n">j</span><span class="p">,</span>
-<span class="gp">... </span>       <span class="o">-</span><span class="mf">0.96</span><span class="o">+</span><span class="mf">1.81</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.95</span><span class="o">+</span><span class="mf">1.64</span><span class="n">j</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">complex_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>  <span class="c1"># A Random array of complex numbers</span>
+<span class="gp">... </span>      <span class="p">[</span> <span class="mf">0.61</span><span class="o">-</span><span class="mf">0.83j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.82</span><span class="o">-</span><span class="mf">0.12j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.50</span><span class="o">+</span><span class="mf">1.14j</span><span class="p">,</span>  <span class="mf">2.37</span><span class="o">+</span><span class="mf">1.67j</span><span class="p">,</span>  <span class="mf">1.62</span><span class="o">+</span><span class="mf">0.69j</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="mf">1.61</span><span class="o">-</span><span class="mf">0.06j</span><span class="p">,</span>  <span class="mf">0.54</span><span class="o">-</span><span class="mf">0.73j</span><span class="p">,</span>  <span class="mf">0.89</span><span class="o">-</span><span class="mf">1.j</span>  <span class="p">,</span>  <span class="mf">0.17</span><span class="o">-</span><span class="mf">0.71j</span><span class="p">,</span>  <span class="mf">0.75</span><span class="o">-</span><span class="mf">0.01j</span><span class="p">,</span>
+<span class="gp">... </span>       <span class="o">-</span><span class="mf">1.06</span><span class="o">-</span><span class="mf">0.14j</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.53</span><span class="o">-</span><span class="mf">0.33j</span><span class="p">,</span>  <span class="mf">1.74</span><span class="o">+</span><span class="mf">0.83j</span><span class="p">,</span>  <span class="mf">1.34</span><span class="o">-</span><span class="mf">0.64j</span><span class="p">,</span>  <span class="mf">1.47</span><span class="o">+</span><span class="mf">0.71j</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="mf">0.82</span><span class="o">+</span><span class="mf">0.4j</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.59</span><span class="o">-</span><span class="mf">0.58j</span><span class="p">,</span>  <span class="mf">0.13</span><span class="o">-</span><span class="mf">1.02j</span><span class="p">,</span>  <span class="mf">0.47</span><span class="o">-</span><span class="mf">0.73j</span><span class="p">,</span>  <span class="mf">1.45</span><span class="o">+</span><span class="mf">1.31j</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="mf">1.32</span><span class="o">-</span><span class="mf">0.28j</span><span class="p">,</span>  <span class="mf">1.58</span><span class="o">-</span><span class="mf">2.13j</span><span class="p">,</span>  <span class="mf">0.75</span><span class="o">-</span><span class="mf">0.43j</span><span class="p">,</span>  <span class="mf">1.24</span><span class="o">+</span><span class="mf">0.4j</span> <span class="p">,</span>  <span class="mf">0.02</span><span class="o">+</span><span class="mf">1.08j</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="mf">0.07</span><span class="o">-</span><span class="mf">0.57j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.21</span><span class="o">+</span><span class="mf">1.08j</span><span class="p">,</span>  <span class="mf">1.38</span><span class="o">+</span><span class="mf">0.54j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.35</span><span class="o">+</span><span class="mf">0.3j</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.61</span><span class="o">+</span><span class="mf">1.08j</span><span class="p">,</span>
+<span class="gp">... </span>       <span class="o">-</span><span class="mf">0.96</span><span class="o">+</span><span class="mf">1.81j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.95</span><span class="o">+</span><span class="mf">1.64j</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">complex_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">complex_x</span><span class="p">)</span>  <span class="c1"># Canned DFT</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">complex_X_again</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">complex_x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">complex_x</span><span class="p">)</span>  <span class="c1"># Our DFT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">complex_X_again</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">complex_x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1j</span> <span class="o">*</span> <span class="n">S</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">complex_x</span><span class="p">)</span>  <span class="c1"># Our DFT</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># We get the same result as the canned DFT</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">complex_X</span><span class="p">,</span> <span class="n">complex_X_again</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The sketch of the complex forward DFT looks like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">complex_x</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">complex_x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">sketch</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Forward DFT for complex input vector&#39;</span><span class="p">)</span>
 </pre></div>
@@ -475,12 +473,12 @@ about real number input to the DFT.</p>
 <p>First we note that <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> are always real matrices,
 regardless of the input <span class="math">\(\vec{x}\)</span> or <span class="math">\(\vec{X}\)</span>.</p>
 <p>Let&#8217;s show <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> as grayscale images again:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$\mathbf</span><span class="si">{C}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$\mathbf{C}$&quot;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$\mathbf</span><span class="si">{S}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$\mathbf{S}$&quot;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
@@ -502,9 +500,9 @@ S_{p,:} = -S_{N-p,:} \; \mathrm{for} \; p &gt; 0\end{split}\]</div>
 are plotting the continuous cosine function with dotted lines, with
 filled circles to represent the discrete samples we took to fill the row
 of <span class="math">\(\C\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">center_rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">center_rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">center_rows</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf</span><span class="si">{C}</span><span class="s1">$&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{C}$&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
@@ -525,8 +523,8 @@ is sampling at the Nyquist sampling frequency, and row
 therefore it is being <em>aliased</em> to the same apparent frequency as row
 <span class="math">\(k = N / 2 - 1\)</span>.</p>
 <p>This might be more obvious plotting rows 1 and N-1 of <span class="math">\(\C\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $1$ and $N - 1$ of $\mathbf</span><span class="si">{C}</span><span class="s1">$&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $1$ and $N - 1$ of $\mathbf{C}$&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
@@ -536,8 +534,8 @@ therefore it is being <em>aliased</em> to the same apparent frequency as row
 <img alt="_images/fourier_no_ei_orig-18.png" src="_images/fourier_no_ei_orig-18.png" />
 </div>
 <p>Of course we get the same kind of effect for <span class="math">\(\S\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">center_rows</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf</span><span class="si">{S}</span><span class="s1">$&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">center_rows</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{S}$&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
@@ -546,8 +544,8 @@ therefore it is being <em>aliased</em> to the same apparent frequency as row
 <div class="figure">
 <img alt="_images/fourier_no_ei_orig-19.png" src="_images/fourier_no_ei_orig-19.png" />
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $1$ and $N - 1$ of $\mathbf</span><span class="si">{S}</span><span class="s1">$&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $1$ and $N - 1$ of $\mathbf{S}$&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
@@ -571,7 +569,7 @@ are transpose <em>symmetric</em> matrices:</p>
 <div class="math">
 \[\begin{split}\C = \C^T \\
 \S = \S^T \\\end{split}\]</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -614,7 +612,7 @@ written as <span class="math">\(\| \vec{v} \|\)</span>, and defined as:</p>
 index of the strength of the relationship between the rows. We can look
 at the dot products of all the rows of <span class="math">\(\C\)</span> with all other rows
 with the matrix multiplication <span class="math">\(\C^T \C\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$\mathbf{C^TC}$&quot;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
@@ -634,7 +632,7 @@ lengths);</li>
 the <span class="math">\(\| \vec{c_n} \|^2\)</span>.</li>
 </ul>
 <p>The squared row lengths are:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
 <span class="go">array([ 32.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,</span>
 <span class="go">        16.,  16.,  16.,  16.,  16.,  32.,  16.,  16.,  16.,  16.,  16.,</span>
 <span class="go">        16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.])</span>
@@ -644,7 +642,7 @@ the <span class="math">\(\| \vec{c_n} \|^2\)</span>.</li>
 squared length <span class="math">\(N\)</span>, and the other rows have squared length
 <span class="math">\(N / 2\)</span>.</p>
 <p>We can do the same for <span class="math">\(\S\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">)))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">)))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$\mathbf{S^TS}$&quot;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
@@ -666,7 +664,7 @@ zero except:</p>
 as <span class="math">\(-\| \vec{s_n} \|^2\)</span>.</li>
 </ul>
 <p>The squared row lengths are:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
 <span class="go">array([  0.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,</span>
 <span class="go">        16.,  16.,  16.,  16.,  16.,   0.,  16.,  16.,  16.,  16.,  16.,</span>
 <span class="go">        16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.])</span>
@@ -676,7 +674,7 @@ as <span class="math">\(-\| \vec{s_n} \|^2\)</span>.</li>
 length <span class="math">\(0\)</span>, and the other rows have squared length <span class="math">\(N / 2\)</span>.</p>
 <p>Finally, let&#8217;s look at the relationship between the rows of <span class="math">\(\C\)</span>
 and the rows of <span class="math">\(\S\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
@@ -838,7 +836,7 @@ projection vectors
 way it works in practice, due to the generality of the DFT in accepting
 real and complex input. In the next sections we will go through some
 examples to show how the forward and inverse transform work in detail.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Does it actually work?</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Does it actually work?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">unique_Cs</span> <span class="o">=</span> <span class="n">C</span><span class="p">[:</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">unique_Ss</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">small_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_Ss</span><span class="p">)</span>
@@ -846,8 +844,8 @@ examples to show how the forward and inverse transform work in detail.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sin_dots</span> <span class="o">=</span> <span class="n">unique_Ss</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cos_gs</span> <span class="o">=</span> <span class="n">cos_dots</span> <span class="o">/</span> <span class="p">([</span><span class="n">N</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">small_n</span> <span class="o">+</span> <span class="p">[</span><span class="n">N</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sin_gs</span> <span class="o">=</span> <span class="n">sin_dots</span> <span class="o">/</span> <span class="p">([</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">small_n</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cos_projections</span> <span class="o">=</span> <span class="n">cos_gs</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">unique_Cs</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sin_projections</span> <span class="o">=</span> <span class="n">sin_gs</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">unique_Ss</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cos_projections</span> <span class="o">=</span> <span class="n">cos_gs</span><span class="p">[:,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">unique_Cs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sin_projections</span> <span class="o">=</span> <span class="n">sin_gs</span><span class="p">[:,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">unique_Ss</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">cos_projections</span><span class="p">,</span> <span class="n">sin_projections</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_back</span> <span class="o">-</span> <span class="n">x</span>
 <span class="go">array([-0.,  0., -0.,  0., -0., -0.,  0., -0.,  0., -0.,  0., -0.,  0.,</span>
@@ -876,9 +874,9 @@ multiplication:</p>
 <p>That is, <span class="math">\(X_0\)</span> is a complex number with imaginary part = 0, where
 the real part contains the sum of the elements in <span class="math">\(\vec{x}\)</span>.</p>
 <p>Is this true of our original input vector <span class="math">\(\vec{x}\)</span>?</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sum of x&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Sum of x&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="go">Sum of x -4.3939</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;First DFT coefficient X[0]&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;First DFT coefficient X[0]&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">First DFT coefficient X[0] (-4.3939+0j)</span>
 </pre></div>
 </div>
@@ -891,7 +889,7 @@ highlighting</p>
 </ul>
 <p>We can leave out the relevant row of <span class="math">\(\S\)</span> : <span class="math">\(S_{0,:}\)</span>
 because it is all 0.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">sketch</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;X_real&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">]])</span>
@@ -911,7 +909,7 @@ that is constant.</p>
 <div class="math">
 \[\vec{w} = [2, 2, ... 2]\]</div>
 <p>We could also write <span class="math">\(\vec{w}\)</span> as <span class="math">\(\vec{2}\)</span>.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">w</span>
 <span class="go">array([ 2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,</span>
 <span class="go">        2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,  2.,</span>
@@ -920,19 +918,19 @@ that is constant.</p>
 </div>
 <p>What DFT output <span class="math">\(\vec{W}\)</span> will this generate?</p>
 <p>We already know that <span class="math">\(W_0\)</span> must be the sum of <span class="math">\(\vec{w}\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sum of w&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Sum of w&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
 <span class="go">Sum of w 64.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;First DFT coefficient W[0]&#39;</span><span class="p">,</span> <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;First DFT coefficient W[0]&#39;</span><span class="p">,</span> <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">First DFT coefficient W[0] (64+0j)</span>
 </pre></div>
 </div>
 <p>How about the rest of <span class="math">\(\vec{W}\)</span>? All the remaining cosine and sine
 waves in <span class="math">\(\C, \S\)</span> sum to zero over the rows (and columns):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sums over rows of C after first&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Sums over rows of C after first&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="go">Sums over rows of C after first [-0. -0. -0. -0. -0. -0.  0. -0.  0. -0. -0.  0. -0. -0. -0.  0. -0.  0.</span>
 <span class="go"> -0. -0.  0.  0. -0.  0. -0.  0.  0.  0.  0. -0.  0.]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sums over rows of S&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Sums over rows of S&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="go">Sums over rows of S [ 0. -0. -0. -0.  0.  0.  0. -0.  0.  0.  0.  0.  0. -0. -0.  0. -0. -0.</span>
 <span class="go">  0. -0.  0.  0.  0.  0.  0. -0.  0.  0.  0. -0.  0.  0.]</span>
 </pre></div>
@@ -942,7 +940,7 @@ waves in <span class="math">\(\C, \S\)</span> sum to zero over the rows (and col
 <span class="math">\(\sum_{n=0}^{N-1} 2 v_n = 2 \sum_{n=0}^{N-1} v_n = 0\)</span>.</p>
 <p>So, we predict that all the rest of <span class="math">\(W_0\)</span>, real and imaginary,
 will be 0:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">W</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">W</span>
 <span class="go">array([ 64.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
 <span class="go">         0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
 <span class="go">         0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,   0.+0.j,</span>
@@ -952,7 +950,7 @@ will be 0:</p>
 </pre></div>
 </div>
 <p>Let us show this in the matrix form:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">sketch</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;X_real&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">]])</span>
@@ -1006,7 +1004,7 @@ and this is precisely what the inverse DFT will do:</p>
 w_1 = \frac{1}{N} \vec{1} \cdot \vec{W} \\
 ... \\
 w_{N-1} = \frac{1}{N} \vec{1} \cdot \vec{W}\end{split}\]</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w_again</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w_again</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">w_again</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">c_0</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
@@ -1019,7 +1017,7 @@ w_{N-1} = \frac{1}{N} \vec{1} \cdot \vec{W}\end{split}\]</div>
 </pre></div>
 </div>
 <p>In matrix form:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mf">1.</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mf">1.</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">C</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
 <span class="go">array([ 2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,</span>
 <span class="go">        2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,</span>
 <span class="go">        2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j,</span>
@@ -1027,8 +1025,8 @@ w_{N-1} = \frac{1}{N} \vec{1} \cdot \vec{W}\end{split}\]</div>
 <span class="go">        2.+0.j,  2.+0.j,  2.+0.j,  2.+0.j])</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">sketch</span><span class="p">(</span><span class="n">inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">DFTSketch</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">sketch</span><span class="p">(</span><span class="n">inverse</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;x_real&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;:&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="p">[[</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sketch</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="s1">&#39;X_c_real&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -1052,7 +1050,7 @@ having a single cycle across the whole signal:</p>
 \vec{s_1} \triangleq \left[ \sin(t_{1,n}) \;\mathrm{for}\; n \in 0,1,\ldots,N-1
 \right]\end{split}\]</div>
 <p>Here are plots of <span class="math">\(\vec{c_1}, \vec{s_1}\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ns</span> <span class="o">/</span> <span class="n">N</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_1</span><span class="p">),</span> <span class="s1">&#39;o:&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
@@ -1072,15 +1070,15 @@ having a single cycle across the whole signal:</p>
 cycle over the signal, then we can predict <span class="math">\(X_1\)</span>. It will be the
 dot product of the input signal with <span class="math">\(c_1\)</span>, which is the same as
 <span class="math">\(3 c_1 \cdot c_1\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t_1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ns</span> <span class="o">/</span> <span class="n">N</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t_1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ns</span> <span class="o">/</span> <span class="n">N</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cos_x</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">cos_x</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;First DFT coefficient for single cosine&#39;</span><span class="p">,</span> <span class="n">to_4dp</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;First DFT coefficient for single cosine&#39;</span><span class="p">,</span> <span class="n">to_4dp</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 <span class="go">First DFT coefficient for single cosine 48.0000-0.0000j</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product of single cosine with c_1&#39;</span><span class="p">,</span> <span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Dot product of single cosine with c_1&#39;</span><span class="p">,</span> <span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
 <span class="go">Dot product of single cosine with c_1 48.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;3 * dot product of c_1 with itself&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">c_1</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;3 * dot product of c_1 with itself&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">c_1</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
 <span class="go">3 * dot product of c_1 with itself 48.0</span>
 </pre></div>
 </div>
@@ -1097,10 +1095,10 @@ offset 0 - the cosine starts at <span class="math">\(n = 0\)</span>.</p>
 <p>What happens if the cosine in the signal has a different phase? For
 example, what happens to the dot product if the cosine wave in our data
 is shifted by 0.8,</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cos_x_shifted</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_1</span> <span class="o">+</span> <span class="mf">0.8</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cos_x_shifted</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t_1</span> <span class="o">+</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_1</span><span class="p">,</span> <span class="n">cos_x_shifted</span><span class="p">)</span>
 <span class="go">[...]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product of shifted cosine with c_1&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Dot product of shifted cosine with c_1&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">to_4dp</span><span class="p">(</span><span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)))</span>
 <span class="go">Dot product of shifted cosine with c_1 33.4419</span>
 </pre></div>
@@ -1119,22 +1117,22 @@ detect cosine waves of any phase.</p>
 <p>Let us see that in action first, and then explain why this is so.</p>
 <p>First, here is what happens to the dot products for the shifted and
 unshifted cosine waves:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t_1</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_1</span><span class="p">,</span> <span class="n">cos_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;3 * cos wave&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_1</span><span class="p">,</span> <span class="n">cos_x_shifted</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;3 * cos wave, shifted&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product of unshifted cosine with c_1&#39;</span><span class="p">,</span> <span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Dot product of unshifted cosine with c_1&#39;</span><span class="p">,</span> <span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">))</span>
 <span class="go">Dot product of unshifted cosine with c_1 48.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product of unshifted cosine with s_1&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Dot product of unshifted cosine with s_1&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">to_4dp</span><span class="p">(</span><span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s_1</span><span class="p">)))</span>
 <span class="go">Dot product of unshifted cosine with s_1 -0.0000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product of shifted cosine with c_1&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Dot product of shifted cosine with c_1&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">to_4dp</span><span class="p">(</span><span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)))</span>
 <span class="go">Dot product of shifted cosine with c_1 33.4419</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dot product of shifted cosine with s_1&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Dot product of shifted cosine with s_1&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">to_4dp</span><span class="p">(</span><span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s_1</span><span class="p">)))</span>
 <span class="go">Dot product of shifted cosine with s_1 -34.4331</span>
 </pre></div>
@@ -1150,7 +1148,7 @@ the original vector (as we will soon do using the inverse DFT).</p>
 <p>First we use the dot product with <span class="math">\(\vec{c_1}\)</span> to reconstruct the
 unshifted cosine (the dot product with <span class="math">\(\vec{s_1}\)</span> is zero, so we
 do not need it).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Reconstruct unshifted cos from dot product projection</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Reconstruct unshifted cos from dot product projection</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c_unshifted</span> <span class="o">=</span> <span class="n">cos_x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)</span> <span class="o">/</span> <span class="n">c_1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">proj_onto_c1</span> <span class="o">=</span> <span class="n">c_unshifted</span> <span class="o">*</span> <span class="n">c_1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">proj_onto_c1</span><span class="p">)</span>
@@ -1165,7 +1163,7 @@ do not need it).</p>
 </div>
 <p>Now we can use the cosine and sine dot product to reconstruct the
 shifted cosine vector:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Reconstruct shifted cos from dot product projection</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Reconstruct shifted cos from dot product projection</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c_cos_shifted</span> <span class="o">=</span> <span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)</span> <span class="o">/</span> <span class="n">c_1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c_sin_shifted</span> <span class="o">=</span> <span class="n">cos_x_shifted</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s_1</span><span class="p">)</span> <span class="o">/</span> <span class="n">s_1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">s_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">proj_onto_c1</span> <span class="o">=</span> <span class="n">c_cos_shifted</span> <span class="o">*</span> <span class="n">c_1</span>
@@ -1277,7 +1275,7 @@ a visual proof in the case of real angles <span class="math">\(\alpha, \beta\)</
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/fourier_no_ei_orig.txt"

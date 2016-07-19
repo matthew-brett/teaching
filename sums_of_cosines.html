@@ -29,13 +29,11 @@
     <link rel="next" title="Some algebra with summation" href="some_sums.html" />
     <link rel="prev" title="The angle sum rule" href="angle_sum.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body role="document">
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -154,13 +152,13 @@ as for the cosine:</p>
 <div class="section" id="numerical-check">
 <h2>Numerical check<a class="headerlink" href="#numerical-check" title="Permalink to this headline">¶</a></h2>
 <p>We check that the formulae give the right answers from numerical sums.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">d2</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mf">2.</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -182,22 +180,22 @@ as for the cosine:</p>
 </pre></div>
 </div>
 <p>When <span class="math">\(\sin(\frac{1}{2}d) \ne 0\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cos&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;cos&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">cos 7.7038472261 7.7038472261</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sin&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;sin&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">sin -6.27049470825 -6.27049470825</span>
 </pre></div>
 </div>
 <p>When <span class="math">\(\sin(\frac{1}{2}d) \approx 0\)</span>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">cos : sin(d/2) ~ 0; -11.1119415547 -11.1119415547</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sin : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;sin : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">sin : sin(d/2) ~ 0; -12.8656424202 -12.8656424202</span>
@@ -260,7 +258,7 @@ as for the cosine:</p>
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/sums_of_cosines.txt"
