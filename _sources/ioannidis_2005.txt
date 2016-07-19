@@ -14,7 +14,7 @@ These papers were useful for understanding the argument:
    published research findings are false.’” *Johns Hopkins University,
    Dept. of Biostatistics Working Papers*.
 -  Kass, Robert E., and Adrian E. Raftery. 1995. “Bayes factors.”
-   *Journal of the american statistical association* 90 (430): 773–795.
+   *Journal of the American Statistical Association* 90 (430): 773–795.
 -  Wacholder, Sholom, Stephen Chanock, Montserrat Garcia-Closas,
    Nathaniel Rothman, and others. 2004. “Assessing the probability that
    a positive report is false: an approach for molecular epidemiology
@@ -348,7 +348,7 @@ probability :math:`Pr(H_A | T_S)` is:
 .. nbplot::
 
     >>> # Same as Ioannidis formulation?
-    >>> # This from Ioannidies 2005:
+    >>> # This from Ioannidis 2005:
     >>> ppv_bias = (
     ...     ((1 - beta) * R + u * beta * R) /
     ...     (R + alpha - beta * R + u - u * alpha + u * beta * R)
@@ -440,7 +440,7 @@ Giving posterior probability of:
 
 .. nbplot::
 
-    >>> # Formula from Ioannidies 2005:
+    >>> # Formula from Ioannidis 2005:
     >>> ppv_multi = R * (1 - beta ** n) / (R + 1 - (1 - alpha) ** n - R * beta ** n)
     >>> # Is this the same as our formula above?
     >>> simplify(ppv_multi - post_prob_multi) == 0

@@ -29,11 +29,13 @@
     <link rel="next" title="Some algebra with summation" href="some_sums.html" />
     <link rel="prev" title="The angle sum rule" href="angle_sum.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -53,7 +55,7 @@ Magazine 82.5 (2009): 371-372.</li>
 <h2>Theorems<a class="headerlink" href="#theorems" title="Permalink to this headline">¶</a></h2>
 <p>For a positive integer <span class="math">\(N\)</span> and real numbers <span class="math">\(a, d\)</span>:</p>
 <div class="math">
-\[R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
+R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
 \sum_{n=0}^{N-1} \cos(a + nd) =
 \begin{cases}
 N \cos a &amp; \text{if } \sin(\frac{1}{2}d) = 0 \\
@@ -64,7 +66,7 @@ R \cos ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
 \begin{cases}
 N \sin a &amp; \text{if } \sin(\frac{1}{2}d) = 0 \\
 R \sin ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
-\end{cases}\]</div></div>
+\end{cases}</div></div>
 <div class="section" id="proof">
 <h2>Proof<a class="headerlink" href="#proof" title="Permalink to this headline">¶</a></h2>
 <p>The basic order of play is to rearrange the sum so that the terms in the
@@ -86,10 +88,10 @@ series</a>.</p>
 <p>Now we cover the case where <span class="math">\(\sin(\frac{1}{2} d) \ne 0\)</span>.</p>
 <p>From the <a class="reference external" href="./angle_sum.html">angle sum rules</a>:</p>
 <div class="math">
-\[\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \\
+\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \\
 \sin(\alpha - \beta) = \sin \alpha \cos \beta - \cos \alpha \sin \beta \\
 \implies \\
-\sin(\alpha + \beta) - \sin(\alpha - \beta) = 2\cos \alpha \sin \beta\]</div><p>Let:</p>
+\sin(\alpha + \beta) - \sin(\alpha - \beta) = 2\cos \alpha \sin \beta</div><p>Let:</p>
 <div class="math">
 \[C \triangleq \sum_{n=0}^{N-1}\cos(a + nd)\]</div>
 <p>Only if <span class="math">\(\sin(\frac{1}{2} d) \ne 0\)</span>, we can safely multiply both
@@ -99,17 +101,17 @@ sides by <span class="math">\(2 \sin(\frac{1}{2} d)\)</span>:</p>
 <p>Now we use the angle sum derivation above. Let <span class="math">\(\alpha = a + nd\)</span>,
 <span class="math">\(\beta = \frac{1}{2} d\)</span>:</p>
 <div class="math">
-\[2 \sin(\frac{1}{2} d) C =
+2 \sin(\frac{1}{2} d) C =
 \sum_{n=0}^{N-1} \bigg ( \sin(a + (n + \frac{1}{2}) d) - \sin(a + (n -
-\frac{1}{2}) d) \bigg )\]</div><p>Writing out the terms in the sum:</p>
+\frac{1}{2}) d) \bigg )</div><p>Writing out the terms in the sum:</p>
 <div class="math">
-\[2 \sin(\frac{1}{2} d) C = \\
+2 \sin(\frac{1}{2} d) C = \\
 \bigg ( \sin(a + \frac{1}{2}d) - \sin(a - \frac{1}{2}d) \bigg ) + \\
 \bigg ( \sin(a + \frac{3}{2}d) - \sin(a + \frac{1}{2}d) \bigg ) + \\
 ... \\
 \bigg ( \sin(a + (N - \frac{3}{2}) d) - \sin(a + (N - \frac{5}{2} d) \bigg ) +
 \\
-\bigg ( \sin(a + (N - \frac{1}{2}) d) - \sin(a + (N - \frac{3}{2} d) \bigg )\]</div><p>The series telescopes, because the second term at each iteration cancels
+\bigg ( \sin(a + (N - \frac{1}{2}) d) - \sin(a + (N - \frac{3}{2} d) \bigg )</div><p>The series telescopes, because the second term at each iteration cancels
 the first term at the previous iteration. We are left only with the
 first term in the last iteration and the second term from the first:</p>
 <div class="math">
@@ -130,35 +132,35 @@ and <span class="math">\(\beta\)</span> we get:</p>
 <h3>Sine sum<a class="headerlink" href="#sine-sum" title="Permalink to this headline">¶</a></h3>
 <p>This is almost identical, but applying:</p>
 <div class="math">
-\[\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
 \cos(\alpha - \beta) = \cos \alpha \cos \beta + \sin \alpha \sin \beta \\
 \implies \\
-\cos(\alpha + \beta) - \cos(\alpha - \beta) = -2 \sin \alpha \sin \beta\]</div><p>Let:</p>
+\cos(\alpha + \beta) - \cos(\alpha - \beta) = -2 \sin \alpha \sin \beta</div><p>Let:</p>
 <div class="math">
 \[S \triangleq \sum_{n=0}^{N-1}\sin(a + nd)\]</div>
 <p>Only if <span class="math">\(\sin(\frac{1}{2}d) \ne 0\)</span>, we can safely multiply both
 sides by <span class="math">\(-2 \sin(\frac{1}{2}d)\)</span> and continue with the same steps
 as for the cosine:</p>
 <div class="math">
-\[-2 \sin(\frac{1}{2} d) S =
+-2 \sin(\frac{1}{2} d) S =
 \sum_{n=0}^{N-1}-2 \sin( a + nd ) \sin( \frac{1}{2} d ) \\
 = \sum_{n=0}^{N-1} \bigg ( \cos ( a + ( n + \frac{1}{2}) d )
 - \cos ( a + (n - \frac{1}{2}) d ) \bigg ) \\
 = \cos ( a + (N - \frac{1}{2}) d ) - \cos ( a - \frac{1}{2} d ) \\
-= -2 \sin (a + (N - 1)\frac{1}{2} d ) \sin ( N \frac{1}{2} d )\]</div><p>Then solve for <span class="math">\(S\)</span>.</p>
+= -2 \sin (a + (N - 1)\frac{1}{2} d ) \sin ( N \frac{1}{2} d )</div><p>Then solve for <span class="math">\(S\)</span>.</p>
 <p><span class="math">\(\blacksquare\)</span></p>
 </div>
 </div>
 <div class="section" id="numerical-check">
 <h2>Numerical check<a class="headerlink" href="#numerical-check" title="Permalink to this headline">¶</a></h2>
 <p>We check that the formulae give the right answers from numerical sums.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">d2</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mf">2.</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -180,22 +182,22 @@ as for the cosine:</p>
 </pre></div>
 </div>
 <p>When <span class="math">\(\sin(\frac{1}{2}d) \ne 0\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;cos&#39;</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cos&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">cos 7.7038472261 7.7038472261</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;sin&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sin&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">sin -6.27049470825 -6.27049470825</span>
 </pre></div>
 </div>
 <p>When <span class="math">\(\sin(\frac{1}{2}d) \approx 0\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">cos : sin(d/2) ~ 0; -11.1119415547 -11.1119415547</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;sin : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sin : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_sin_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">sin : sin(d/2) ~ 0; -12.8656424202 -12.8656424202</span>
@@ -242,14 +244,11 @@ as for the cosine:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -260,8 +259,8 @@ as for the cosine:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/sums_of_cosines.txt"

@@ -29,11 +29,13 @@
     <link rel="next" title="Points on floats" href="floating_point.html" />
     <link rel="prev" title="Thresholding with random field theory" href="random_fields.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -51,8 +53,8 @@
 <div class="section" id="theorem">
 <h2>Theorem<a class="headerlink" href="#theorem" title="Permalink to this headline">¶</a></h2>
 <div class="math">
-\[x_2 = \cos \beta x_1 - \sin \beta y_1 \\
-y_2 = \sin \beta x_1 + \cos \beta y_1\]</div><p>See: <a class="reference external" href="https://en.wikipedia.org/wiki/Rotation_matrix">wikipedia on rotation matrices</a>.</p>
+x_2 = \cos \beta x_1 - \sin \beta y_1 \\
+y_2 = \sin \beta x_1 + \cos \beta y_1</div><p>See: <a class="reference external" href="https://en.wikipedia.org/wiki/Rotation_matrix">wikipedia on rotation matrices</a>.</p>
 </div>
 <div class="section" id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
@@ -68,16 +70,16 @@ y_2 = L \sin(\alpha + \beta)\end{split}\]</div>
 </div>
 <div class="section" id="proof-by-the-angle-sum-rule">
 <h2>Proof by the angle sum rule<a class="headerlink" href="#proof-by-the-angle-sum-rule" title="Permalink to this headline">¶</a></h2>
-<p>If you are happy with <a class="reference internal" href="angle_sum.html"><em>The angle sum rule</em></a> proof, then we are most of the way
+<p>If you are happy with <a class="reference internal" href="angle_sum.html"><span class="doc">The angle sum rule</span></a> proof, then we are most of the way
 there.</p>
 <p>The angle sum rule gives us:</p>
 <div class="math">
-\[\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
-\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta\]</div><p>So, substituting from equations <a href="#equation-x_1_y_1">(1)</a>, <a href="#equation-x_2_y_2">(2)</a>:</p>
+\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta</div><p>So, substituting from equations <a href="#equation-x_1_y_1">(1)</a>, <a href="#equation-x_2_y_2">(2)</a>:</p>
 <div class="math">
-\[L \cos(\alpha + \beta) =
+L \cos(\alpha + \beta) =
 L \cos \alpha \cos \beta - L \sin \alpha \sin \beta \implies \\
-x_2 = x_1 \cos \beta - y_1 \sin \beta \\\]</div><p>We do the matching substitutions into <span class="math">\(\sin(\alpha + \beta)\)</span> to get <span class="math">\(y_2\)</span>.</p>
+x_2 = x_1 \cos \beta - y_1 \sin \beta \\</div><p>We do the matching substitutions into <span class="math">\(\sin(\alpha + \beta)\)</span> to get <span class="math">\(y_2\)</span>.</p>
 <p><span class="math">\(\blacksquare\)</span></p>
 </div>
 <div class="section" id="proof-by-long-hand-variant-of-angle-sum-proof">
@@ -87,20 +89,20 @@ angle-sum proof to prove the rotation formulae.</p>
 <img alt="_images/rotation_2d.png" src="_images/rotation_2d.png" />
 <p>We can see from the picture that:</p>
 <div class="math">
-\[x_2 = r - u\]\[y_2 = t + s\]</div>
+\[ \begin{align}\begin{aligned}x_2 = r - u\\y_2 = t + s\end{aligned}\end{align} \]</div>
 <p>We are going to use some basic trigonometry to get the lengths of <span class="math">\(r, u, t,
 s\)</span>.</p>
 <p>Because the angles in a triangle sum to 180 degrees, <span class="math">\(\phi\)</span> on the picture is
 <span class="math">\(90 - \alpha\)</span> and therefore the angle between lines <span class="math">\(q, t\)</span> is also <span class="math">\(\alpha\)</span>.</p>
 <p>Remembering the definitions of <span class="math">\(\cos\)</span> and <span class="math">\(\sin\)</span>:</p>
 <div class="math">
-\[\cos\theta = \frac{A}{H} \implies A = \cos \theta H\]\[\sin\theta = \frac{O}{H} \implies O = \sin \theta H\]</div>
+\[ \begin{align}\begin{aligned}\cos\theta = \frac{A}{H} \implies A = \cos \theta H\\\sin\theta = \frac{O}{H} \implies O = \sin \theta H\end{aligned}\end{align} \]</div>
 <p>Thus:</p>
 <div class="math">
-\[x_1 = \cos \alpha L\]\[y_1 = \sin \alpha L\]\[p = \cos \beta L\]\[q = \sin \beta L\]\[r = \cos \alpha p = \cos \alpha \cos \beta L = \cos \beta x_1\]\[s = \sin \alpha p = \sin \alpha \cos \beta L = \cos \beta y_1\]\[t = \cos \alpha q = \cos \alpha \sin \beta L = \sin \beta x_1\]\[u = \sin \alpha q = \sin \alpha \sin \beta L = \sin \beta y_1\]</div>
+\[ \begin{align}\begin{aligned}x_1 = \cos \alpha L\\y_1 = \sin \alpha L\\p = \cos \beta L\\q = \sin \beta L\\r = \cos \alpha p = \cos \alpha \cos \beta L = \cos \beta x_1\\s = \sin \alpha p = \sin \alpha \cos \beta L = \cos \beta y_1\\t = \cos \alpha q = \cos \alpha \sin \beta L = \sin \beta x_1\\u = \sin \alpha q = \sin \alpha \sin \beta L = \sin \beta y_1\end{aligned}\end{align} \]</div>
 <p>So:</p>
 <div class="math">
-\[x_2 = r - u = \cos \beta x_1 - \sin \beta y_1\]\[y_2 = t + s = \sin \beta x_1 + \cos \beta y_1\]</div>
+\[ \begin{align}\begin{aligned}x_2 = r - u = \cos \beta x_1 - \sin \beta y_1\\y_2 = t + s = \sin \beta x_1 + \cos \beta y_1\end{aligned}\end{align} \]</div>
 <p><span class="math">\(\blacksquare\)</span>.</p>
 </div>
 </div>
@@ -140,14 +142,11 @@ s\)</span>.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -158,8 +157,8 @@ s\)</span>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/rotation_2d.txt"

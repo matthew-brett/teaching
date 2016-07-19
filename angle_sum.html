@@ -29,11 +29,13 @@
     <link rel="next" title="Sum of sines and cosines" href="sums_of_cosines.html" />
     <link rel="prev" title="Tutorials on imaging, computing and mathematics" href="index.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -45,7 +47,7 @@
 <h1>The angle sum rule<a class="headerlink" href="#the-angle-sum-rule" title="Permalink to this headline">¶</a></h1>
 <p>The angle sum rule is:</p>
 <div class="math">
-\[\sin(\alpha \pm \beta) = \sin \alpha \cos \beta \pm \cos \alpha \sin \beta\]\[\cos(\alpha \pm \beta) = \cos \alpha \cos \beta \mp \sin \alpha \sin \beta\]</div>
+\[ \begin{align}\begin{aligned}\sin(\alpha \pm \beta) = \sin \alpha \cos \beta \pm \cos \alpha \sin \beta\\\cos(\alpha \pm \beta) = \cos \alpha \cos \beta \mp \sin \alpha \sin \beta\end{aligned}\end{align} \]</div>
 <div class="section" id="proof">
 <h2>Proof<a class="headerlink" href="#proof" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s say we have a vector <span class="math">\((x_1, y_1)\)</span> resulting from the anticlockwise
@@ -55,21 +57,21 @@ to give length 1 vector <span class="math">\((x_2, y_2)\)</span>.</p>
 <img alt="_images/angle_sum.png" src="_images/angle_sum.png" />
 <p>We can see from the picture that:</p>
 <div class="math">
-\[\cos(\alpha + \beta) = x_2 = r - u\]\[\sin(\alpha + \beta) = y_2 = t + s\]</div>
+\[ \begin{align}\begin{aligned}\cos(\alpha + \beta) = x_2 = r - u\\\sin(\alpha + \beta) = y_2 = t + s\end{aligned}\end{align} \]</div>
 <p>We are going to use some basic trigonometry to get the lengths of <span class="math">\(r, u, t,
 s\)</span>.</p>
 <p>Because the angles in a triangle sum to 180 degrees, <span class="math">\(\phi\)</span> on the picture is
 <span class="math">\(90 - \alpha\)</span> and therefore the angle between lines <span class="math">\(q, t\)</span> is also <span class="math">\(\alpha\)</span>.</p>
 <p>Remembering the definitions of <span class="math">\(\cos\)</span> and <span class="math">\(\sin\)</span>:</p>
 <div class="math">
-\[\cos\theta = \frac{A}{H} \implies A = (\cos \theta) H\]\[\sin\theta = \frac{O}{H} \implies O = (\sin \theta) H\]</div>
+\[ \begin{align}\begin{aligned}\cos\theta = \frac{A}{H} \implies A = (\cos \theta) H\\\sin\theta = \frac{O}{H} \implies O = (\sin \theta) H\end{aligned}\end{align} \]</div>
 <p>Thus:</p>
 <div class="math">
-\[p = \cos \beta\]\[q = \sin \beta\]\[r = (\cos \alpha) p = \cos \alpha \cos \beta\]\[s = (\sin \alpha) q = \sin \alpha \cos \beta\]\[t = (\cos \alpha) q = \cos \alpha \sin \beta\]\[u = (\sin \alpha) q = \sin \alpha \sin \beta\]</div>
+\[ \begin{align}\begin{aligned}p = \cos \beta\\q = \sin \beta\\r = (\cos \alpha) p = \cos \alpha \cos \beta\\s = (\sin \alpha) q = \sin \alpha \cos \beta\\t = (\cos \alpha) q = \cos \alpha \sin \beta\\u = (\sin \alpha) q = \sin \alpha \sin \beta\end{aligned}\end{align} \]</div>
 <p>So:</p>
 <div class="math">
-\[\cos(\alpha + \beta) = x_2 = r - u = \cos \alpha \cos \beta - \sin \alpha \sin
-\beta\]\[\sin(\alpha + \beta) = y_2 = t + s = \sin \alpha \cos \beta + \cos \alpha \sin \beta\]</div>
+\[ \begin{align}\begin{aligned}\cos(\alpha + \beta) = x_2 = r - u = \cos \alpha \cos \beta - \sin \alpha \sin
+\beta\\\sin(\alpha + \beta) = y_2 = t + s = \sin \alpha \cos \beta + \cos \alpha \sin \beta\end{aligned}\end{align} \]</div>
 </div>
 </div>
 
@@ -105,14 +107,11 @@ s\)</span>.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -123,8 +122,8 @@ s\)</span>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/angle_sum.txt"

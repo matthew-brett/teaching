@@ -29,11 +29,13 @@
     <link rel="next" title="Angles between vectors" href="vector_angles.html" />
     <link rel="prev" title="The argument in “Why most published research findings are false”" href="ioannidis_2005.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -44,11 +46,11 @@
 <div class="section" id="vector-projection">
 <h1>Vector projection<a class="headerlink" href="#vector-projection" title="Permalink to this headline">¶</a></h1>
 <p>This here page follows the discussion in <a class="reference external" href="https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/introduction-to-projections">this Khan academy video on projection</a>.  Please watch that video for a nice presentation of the mathematics on this page.</p>
-<p>For the video and this page, you will need the definitions and mathematics from <a class="reference internal" href="on_vectors.html"><em>Vectors and dot products</em></a>.</p>
+<p>For the video and this page, you will need the definitions and mathematics from <a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>.</p>
 <div class="section" id="start">
 <h2>Start<a class="headerlink" href="#start" title="Permalink to this headline">¶</a></h2>
 <p>Consider two vectors <span class="math">\(\vec{w}\)</span> and <span class="math">\(\vec{v}\)</span>.</p>
-<a class="reference internal image-reference" href="_images/vector_projection.svg"><img height="500" src="_images/vector_projection.svg" width="400" /></a>
+<a class="reference internal image-reference" href="_images/vector_projection.svg"><img alt="_images/vector_projection.svg" height="500" src="_images/vector_projection.svg" width="400" /></a>
 <p>We can scale <span class="math">\(\vec{v}\)</span> with a scalar <span class="math">\(c\)</span>.  By choosing the correct <span class="math">\(c\)</span> we can
 create any vector on the infinite length dotted line in the diagram.  <span class="math">\(c \vec{v}\)</span> defines this infinite line.</p>
 <p>We&#8217;re going to find the projection of <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span>, written as:</p>
@@ -86,9 +88,9 @@ defined by <span class="math">\(\vec{v}\)</span>.</p>
 \frac{\vec{w} \cdot \vec{v}}{\VL{v}^2} \vec{v}\]</div>
 <p>We can also write the projection in terms of the unit vector defined by <span class="math">\(\vec{v}\)</span>:</p>
 <div class="math">
-\[\hat{u} \triangleq \frac{\vec{v}}{\VL{v}} \implies \\
+\hat{u} \triangleq \frac{\vec{v}}{\VL{v}} \implies \\
 \mathrm{proj}_\vec{v}\vec{w} =
-\frac{\vec{w} \cdot \vec{v}}{\VL{v}} \vec{u}\]</div><p><span class="math">\(\frac{\vec{w} \cdot \vec{v}}{\VL{v}}\)</span> is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Scalar_projection">scalar projection</a> of
+\frac{\vec{w} \cdot \vec{v}}{\VL{v}} \vec{u}</div><p><span class="math">\(\frac{\vec{w} \cdot \vec{v}}{\VL{v}}\)</span> is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Scalar_projection">scalar projection</a> of
 <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span>.</p>
 <p>Also see: <a class="reference external" href="https://en.wikipedia.org/wiki/Vector_projection">wikipedia on vector projection</a>.</p>
 </div>
@@ -128,14 +130,11 @@ defined by <span class="math">\(\vec{v}\)</span>.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -146,8 +145,8 @@ defined by <span class="math">\(\vec{v}\)</span>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/vector_projection.txt"

@@ -29,11 +29,13 @@
     <link rel="next" title="The argument in “Why most published research findings are false”" href="ioannidis_2005.html" />
     <link rel="prev" title="Points on floats" href="floating_point.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -43,7 +45,7 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="floating-point-error">
 <span id="floating-error"></span><h1>Floating point error<a class="headerlink" href="#floating-point-error" title="Permalink to this headline">¶</a></h1>
-<p>This page maybe follows from <a class="reference internal" href="floating_point.html#floating-point"><span>Points on floats</span></a></p>
+<p>This page maybe follows from <a class="reference internal" href="floating_point.html#floating-point"><span class="std std-ref">Points on floats</span></a></p>
 <p>I ran into trouble trying to understand floating point error. After reading
 <a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">Wikipedia floating point</a>, <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_epsilon">Wikipedia machine epsilon</a> and <a class="reference external" href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What every
 computer scientist should know about floating point</a>, I felt the need of some
@@ -124,7 +126,7 @@ number in terms of significand and exponent.</p>
 <p>But — what if we have a some infinite precision number <span class="math">\(x\)</span> and we want to
 know how to represent it in floating point?</p>
 <p>A simple algorithm might be to get the exponent by an algorithm like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">e1</span> <span class="o">=</span> <span class="n">logB</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
 <span class="n">exponent</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
 </pre></div>
@@ -135,7 +137,7 @@ y\)</span> <a class="footnote-reference" href="#floor" id="id1">[1]</a>.</p>
 <p>We can then get the mantissa part with <span class="math">\(round(x / \beta^{e2}, p-1)\)</span>, where
 <span class="math">\(round(y, z)\)</span> rounds the number <span class="math">\(y\)</span> to <span class="math">\(z\)</span> digits after the decimal point.</p>
 <p>Worked example in Python with our original system of <span class="math">\(p = 3, \beta = 10\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="nb">abs</span><span class="p">,</span> <span class="n">log10</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="nb">round</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="nb">abs</span><span class="p">,</span> <span class="n">log10</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="nb">round</span>
 <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1234</span> <span class="c1"># a number with greater precision than format allows</span>
 <span class="n">p</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># number of digits in mantissa</span>
 <span class="n">x1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 0.1234</span>
@@ -152,7 +154,7 @@ this, but this is a reasonable first pass <a class="footnote-reference" href="#f
 <p>We remember that <span class="math">\(p\)</span> is the number of digits in the significand in our finite
 floating point format. The IEEE rule then becomes:</p>
 <div class="math">
-\[\left| fl(x) - x \right| \le 0.5 \times ulp(e, p)\]\[\left| fl(x) - x \right| \le 0.5 \times \beta^{e-(p-1)}\]</div>
+\[ \begin{align}\begin{aligned}\left| fl(x) - x \right| \le 0.5 \times ulp(e, p)\\\left| fl(x) - x \right| \le 0.5 \times \beta^{e-(p-1)}\end{aligned}\end{align} \]</div>
 </div>
 <div class="section" id="relative-error">
 <h2>Relative error<a class="headerlink" href="#relative-error" title="Permalink to this headline">¶</a></h2>
@@ -167,7 +169,7 @@ of <span class="math">\(x\)</span> between <span class="math">\(1.0 \times \beta
 same value for 1 ULP = <span class="math">\(\beta^{e-(p-1)}\)</span>. The <em>relative</em> rounding error will be
 greater for smaller <span class="math">\(x\)</span> with the same exponent.  Let:</p>
 <div class="math">
-\[a = 0.5 \times ulp(e, p).\]\[a = 0.5 \times \beta^{e-(1-p)}\]</div>
+\[ \begin{align}\begin{aligned}a = 0.5 \times ulp(e, p).\\a = 0.5 \times \beta^{e-(1-p)}\end{aligned}\end{align} \]</div>
 <p>Make <span class="math">\(x\)</span> the smallest value with this exponent that has a large rounding error:</p>
 <div class="math">
 \[x = 1.0 \times \beta^e + a\]</div>
@@ -176,14 +178,14 @@ greater for smaller <span class="math">\(x\)</span> with the same exponent.  Let
 \[\epsilon = \frac{a}{\beta^e + a}\]</div>
 <p>Because <span class="math">\(a\)</span> is very small compared to <span class="math">\(\beta^e\)</span>:</p>
 <div class="math">
-\[\epsilon \approx \frac{0.5 \times \beta^{e-(p-1)}}{\beta^e}\]\[\epsilon \approx 0.5 \times \beta^{1-p}\]</div>
+\[ \begin{align}\begin{aligned}\epsilon \approx \frac{0.5 \times \beta^{e-(p-1)}}{\beta^e}\\\epsilon \approx 0.5 \times \beta^{1-p}\end{aligned}\end{align} \]</div>
 <p>Now make <span class="math">\(x\)</span> the largest value with this exponent and that has a large rounding
 error:</p>
 <div class="math">
-\[x = m.mm... \times \beta^e - a\]\[x \approx 1.0 \times \beta^{e+1} - a\]</div>
+\[ \begin{align}\begin{aligned}x = m.mm... \times \beta^e - a\\x \approx 1.0 \times \beta^{e+1} - a\end{aligned}\end{align} \]</div>
 <p>then:</p>
 <div class="math">
-\[\epsilon \approx \frac{a}{\beta^{e+1} - a}\]\[\epsilon \approx \frac{0.5 \times \beta^{e-(p-1)}}{\beta^{e+1}}\]\[\epsilon \approx 0.5 \times \beta^{-p}\]</div>
+\[ \begin{align}\begin{aligned}\epsilon \approx \frac{a}{\beta^{e+1} - a}\\\epsilon \approx \frac{0.5 \times \beta^{e-(p-1)}}{\beta^{e+1}}\\\epsilon \approx 0.5 \times \beta^{-p}\end{aligned}\end{align} \]</div>
 <p>So, the <em>maximum</em> relative error for <span class="math">\(x\)</span> varies (depending on the value of <span class="math">\(x\)</span>)
 between <span class="math">\(\approx 0.5 \times \beta^{-p}\)</span> and <span class="math">\(\approx 0.5 \times \beta^{1-p}\)</span>.</p>
 <p>Therefore the relative error for any <span class="math">\(x\)</span> (regardless of exponent) is bounded by
@@ -200,7 +202,7 @@ definitions</a>.  MATLAB and Octave return <span class="math">\(\beta^{1-p}\)</s
 function. <a class="reference external" href="http://www.numpy.org">numpy</a> uses the same convention in its <code class="docutils literal"><span class="pre">np.finfo</span></code> function.  For
 example, the standard <code class="docutils literal"><span class="pre">float64</span></code> double precision type in numpy has <span class="math">\(\beta = 2;
 p=53\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">==</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">53</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
@@ -268,14 +270,11 @@ than <span class="math">\(9.99 \times 10^0\)</span>, even though <code class="do
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -286,8 +285,8 @@ than <span class="math">\(9.99 \times 10^0\)</span>, even though <code class="do
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
       
       |
       <a href="_sources/floating_error.txt"
