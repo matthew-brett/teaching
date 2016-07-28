@@ -316,6 +316,9 @@ dyntable_plot_context = 'nb2plots.nbplots.plot_context'
 mathcode_use_plot_ns = True
 mathcode_plot_context = 'nb2plots.nbplots.plot_context'
 
+# Set highlight language to make copybutton >>> hiding work
+highlight_language = "python"
+
 # Add the 'copybutton' javascript, to hide/show the prompt in code
 # examples
 def setup(app):
