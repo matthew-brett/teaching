@@ -20,6 +20,15 @@ Implies
 
 Read $a \implies b$ as "$a$ implies $b$".
 
+*************
+Biconditional
+*************
+
+See: `wikipedia on biconditional
+<https://en.wikipedia.org/wiki/If_and_only_if>`_.
+
+Read $a \iff b$ as "$a$ if and only if $b$".
+
 **************
 Set membership
 **************

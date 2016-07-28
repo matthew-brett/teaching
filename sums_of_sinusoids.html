@@ -54,25 +54,25 @@ shifted in phase, frequency, amplitude, or any combination of the three.</p>
 <p>where:</p>
 <ul class="simple">
 <li><span class="math">\(A\)</span> is the <em>amplitude</em> — the maximum value of the function;</li>
-<li><span class="math">\(f\)</span> is the <em>ordinary frequency</em> — the number of cycles per unit time;</li>
-<li><span class="math">\(\omega = 2 \pi f\)</span> is the <em>angular frequency</em> — the number of radians
-per unit time;</li>
+<li><span class="math">\(f\)</span> is the <em>ordinary frequency</em> — the number of cycles per unit of <span class="math">\(t\)</span>;</li>
+<li><span class="math">\(\omega = 2 \pi f\)</span> is the <em>angular frequency</em> — the number of radians per
+unit of <span class="math">\(t\)</span>;</li>
 <li><span class="math">\(\theta\)</span> is the <em>phase offset</em> (in radians).</li>
 </ul>
-<p>The standard sine function <span class="math">\(f(t) = \sin(\omega t)\)</span> is a special case of a sinusoid,
-with <span class="math">\(A = 1\)</span>, <span class="math">\(\theta = 0\)</span>.</p>
-<p>The standard cosine function <span class="math">\(f(t) = \cos(\omega t)\)</span> is a special case of a sinusoid,
-with <span class="math">\(A = 1\)</span>, <span class="math">\(\theta = -\pi / 2\)</span>.</p>
-<p>Remembering <a class="reference internal" href="angle_sum.html"><span class="doc">The angle sum rule</span></a>, we can write any sinusoid as a sum of a sine and
-a cosine:</p>
+<p>The standard sine function <span class="math">\(f(t) = \sin(t)\)</span> is a special case of a sinusoid,
+with <span class="math">\(A = 1\)</span>, <span class="math">\(f = 1 / 2 \pi\)</span>, <span class="math">\(\theta = 0\)</span>.</p>
+<p>The standard cosine function <span class="math">\(f(t) = \cos(t)\)</span> is a special case of a sinusoid,
+with <span class="math">\(A = 1\)</span>, <span class="math">\(f = 1 / 2 \pi\)</span>, <span class="math">\(\theta = -pi / 2\)</span>.</p>
+<p>Remembering <a class="reference internal" href="angle_sum.html"><span class="doc">The angle sum rule</span></a>, we can write any sinusoid as a weighted sum of a
+sine and a cosine:</p>
 <div class="math" id="equation-sinusoid_as_sum">
-<span class="eqno">(2)</span>\[\begin{split}A \sin(\omega t + \theta) \iff \\
-A \sin(\omega t) \cos(\theta) + A \cos(\omega t) \sin(\theta) \iff \\
+<span class="eqno">(2)</span>\[\begin{split}A \sin(\omega t + \theta) = \\
+A \sin(\omega t) \cos(\theta) + A \cos(\omega t) \sin(\theta) = \\
 A' \sin(\omega t) + A'' \cos(\omega t)\end{split}\]</div>
 <p>Where <span class="math">\(A' = A \cos(\theta)\)</span> and <span class="math">\(A'' = A \sin(\theta)\)</span>.  Equation
-<a href="#equation-sinusoid_as_sum">(2)</a> also shows that any sum of a sine and cosine can be
-written as a single sinusoid.  Thus, any sum of sinusoids, <em>of the same input</em>
-<span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
+<a href="#equation-sinusoid_as_sum">(2)</a> also shows that any weighted sum of a sine and cosine
+can be written as a single sinusoid.  Thus, any sum of sinusoids, <em>of the same
+input</em> <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
 <div class="math">
 \[A \sin(\omega t + \theta) + B \sin(\omega t + \phi) =
 (A' + B') \sin(\omega t) - (A'' + B'') \cos(\omega t)\]</div>
