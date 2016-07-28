@@ -21,7 +21,7 @@ where:
 
 * $A$ is the *amplitude* |--| the maximum value of the function;
 * $f$ is the *ordinary frequency* |--| the number of cycles per unit time;
-* $\omega$ = 2 \pi f$ is the *angular frequency* |--| the number of radians
+* $\omega = 2 \pi f$ is the *angular frequency* |--| the number of radians
   per unit time;
 * $\psi$ is the *phase offset* (in radians).
 
