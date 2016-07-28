@@ -2,7 +2,8 @@
 Sums of sinusoids
 #################
 
-See: http://math.stackexchange.com/a/1239123
+This page largely based on http://math.stackexchange.com/a/1239123 with
+thanks.
 
 Paraphrasing `Wolfwram mathworld
 <http://mathworld.wolfram.com/Sinusoid.html>`_ - a *sinusoid* is a function of
@@ -15,7 +16,7 @@ The `general formula for a sinusoid function
 .. math::
     :label: sin_sinusoid
 
-    f(t) = A \sin(2 \pi f t + \psi) = A \sin(\omega t + \psi)
+    f(t) = A \sin(2 \pi f t + \theta) = A \sin(\omega t + \theta)
 
 where:
 
@@ -23,33 +24,23 @@ where:
 * $f$ is the *ordinary frequency* |--| the number of cycles per unit time;
 * $\omega = 2 \pi f$ is the *angular frequency* |--| the number of radians
   per unit time;
-* $\psi$ is the *phase offset* (in radians).
+* $\theta$ is the *phase offset* (in radians).
 
 The standard sine function $f(t) = \sin(\omega t)$ is a special case of a sinusoid,
-with $A = 1$, $\psi = 0$.
+with $A = 1$, $\theta = 0$.
 
 The standard cosine function $f(t) = \cos(\omega t)$ is a special case of a sinusoid,
-with $A = 1$, $\psi = -\pi / 2$.
-
-Because $sin(x) = \cos(x - \pi / 2)$, we can also write any sinusoid as:
-
-.. math::
-    :label: cos_sinusoid
-
-    f(t) = A \cos(\omega t + \theta)
-
-where $\theta = \psi - \pi / 2$ from equation :eq:`sin_sinusoid`.
+with $A = 1$, $\theta = -\pi / 2$.
 
 Remembering :doc:`angle_sum`, we can write any sinusoid as a sum of a sine and
-a cosine.  Choosing the cosine version of the sinusoid formula (equation
-:eq:`cos_sinusoid`):
+a cosine:
 
 .. math::
     :label: sinusoid_as_sum
 
-    A \cos(\omega t + \theta) \iff \\
-    A \cos(\omega t) \cos(\theta) - A \sin(\omega t) \sin(\theta) \iff \\
-    A' \cos(\omega t) - A'' \sin(\omega t)
+    A \sin(\omega t + \theta) \iff \\
+    A \sin(\omega t) \cos(\theta) + A \cos(\omega t) \sin(\theta) \iff \\
+    A' \sin(\omega t) + A'' \cos(\omega t)
 
 Where $A' = A \cos(\theta)$ and $A'' = A \sin(\theta)$.  Equation
 :eq:`sinusoid_as_sum` also shows that any sum of a sine and cosine can be
@@ -58,7 +49,7 @@ $\omega t$, is also a sinusoid:
 
 .. math::
 
-    A \cos(\omega t + \theta) + B \cos(\omega t + \phi) =
-    (A' + B') \cos(\omega t) - (A'' + B'') \sin(\omega t)
+    A \sin(\omega t + \theta) + B \sin(\omega t + \phi) =
+    (A' + B') \sin(\omega t) - (A'' + B'') \cos(\omega t)
 
 .. include:: links_names.inc

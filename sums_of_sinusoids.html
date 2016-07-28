@@ -43,43 +43,39 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="sums-of-sinusoids">
 <h1>Sums of sinusoids<a class="headerlink" href="#sums-of-sinusoids" title="Permalink to this headline">¶</a></h1>
-<p>See: <a class="reference external" href="http://math.stackexchange.com/a/1239123">http://math.stackexchange.com/a/1239123</a></p>
+<p>This page largely based on <a class="reference external" href="http://math.stackexchange.com/a/1239123">http://math.stackexchange.com/a/1239123</a> with
+thanks.</p>
 <p>Paraphrasing <a class="reference external" href="http://mathworld.wolfram.com/Sinusoid.html">Wolfwram mathworld</a> - a <em>sinusoid</em> is a function of
 some variable, say <span class="math">\(t\)</span>, that is similar to the sine function but may be
 shifted in phase, frequency, amplitude, or any combination of the three.</p>
 <p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Sine_wave">general formula for a sinusoid function</a> is:</p>
 <div class="math" id="equation-sin_sinusoid">
-<span class="eqno">(1)</span>\[f(t) = A \sin(2 \pi f t + \psi) = A \sin(\omega t + \psi)\]</div>
+<span class="eqno">(1)</span>\[f(t) = A \sin(2 \pi f t + \theta) = A \sin(\omega t + \theta)\]</div>
 <p>where:</p>
 <ul class="simple">
 <li><span class="math">\(A\)</span> is the <em>amplitude</em> — the maximum value of the function;</li>
 <li><span class="math">\(f\)</span> is the <em>ordinary frequency</em> — the number of cycles per unit time;</li>
 <li><span class="math">\(\omega = 2 \pi f\)</span> is the <em>angular frequency</em> — the number of radians
 per unit time;</li>
-<li><span class="math">\(\psi\)</span> is the <em>phase offset</em> (in radians).</li>
+<li><span class="math">\(\theta\)</span> is the <em>phase offset</em> (in radians).</li>
 </ul>
 <p>The standard sine function <span class="math">\(f(t) = \sin(\omega t)\)</span> is a special case of a sinusoid,
-with <span class="math">\(A = 1\)</span>, <span class="math">\(\psi = 0\)</span>.</p>
+with <span class="math">\(A = 1\)</span>, <span class="math">\(\theta = 0\)</span>.</p>
 <p>The standard cosine function <span class="math">\(f(t) = \cos(\omega t)\)</span> is a special case of a sinusoid,
-with <span class="math">\(A = 1\)</span>, <span class="math">\(\psi = -\pi / 2\)</span>.</p>
-<p>Because <span class="math">\(sin(x) = \cos(x - \pi / 2)\)</span>, we can also write any sinusoid as:</p>
-<div class="math" id="equation-cos_sinusoid">
-<span class="eqno">(2)</span>\[f(t) = A \cos(\omega t + \theta)\]</div>
-<p>where <span class="math">\(\theta = \psi - \pi / 2\)</span> from equation <a href="#equation-sin_sinusoid">(1)</a>.</p>
+with <span class="math">\(A = 1\)</span>, <span class="math">\(\theta = -\pi / 2\)</span>.</p>
 <p>Remembering <a class="reference internal" href="angle_sum.html"><span class="doc">The angle sum rule</span></a>, we can write any sinusoid as a sum of a sine and
-a cosine.  Choosing the cosine version of the sinusoid formula (equation
-<a href="#equation-cos_sinusoid">(2)</a>):</p>
+a cosine:</p>
 <div class="math" id="equation-sinusoid_as_sum">
-<span class="eqno">(3)</span>\[\begin{split}A \cos(\omega t + \theta) \iff \\
-A \cos(\omega t) \cos(\theta) - A \sin(\omega t) \sin(\theta) \iff \\
-A' \cos(\omega t) - A'' \sin(\omega t)\end{split}\]</div>
+<span class="eqno">(2)</span>\[\begin{split}A \sin(\omega t + \theta) \iff \\
+A \sin(\omega t) \cos(\theta) + A \cos(\omega t) \sin(\theta) \iff \\
+A' \sin(\omega t) + A'' \cos(\omega t)\end{split}\]</div>
 <p>Where <span class="math">\(A' = A \cos(\theta)\)</span> and <span class="math">\(A'' = A \sin(\theta)\)</span>.  Equation
-<a href="#equation-sinusoid_as_sum">(3)</a> also shows that any sum of a sine and cosine can be
+<a href="#equation-sinusoid_as_sum">(2)</a> also shows that any sum of a sine and cosine can be
 written as a single sinusoid.  Thus, any sum of sinusoids, <em>of the same input</em>
 <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
 <div class="math">
-\[A \cos(\omega t + \theta) + B \cos(\omega t + \phi) =
-(A' + B') \cos(\omega t) - (A'' + B'') \sin(\omega t)\]</div>
+\[A \sin(\omega t + \theta) + B \sin(\omega t + \phi) =
+(A' + B') \sin(\omega t) - (A'' + B'') \cos(\omega t)\]</div>
 </div>
 
 
