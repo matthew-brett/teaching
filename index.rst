@@ -15,6 +15,7 @@ Mathematics
 * :doc:`angle_sum`;
 * :doc:`rotation_2d`;
 * :doc:`sums_of_cosines`;
+* :doc:`sums_of_sinusoids`;
 * :doc:`on_vectors`;
 * :doc:`vector_projection`;
 * :doc:`simple_complex`;
@@ -47,6 +48,7 @@ Imaging
 Computing
 =========
 
+* `The curious coder's guide to git <https://matthew-brett.github.io/curious-git>`_;
 * :doc:`floating_point`;
 * :doc:`floating_error`.
 
@@ -57,6 +59,7 @@ Computing
 
     angle_sum
     sums_of_cosines
+    sums_of_sinusoids
     some_sums
     README
     fourier_basis
