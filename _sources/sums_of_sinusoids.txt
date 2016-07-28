@@ -58,6 +58,6 @@ input* $\omega t$, is also a sinusoid:
 .. math::
 
     A \sin(\omega t + \theta) + B \sin(\omega t + \phi) =
-    (A' + B') \sin(\omega t) - (A'' + B'') \cos(\omega t)
+    (A' + B') \sin(\omega t) + (A'' + B'') \cos(\omega t)
 
 .. include:: links_names.inc
