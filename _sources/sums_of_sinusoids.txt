@@ -47,8 +47,8 @@ a cosine.  Choosing the cosine version of the sinusoid formula (equation
 .. math::
     :label: sinusoid_as_sum
 
-    A \cos(\omega t + \theta) = \\
-    A \cos(\omega t) \cos(\theta) - A \sin(\omega t) \sin(\theta) = \\
+    A \cos(\omega t + \theta) \iff \\
+    A \cos(\omega t) \cos(\theta) - A \sin(\omega t) \sin(\theta) \iff \\
     A' \cos(\omega t) - A'' \sin(\omega t)
 
 Where $A' = A \cos(\theta)$ and $A'' = A \sin(\theta)$.  Equation
@@ -59,6 +59,6 @@ $\omega t$, is also a sinusoid:
 .. math::
 
     A \cos(\omega t + \theta) + B \cos(\omega t + \phi) =
-    (A' + B') \cos(\omega t) + (A'' + B'') \sin(\omega t)
+    (A' + B') \cos(\omega t) - (A'' + B'') \sin(\omega t)
 
 .. include:: links_names.inc
