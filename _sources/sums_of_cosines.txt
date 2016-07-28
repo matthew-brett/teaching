@@ -84,7 +84,6 @@ sides by :math:`2 \sin(\frac{1}{2} d)`:
 
 .. math::
 
-
    2 \sin(\frac{1}{2} d) C = \sum_{n=0}^{N-1}2 \cos(a + nd) \sin(\frac{1}{2}d)
 
 Now we use the angle sum derivation above. Let :math:`\alpha = a + nd`,
