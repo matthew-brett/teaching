@@ -5,6 +5,10 @@ Sums of sinusoids
 This page largely based on http://math.stackexchange.com/a/1239123 with
 thanks.
 
+*********
+Sinusoids
+*********
+
 Paraphrasing `Wolfwram mathworld
 <http://mathworld.wolfram.com/Sinusoid.html>`_ - a *sinusoid* is a function of
 some variable, say $t$, that is similar to the sine function but may be
@@ -31,6 +35,10 @@ with $A = 1$, $f = 1 / 2 \pi$, $\theta = 0$.
 
 The standard cosine function $f(t) = \cos(t)$ is a special case of a sinusoid,
 with $A = 1$, $f = 1 / 2 \pi$, $\theta = -pi / 2$.
+
+***************************************************************
+The sum of sinusoids with the same frequency is also a sinusoid
+***************************************************************
 
 Remembering :doc:`angle_sum`, we can write any sinusoid as a weighted sum of a
 sine and a cosine:
