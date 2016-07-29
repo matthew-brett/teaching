@@ -74,10 +74,18 @@ sine and a cosine:</p>
 <span class="eqno">(2)</span>\[\begin{split}A \sin(\omega t + \theta) = \\
 A \sin(\omega t) \cos(\theta) + A \cos(\omega t) \sin(\theta) = \\
 A' \sin(\omega t) + A'' \cos(\omega t)\end{split}\]</div>
-<p>Where <span class="math">\(A' = A \cos(\theta)\)</span> and <span class="math">\(A'' = A \sin(\theta)\)</span>.  Equation
-<a href="#equation-sinusoid_as_sum">(2)</a> also shows that any weighted sum of a sine and cosine
-can be written as a single sinusoid.  Thus, any sum of sinusoids, <em>of the same
-input</em> <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
+<p>where:</p>
+<div class="math" id="equation-a_dash_dash">
+<span class="eqno">(3)</span>\[\begin{split}A' = A \cos(\theta) \\
+A'' = A \sin(\theta)\end{split}\]</div>
+<p>Equation <a href="#equation-sinusoid_as_sum">(2)</a> also points us to the fact that any weighted
+sum of a sine and cosine can be written as a single sinusoid.  For any <span class="math">\(A',
+A''\)</span>, we can solve equations <a href="#equation-a_dash_dash">(3)</a> for <span class="math">\(A, \theta\)</span>:</p>
+<div class="math">
+\[\begin{split}A = \sqrt{A'^2 + A''^2} \\
+\tan(\theta) = \frac{A''}{A'}\end{split}\]</div>
+<p>Thus, any sum of sinusoids, <em>of the same frequency</em> and therefore the same
+input <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
 <div class="math">
 \[A \sin(\omega t + \theta) + B \sin(\omega t + \phi) =
 (A' + B') \sin(\omega t) + (A'' + B'') \cos(\omega t)\]</div>

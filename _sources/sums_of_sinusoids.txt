@@ -50,10 +50,25 @@ sine and a cosine:
     A \sin(\omega t) \cos(\theta) + A \cos(\omega t) \sin(\theta) = \\
     A' \sin(\omega t) + A'' \cos(\omega t)
 
-Where $A' = A \cos(\theta)$ and $A'' = A \sin(\theta)$.  Equation
-:eq:`sinusoid_as_sum` also shows that any weighted sum of a sine and cosine
-can be written as a single sinusoid.  Thus, any sum of sinusoids, *of the same
-input* $\omega t$, is also a sinusoid:
+where:
+
+.. math::
+    :label: a_dash_dash
+
+    A' = A \cos(\theta) \\
+    A'' = A \sin(\theta)
+
+Equation :eq:`sinusoid_as_sum` also points us to the fact that any weighted
+sum of a sine and cosine can be written as a single sinusoid.  For any $A',
+A''$, we can solve equations :eq:`a_dash_dash` for $A, \theta$:
+
+.. math::
+
+    A = \sqrt{A'^2 + A''^2} \\
+    \tan(\theta) = \frac{A''}{A'}
+
+Thus, any sum of sinusoids, *of the same frequency* and therefore the same
+input $\omega t$, is also a sinusoid:
 
 .. math::
 
