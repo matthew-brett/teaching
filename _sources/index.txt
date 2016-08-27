@@ -59,30 +59,31 @@ Computing
     :hidden:
 
     angle_sum
-    sums_of_cosines
-    sums_of_sinusoids
-    some_sums
-    README
+    bonferroni_correction
+    correlated_regressors
+    fdr
+    floating_point
+    floating_error
     fourier_basis
     fourier_no_ei
     fourier_no_ei_orig
     glm_intro
+    ioannidis_2005
+    mutual_information
     notation
+    optimizing_space
     on_convolution
     on_vectors
     pca_introduction
     simple_complex
+    slice_timing
     smoothing_intro
     smoothing_as_convolution
-    correlated_regressors
-    bonferroni_correction
-    fdr
-    slice_timing
-    optimizing_space
+    some_sums
+    sums_of_cosines
+    sums_of_sinusoids
     random_fields
+    README
     rotation_2d
-    floating_point
-    floating_error
-    ioannidis_2005
     vector_projection
     vector_angles

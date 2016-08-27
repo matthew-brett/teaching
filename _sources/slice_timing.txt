@@ -73,7 +73,7 @@ index 0, 2, 4, ... 14 (where 0 is the bottom slice) then acquiring slices 1, 3,
     ax0.axis('equal')
     n_z = 16
     ax0.axis((-6, n_z * 2 + 6, 0, n_z + 2))
-    times = np.argsort(range(0, n_z, 2) + range(1, n_z,2))
+    times = np.argsort(list(range(0, n_z, 2)) + list(range(1, n_z,2)))
     colors = np.linspace(0.5, 1, n_z)
     for pos, time in enumerate(times):
         color = [colors[time]] * 3
