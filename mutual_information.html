@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mutual information as an image matching metric &mdash; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="mutual-information-as-an-image-matching-metric">
+<h1>Mutual information as an image matching metric<a class="headerlink" href="#mutual-information-as-an-image-matching-metric" title="Permalink to this headline">¶</a></h1>
+<p>In which we look at the mutual information measure for comparing images.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - compatibility with Python 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>  <span class="c1"># print(&#39;me&#39;) instead of print &#39;me&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>  <span class="c1"># 1/2 == 0.5, not 0</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - import common modules</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>  <span class="c1"># the Python array package</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>  <span class="c1"># the Python plotting package</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - set gray colormap and nearest neighbor interpolation by default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;image.cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;image.interpolation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nearest&#39;</span>
+</pre></div>
+</div>
+<p>When the images to match are the same modality and are well aligned, the
+signal should be similar in corresponding voxels. In that case, a metric like
+correlation is useful as a measure of how well the images are matched.</p>
+<p>If images are of different modalities, they may well have different signal
+intensities for the same tissue.</p>
+<p>For example, T1-weighted MRI images have low signal in the cerebro-spinal
+fluid (CSF), but T2-weighted images have high signal in the CSF.</p>
+<p>When the T1 and T2 images are well aligned, the voxels containing CSF will
+correspond spatially, but they will have very different signal. In that case a
+simple measure like correlation will not capture how well the two images are
+matched.</p>
+<p>Mutual information is a measure of image matching, that does not require the
+signal to be the same in the two images. It is a measure of how well you can
+predict the signal in the second image, given the signal intensity in the
+first.</p>
+<p>First let us look at a T1 and T2 image. In fact these images are from the
+Montreal Neurological Institute (MNI) standard brain atlas :
+<a class="reference external" href="http://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009">http://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009</a>. See the
+<a class="reference download internal" href="_downloads/LICENSE" download=""><code class="xref download docutils literal"><span class="pre">LICENSE</span></code></a> file for copyright and usage of these images.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="kn">as</span> <span class="nn">nib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1_img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;mni_icbm152_t1_tal_nlin_asym_09a.nii&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1_data</span> <span class="o">=</span> <span class="n">t1_img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2_img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;mni_icbm152_t2_tal_nlin_asym_09a.nii&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2_data</span> <span class="o">=</span> <span class="n">t2_img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Show the images by stacking them left-right with hstack</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1_slice</span> <span class="o">=</span> <span class="n">t1_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">94</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2_slice</span> <span class="o">=</span> <span class="n">t2_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">94</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">t1_slice</span><span class="p">,</span> <span class="n">t2_slice</span><span class="p">)))</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-5.png">png</a>, <a class="reference external" href=".//mutual_information-5.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-5.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-5.png" src="_images/mutual_information-5.png" />
+</div>
+<p>The one-dimensional histograms of the example slices:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;T1 slice histogram&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">t2_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;T2 slice histogram&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-6.png">png</a>, <a class="reference external" href=".//mutual_information-6.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-6.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-6.png" src="_images/mutual_information-6.png" />
+</div>
+<p>Plotting the signal in the T1 slice against the signal in the T2 slice:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">t2_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;T1 signal&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;T2 signal&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;T1 vs T2 signal&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">t2_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="go">0.78707985510953171</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-7.png">png</a>, <a class="reference external" href=".//mutual_information-7.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-7.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-7.png" src="_images/mutual_information-7.png" />
+</div>
+<p>Notice that we can predict the T2 signal given the T1 signal, but it is not a
+linear relationship. For example, for T1 signal between 20 and 30, most
+corresponding T2 signal is low, but there is some T2 signal that is high. This
+pairing of high T2 signal with low T1 signal is from the CSF, which is dark
+(low signal) in the T1, and bright in the T2.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Array that is True if T1 signal &gt;= 20, &lt;= 30, False otherwise</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1_20_30</span> <span class="o">=</span> <span class="p">(</span><span class="n">t1_slice</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t1_slice</span> <span class="o">&lt;=</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get T1 signal for voxels in given T1 signal range, 0 otherwise</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1_in_20_30</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">t1_20_30</span><span class="p">,</span> <span class="n">t1_slice</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get T2 signal for voxels in given T1 signal range, 0 otherwise</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2_in_20_30</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">t1_20_30</span><span class="p">,</span> <span class="n">t2_slice</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">t1_in_20_30</span><span class="p">,</span> <span class="n">t2_in_20_30</span><span class="p">)))</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;T1, T2 signal for T1 &gt;=20 &lt;= 30&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-8.png">png</a>, <a class="reference external" href=".//mutual_information-8.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-8.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-8.png" src="_images/mutual_information-8.png" />
+</div>
+<p>We can capture this more complicated relationship by doing a 2D histogram.
+This is a histogram that divides the scatterplot into squares, and counts the
+number of observations inside each square. Numpy has a function for doing
+that:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hist_2d</span><span class="p">,</span> <span class="n">x_edges</span><span class="p">,</span> <span class="n">y_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">t2_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot as image, arranging axes as for scatterplot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># We transpose to put the T1 bins on the horizontal axis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># and use &#39;lower&#39; to put 0, 0 at the bottom of the plot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist_2d</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-9.png">png</a>, <a class="reference external" href=".//mutual_information-9.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-9.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-9.png" src="_images/mutual_information-9.png" />
+</div>
+<p>The histogram is easier to see if we show the log values to reduce the effect
+of the bins with a very large number of values:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Show log histogram, avoiding divide by 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hist_2d_log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">hist_2d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">non_zeros</span> <span class="o">=</span> <span class="n">hist_2d</span> <span class="o">!=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hist_2d_log</span><span class="p">[</span><span class="n">non_zeros</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">[</span><span class="n">non_zeros</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist_2d_log</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-10.png">png</a>, <a class="reference external" href=".//mutual_information-10.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-10.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-10.png" src="_images/mutual_information-10.png" />
+</div>
+<p>Mutual information is a metric from the joint (2D) histogram. The metric is
+high when the signal is highly concentrated in few bins (squares), and low
+when the signal is spread across many bins (squares).</p>
+<p>Mutual information is defined as:</p>
+<div class="math">
+\[I(X;Y) = \sum_{y \in Y} \sum_{x \in X}
+                 p(x,y) \log{ \left(\frac{p(x,y)}{p(x)\,p(y)}
+                              \right) }\]</div>
+<p>See <a class="reference external" href="http://en.wikipedia.org/wiki/Mutual_information">http://en.wikipedia.org/wiki/Mutual_information</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mutual_information</span><span class="p">(</span><span class="n">hgram</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Mutual information for joint histogram</span>
+<span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="gp">... </span>    <span class="n">pxy</span> <span class="o">=</span> <span class="n">hgram</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">hgram</span><span class="p">))</span> <span class="c1"># Convert bins to probability</span>
+<span class="gp">... </span>    <span class="n">px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pxy</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># marginal for x over y</span>
+<span class="gp">... </span>    <span class="n">py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pxy</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># marginal for y over x</span>
+<span class="gp">... </span>    <span class="n">px_py</span> <span class="o">=</span> <span class="n">px</span><span class="p">[:,</span> <span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">py</span><span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="p">:]</span> <span class="c1"># Broadcast to multiply marginals</span>
+<span class="gp">... </span>    <span class="n">nzs</span> <span class="o">=</span> <span class="n">pxy</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="c1"># Only non-zero pxy values contribute to the sum</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pxy</span><span class="p">[</span><span class="n">nzs</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pxy</span><span class="p">[</span><span class="n">nzs</span><span class="p">]</span> <span class="o">/</span> <span class="n">px_py</span><span class="p">[</span><span class="n">nzs</span><span class="p">]))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mutual_information</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">)</span>
+<span class="go">1.3399511058289812</span>
+</pre></div>
+</div>
+<p>If we move the T2 image 15 pixels down, we make the images less well
+registered.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t2_slice_moved</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">t2_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2_slice_moved</span><span class="p">[</span><span class="mi">15</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">t2_slice</span><span class="p">[:</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="p">:]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">t1_slice</span><span class="p">,</span> <span class="n">t2_slice_moved</span><span class="p">)))</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-13.png">png</a>, <a class="reference external" href=".//mutual_information-13.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-13.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-13.png" src="_images/mutual_information-13.png" />
+</div>
+<p>Now the scatterplot is a lot more diffuse:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">t2_slice_moved</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;T1 signal&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;T2 (moved) signal&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;T1 vs T2 signal after moving T2 image&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-14.png">png</a>, <a class="reference external" href=".//mutual_information-14.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-14.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-14.png" src="_images/mutual_information-14.png" />
+</div>
+<p>The joint (2D) histogram shows the same thing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hist_2d_moved</span><span class="p">,</span> <span class="n">x_edges</span><span class="p">,</span> <span class="n">y_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">t2_slice_moved</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+<span class="gp">... </span>    <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Show log histogram, avoiding divide by 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hist_2d_moved_log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">hist_2d_moved</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">non_zeros</span> <span class="o">=</span> <span class="n">hist_2d_moved</span> <span class="o">!=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hist_2d_moved_log</span><span class="p">[</span><span class="n">non_zeros</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">hist_2d_moved</span><span class="p">[</span><span class="n">non_zeros</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">hist_2d_moved_log</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+<span class="go">&lt;...&gt;</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//mutual_information-16.png">png</a>, <a class="reference external" href=".//mutual_information-16.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-16.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-16.png" src="_images/mutual_information-16.png" />
+</div>
+<p>Because the signal is less concentrated into a small number of bins, the
+mutual information has dropped:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mutual_information</span><span class="p">(</span><span class="n">hist_2d_moved</span><span class="p">)</span>
+<span class="go">0.45778273778245288</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/mutual_information.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/mutual_information.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

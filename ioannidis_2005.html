@@ -29,11 +29,14 @@
     <link rel="next" title="Vector projection" href="vector_projection.html" />
     <link rel="prev" title="Floating point error" href="floating_error.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -601,12 +604,12 @@ very much from our prior.</p>
 <p>If we do some study with an hypothesis that is suitably unlikely apriori
 - say <span class="math">\(Pr(H_A) = 0.25\)</span> - then our posterior probability is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="go">0.29724637862</span>
+<span class="go">0.2972463786...</span>
 </pre></div>
 </div>
 <p>What if the result was significant at <span class="math">\(p &lt; 0.01\)</span>?:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="go">0.402452827001</span>
+<span class="go">0.40245282700...</span>
 </pre></div>
 </div>
 <p>So, even if our result is significant at <span class="math">\(p &lt; 0.01\)</span>, the
@@ -667,7 +670,7 @@ probability that <span class="math">\(H_A\)</span> is correct is still less than
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="_sources/ioannidis_2005.txt"

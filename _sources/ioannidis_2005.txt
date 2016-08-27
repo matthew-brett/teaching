@@ -546,14 +546,14 @@ If we do some study with an hypothesis that is suitably unlikely apriori
 .. nbplot::
 
     >>> print(pp_mb_func(0.05, 0.92, 0.25, 0.1, 2))
-    0.29724637862
+    0.2972463786...
 
 What if the result was significant at :math:`p < 0.01`?:
 
 .. nbplot::
 
     >>> print(pp_mb_func(0.01, 0.92, 0.25, 0.1, 2))
-    0.402452827001
+    0.40245282700...
 
 So, even if our result is significant at :math:`p < 0.01`, the
 probability that :math:`H_A` is correct is still less than :math:`0.5`.

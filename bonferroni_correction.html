@@ -29,11 +29,14 @@
     <link rel="next" title="Thresholding with false discovery rate" href="fdr.html" />
     <link rel="prev" title="Correlated regressors" href="correlated_regressors.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -86,7 +89,7 @@ control <span class="math">\(\alpha_{fwe}\)</span> at <span class="math">\(0.05\
 <span class="gp">... </span>    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha_fwe</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">sidak_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="go">0.00511619689182</span>
+<span class="go">0.0051161968918...</span>
 </pre></div>
 </div>
 </div>
@@ -143,6 +146,7 @@ threshold will be too low) when the tests are positively dependent
 smaller (more conservative) than the Šidák correction
 <span class="math">\(\theta_{Šidák}\)</span> for <span class="math">\(n \ge 1\)</span>, but it is close:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># print to 4 decimal places</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_tests</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>  <span class="c1"># n = 1 through 10</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The exact threshold for independent p values</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">sidak_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_tests</span><span class="p">))</span>
@@ -209,7 +213,7 @@ smaller (more conservative) than the Šidák correction
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="_sources/bonferroni_correction.txt"

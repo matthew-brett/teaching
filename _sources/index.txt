@@ -37,6 +37,7 @@ Imaging
   <http://nipy.org/nibabel/coordinate_systems.html>`_;
 * :doc:`slice_timing`;
 * :doc:`optimizing_space`;
+* :doc:`mutual_information`;
 * :doc:`smoothing_intro`;
 * :doc:`on_convolution`;
 * :doc:`smoothing_as_convolution`;

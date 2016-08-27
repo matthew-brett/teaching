@@ -29,11 +29,14 @@
     <link rel="next" title="Vectors and dot products" href="on_vectors.html" />
     <link rel="prev" title="Notation" href="notation.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -177,6 +180,10 @@ shift it by 4 seconds-worth to give our predicted output:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
+<p>(<a class="reference external" href=".//on_convolution-4.png">png</a>, <a class="reference external" href=".//on_convolution-4.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-4.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/on_convolution-4.png" src="_images/on_convolution-4.png" />
+</div>
 <p>Our impulse so far has an amplitude of 1.  What if the impulse was twice as
 strong, with an amplitude of 2?</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">neural_signal</span><span class="p">[</span><span class="n">i_time_4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># An impulse with amplitude 2</span>
@@ -212,6 +219,10 @@ shifting by 4, as before, and then multiplying the HRF by 2:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Output BOLD signal for amplitude 2 impulse&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
+</div>
+<p>(<a class="reference external" href=".//on_convolution-6.png">png</a>, <a class="reference external" href=".//on_convolution-6.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-6.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/on_convolution-6.png" src="_images/on_convolution-6.png" />
 </div>
 <p>What if I have several impulses?  For example, imagine I had an impulse
 amplitude 2 at time == 4, then another of amplitude 1 at time == 10, and another
@@ -258,6 +269,10 @@ the HRF shifted to time == 20 and scaled by 3:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
+<p>(<a class="reference external" href=".//on_convolution-8.png">png</a>, <a class="reference external" href=".//on_convolution-8.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-8.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/on_convolution-8.png" src="_images/on_convolution-8.png" />
+</div>
 <p>At the moment, an <em>impulse</em> is an event that lasts for just one time point. In
 our case, the time vector (<code class="docutils literal"><span class="pre">times</span></code> in the code above) has one point for every
 0.1 seconds (10 time points per second).</p>
@@ -277,6 +292,10 @@ seconds apart:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
+<p>(<a class="reference external" href=".//on_convolution-9.png">png</a>, <a class="reference external" href=".//on_convolution-9.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-9.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/on_convolution-9.png" src="_images/on_convolution-9.png" />
+</div>
 <p>Now I need to add a new shifted HRF for the impulse corresponding to time == 4,
 and for time == 4.1 and so on until time == 4.4:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bold_signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_time_points</span><span class="p">)</span>
@@ -293,6 +312,10 @@ and for time == 4.1 and so on until time == 4.4:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Output BOLD signal with event lasting 0.5 seconds&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
+</div>
+<p>(<a class="reference external" href=".//on_convolution-10.png">png</a>, <a class="reference external" href=".//on_convolution-10.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-10.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/on_convolution-10.png" src="_images/on_convolution-10.png" />
 </div>
 </div>
 <div class="section" id="working-out-an-algorithm">
@@ -657,7 +680,7 @@ function <span class="math">\(g\)</span> is reversed and shifted.</p>
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="_sources/on_convolution.txt"

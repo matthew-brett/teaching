@@ -492,7 +492,7 @@ starting value of zero for the translation:
              Current function value: -0.997032
              Iterations: 2
              Function evaluations: 27
-    -7.99602669122
+    -7.9960266912...
 
 The function ran, and found that a translation of very nearly -8 gave
 the smallest value for our cost function.
@@ -518,7 +518,7 @@ new set of parameters.
              Iterations: 2
              Function evaluations: 27
     >>> print(best_params)
-    -7.99602669122
+    -7.9960266912...
 
 The optimization routine ``fmin_powell`` is trying various different
 translations, finally coming to the optimum (minimum) translation of
@@ -771,7 +771,7 @@ nearer the local minimum:
              Current function value: 0.241603
              Iterations: 2
              Function evaluations: 55
-    43.0000006372
+    43.0000006372...
 
 Here we took a very bad starting value, but we would run the same risk
 if the images started off much further apart and we gave a starting

@@ -29,11 +29,14 @@
     <link rel="next" title="Formula for rotating a vector in 2D" href="rotation_2d.html" />
     <link rel="prev" title="Calculating transformations between images" href="optimizing_space.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -343,9 +346,9 @@ a 8 by 8 pixel block, and the number of resels in our image is (128 / 8)
 * (128 / 8) = 256. Note that the number of resels depends only on the
 number of pixels, and the FWHM.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># No of resels</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">s_fwhm</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">s_fwhm</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span>
-<span class="go">256</span>
+<span class="go">256.0</span>
 </pre></div>
 </div>
 </div>
@@ -679,7 +682,7 @@ Human Brain Mapping, 4:58-73.</p>
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="_sources/random_fields.txt"
