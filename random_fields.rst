@@ -330,9 +330,9 @@ number of pixels, and the FWHM.
 .. nbplot::
 
     >>> # No of resels
-    >>> resels = np.prod(np.divide(shape, s_fwhm))
+    >>> resels = np.prod(np.array(shape) / float(s_fwhm))
     >>> resels
-    256
+    256.0
 
 *********************************
 What is the Euler characteristic?

@@ -68,7 +68,7 @@ control :math:`\alpha_{fwe}` at $0.05$:
     ...     return 1 - (1 - alpha_fwe)**(1./n)
     ...
     >>> print(sidak_thresh(0.05, 10))
-    0.00511619689182
+    0.0051161968918...
 
 *************************
 The Bonferroni correction
@@ -148,6 +148,7 @@ smaller (more conservative) than the Šidák correction
 .. nbplot::
 
     >>> import numpy as np
+    >>> np.set_printoptions(precision=4)  # print to 4 decimal places
     >>> n_tests = np.arange(1, 11)  # n = 1 through 10
     >>> # The exact threshold for independent p values
     >>> print(sidak_thresh(0.05, n_tests))
