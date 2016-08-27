@@ -114,7 +114,7 @@ Montreal Neurological Institute (MNI) standard brain atlas :
 <img alt="_images/mutual_information-6.png" src="_images/mutual_information-6.png" />
 </div>
 <p>Plotting the signal in the T1 slice against the signal in the T2 slice:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">t2_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<div class="highlight-python" id="t1-t2-scatter"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">t2_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;T1 signal&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
@@ -153,8 +153,20 @@ pairing of high T2 signal with low T1 signal is from the CSF, which is dark
 </div>
 <p>We can capture this more complicated relationship by doing a 2D histogram.
 This is a histogram that divides the scatterplot into squares, and counts the
-number of observations inside each square. Numpy has a function for doing
-that:</p>
+number of observations inside each square.</p>
+<p>Look again at the <a class="reference internal" href="#t1-t2-scatter"><span class="std std-ref">scatterplot for the T1 and T2 values</span></a>.
+We get the 1D histogram for T1 values by splitting the x axis into bins, and
+taking the number of observations contained in each column defined by the
+bins.  The T2 histogram comes from splitting the y axis into bins and taking
+the number of observations contained in each row defined by the bins.  The 2D
+histogram comes from dividing both the x and the y axis into bins and taking
+the number of observations in each square defined by the intersection of the
+rows and columns:</p>
+<p>(<a class="reference external" href=".//mutual_information-9.png">png</a>, <a class="reference external" href=".//mutual_information-9.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-9.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/mutual_information-9.png" src="_images/mutual_information-9.png" />
+</div>
+<p>Numpy has a function for doing the 2D histogram calculation:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hist_2d</span><span class="p">,</span> <span class="n">x_edges</span><span class="p">,</span> <span class="n">y_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
 <span class="gp">... </span>    <span class="n">t2_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
@@ -166,9 +178,9 @@ that:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//mutual_information-9.png">png</a>, <a class="reference external" href=".//mutual_information-9.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-9.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//mutual_information-10.png">png</a>, <a class="reference external" href=".//mutual_information-10.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-10.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/mutual_information-9.png" src="_images/mutual_information-9.png" />
+<img alt="_images/mutual_information-10.png" src="_images/mutual_information-10.png" />
 </div>
 <p>The histogram is easier to see if we show the log values to reduce the effect
 of the bins with a very large number of values:</p>
@@ -180,9 +192,9 @@ of the bins with a very large number of values:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//mutual_information-10.png">png</a>, <a class="reference external" href=".//mutual_information-10.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-10.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//mutual_information-11.png">png</a>, <a class="reference external" href=".//mutual_information-11.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-11.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/mutual_information-10.png" src="_images/mutual_information-10.png" />
+<img alt="_images/mutual_information-11.png" src="_images/mutual_information-11.png" />
 </div>
 <p>Mutual information is a metric from the joint (2D) histogram. The metric is
 high when the signal is highly concentrated in few bins (squares), and low
@@ -216,9 +228,9 @@ registered.</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//mutual_information-13.png">png</a>, <a class="reference external" href=".//mutual_information-13.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-13.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//mutual_information-14.png">png</a>, <a class="reference external" href=".//mutual_information-14.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-14.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/mutual_information-13.png" src="_images/mutual_information-13.png" />
+<img alt="_images/mutual_information-14.png" src="_images/mutual_information-14.png" />
 </div>
 <p>Now the scatterplot is a lot more diffuse:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">t2_slice_moved</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
@@ -231,9 +243,9 @@ registered.</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//mutual_information-14.png">png</a>, <a class="reference external" href=".//mutual_information-14.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-14.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//mutual_information-15.png">png</a>, <a class="reference external" href=".//mutual_information-15.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-15.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/mutual_information-14.png" src="_images/mutual_information-14.png" />
+<img alt="_images/mutual_information-15.png" src="_images/mutual_information-15.png" />
 </div>
 <p>The joint (2D) histogram shows the same thing:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hist_2d_moved</span><span class="p">,</span> <span class="n">x_edges</span><span class="p">,</span> <span class="n">y_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span>
@@ -250,9 +262,9 @@ registered.</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//mutual_information-16.png">png</a>, <a class="reference external" href=".//mutual_information-16.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-16.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//mutual_information-17.png">png</a>, <a class="reference external" href=".//mutual_information-17.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-17.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/mutual_information-16.png" src="_images/mutual_information-16.png" />
+<img alt="_images/mutual_information-17.png" src="_images/mutual_information-17.png" />
 </div>
 <p>Because the signal is less concentrated into a small number of bins, the
 mutual information has dropped:</p>

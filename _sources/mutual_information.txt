@@ -79,6 +79,8 @@ The one-dimensional histograms of the example slices:
 
 Plotting the signal in the T1 slice against the signal in the T2 slice:
 
+.. _t1_t2_scatter:
+
 .. nbplot::
 
     >>> plt.plot(t1_slice.ravel(), t2_slice.ravel(), '.')
@@ -113,8 +115,36 @@ pairing of high T2 signal with low T1 signal is from the CSF, which is dark
 
 We can capture this more complicated relationship by doing a 2D histogram.
 This is a histogram that divides the scatterplot into squares, and counts the
-number of observations inside each square. Numpy has a function for doing
-that:
+number of observations inside each square.
+
+Look again at the :ref:`scatterplot for the T1 and T2 values <t1_t2_scatter>`.
+We get the 1D histogram for T1 values by splitting the x axis into bins, and
+taking the number of observations contained in each column defined by the
+bins.  The T2 histogram comes from splitting the y axis into bins and taking
+the number of observations contained in each row defined by the bins.  The 2D
+histogram comes from dividing both the x and the y axis into bins and taking
+the number of observations in each square defined by the intersection of the
+rows and columns:
+
+.. nbplot::
+    :include-source: false
+
+    >>> from matplotlib.ticker import MaxNLocator
+    >>> ax = plt.subplot(111)
+    >>> ax.plot(t1_slice.ravel(), t2_slice.ravel(), '.')
+    [...]
+    >>> ax.set_xlabel('T1 signal')
+    <...>
+    >>> ax.set_ylabel('T2 signal')
+    <...>
+    >>> ax.set_title('T1 vs T2 signal split into squares')
+    <...>
+    >>> ax.xaxis.set_minor_locator(MaxNLocator(nbins=20))
+    >>> ax.yaxis.set_minor_locator(MaxNLocator(nbins=20))
+    >>> ax.xaxis.grid(True, 'minor')
+    >>> ax.yaxis.grid(True, 'minor')
+
+Numpy has a function for doing the 2D histogram calculation:
 
 .. nbplot::
 
