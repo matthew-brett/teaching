@@ -104,13 +104,19 @@ pairing of high T2 signal with low T1 signal is from the CSF, which is dark
 
     >>> # Array that is True if T1 signal >= 20, <= 30, False otherwise
     >>> t1_20_30 = (t1_slice >= 20) & (t1_slice <= 30)
-    >>> # Get T1 signal for voxels in given T1 signal range, 0 otherwise
-    >>> t1_in_20_30 = np.where(t1_20_30, t1_slice, 0)
-    >>> # Get T2 signal for voxels in given T1 signal range, 0 otherwise
-    >>> t2_in_20_30 = np.where(t1_20_30, t2_slice, 0)
-    >>> plt.imshow(np.hstack((t1_in_20_30, t2_in_20_30)))
+    >>> # Show T1 slice, mask for T1 between 20 and 30, T2 slice
+    >>> fig, axes = plt.subplots(1, 3, figsize=(8, 3))
+    >>> axes[0].imshow(t1_slice)
     <...>
-    >>> plt.title('T1, T2 signal for T1 >=20 <= 30')
+    >>> axes[0].set_title('T1 slice')
+    <...>
+    >>> axes[1].imshow(t1_20_30)
+    <...>
+    >>> axes[1].set_title('20<=T1<=30')
+    <...>
+    >>> axes[2].imshow(t2_slice)
+    <...>
+    >>> axes[2].set_title('T2 slice')
     <...>
 
 We can capture this more complicated relationship by doing a 2D histogram.
@@ -157,7 +163,10 @@ Numpy has a function for doing the 2D histogram calculation:
     >>> # and use 'lower' to put 0, 0 at the bottom of the plot
     >>> plt.imshow(hist_2d.T, origin='lower')
     <...>
-
+    >>> plt.xlabel('T1 signal bin')
+    <...>
+    >>> plt.ylabel('T2 signal bin')
+    <...>
 
 The histogram is easier to see if we show the log values to reduce the effect
 of the bins with a very large number of values:
@@ -170,6 +179,10 @@ of the bins with a very large number of values:
     >>> hist_2d_log[non_zeros] = np.log(hist_2d[non_zeros])
     >>> plt.imshow(hist_2d_log.T, origin='lower')
     <...>
+    >>> plt.xlabel('T1 signal bin')
+    <...>
+    >>> plt.ylabel('T2 signal bin')
+    <...>
 
 Mutual information is a metric from the joint (2D) histogram. The metric is
 high when the signal is highly concentrated in few bins (squares), and low
@@ -179,7 +192,7 @@ Mutual information is defined as:
 
 .. math::
 
-   I(X;Y) = \sum_{y \in Y} \sum_{x \in X} 
+   I(X;Y) = \sum_{y \in Y} \sum_{x \in X}
                     p(x,y) \log{ \left(\frac{p(x,y)}{p(x)\,p(y)}
                                  \right) }
 
@@ -190,10 +203,12 @@ See http://en.wikipedia.org/wiki/Mutual_information
     >>> def mutual_information(hgram):
     ...     """ Mutual information for joint histogram
     ...     """
-    ...     pxy = hgram / float(np.sum(hgram)) # Convert bins to probability
-    ...     px = np.sum(pxy, 1) # marginal for x over y
-    ...     py = np.sum(pxy, 0) # marginal for y over x
+    ...     # Convert bins counts to probability values
+    ...     pxy = hgram / float(np.sum(hgram))
+    ...     px = np.sum(pxy, axis=1) # marginal for x over y
+    ...     py = np.sum(pxy, axis=0) # marginal for y over x
     ...     px_py = px[:, None] * py[None, :] # Broadcast to multiply marginals
+    ...     # Now we can do the calculation using the pxy, px_py 2D arrays
     ...     nzs = pxy > 0 # Only non-zero pxy values contribute to the sum
     ...     return np.sum(pxy[nzs] * np.log(pxy[nzs] / px_py[nzs]))
 
@@ -241,6 +256,10 @@ The joint (2D) histogram shows the same thing:
     >>> non_zeros = hist_2d_moved != 0
     >>> hist_2d_moved_log[non_zeros] = np.log(hist_2d_moved[non_zeros])
     >>> plt.imshow(hist_2d_moved_log.T, origin='lower')
+    <...>
+    >>> plt.xlabel('T1 signal bin')
+    <...>
+    >>> plt.ylabel('T2 signal bin')
     <...>
 
 Because the signal is less concentrated into a small number of bins, the

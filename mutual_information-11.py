@@ -4,3 +4,7 @@ non_zeros = hist_2d != 0
 hist_2d_log[non_zeros] = np.log(hist_2d[non_zeros])
 plt.imshow(hist_2d_log.T, origin='lower')
 # <...>
+plt.xlabel('T1 signal bin')
+# <...>
+plt.ylabel('T2 signal bin')
+# <...>
