@@ -79,12 +79,10 @@ So:
 We can also write the projection in terms of the unit vector defined by $\vec{v}$:
 
 .. math::
-    :nowrap:
 
     \hat{u} \triangleq \frac{\vec{v}}{\VL{v}} \implies \\
     \mathrm{proj}_\vec{v}\vec{w} =
     \frac{\vec{w} \cdot \vec{v}}{\VL{v}} \vec{u}
-
 
 $\frac{\vec{w} \cdot \vec{v}}{\VL{v}}$ is called the `scalar projection`_ of
 $\vec{w}$ onto $\vec{v}$.
