@@ -570,17 +570,15 @@ projections in $\C$:
 .. nbplot::
 
     >>> # Result of projecting on first component, via array dot
-    >>> u_1 = U[:, 0].reshape((2, 1))  # First component as column vector
-    >>> c_1 = C[0, :].reshape((1, 50))  # Scalar projections as row vector
-    >>> projected_onto_1 = u_1.dot(c_1)
+    >>> # np.outer does the equivalent of a matrix multiply of a column vector
+    >>> # with a row vector, to give a matrix.
+    >>> projected_onto_1 = np.outer(U[:, 0], C[0, :])
     >>> # The same as doing the original calculation
     >>> np.allclose(projected_onto_1, line_projection(u_best, X))
     True
 
-    >>> # Result of projecting on second component, via array dot
-    >>> u_2 = U[:, 1].reshape((2, 1))  # Second component as column vector
-    >>> c_2 = C[1, :].reshape((1, 50))  # Scalar projections as row vector
-    >>> projected_onto_2 = u_2.dot(c_2)
+    >>> # Result of projecting on second component, via np.outer
+    >>> projected_onto_2 = np.outer(U[:, 1], C[1, :])
     >>> # The same as doing the original calculation
     >>> np.allclose(projected_onto_2, line_projection(u_best_orth, X))
     True
@@ -800,7 +798,8 @@ variant in NumPy:
     >>> VT.shape
     (2, 50)
 
-Because $\U$ is an orthogonal matrix, such that $I = \U^T \U$:
+By the definition of the SVD, $\U$ and \V^T$ are orthogonal matrices, so
+$\U^T$ is the inverse of $\U$ and $\U^T \U = I$.  Therefore:
 
 .. math::
 
@@ -816,13 +815,18 @@ You may recognize $\U^T \X$ as the matrix of scalar projections $\C$ above:
     True
 
 Because $\V^T$ is also an orthogonal matrix, it has row lengths of 1, and we
-can reconstruct $\S$ and $\V^T$ from $\C$:
+can get the values in $\S$ from the row lengths of $\C$:
 
 .. nbplot::
 
     >>> S_from_C = np.sqrt(np.sum(C ** 2, axis=1))
     >>> np.allclose(S_from_C, S)
     True
+
+Now we can reconstruct $\V^T$:
+
+.. nbplot::
+
     >>> # Divide out reconstructed S values
     >>> S_as_column = S_from_C.reshape((2, 1))
     >>> np.allclose(C / S_as_column, VT)
@@ -830,8 +834,8 @@ can reconstruct $\S$ and $\V^T$ from $\C$:
 
 The SVD is quick to compute for a small matrix like ``X``, but when the larger
 dimension of $\X$ becomes large, it is more efficient in CPU time and memory
-to calculate $\U$ and $\S$ by doing SVD on the variance / covariance matrix of
-the features.
+to calculate $\U$ and $\S$ by doing the SVD on the variance / covariance
+matrix of the features.
 
 Here's why that works:
 
@@ -846,10 +850,9 @@ By the matrix transpose rule and associativity of matrix multiplication:
 
    \U \S \V^T \V \S^T \U^T = \X \X^T
 
-By the definition of the SVD, $\V^T$ is an orthogonal matrix, so $\V$ is
-the inverse of $\V^T$ and $\V^T \V = I$. $\S$ is a diagonal
-matrix so $\S \S^T = \S^2$, where $\S^2$ is a square diagonal matrix shape
-$M$ by $M$ containing the squares of the singular values from $\S$:
+$\V^T$ is an orthogonal matrix, so $\V^T$ and $\V^T \V = I$. $\S$ is a
+diagonal matrix so $\S \S^T = \S^2$, where $\S^2$ is a square diagonal matrix
+shape $M$ by $M$ containing the squares of the singular values from $\S$:
 
 .. math::
 

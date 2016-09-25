@@ -34,7 +34,7 @@ def build_canvas():
     text_at(cnv, w / 2. - (.5, 0), r'$\vec{w}$')
     cnv.stroke(make_line(v), [deco.earrow()])
     text_at(cnv, v / 2. - (0, .5), r'$\vec{v}$')
-    cnv.stroke(make_line(c * v, w), [deco.earrow(), rgb.red])
+    cnv.stroke(make_line(w, c * v), [deco.earrow(), rgb.red])
     text_at(cnv, w - (w - c * v) / 2 + (.1, .1), r'$\vec{w} - c \vec{v}$')
     cnv.stroke(make_line(c * v), [deco.earrow(), ls.dashed, rgb.blue])
     text_at(cnv, c * v / 1.5 - (0, .5), r'$c \vec{v}$')
