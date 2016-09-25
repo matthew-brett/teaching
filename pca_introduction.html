@@ -390,18 +390,16 @@ projections for the second component.</p>
 in <span class="math">\(\U\)</span> by taking the dot products of the columns in <span class="math">\(\U\)</span> with the scalar
 projections in <span class="math">\(\C\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result of projecting on first component, via array dot</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">u_1</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># First component as column vector</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">c_1</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>  <span class="c1"># Scalar projections as row vector</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_1</span> <span class="o">=</span> <span class="n">u_1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># np.outer does the equivalent of a matrix multiply of a column vector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># with a row vector, to give a matrix.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The same as doing the original calculation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">projected_onto_1</span><span class="p">,</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u_best</span><span class="p">,</span> <span class="n">X</span><span class="p">))</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result of projecting on second component, via array dot</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">u_2</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Second component as column vector</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">c_2</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>  <span class="c1"># Scalar projections as row vector</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_2</span> <span class="o">=</span> <span class="n">u_2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_2</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result of projecting on second component, via np.outer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The same as doing the original calculation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">projected_onto_2</span><span class="p">,</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u_best_orth</span><span class="p">,</span> <span class="n">X</span><span class="p">))</span>
 <span class="go">True</span>
@@ -544,7 +542,8 @@ variant in NumPy:</p>
 <span class="go">(2, 50)</span>
 </pre></div>
 </div>
-<p>Because <span class="math">\(\U\)</span> is an orthogonal matrix, such that <span class="math">\(I = \U^T \U\)</span>:</p>
+<p>By the definition of the SVD, <span class="math">\(\U\)</span> and V^T<span class="math">\( are orthogonal matrices, so
+\)</span>U^T<span class="math">\( is the inverse of \)</span>U<span class="math">\( and \)</span>U^T U = I$.  Therefore:</p>
 <div class="math">
 \[\X = \U \Sigma \V^T \implies
 \U^T \X = \Sigma \V^T\]</div>
@@ -579,10 +578,9 @@ matrix of the features.</p>
 <p>By the matrix transpose rule and associativity of matrix multiplication:</p>
 <div class="math">
 \[\U \S \V^T \V \S^T \U^T = \X \X^T\]</div>
-<p>By the definition of the SVD, <span class="math">\(\V^T\)</span> is an orthogonal matrix, so <span class="math">\(\V\)</span> is
-the inverse of <span class="math">\(\V^T\)</span> and <span class="math">\(\V^T \V = I\)</span>. <span class="math">\(\S\)</span> is a diagonal
-matrix so <span class="math">\(\S \S^T = \S^2\)</span>, where <span class="math">\(\S^2\)</span> is a square diagonal matrix shape
-<span class="math">\(M\)</span> by <span class="math">\(M\)</span> containing the squares of the singular values from <span class="math">\(\S\)</span>:</p>
+<p><span class="math">\(\V^T\)</span> is an orthogonal matrix, so <span class="math">\(\V^T\)</span> and <span class="math">\(\V^T \V = I\)</span>. <span class="math">\(\S\)</span> is a
+diagonal matrix so <span class="math">\(\S \S^T = \S^2\)</span>, where <span class="math">\(\S^2\)</span> is a square diagonal matrix
+shape <span class="math">\(M\)</span> by <span class="math">\(M\)</span> containing the squares of the singular values from <span class="math">\(\S\)</span>:</p>
 <div class="math">
 \[\U \S^2 \U^T = \X \X^T\]</div>
 <p>This last formula is the formula for the SVD of <span class="math">\(\X \X^T\)</span>. So, we can get our
