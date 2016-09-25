@@ -1,3 +1,1 @@
-# Total sum of squares
-print(np.sum(X ** 2))
-# 155.669289858
+C = U.T.dot(X)

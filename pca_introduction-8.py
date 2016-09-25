@@ -7,3 +7,7 @@ for point in X.T:  # iterate over columns
 # [...]
 plt.axis('equal')
 # (...)
+plt.xlabel('Feature 1')
+# <...>
+plt.ylabel('Feature 2')
+# <...>

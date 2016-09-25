@@ -1,2 +1,3 @@
-u_best
-# array([ 0.878243,  0.478215])
+data_again = U.dot(C)
+np.allclose(data_again, X)
+# True

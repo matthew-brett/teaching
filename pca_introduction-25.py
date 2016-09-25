@@ -1,3 +1,4 @@
-u_best = u_vectors[:, min_i]
-u_best
-# array([ 0.878243,  0.478215])
+min_i = np.argmin(remaining_ss)
+angle_best = angles[min_i]
+print(angle_best)
+# 0.498620616186

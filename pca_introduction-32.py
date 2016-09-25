@@ -1,5 +1,1 @@
-# Components as rows in a 2 by 2 array
-components = np.vstack((u_best, u_best_orth))
-components
-# array([[ 0.878243,  0.478215],
-# [-0.478215,  0.878243]])
+u_best_orth = np.array([np.cos(angle_best + np.pi / 2), np.sin(angle_best + np.pi / 2)])

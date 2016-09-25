@@ -1,2 +1,3 @@
-scaled_S
-# array([ 2.938228,  0.238696])
+S_from_C = np.sqrt(np.sum(C ** 2, axis=1))
+np.allclose(S_from_C, S)
+# True

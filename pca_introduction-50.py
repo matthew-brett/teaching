@@ -1,3 +1,5 @@
-scaled_U, scaled_S, scaled_VT = npl.svd(np.cov(X))
-np.allclose(scaled_U, U), np.allclose(scaled_VT, VT_vcov)
-# (True, True)
+U, S, VT = npl.svd(X, full_matrices=False)
+U.shape
+# (2, 2)
+VT.shape
+# (2, 50)

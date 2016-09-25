@@ -9,11 +9,12 @@ This page was largely inspired by these two excellent tutorials:
 
 Let's say I have some data in a 2D array :math:`\mathbf{X}`.
 
-I have taken two different measures - or *variables* - and 50 samples.  So, I
-have two variables for each of the 50 samples.
+I have taken two different measures for each sample, and 50 samples.  We can
+also call the measures *variables* or *features*.  So, I have two *features*
+and 50 *samples*.
 
-Each column is one sample (I have 50 columns). Each row is one variable (I
-have two rows).
+I arrange the data so each column is one sample (I have 50 columns). Each row
+is one feature (or measure or variable) (I have two rows).
 
 Start by loading the libraries we need, and doing some configuration:
 
@@ -35,25 +36,30 @@ Make the data:
     (2, 50)
 
 To make things simpler, I will subtract the mean across samples from each
-variable:
+feature:
 
 .. nbplot::
 
-    >>> # Subtract mean across samples (mean of each variable)
+    >>> # Subtract mean across samples (mean of each feature)
     >>> x_mean = X.mean(axis=1)
     >>> X[0] = X[0] - x_mean[0]
     >>> X[1] = X[1] - x_mean[1]
 
-The values for the two variables (rows) in :math:`\mathbf{X}` are somewhat
+The values for the two features (rows) in :math:`\mathbf{X}` are somewhat
 correlated:
 
 .. nbplot::
+    :include-source: false
 
     >>> import matplotlib.pyplot as plt
     >>> plt.scatter(X[0], X[1])
     <...>
     >>> plt.axis('equal')
     (...)
+    >>> plt.xlabel('Feature 1')
+    <...>
+    >>> plt.ylabel('Feature 2')
+    <...>
 
 We want to explain the variation in these data.
 
@@ -70,13 +76,13 @@ The sums of squares of the data can be thought of as the squared lengths of
 the 50 2D vectors in the columns of :math:`\mathbf{X}`.
 
 We can think of each sample as being a point on a 2D coordinate system, where
-the first variable is the position on the x axis, and the second is the
+the first feature is the position on the x axis, and the second is the
 position on the y axis. In fact, this is how we just plotted the values in the
 scatter plot. We can also think of each column as a 2D *vector*. Call
 :math:`\vec{v_j}` the vector contained in column :math:`j` of matrix
 :math:`\mathbf{X}`, where :math:`j \in 1..50`.
 
-The sum of squares across the variables, is also the squared distance of the
+The sum of squares across the features, is also the squared distance of the
 point (column) from the origin (0, 0). That is the same as saying that the sum
 of squares is the squared *length* of :math:`\vec{v_j}`.  This can be written
 as :math:`\|\vec{v_j}\|^2`
@@ -95,7 +101,7 @@ Take the first column / point / vector as an example (:math:`\vec{v_1}`):
     # Show first vector as sum of x and y axis vectors
     x, y = v1
     # Make subplots for vectors and text
-    fig, (vec_ax, txt_ax) = plt.subplots(1, 2)
+    fig, (vec_ax, txt_ax) = plt.subplots(2, 1)
     font_sz = 18
     # Plot 0, 0
     vec_ax.plot(0, 0, 'ro')
@@ -119,8 +125,7 @@ Take the first column / point / vector as an example (:math:`\vec{v_1}`):
     vec_ax.axis('off')
     # Text about lengths
     txt_ax.axis('off')
-    txt_ax.annotate(r'$\|\vec{v_1}\|^2 = \|\vec{x}\|^2 + \|\vec{y}\|^2$ =' +
-                    '\n' +
+    txt_ax.annotate(r'$\|\vec{v_1}\|^2 = \|\vec{x}\|^2 + \|\vec{y}\|^2$ = ' +
                     '${x:.2f}^2 + {y:.2f}^2$'.format(x=x, y=y),
                     (0.1, 0.45), fontsize=font_sz)
 
@@ -129,6 +134,7 @@ of the squared distance of each point from the origin, where the points
 (vectors) are the columns of :math:`\mathbf{X}`:
 
 .. nbplot::
+    :include-source: false
 
     >>> # Plot points and lines connecting points to origin
     >>> plt.scatter(X[0], X[1])
@@ -139,6 +145,10 @@ of the squared distance of each point from the origin, where the points
     [...]
     >>> plt.axis('equal')
     (...)
+    >>> plt.xlabel('Feature 1')
+    <...>
+    >>> plt.ylabel('Feature 2')
+    <...>
 
 Put another way, we are trying to explain the squares of the lengths of the
 dotted red lines on the plot.
@@ -175,10 +185,11 @@ with the smallest :math:`\sum_j{d_j^2}`.
 What do we mean by the *distance* in this case? The distance :math:`d_i` is
 the distance between the point :math:`\vec{v_i}` and the projection of that
 point onto the line :math:`c\hat{u}`. The projection of :math:`\vec{v_i}` onto
-the line defined by :math:`\hat{u}` is, as we remember, given by
-:math:`c\hat{u}` where :math:`c = \vec{v_i}\cdot\hat{u}`.
+the line defined by :math:`\hat{u}` is, :doc:`as we remember
+<vector_projection>`, given by :math:`c\hat{u}` where :math:`c =
+\vec{v_i}\cdot\hat{u}`.
 
-Looking at the scatterplot, we might consider trying a unit vector at 45
+Looking at the scatter plot, we might consider trying a unit vector at 45
 degrees angle to the x axis:
 
 .. nbplot::
@@ -195,6 +206,7 @@ This is a unit vector:
     1.0
 
 .. nbplot::
+    :include-source: false
 
     >>> plt.scatter(X[0], X[1])
     <...>
@@ -204,15 +216,24 @@ This is a unit vector:
     (...)
     >>> plt.title('Guessed unit vector')
     <...>
+    >>> plt.xlabel('Feature 1')
+    <...>
+    >>> plt.ylabel('Feature 2')
+    <...>
 
 Let's project all the points onto that line:
 
 .. nbplot::
 
-    >>> u_guessed_row = u_guessed.reshape(1, 2)  # A row vector
+    >>> u_guessed_row = u_guessed.reshape((1, 2))  # A row vector
     >>> c_values = u_guessed_row.dot(X)  # c values for scaling u
-    >>> projected = u_guessed_row.T.dot(c_values)
     >>> # scale u by values to get projection
+    >>> projected = u_guessed_row.T.dot(c_values)
+
+
+.. nbplot::
+    :include-source: false
+
     >>> plt.scatter(X[0], X[1], label='actual')
     <...>
     >>> plt.scatter(projected[0], projected[1], color='r', label='projected')
@@ -228,6 +249,10 @@ Let's project all the points onto that line:
     >>> plt.legend(loc='upper left')
     <...>
     >>> plt.title("Actual and projected points for guessed $\hat{u}$")
+    <...>
+    >>> plt.xlabel('Feature 1')
+    <...>
+    >>> plt.ylabel('Feature 2')
     <...>
 
 The projected points (in red), are the positions of the points that can be
@@ -363,7 +388,10 @@ radians:
     >>> u_best
     array([ 0.878243,  0.478215])
 
+I plot the data with the new unit vector I found:
+
 .. nbplot::
+    :include-source: false
 
     >>> plt.scatter(X[0], X[1])
     <...>
@@ -373,12 +401,20 @@ radians:
     (...)
     >>> plt.title('Best unit vector')
     <...>
+    >>> plt.xlabel('Feature 1')
+    <...>
+    >>> plt.ylabel('Feature 2')
+    <...>
 
 Do the projections for this best line look better than before?
 
 .. nbplot::
 
     >>> projected = line_projection(u_best, X)
+
+.. nbplot::
+    :include-source: false
+
     >>> plt.scatter(X[0], X[1], label='actual')
     <...>
     >>> plt.scatter(projected[0], projected[1], color='r', label='projected')
@@ -395,6 +431,10 @@ Do the projections for this best line look better than before?
     <...>
     >>> plt.title("Actual and projected points for $\hat{u_{best}}$")
     <...>
+    >>> plt.xlabel('Feature 1')
+    <...>
+    >>> plt.ylabel('Feature 2')
+    <...>
 
 Now we have found a reasonable choice for our first best fitting line, we have
 a set of remaining vectors that we have not explained. These are the vectors
@@ -403,6 +443,10 @@ between the projected and actual points.
 .. nbplot::
 
     >>> remaining = X - projected
+
+.. nbplot::
+    :include-source: false
+
     >>> plt.scatter(remaining[0], remaining[1], label='remaining')
     <...>
     >>> plt.arrow(0, 0, u_best[0], u_best[1], width=0.01, color='r')
@@ -413,16 +457,35 @@ between the projected and actual points.
     <...>
     >>> plt.axis('equal')
     (...)
+    >>> plt.xlabel('Feature 1')
+    <...>
+    >>> plt.ylabel('Feature 2')
+    <...>
 
-Now it is obvious the next line we need to best explain the remaining sum of
-squares. We want another unit vector orthogonal to the first.  This is because
-we have already explained everything that can be explained along the direction
-of :math:`\hat{u_{best}}`, and we only have two dimensions, so there is only
-one remaining direction along which the variation can occur.
+What is the next line we need to best explain the remaining sum of squares? We
+want another unit vector orthogonal to the first.  This is because we have
+already explained everything that can be explained along the direction of
+:math:`\hat{u_{best}}`, and we only have two dimensions, so there is only one
+remaining direction along which the variation can occur.
+
+I get the new $\hat{u_{orth}}$ vector with a rotation by 90 degrees ($\pi /
+2):
 
 .. nbplot::
 
     >>> u_best_orth = np.array([np.cos(angle_best + np.pi / 2), np.sin(angle_best + np.pi / 2)])
+
+Within error due to the floating point calculations, $\hat{u_{orth}}$ is
+orthogonal to $\hat{u_{best}}$:
+
+.. nbplot::
+
+    >>> np.allclose(u_best.dot(u_best_orth), 0, atol=1e-6)
+    True
+
+.. nbplot::
+    :include-source: false
+
     >>> plt.scatter(remaining[0], remaining[1], label='remaining')
     <...>
     >>> plt.arrow(0, 0, u_best[0], u_best[1], width=0.01, color='r')
@@ -435,10 +498,14 @@ one remaining direction along which the variation can occur.
     <...>
     >>> plt.axis('equal')
     (...)
+    >>> plt.xlabel('Feature 1')
+    <...>
+    >>> plt.ylabel('Feature 2')
+    <...>
 
-Now the projections onto :math:`\hat{u_{orth}}` are the same as the
-remaining points, because the remaining points already lie along the
-line defined by :math:`\hat{u_{orth}}`.
+The projections onto :math:`\hat{u_{orth}}` are the same as the remaining
+points, because the remaining points already lie along the line defined by
+:math:`\hat{u_{orth}}`.
 
 .. nbplot::
 
@@ -465,40 +532,57 @@ from the original array :math:`\mathbf{X}`.
     >>> # project onto second component direct from data
     >>> projected_onto_orth_again = line_projection(u_best_orth, X)
     >>> # Gives same answer as projecting remainder from first component
-    >>> np.allclose(projected_onto_orth_again - projected_onto_orth, 0)
+    >>> np.allclose(projected_onto_orth_again, projected_onto_orth)
     True
 
-For the same reason, I can calculate the projection coefficients :math:`c` for
-both components at the same time, by doing matrix multiplication:
+:math:`\newcommand{\X}{\mathbf{X}}\newcommand{\U}{\mathbf{U}}\newcommand{\S}{\mathbf{\Sigma}}\newcommand{\V}{\mathbf{V}}\newcommand{\C}{\mathbf{C}}`
+For the same reason, I can calculate the scalar projections :math:`c` for both
+components at the same time, by doing matrix multiplication. First assemble
+the components into the columns of a 2 by 2 array $\U$:
 
 .. nbplot::
 
-    >>> # Components as rows in a 2 by 2 array
-    >>> components = np.vstack((u_best, u_best_orth))
-    >>> components
-    array([[ 0.878243,  0.478215],
-           [-0.478215,  0.878243]])
+    >>> # Components as columns in a 2 by 2 array
+    >>> U = np.column_stack((u_best, u_best_orth))
+    >>> U
+    array([[ 0.878243, -0.478215],
+           [ 0.478215,  0.878243]])
+
+Call the 2 by 50 scalar projection values matrix $\C$. I can calculate $\C$ in
+one shot by matrix multiplication:
+
+.. math::
+
+    \C = \U^T \X
 
 .. nbplot::
 
-    >>> # Calculating projection coefficients with array dot
-    >>> c_values = components.dot(X)
+    >>> C = U.T.dot(X)
+
+The first row of $\C$ has the scalar projections for the first component (the
+first component is the first column of $\U$).  The second row has the scalar
+projections for the second component.
+
+Finally, we can get the projections of the vectors in $\X$ onto the components
+in $\U$ by taking the dot products of the columns in $\U$ with the scalar
+projections in $\C$:
+
+.. nbplot::
+
     >>> # Result of projecting on first component, via array dot
-    >>> u = u_best.reshape(1, 2)  # first component as row vector
-    >>> c = c_values[0].reshape(1, 50)  # c for first component as row vector
-    >>> projected_1 = u.T.dot(c)
+    >>> u_1 = U[:, 0].reshape((2, 1))  # First component as column vector
+    >>> c_1 = C[0, :].reshape((1, 50))  # Scalar projections as row vector
+    >>> projected_onto_1 = u_1.dot(c_1)
     >>> # The same as doing the original calculation
-    >>> np.allclose(projected_1, line_projection(u_best, X))
+    >>> np.allclose(projected_onto_1, line_projection(u_best, X))
     True
-
-.. nbplot::
 
     >>> # Result of projecting on second component, via array dot
-    >>> u = u_best_orth.reshape(1, 2)  # second component as row vector
-    >>> c = c_values[1].reshape(1, 50)  # c for second component as row vector
-    >>> projected_2 = u.T.dot(c)
+    >>> u_2 = U[:, 1].reshape((2, 1))  # Second component as column vector
+    >>> c_2 = C[1, :].reshape((1, 50))  # Scalar projections as row vector
+    >>> projected_onto_2 = u_2.dot(c_2)
     >>> # The same as doing the original calculation
-    >>> np.allclose(projected_2, line_projection(u_best_orth, X))
+    >>> np.allclose(projected_onto_2, line_projection(u_best_orth, X))
     True
 
 **************************************************************
@@ -520,10 +604,10 @@ the projections onto the principal component axes:
     # Show v1 as sum of projections onto components 1 and 2
     x, y = v1
     # Projections onto first and second component
-    p1_x, p1_y = projected_1[:, 0]
-    p2_x, p2_y = projected_2[:, 0]
+    p1_x, p1_y = projected_onto_1[:, 0]
+    p2_x, p2_y = projected_onto_2[:, 0]
     # Make subplots for vectors and text
-    fig, (vec_ax, txt_ax) = plt.subplots(1, 2)
+    fig, (vec_ax, txt_ax) = plt.subplots(2, 1)
     # Show 0, 0
     vec_ax.plot(0, 0, 'ro')
     # Show vectors with arrows
@@ -567,17 +651,17 @@ data projected onto the second, I get back the original data:
 
 .. nbplot::
 
-    >>> np.allclose(projected_1 + projected_2, X)
+    >>> np.allclose(projected_onto_1 + projected_onto_2, X)
     True
 
 Doing the sum above is the same operation as matrix multiplication of the
-transpose of the components with the projection coefficients (seeing that this
-is so involves writing out a few cells of the matrix multiplication in symbols
-and staring at it for a while):
+components $\U$ with the scalar projections $\C$.  Seeing that this is so
+involves writing out a few cells of the matrix multiplication in symbols and
+staring at it for a while.
 
 .. nbplot::
 
-    >>> data_again = components.T.dot(c_values)
+    >>> data_again = U.dot(C)
     >>> np.allclose(data_again, X)
     True
 
@@ -585,7 +669,7 @@ and staring at it for a while):
 The components partition the sums of squares
 ********************************************
 
-Notice also that I have partititioned the sums of squares of the data into a
+Notice also that I have partitioned the sums of squares of the data into a
 part that can be explained by the first component, and a part that can be
 explained by the second:
 
@@ -597,14 +681,10 @@ explained by the second:
 
 .. nbplot::
 
-    >>> # The data projected onto the first component
-    >>> proj_onto_first = line_projection(u_best, X)
-    >>> # The data projected onto the second component
-    >>> proj_onto_second = line_projection(u_best_orth, X)
     >>> # Sum of squares in the projection onto the first
-    >>> ss_in_first = np.sum(proj_onto_first ** 2)
+    >>> ss_in_first = np.sum(projected_onto_1 ** 2)
     >>> # Sum of squares in the projection onto the second
-    >>> ss_in_second = np.sum(proj_onto_second ** 2)
+    >>> ss_in_second = np.sum(projected_onto_2 ** 2)
     >>> # They add up to the total sum of squares
     >>> print((ss_in_first, ss_in_second, ss_in_first + ss_in_second))
     (143.97317154347922, 11.696118314873956, 155.66928985835318)
@@ -647,7 +727,7 @@ using `Singular Value Decomposition
 <https://en.wikipedia.org/wiki/Singular_value_decomposition>`__ (SVD) of
 :math:`\mathbf{X}`.
 
-See http://arxiv.org/abs/1404.1100 for more detail. :math:`\newcommand{\X}{\mathbf{X}}\newcommand{\U}{\mathbf{U}}\newcommand{\S}{\mathbf{\Sigma}}\newcommand{\V}{\mathbf{V}}`
+See http://arxiv.org/abs/1404.1100 for more detail.
 
 The SVD on an array containing only real (not complex) values such as
 :math:`\mathbf{X}` is defined as:
@@ -664,6 +744,10 @@ by $N$, and $\V^T$ is an $N$ by $N$ orthogonal matrix.
 .. nbplot::
 
     >>> U, S, VT = npl.svd(X)
+    >>> U.shape
+    (2, 2)
+    >>> VT.shape
+    (50, 50)
 
 The components are in the columns of the returned matrix $\U$.
 
@@ -697,17 +781,62 @@ the square root of the explained sum of squares for each component:
     >>> S ** 2
     array([ 143.973173,   11.696117])
 
-The SVD is quick to compute for ``X``, but notice that the returned
-array ``VT`` is $N$ by $N$, and isn't of much use to us for our PCA:
+The formula above is for the "full" SVD.  When the number of rows in $\X$
+($= M$) is less than the number of columns ($= N$) the SVD formula above
+requires an $M$ by $N$ matrix $\S$ padded on the right with $N - M$ all zero
+columns, and an $N$ by $N$ matrix $\V^T$, where the last $N - M$ rows will be
+discarded by matrix multiplication with the all zero rows in $\S$.  A variant
+of the full SVD is the `thin SVD
+<https://en.wikipedia.org/wiki/Singular_value_decomposition#Thin_SVD>`_, where
+we discard the useless columns and rows and return $\S$ as a diagonal matrix
+$M x M$ and $\V^T$ with shape $M x N$.  This is the ``full_matrices=False``
+variant in NumPy:
 
 .. nbplot::
 
+    >>> U, S, VT = npl.svd(X, full_matrices=False)
+    >>> U.shape
+    (2, 2)
     >>> VT.shape
-    (50, 50)
+    (2, 50)
 
-In fact we can get our $\U$ and $\S$ without calculating $\V^T$ by doing SVD
-on the variance / covariance matrix of the variables. If $M$ is much smaller
-than $N$ this saves a lot of time and memory.
+Because $\U$ is an orthogonal matrix, such that $I = \U^T \U$:
+
+.. math::
+
+    \X = \U \Sigma \V^T \implies
+    \U^T \X = \Sigma \V^T
+
+You may recognize $\U^T \X$ as the matrix of scalar projections $\C$ above:
+
+.. nbplot::
+
+    >>> C = U.T.dot(X)
+    >>> np.allclose(np.diag(S).dot(VT), C)
+    True
+
+Because $\V^T$ is also an orthogonal matrix, it has row lengths of 1, and we
+can get the values in $\S$ from the row lengths of $\C$:
+
+.. nbplot::
+
+    >>> S_from_C = np.sqrt(np.sum(C ** 2, axis=1))
+    >>> np.allclose(S_from_C, S)
+    True
+
+Now we can reconstruct $\V^T$:
+
+.. nbplot::
+
+    >>> # Divide out reconstructed S values
+    >>> S_as_column = S_from_C.reshape((2, 1))
+    >>> np.allclose(C / S_as_column, VT)
+    True
+
+The SVD is quick to compute for a small matrix like ``X``, but when the larger
+dimension of $\X$ becomes large, it is more efficient in CPU time and memory
+to calculate $\U$ and $\S$ by doing the SVD on the variance / covariance
+matrix of the features.
 
 Here's why that works:
 

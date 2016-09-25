@@ -1,7 +1,7 @@
 # Show first vector as sum of x and y axis vectors
 x, y = v1
 # Make subplots for vectors and text
-fig, (vec_ax, txt_ax) = plt.subplots(1, 2)
+fig, (vec_ax, txt_ax) = plt.subplots(2, 1)
 font_sz = 18
 # Plot 0, 0
 vec_ax.plot(0, 0, 'ro')
@@ -25,7 +25,6 @@ vec_ax.set_title(r'x- and y- axis components of $\vec{v_1}$')
 vec_ax.axis('off')
 # Text about lengths
 txt_ax.axis('off')
-txt_ax.annotate(r'$\|\vec{v_1}\|^2 = \|\vec{x}\|^2 + \|\vec{y}\|^2$ =' +
-                '\n' +
+txt_ax.annotate(r'$\|\vec{v_1}\|^2 = \|\vec{x}\|^2 + \|\vec{y}\|^2$ = ' +
                 '${x:.2f}^2 + {y:.2f}^2$'.format(x=x, y=y),
                 (0.1, 0.45), fontsize=font_sz)

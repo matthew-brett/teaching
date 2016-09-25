@@ -1,2 +1,4 @@
-S_vcov / (N - 1)
-# array([ 2.938228,  0.238696])
+# Divide out reconstructed S values
+S_as_column = S_from_C.reshape((2, 1))
+np.allclose(C / S_as_column, VT)
+# True

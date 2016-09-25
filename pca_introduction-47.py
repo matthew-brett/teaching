@@ -1,2 +1,2 @@
-np.allclose(U, VT_vcov.T)
-# True
+u_best
+# array([ 0.878243,  0.478215])

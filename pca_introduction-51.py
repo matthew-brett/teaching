@@ -1,2 +1,3 @@
-S_vcov
-# array([ 143.973173,   11.696117])
+C = U.T.dot(X)
+np.allclose(np.diag(S).dot(VT), C)
+# True

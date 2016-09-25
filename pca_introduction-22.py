@@ -1,5 +1,6 @@
-plt.plot(u_vectors[0], u_vectors[1], '+')
-# [...]
-plt.axis('equal')
-# (...)
-plt.tight_layout()
+angles = np.linspace(0, np.pi, 10000)
+x = np.cos(angles)
+y = np.sin(angles)
+u_vectors = np.vstack((x, y))
+u_vectors.shape
+# (2, 10000)

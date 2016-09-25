@@ -1,3 +1,2 @@
-U
-# array([[-0.878298, -0.478114],
-# [-0.478114,  0.878298]])
+np.allclose(projected_onto_1 + projected_onto_2, X)
+# True

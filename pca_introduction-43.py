@@ -1,2 +1,3 @@
-u_best_orth
-# array([-0.478215,  0.878243])
+# Total sum of squares
+print(np.sum(X ** 2))
+# 155.669289858

@@ -6,3 +6,7 @@ plt.axis('equal')
 # (...)
 plt.title('Guessed unit vector')
 # <...>
+plt.xlabel('Feature 1')
+# <...>
+plt.ylabel('Feature 2')
+# <...>
