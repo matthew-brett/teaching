@@ -19,7 +19,7 @@ $\vec{w}$ onto $\vec{v}$ is $c \vec{v}$ where:
 We know from the definition of projection that $c \vec{v}$ and $\vec{w} - c
 \vec{v}$ form a right angle.
 
-If the angle between $\vec{v}$ and $\vec{w}$ is $\alpha$ radians, then:
+If the angle between $\vec{v}$ and $\vec{w}$ is $\alpha$, then:
 
 .. math::
 
@@ -38,7 +38,7 @@ Also see
 ********
 
 * :doc:`on_vectors`;
-* :doc:`vector_angles`.
+* :doc:`vector_angles`;
 * An alternative proof using the `Law of Cosines
   <https://en.wikipedia.org/wiki/Law_of_cosines>`_ in this `Khan academy video
   on angles between vectors
