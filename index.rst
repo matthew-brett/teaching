@@ -18,7 +18,7 @@ Mathematics
 * :doc:`sums_of_sinusoids`;
 * :doc:`on_vectors`;
 * :doc:`vector_projection`;
-* :doc:`vector_angle`;
+* :doc:`vector_angles`;
 * :doc:`simple_complex`;
 * :doc:`fourier_no_ei`;
 * :doc:`pca_introduction`.
@@ -87,4 +87,4 @@ Computing
     README
     rotation_2d
     vector_projection
-    vector_angle
+    vector_angles
