@@ -87,6 +87,12 @@ We can also write the projection in terms of the unit vector defined by $\vec{v}
 $\frac{\vec{w} \cdot \vec{v}}{\VL{v}}$ is called the `scalar projection`_ of
 $\vec{w}$ onto $\vec{v}$.
 
-Also see: `wikipedia on vector projection`_.
+********
+Also see
+********
+
+* `wikipedia on vector projection`_;
+* :doc:`on_vectors`;
+* :doc:`vector_angles`.
 
 .. include:: links_names.inc

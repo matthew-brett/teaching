@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Angles between vectors &#8212; Tutorials on imaging, computing and mathematics</title>
+    <title>Angles between vectors &mdash; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,6 +26,7 @@
     <script type="text/javascript" src="_static/copybutton.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+    <link rel="prev" title="Vector projection" href="vector_projection.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -44,14 +45,31 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="angles-between-vectors">
 <h1>Angles between vectors<a class="headerlink" href="#angles-between-vectors" title="Permalink to this headline">¶</a></h1>
-<p>The angle <span class="math">\(\theta\)</span> between two vectors is given by the relationship:</p>
+<p>Consider two vectors <span class="math">\(\vec{w}\)</span> and <span class="math">\(\vec{v}\)</span>.</p>
+<a class="reference internal image-reference" href="_images/vector_projection.svg"><img alt="_images/vector_projection.svg" height="500" src="_images/vector_projection.svg" width="400" /></a>
+<p>We already know from <a class="reference internal" href="vector_projection.html"><span class="doc">Vector projection</span></a> that the vector projection of
+<span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span> is <span class="math">\(c \vec{v}\)</span> where:</p>
 <div class="math">
-\[\vec{v} \cdot \vec{w} = \VL{v} \VL{w} \cos \theta\]</div>
-<p>See:</p>
+\[c = \frac{\vec{w} \cdot \vec{v}}{\VL{v}^2}\]</div>
+<p>We know from the definition of projection that <span class="math">\(c \vec{v}\)</span> and <span class="math">\(\vec{w} - c
+\vec{v}\)</span> form a right angle.</p>
+<p>If the angle between <span class="math">\(\vec{v}\)</span> and <span class="math">\(\vec{w}\)</span> is <span class="math">\(\alpha\)</span>, then:</p>
+<div class="math">
+\[\VL{w} cos(\alpha) = \L{ c \vec{v} }
+= c \VL{v}
+= \frac{\vec{w} \cdot \vec{v}}{\VL{v}}\]</div>
+<p>and:</p>
+<div class="math">
+\[\VL{v} \VL{w} cos(\alpha) = \vec{w} \cdot \vec{v}\]</div>
+<div class="section" id="also-see">
+<h2>Also see<a class="headerlink" href="#also-see" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Khan academy video on <a class="reference external" href="https://www.khanacademy.org/math/linear-algebra/vectors_and_spaces/dot_cross_products/v/defining-the-angle-between-vectors">angles between vectors</a>;</li>
-<li><a class="reference external" href="http://www.math.oregonstate.edu/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/dotprod/dotprod.html">dot products and projections</a>.</li>
+<li><a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>;</li>
+<li><a class="reference internal" href="#"><span class="doc">Angles between vectors</span></a>;</li>
+<li>An alternative proof using the <a class="reference external" href="https://en.wikipedia.org/wiki/Law_of_cosines">Law of Cosines</a> in this <a class="reference external" href="https://www.khanacademy.org/math/linear-algebra/vectors_and_spaces/dot_cross_products/v/defining-the-angle-between-vectors">Khan academy video
+on angles between vectors</a>.</li>
 </ul>
+</div>
 </div>
 
 
@@ -59,10 +77,19 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Angles between vectors</a><ul>
+<li><a class="reference internal" href="#also-see">Also see</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="vector_projection.html" title="previous chapter">Vector projection</a></li>
   </ul></li>
 </ul>
 </div>
@@ -91,7 +118,7 @@
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
