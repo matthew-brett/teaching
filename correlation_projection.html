@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Correlation and projection &mdash; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+    <link rel="prev" title="Angles between vectors" href="vector_angles.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="correlation-and-projection">
+<h1>Correlation and projection<a class="headerlink" href="#correlation-and-projection" title="Permalink to this headline">¶</a></h1>
+<p>Here we phrase the <a class="reference external" href="https://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient">Pearson product-moment correlation coefficient</a> in terms
+of vectors.</p>
+<p>Say we have two vectors of <span class="math">\(n\)</span> values:</p>
+<div class="math">
+\[ \begin{align}\begin{aligned}\vec{x} = [x_1, x_2, ... , x_n]\\\vec{y} = [y_1, y_2, ... , y_n]\end{aligned}\end{align} \]</div>
+<p>Write the mean of the values in <span class="math">\(\vec{x}\)</span> as <span class="math">\(\bar{x}\)</span>:</p>
+<div class="math">
+\[\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i\]</div>
+<p>Define two new vectors, <span class="math">\(\vec{x}^c, \vec{y}^c\)</span> that contain the values in
+<span class="math">\(\vec{x}, \vec{y}\)</span> with their respective means subtracted:</p>
+<div class="math">
+\[ \begin{align}\begin{aligned}\vec{x^c} = [x_1 - \bar{x}, x_2 - \bar{x}, ... , x_n - \bar{x}]\\\vec{y^c} = [y_1 - \bar{y}, y_2 - \bar{y}, ... , y_n - \bar{y}]\end{aligned}\end{align} \]</div>
+<p>Define the sample <em>variance</em> of <span class="math">\(\vec{x}\)</span> as the mean of the
+squared deviations from the mean:</p>
+<div class="math">
+\[v_x = \frac{1}{n} \sum (x_1 - \bar{x})^2\]</div>
+<p>The sample standard deviation of <span class="math">\(\vec{x}\)</span>:</p>
+<div class="math">
+\[s_x = \sqrt{v_x}\]</div>
+<p>Now define the <a class="reference external" href="https://en.wikipedia.org/wiki/Standard_score">standardized</a>
+versions of <span class="math">\(\vec{x}, \vec{y}\)</span> as:</p>
+<div class="math">
+\[ \begin{align}\begin{aligned}\vec{x^z} = \frac{1}{s_x} \vec{x^c}\\\vec{y^z} = \frac{1}{s_y} \vec{y^c}\end{aligned}\end{align} \]</div>
+<p>The Pearson product-moment correlation coefficient of <span class="math">\(\vec{x}, \vec{y}\)</span> is
+given by <span class="math">\(1 / n\)</span> times the dot product of <span class="math">\(\vec{x}^z, \vec{y}^z\)</span>:</p>
+<div class="math">
+\[r_{xy} = \frac{1}{n} \vec{x^z} \cdot \vec{y^z}\]</div>
+<p>The equivalent expression in terms of sums rather than vectors is:</p>
+<div class="math">
+\[r_{xy} =\frac{1}{n} \sum ^n _{i=1} \left( \frac{x_i - \bar{x}}{s_x}
+\right) \left( \frac{y_i - \bar{y}}{s_y} \right)\]</div>
+<p>Rewrite in terms of <span class="math">\(\vec{x^c}, \vec{y^c}\)</span> (see <a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>):</p>
+<div class="math">
+\[ \begin{align}\begin{aligned}r_{xy} = \frac{1}{n} \frac{\vec{x^c} \cdot \vec{y^c}}
+        {s_x s_y}\\s_x = \sqrt{ \frac{1}{n} \vec{x^c} \cdot \vec{x^c} }
+    = \sqrt{\frac{1}{n}} \; \VL{x^c}\\s_y = \sqrt{\frac{1}{n}} \; \VL{y^c}\\r_{xy} = \frac{\vec{x^c} \cdot \vec{y^c}} {\VL{x^c} \VL{y^c}}\end{aligned}\end{align} \]</div>
+<p>The Pearson product-moment correlation coefficient is the dot product between
+the vectors <span class="math">\(\vec{x^c}, \vec{y^c}\)</span> after normalizing the vectors to unit length.</p>
+<p><span class="math">\(r_{xy}\)</span> is therefore <a class="reference internal" href="vector_angles.html"><span class="doc">the cosine of the angle</span></a> between
+<span class="math">\(\vec{x^c}\)</span> and <span class="math">\(\vec{y^c}\)</span>.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="vector_angles.html" title="previous chapter">Angles between vectors</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/correlation_projection.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/correlation_projection.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
