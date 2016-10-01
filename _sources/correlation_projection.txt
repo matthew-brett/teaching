@@ -19,7 +19,7 @@ Write the mean of the values in $\vec{x}$ as $\bar{x}$:
 
     \bar{x} = \frac{1}{n} \sum_{i=1}^n x_i
 
-Define two new vectors, $\vec{x}^c, \vec{y}^c$ that contain the values in
+Define two new vectors, $\vec{x^c}, \vec{y^c}$ that contain the values in
 $\vec{x}, \vec{y}$ with their respective means subtracted:
 
 .. math::
