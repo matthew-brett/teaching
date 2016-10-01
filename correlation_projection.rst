@@ -51,7 +51,7 @@ versions of $\vec{x}, \vec{y}$ as:
     \vec{y^z} = \frac{1}{s_y} \vec{y^c}
 
 The Pearson product-moment correlation coefficient of $\vec{x}, \vec{y}$ is
-given by $1 / n$ times the dot product of $\vec{x}^z, \vec{y}^z$:
+given by $1 / n$ times the dot product of $\vec{x^z}, \vec{y^z}$:
 
 .. math::
 
