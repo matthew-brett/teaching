@@ -69,6 +69,8 @@
    https://en.wikipedia.org/wiki/Scalar_projection
 .. _dot products and projections:
    http://www.math.oregonstate.edu/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/dotprod/dotprod.html
+.. _Pearson product-moment correlation coefficient:
+   https://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient
 
 .. Licenses
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode

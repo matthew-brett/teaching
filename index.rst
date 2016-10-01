@@ -19,6 +19,7 @@ Mathematics
 * :doc:`on_vectors`;
 * :doc:`vector_projection`;
 * :doc:`vector_angles`;
+* :doc:`correlation_projection`;
 * :doc:`simple_complex`;
 * :doc:`fourier_no_ei`;
 * :doc:`pca_introduction`.
@@ -88,3 +89,4 @@ Computing
     rotation_2d
     vector_projection
     vector_angles
+    correlation_projection
