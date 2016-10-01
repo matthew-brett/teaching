@@ -33,7 +33,6 @@ from the mean:
 
 .. math::
 
-    \bar{x} = \frac{1}{n} 
     v_x = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
 
 The sample standard deviation of $\vec{x}$:
