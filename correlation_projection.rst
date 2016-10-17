@@ -28,12 +28,12 @@ $\vec{x}, \vec{y}$ with their respective means subtracted:
 
     \vec{y^c} = [y_1 - \bar{y}, y_2 - \bar{y}, ... , y_n - \bar{y}]
 
-Define the sample *variance* of $\vec{x}$ as the mean of the
-squared deviations from the mean:
+Define the sample variance of $\vec{x}$ as the mean of the squared deviations
+from the mean:
 
 .. math::
 
-    v_x = \frac{1}{n} \sum (x_1 - \bar{x})^2
+    v_x = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
 
 The sample standard deviation of $\vec{x}$:
 

@@ -554,6 +554,8 @@ estimate.
     >>> t, p
     (array([[ 1.914389]]), array([[ 0.042295]]))
 
+.. dummy-coding:
+
 *****************************************
 Dummy coding and the general linear model
 *****************************************

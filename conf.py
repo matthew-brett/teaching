@@ -324,3 +324,7 @@ highlight_language = "python"
 # examples
 def setup(app):
     app.add_javascript('copybutton.js')
+
+# Use local mathjax when environment variable IN_CUBA is set
+if os.environ.get('IN_CUBA'):
+    mathjax_path="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
