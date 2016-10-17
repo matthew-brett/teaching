@@ -20,6 +20,7 @@ Mathematics
 * :doc:`vector_projection`;
 * :doc:`vector_angles`;
 * :doc:`correlation_projection`;
+* :doc:`matrix_rank`;
 * :doc:`simple_complex`;
 * :doc:`fourier_no_ei`;
 * :doc:`pca_introduction`.
@@ -90,3 +91,4 @@ Computing
     vector_projection
     vector_angles
     correlation_projection
+    matrix_rank
