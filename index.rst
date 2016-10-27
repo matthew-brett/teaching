@@ -23,7 +23,8 @@ Mathematics
 * :doc:`matrix_rank`;
 * :doc:`simple_complex`;
 * :doc:`fourier_no_ei`;
-* :doc:`pca_introduction`.
+* :doc:`pca_introduction`;
+* :doc:`linear_interpolation`.
 
 Statistics
 ==========
@@ -92,3 +93,4 @@ Computing
     vector_angles
     correlation_projection
     matrix_rank
+    linear_interpolation

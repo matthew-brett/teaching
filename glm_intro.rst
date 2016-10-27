@@ -40,17 +40,14 @@ Simple linear regression
 We first need to get our environment set up to run the code and plots we
 need.
 
-.. testsetup::
-
-    import numpy as np
-    np.set_printoptions(precision=6)  # Only show 6 decimals when printing
-
 .. nbplot::
 
     >>> # Import numerical and plotting libraries
     >>> import numpy as np
     >>> import numpy.linalg as npl
     >>> import matplotlib.pyplot as plt
+    >>> # Only show 6 decimals when printing
+    >>> np.set_printoptions(precision=6)
 
 .. mathcode::
 
@@ -379,7 +376,7 @@ particular solution. If :math:`\bf{A}^+` is the pseudoinverse of matrix
 
 .. math::
 
-   \bhat = \Xmat^+y
+   \bhat = \Xmat^+ \yvec
 
 Using this matrix algebra, what line do we estimate for ``psychopathy``
 and ``clammy``?

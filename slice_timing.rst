@@ -251,65 +251,22 @@ Here are the vertical lines at the times of slice 0:
 
 Now we need to work out where these lines cross the slice 1 time course.
 
-This is where we can use *linear interpolation*.  This is *interpolation*
+This is where we can use :doc:`linear_interpolation`.  This is *interpolation*
 because we are estimating a value from the slice 1 time course, that is
 between two points that we have values for (inter == between).  It is *linear*
 interpolation because we are getting our estimate by assuming a straight line
 between to the two known points in order to estimate our new value.
 
-In general, linear interpolation works like this.
+In the general case of linear interpolation (see :doc:`linear_interpolation`),
+we have two points, $x_1, y_1$ and $x_2, y_2$.  In our case we have time on
+the x axis and voxel values on the y axis.
 
-Let's say we have two known points $x_1, y_1$ and $x_2, y_2$.  We want to
-estimate a value for $y$ given we have a value $x$ that is between $x_1$ and
-$x_2$.  It's `not hard to show <https://vimeo.com/124728992>`_ that the
-formula of the line between $x_1, y_1$ and $x_2, y_2$ is $y = y1 +
-(x-x_1)\frac{y_2-y_1}{x_2-x_1}$ (see `wikipedia on linear interpolation
-<linear interpolation>`_).
+The formula for the linear interpolation $y$ value between two points $x_1,
+y_1$ and $x_2, y_2$ is:
 
-.. nbplot::
-    :include-source: false
+.. math::
 
-    x1, y1, x2, y2 = 5, 6, 7, 7.5
-    dx, dy = x2 - x1, y2 - y1
-    x = x1 + dx * 0.6
-    y = y1 + (x-x1) * dy / dx
-    # Make subplots for diagram and text
-    fig, d_ax = plt.subplots(1, 1, figsize=(10, 4))
-    d_ax.plot([x1, x2], [y1, y2], 'o-')
-    d_ax.annotate('$(x_1, y_1)$', (x1-0.2, y1-0.3), fontsize=16)
-    d_ax.annotate('$(x_2, y_2)$', (x2, y2+0.2), fontsize=16)
-    d_ax.annotate(
-        '', xy=(x1, y1), xycoords='data',
-        xytext=(x2, y1), textcoords='data',
-        arrowprops={'arrowstyle': '<->', 'color': 'r'})
-    d_ax.annotate(
-        '', xy=(x2, y1), xycoords='data',
-        xytext=(x2, y2), textcoords='data',
-        arrowprops={'arrowstyle': '<->', 'color': 'k'})
-    d_ax.annotate(
-        '', xy=(x1, y1+0.1), xycoords='data',
-        xytext=(x, y1+0.1), textcoords='data',
-        arrowprops={'arrowstyle': '<->', 'color': 'g'})
-    d_ax.annotate('$x_2-x_1$', (x1 + dx / 2 + 0.4, y1-0.2), fontsize=16)
-    d_ax.annotate('$y_2-y_1$', (x2 + 0.1, y1 + dy / 2), fontsize=16)
-    d_ax.annotate('$x-x1$', (x1 + 0.6, y1 + 0.2), fontsize=16)
-    d_ax.annotate('$x$', (x + 0.1, y1 - 1), fontsize=16)
-    d_ax.annotate('$y$', (x1, y + 0.1), fontsize=16)
-    d_ax.axis((4.3, 7.3, 4, 8))
-    lx, hx, ly, hy = d_ax.axis()
-    d_ax.plot([x, x], [ly, y], 'k:')  # line in x
-    d_ax.plot([lx, x], [y, y], 'k:')  # line in y
-    # d_ax.axis('off')
-    d_ax.annotate(r'slope : $\frac{y_2-y_1}{x_2-x_1}$', (4.5, y1-1.2), fontsize=20)
-    d_ax.annotate(r'$y = y1 + (x-x_1)\frac{y_2-y_1}{x_2-x_1}$', (4.5, y2),
-                  fontsize=20)
-    plt.setp(d_ax.get_yticklabels(), visible=False)
-    d_ax.yaxis.set_tick_params(size=0)
-    plt.setp(d_ax.get_xticklabels(), visible=False)
-    d_ax.xaxis.set_tick_params(size=0)
-    # Hide the right and top spines
-    d_ax.spines['right'].set_visible(False)
-    d_ax.spines['top'].set_visible(False)
+    y = y_1 + (x-x_1)\frac{y_2-y_1}{x_2-x_1}
 
 Now we know the formula for the interpolation, we can apply this to find the
 interpolated values from the slice 1 time course:
@@ -333,6 +290,7 @@ interpolated values from the slice 1 time course:
     ...     x1 = times_slice_1[i]
     ...     y0 = time_course_slice_1[i-1]
     ...     y1 = time_course_slice_1[i]
+    ...     # Apply the linear interpolation formula
     ...     y = y0 + (x - x0) * (y1 - y0) / (x1 - x0)
     ...     plt.plot(x, y, 'kx')
     [...]
