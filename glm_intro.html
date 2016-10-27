@@ -78,6 +78,8 @@ need.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="kn">as</span> <span class="nn">npl</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Only show 6 decimals when printing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Here are our scores of &#8220;psychopathy&#8221; from the 12 students:</p>
@@ -309,7 +311,7 @@ particular solution. If <span class="math">\(\bf{A}^+\)</span> is the pseudoinve
 <span class="math">\(\bf{A}\)</span> then the general solution for <span class="math">\(\bhat\)</span>, even when
 <span class="math">\(\Xmat^T \Xmat\)</span> is not invertible, is:</p>
 <div class="math">
-\[\bhat = \Xmat^+y\]</div>
+\[\bhat = \Xmat^+ \yvec\]</div>
 <p>Using this matrix algebra, what line do we estimate for <code class="docutils literal"><span class="pre">psychopathy</span></code>
 and <code class="docutils literal"><span class="pre">clammy</span></code>?</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">clammy</span><span class="p">))</span>

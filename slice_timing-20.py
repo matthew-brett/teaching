@@ -1,8 +1,12 @@
-from scipy.interpolate import InterpolatedUnivariateSpline as Interp
+# We use the interpolator to get the values for slice 0 times:
 
-# This ``Interp`` class can do more fancy interpolation, but we will use it
-# for linear interpolation (``k=1`` argument below):
+interped_vals = lin_interper(times_slice_0)
 
-lin_interper = Interp(times_slice_1, time_course_slice_1, k=1)
-type(lin_interper)
-# <class ...InterpolatedUnivariateSpline'>
+plt.plot(times_slice_0[:10], time_course_slice_0[:10], 'b:+')
+# [...]
+plt.plot(times_slice_1[:10], time_course_slice_1[:10], 'r:+')
+# [...]
+plt.plot(times_slice_0[:10], interped_vals[:10], 'kx')
+# [...]
+plt.title('Using the scipy interpolation object')
+# <...>

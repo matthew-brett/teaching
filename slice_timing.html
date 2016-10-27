@@ -244,21 +244,18 @@ horizontal line across to the y axis;</li>
 <img alt="_images/slice_timing-17.png" src="_images/slice_timing-17.png" />
 </div>
 <p>Now we need to work out where these lines cross the slice 1 time course.</p>
-<p>This is where we can use <em>linear interpolation</em>.  This is <em>interpolation</em>
+<p>This is where we can use <a class="reference internal" href="linear_interpolation.html"><span class="doc">Linear interpolation</span></a>.  This is <em>interpolation</em>
 because we are estimating a value from the slice 1 time course, that is
 between two points that we have values for (inter == between).  It is <em>linear</em>
 interpolation because we are getting our estimate by assuming a straight line
 between to the two known points in order to estimate our new value.</p>
-<p>In general, linear interpolation works like this.</p>
-<p>Let&#8217;s say we have two known points <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span>.  We want to
-estimate a value for <span class="math">\(y\)</span> given we have a value <span class="math">\(x\)</span> that is between <span class="math">\(x_1\)</span> and
-<span class="math">\(x_2\)</span>.  It&#8217;s <a class="reference external" href="https://vimeo.com/124728992">not hard to show</a> that the
-formula of the line between <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span> is <span class="math">\(y = y1 +
-(x-x_1)\frac{y_2-y_1}{x_2-x_1}\)</span> (see <a class="reference external" href="linearinterpolation">wikipedia on linear interpolation</a>).</p>
-<p>(<a class="reference external" href=".//slice_timing-18.png">png</a>, <a class="reference external" href=".//slice_timing-18.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-18.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/slice_timing-18.png" src="_images/slice_timing-18.png" />
-</div>
+<p>In the general case of linear interpolation (see <a class="reference internal" href="linear_interpolation.html"><span class="doc">Linear interpolation</span></a>),
+we have two points, <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span>.  In our case we have time on
+the x axis and voxel values on the y axis.</p>
+<p>The formula for the linear interpolation <span class="math">\(y\)</span> value between two points <span class="math">\(x_1,
+y_1\)</span> and <span class="math">\(x_2, y_2\)</span> is:</p>
+<div class="math">
+\[y = y_1 + (x-x_1)\frac{y_2-y_1}{x_2-x_1}\]</div>
 <p>Now we know the formula for the interpolation, we can apply this to find the
 interpolated values from the slice 1 time course:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
@@ -278,14 +275,15 @@ interpolated values from the slice 1 time course:</p>
 <span class="gp">... </span>    <span class="n">x1</span> <span class="o">=</span> <span class="n">times_slice_1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">y0</span> <span class="o">=</span> <span class="n">time_course_slice_1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">y1</span> <span class="o">=</span> <span class="n">time_course_slice_1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="c1"># Apply the linear interpolation formula</span>
 <span class="gp">... </span>    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;kx&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//slice_timing-19.png">png</a>, <a class="reference external" href=".//slice_timing-19.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-19.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//slice_timing-18.png">png</a>, <a class="reference external" href=".//slice_timing-18.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-18.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/slice_timing-19.png" src="_images/slice_timing-19.png" />
+<img alt="_images/slice_timing-18.png" src="_images/slice_timing-18.png" />
 </div>
 <p>It is inconvenient to have to do this calculation for every point. We also
 need a good way of deciding what to do about values at the beginning and the
@@ -321,9 +319,9 @@ calculation above.</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//slice_timing-21.png">png</a>, <a class="reference external" href=".//slice_timing-21.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-21.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//slice_timing-20.png">png</a>, <a class="reference external" href=".//slice_timing-20.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-20.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/slice_timing-21.png" src="_images/slice_timing-21.png" />
+<img alt="_images/slice_timing-20.png" src="_images/slice_timing-20.png" />
 </div>
 <p>So now we can just replace the original values from the red line (values for
 slice 1) with our best guess values if the slice had been taken at the same
@@ -344,9 +342,9 @@ series, that has been <em>interpolated</em> from the original:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//slice_timing-22.png">png</a>, <a class="reference external" href=".//slice_timing-22.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-22.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//slice_timing-21.png">png</a>, <a class="reference external" href=".//slice_timing-21.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-21.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/slice_timing-22.png" src="_images/slice_timing-22.png" />
+<img alt="_images/slice_timing-21.png" src="_images/slice_timing-21.png" />
 </div>
 </div>
 <div class="section" id="slice-time-correction">
