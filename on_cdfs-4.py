@@ -14,7 +14,7 @@ for i, t in enumerate(thresholds):
     p = t_dist.pdf(t)  # Probability density at this threshold
     ax[1, i].plot([t, t],
                   [0, p], color=line_color)
-    c = t_dist.cdf(t)  # Cumulative density at this threshold
+    c = t_dist.cdf(t)  # Cumulative distribution at this threshold
     ax[0, i].plot([t, t, ax[0, i].axis()[0]],
                   [0, c, c], color=line_color)
     ax[0, i].set_title('t = {:.1f}, area = {:.2f}'.format(t, c))
