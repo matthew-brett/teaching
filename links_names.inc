@@ -23,6 +23,9 @@
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
 .. _nose: http://readthedocs.org/docs/nose/en/latest
 .. _nose-ipdb: https://github.com/flavioamieiro/nose-ipdb
+.. _scipy stats t distribution:
+.. _t distribution class:
+   https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html
 
 .. Virtualenv and helpers
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
@@ -75,7 +78,6 @@
    https://en.wikipedia.org/wiki/Probability_density_function
 .. _cumulative distribution function:
     https://en.wikipedia.org/wiki/Cumulative_distribution_function
-
 
 .. Licenses
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode
