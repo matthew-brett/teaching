@@ -19,7 +19,7 @@
 .. _distribute: http://pypi.python.org/pypi/distribute
 .. _pip: http://pypi.python.org/pypi/pip
 .. _numpy: http://www.numpy.org
-.. _scipy: http://sourceforge.net/projects/scipy/files
+.. _scipy: https://www.scipy.org/scipylib/index.html
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
 .. _nose: http://readthedocs.org/docs/nose/en/latest
 .. _nose-ipdb: https://github.com/flavioamieiro/nose-ipdb
@@ -71,6 +71,11 @@
    http://www.math.oregonstate.edu/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/dotprod/dotprod.html
 .. _Pearson product-moment correlation coefficient:
    https://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient
+.. _probability density function:
+   https://en.wikipedia.org/wiki/Probability_density_function
+.. _cumulative distribution function:
+    https://en.wikipedia.org/wiki/Cumulative_distribution_function
+
 
 .. Licenses
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode

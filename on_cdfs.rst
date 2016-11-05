@@ -1,6 +1,6 @@
-##########################################
-p values from cumulative density functions
-##########################################
+###############################################
+p values from cumulative distribution functions
+###############################################
 
 .. nbplot::
 
@@ -11,7 +11,7 @@ p values from cumulative density functions
 Imagine I have a t statistic with 20 degrees of freedom.
 
 `Scipy`_ provides a *t distribution object* that we can use to get values from
-the t statistic *probability distribution function* (PDF).
+the t statistic `probability density function`_ (PDF).
 
 As a start, we plot the PDF for a t statistic with 20 degrees of freedom:
 
@@ -31,9 +31,9 @@ As a start, we plot the PDF for a t statistic with 20 degrees of freedom:
     >>> plt.title('PDF for t distribution with df=20')
     <...>
 
-The t distribution object ``t_dist`` can also give us the *cumulative density
-function* (CDF).  The CDF gives the area under the curve of the PDF at and to
-the left of the given t value:
+The t distribution object ``t_dist`` can also give us the `cumulative
+distribution function`_ (CDF).  The CDF gives the area under the curve of the
+PDF at and to the left of the given t value:
 
 .. nbplot::
 
@@ -47,14 +47,15 @@ the left of the given t value:
     >>> plt.title('CDF for t distribution with df=20')
     <...>
 
-The PDF gives the probability for given values of `t`.  Because it is a
-probability density, the sum of the probabilities of all possible outcomes
-must be 1.  Therefore the total area under the PDF curve is 1, and the maximum
-value of the CDF is 1.
+Say I have a t value $x$ drawn from a t distribution with 20 degrees of
+freedom.  The PDF gives the probability for given values of $x$.  Because it
+is a probability density, the sum of the probabilities of all possible
+outcomes must be 1.  Therefore the total area under the PDF curve is 1, and
+the maximum value of the CDF is 1.
 
 The CDF gives us the area under the PDF curve at and to the left of a given t
-value $t$.  Therefore it is the probability that we will observe a value $<=
-t$ if we sample a value $t$ from a t distribution of (here) 20 degrees of
+value $x$.  Therefore it is the probability that we will observe a value $x <=
+t$ if we sample a value $x$ from a t distribution of (here) 20 degrees of
 freedom.
 
 .. nbplot::
@@ -75,14 +76,14 @@ freedom.
         p = t_dist.pdf(t)  # Probability density at this threshold
         ax[1, i].plot([t, t],
                       [0, p], color=line_color)
-        c = t_dist.cdf(t)  # Cumulative density at this threshold
+        c = t_dist.cdf(t)  # Cumulative distribution at this threshold
         ax[0, i].plot([t, t, ax[0, i].axis()[0]],
                       [0, c, c], color=line_color)
         ax[0, i].set_title('t = {:.1f}, area = {:.2f}'.format(t, c))
 
 
-For example, say I have drawn a t value at random from a t distribution of
-degrees of freedom of 20.  The probability that t value will be $<=1.5$ is:
+For example, say I have drawn a t value $x$ at random from a t distribution of
+degrees of freedom of 20.  The probability that $x <=1.5$ is:
 
 .. nbplot::
 
@@ -99,7 +100,16 @@ Therefore the area of the PDF to the *right* of 1.5 must be:
     >>> 1 - t_dist.cdf(1.5)
     0.0746...
 
-This is the probability that a t value from this distribution will be $< 1.5$,
-and in general, the probability $p$ that we will observe a t value $>= q$ with
-$d$ degrees of freedom is $p = 1 - \mathrm{CDF}_d(q)$, where $\mathrm{CDF}_d$
-is the cumulative density function for a t value with $d$ degrees of freedom.
+This is the probability that $x$ |--| a t value from this distribution |--|
+will be $> 1.5$.  In general, when we sample a value $x$ at random from a t
+distribution with $d$ degrees of freedom, the probability that $x > q$ is
+given by:
+
+.. math::
+
+    \mathbb{P}(x > q) = 1 - \mathrm{CDF}_d(q)
+
+where $\mathrm{CDF}_d$ is the cumulative distribution function for a t value
+with $d$ degrees of freedom.
+
+.. include:: links_names.inc
