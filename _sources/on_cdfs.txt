@@ -64,8 +64,8 @@ freedom.
     example_values = (-1.5, 0, 1.5)
     pdf_values = t_dist.pdf(t_values)
     cdf_values = t_dist.cdf(t_values)
-    fill_color = (0, 0, 0, 0.1)
-    line_color = (0, 0, 0, 0.5)
+    fill_color = (0, 0, 0, 0.1)  # Light gray in RGBA format.
+    line_color = (0, 0, 0, 0.5)  # Medium gray in RGBA format.
     fig, axes = plt.subplots(2, len(example_values), figsize=(10, 6))
     for i, x in enumerate(example_values):
         cdf_ax, pdf_ax = axes[:, i]
@@ -80,7 +80,7 @@ freedom.
         pdf_ax.plot([x, x],
                     [0, pd], color=line_color)
         cd = t_dist.cdf(x)  # Cumulative distribution value for this x.
-        # Lines showing x and CDF value for t on CDF plot.
+        # Lines showing x and CDF value on CDF plot.
         x_ax_min = cdf_ax.axis()[0]  # x position of y axis on plot.
         cdf_ax.plot([x, x, x_ax_min],
                     [0, cd, cd], color=line_color)
