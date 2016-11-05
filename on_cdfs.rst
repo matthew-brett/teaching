@@ -94,7 +94,7 @@ freedom.
 
 
 For example, say I have drawn a t value $x$ at random from a t distribution
-with 20 degrees of freedom.  The probability that $\mathbb{P}(x <=1.5)$ is:
+with 20 degrees of freedom.  The probability that $x <= 1.5$ is:
 
 .. nbplot::
 
