@@ -537,6 +537,8 @@ the data :math:`\yvec`, the design :math:`\Xmat`, and a contrast vector
     ...     p = 1 - ltp # upper tail p
     ...     return beta, t, df, p
 
+See :doc:`on_cdfs` for background on the probability values.
+
 So, does ``clammy`` predict ``psychopathy``? If it does not, then our
 estimate of the slope will not be convincingly different from 0. The t
 test divides our estimate of the slope by the error in the estimate;

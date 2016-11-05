@@ -30,6 +30,7 @@ Statistics
 ==========
 
 * :doc:`glm_intro`;
+* :doc:`on_cdfs`;
 * :doc:`ioannidis_2005`;
 * `Exploring the R formula
   <http://nbviewer.jupyter.org/github/matthew-brett/teaching/blob/master/exploring_r_formula.ipynb>`_.
@@ -94,3 +95,4 @@ Computing
     correlation_projection
     matrix_rank
     linear_interpolation
+    on_cdfs
