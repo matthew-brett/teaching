@@ -94,13 +94,13 @@ PDF at and to the left of the given t value:</p>
 <p>Say I have a t value <span class="math">\(x\)</span> drawn from a t distribution with 20 degrees of
 freedom.  The PDF gives the probability for given values of <span class="math">\(x\)</span>.  Because it
 is a probability density, the sum of the probabilities of all possible
-outcomes must be 1.  Therefore the total area under the PDF curve is 1, and
-the maximum value of the CDF is 1.</p>
+outcomes (values for <span class="math">\(x\)</span>) of <span class="math">\(-\infty &lt; x &lt; \infty\)</span> must be 1.  Therefore the
+total area under the PDF curve is 1, and the maximum value of the CDF is 1.</p>
 <p>The CDF gives us the area under the PDF curve at and to the left of a given t
 value <span class="math">\(x\)</span>.  Therefore it is the probability that we will observe a value <span class="math">\(x &lt;=
 t\)</span> if we sample a value <span class="math">\(x\)</span> from a t distribution of (here) 20 degrees of
 freedom.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Show relationship of PDF to CDF</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Show relationship of PDF to CDF for three threshold values.</span>
 <span class="n">thresholds</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
 <span class="n">pdf_values</span> <span class="o">=</span> <span class="n">t_dist</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">t_values</span><span class="p">)</span>
 <span class="n">cdf_values</span> <span class="o">=</span> <span class="n">t_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">t_values</span><span class="p">)</span>
@@ -110,13 +110,16 @@ freedom.</p>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">thresholds</span><span class="p">):</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_values</span><span class="p">,</span> <span class="n">cdf_values</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_values</span><span class="p">,</span> <span class="n">pdf_values</span><span class="p">)</span>
+    <span class="c1"># Fill area at and to the left of threshold t.</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">t_values</span><span class="p">,</span> <span class="n">pdf_values</span><span class="p">,</span>
                           <span class="n">where</span><span class="o">=</span><span class="n">t_values</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">,</span>
                           <span class="n">color</span><span class="o">=</span><span class="n">fill_color</span><span class="p">)</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">t_dist</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># Probability density at this threshold</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">t_dist</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># Probability density at this threshold.</span>
+    <span class="c1"># Line showing position of t on x-axis of PDF plot.</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">],</span>
                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">line_color</span><span class="p">)</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">t_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># Cumulative distribution at this threshold</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">t_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># Cumulative distribution at this threshold.</span>
+    <span class="c1"># Lines showing t and CDF value for t on CDF plot.</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">()[</span><span class="mi">0</span><span class="p">]],</span>
                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">line_color</span><span class="p">)</span>
     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;t = {:.1f}, area = {:.2f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span>
@@ -126,8 +129,8 @@ freedom.</p>
 <div class="figure">
 <img alt="_images/on_cdfs-4.png" src="_images/on_cdfs-4.png" />
 </div>
-<p>For example, say I have drawn a t value <span class="math">\(x\)</span> at random from a t distribution of
-degrees of freedom of 20.  The probability that <span class="math">\(x &lt;=1.5\)</span> is:</p>
+<p>For example, say I have drawn a t value <span class="math">\(x\)</span> at random from a t distribution
+with 20 degrees of freedom.  The probability that <span class="math">\(\mathbb{P}(x &lt;=1.5)\)</span> is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Area of PDF at and to the left of 1.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="go">0.9253...</span>
@@ -140,10 +143,9 @@ Therefore the area of the PDF to the <em>right</em> of 1.5 must be:</p>
 <span class="go">0.0746...</span>
 </pre></div>
 </div>
-<p>This is the probability that <span class="math">\(x\)</span> — a t value from this distribution —
-will be <span class="math">\(&gt; 1.5\)</span>.  In general, when we sample a value <span class="math">\(x\)</span> at random from a t
-distribution with <span class="math">\(d\)</span> degrees of freedom, the probability that <span class="math">\(x &gt; q\)</span> is
-given by:</p>
+<p>This is the probability that our t value <span class="math">\(x\)</span> will be <span class="math">\(&gt; 1.5\)</span>.  In general,
+when we sample a value <span class="math">\(x\)</span> at random from a t distribution with <span class="math">\(d\)</span> degrees of
+freedom, the probability that <span class="math">\(x &gt; q\)</span> is given by:</p>
 <div class="math">
 \[\mathbb{P}(x &gt; q) = 1 - \mathrm{CDF}_d(q)\]</div>
 <p>where <span class="math">\(\mathrm{CDF}_d\)</span> is the cumulative distribution function for a t value
