@@ -1,0 +1,3 @@
+# Area of PDF at and to the left of 1.5
+t_dist.cdf(1.5)
+# 0.9253...
