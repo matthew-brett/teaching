@@ -50,8 +50,8 @@ PDF at and to the left of the given t value:
 Say I have a t value $x$ drawn from a t distribution with 20 degrees of
 freedom.  The PDF gives the probability for given values of $x$.  Because it
 is a probability density, the sum of the probabilities of all possible
-outcomes must be 1.  Therefore the total area under the PDF curve is 1, and
-the maximum value of the CDF is 1.
+outcomes (values for $x$) of $-\infty < x < \infty$ must be 1.  Therefore the
+total area under the PDF curve is 1, and the maximum value of the CDF is 1.
 
 The CDF gives us the area under the PDF curve at and to the left of a given t
 value $x$.  Therefore it is the probability that we will observe a value $x <=
@@ -60,7 +60,7 @@ freedom.
 
 .. nbplot::
 
-    # Show relationship of PDF to CDF
+    # Show relationship of PDF to CDF for three threshold values.
     thresholds = (-1.5, 0, 1.5)
     pdf_values = t_dist.pdf(t_values)
     cdf_values = t_dist.cdf(t_values)
@@ -70,20 +70,23 @@ freedom.
     for i, t in enumerate(thresholds):
         ax[0, i].plot(t_values, cdf_values)
         ax[1, i].plot(t_values, pdf_values)
+        # Fill area at and to the left of threshold t.
         ax[1, i].fill_between(t_values, pdf_values,
                               where=t_values <= t,
                               color=fill_color)
-        p = t_dist.pdf(t)  # Probability density at this threshold
+        p = t_dist.pdf(t)  # Probability density at this threshold.
+        # Line showing position of t on x-axis of PDF plot.
         ax[1, i].plot([t, t],
                       [0, p], color=line_color)
-        c = t_dist.cdf(t)  # Cumulative distribution at this threshold
+        c = t_dist.cdf(t)  # Cumulative distribution at this threshold.
+        # Lines showing t and CDF value for t on CDF plot.
         ax[0, i].plot([t, t, ax[0, i].axis()[0]],
                       [0, c, c], color=line_color)
         ax[0, i].set_title('t = {:.1f}, area = {:.2f}'.format(t, c))
 
 
-For example, say I have drawn a t value $x$ at random from a t distribution of
-degrees of freedom of 20.  The probability that $x <=1.5$ is:
+For example, say I have drawn a t value $x$ at random from a t distribution
+with 20 degrees of freedom.  The probability that $\mathbb{P}(x <=1.5)$ is:
 
 .. nbplot::
 
@@ -100,10 +103,9 @@ Therefore the area of the PDF to the *right* of 1.5 must be:
     >>> 1 - t_dist.cdf(1.5)
     0.0746...
 
-This is the probability that $x$ |--| a t value from this distribution |--|
-will be $> 1.5$.  In general, when we sample a value $x$ at random from a t
-distribution with $d$ degrees of freedom, the probability that $x > q$ is
-given by:
+This is the probability that our t value $x$ will be $> 1.5$.  In general,
+when we sample a value $x$ at random from a t distribution with $d$ degrees of
+freedom, the probability that $x > q$ is given by:
 
 .. math::
 
