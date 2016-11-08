@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Formula for rotating a vector in 2D &mdash; Tutorials on imaging, computing and mathematics</title>
+    <title>Formula for rotating a vector in 2D &#8212; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -54,8 +54,9 @@
 <div class="section" id="theorem">
 <h2>Theorem<a class="headerlink" href="#theorem" title="Permalink to this headline">¶</a></h2>
 <div class="math">
-x_2 = \cos \beta x_1 - \sin \beta y_1 \\
-y_2 = \sin \beta x_1 + \cos \beta y_1</div><p>See: <a class="reference external" href="https://en.wikipedia.org/wiki/Rotation_matrix">wikipedia on rotation matrices</a>.</p>
+\[\begin{split}x_2 = \cos \beta x_1 - \sin \beta y_1 \\
+y_2 = \sin \beta x_1 + \cos \beta y_1\end{split}\]</div>
+<p>See: <a class="reference external" href="https://en.wikipedia.org/wiki/Rotation_matrix">wikipedia on rotation matrices</a>.</p>
 </div>
 <div class="section" id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
@@ -75,12 +76,14 @@ y_2 = L \sin(\alpha + \beta)\end{split}\]</div>
 there.</p>
 <p>The angle sum rule gives us:</p>
 <div class="math">
-\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
-\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta</div><p>So, substituting from equations <a href="#equation-x_1_y_1">(1)</a>, <a href="#equation-x_2_y_2">(2)</a>:</p>
+\[\begin{split}\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
+\sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta\end{split}\]</div>
+<p>So, substituting from equations <a href="#equation-x_1_y_1">(1)</a>, <a href="#equation-x_2_y_2">(2)</a>:</p>
 <div class="math">
-L \cos(\alpha + \beta) =
+\[\begin{split}L \cos(\alpha + \beta) =
 L \cos \alpha \cos \beta - L \sin \alpha \sin \beta \implies \\
-x_2 = x_1 \cos \beta - y_1 \sin \beta \\</div><p>We do the matching substitutions into <span class="math">\(\sin(\alpha + \beta)\)</span> to get <span class="math">\(y_2\)</span>.</p>
+x_2 = x_1 \cos \beta - y_1 \sin \beta \\\end{split}\]</div>
+<p>We do the matching substitutions into <span class="math">\(\sin(\alpha + \beta)\)</span> to get <span class="math">\(y_2\)</span>.</p>
 <p><span class="math">\(\blacksquare\)</span></p>
 </div>
 <div class="section" id="proof-by-long-hand-variant-of-angle-sum-proof">
@@ -158,7 +161,7 @@ s\)</span>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

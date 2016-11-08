@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>p values from cumulative distribution functions &mdash; Tutorials on imaging, computing and mathematics</title>
+    <title>p values from cumulative distribution functions &#8212; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -51,8 +51,8 @@
 </pre></div>
 </div>
 <p>Imagine I have a t statistic with 20 degrees of freedom.</p>
-<p><a class="reference external" href="https://www.scipy.org/scipylib/index.html">Scipy</a> provides a <em>t distribution object</em> that we can use to get values from
-the t statistic <a class="reference external" href="https://en.wikipedia.org/wiki/Probability_density_function">probability density function</a> (PDF).</p>
+<p><a class="reference external" href="https://www.scipy.org/scipylib/index.html">Scipy</a> provides a <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html">t distribution class</a> that we can use to get values
+from the t statistic <a class="reference external" href="https://en.wikipedia.org/wiki/Probability_density_function">probability density function</a> (PDF).</p>
 <p>As a start, we plot the PDF for a t statistic with 20 degrees of freedom:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make a t distribution object for t with 20 degrees of freedom</span>
@@ -94,8 +94,8 @@ PDF at and to the left of the given t value:</p>
 <p>Say I have a t value <span class="math">\(x\)</span> drawn from a t distribution with 20 degrees of
 freedom.  The PDF gives the probability for given values of <span class="math">\(x\)</span>.  Because it
 is a probability density, the sum of the probabilities of all possible
-outcomes (values for <span class="math">\(x\)</span>) of <span class="math">\(-\infty &lt; x &lt; \infty\)</span> must be 1.  Therefore the
-total area under the PDF curve is 1, and the maximum value of the CDF is 1.</p>
+values for <span class="math">\(x\)</span>: <span class="math">\(\infty &lt; x &lt; \infty\)</span> must be 1.  Therefore the total area
+under the PDF curve is 1, and the maximum value of the CDF is 1.</p>
 <p>The CDF gives us the area under the PDF curve at and to the left of a given t
 value <span class="math">\(x\)</span>.  Therefore it is the probability that we will observe a value <span class="math">\(x &lt;=
 t\)</span> if we sample a value <span class="math">\(x\)</span> from a t distribution of (here) 20 degrees of
@@ -198,7 +198,7 @@ with <span class="math">\(d\)</span> degrees of freedom.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

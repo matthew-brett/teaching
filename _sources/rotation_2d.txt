@@ -17,7 +17,6 @@ Theorem
 *******
 
 .. math::
-    :nowrap:
 
     x_2 = \cos \beta x_1 - \sin \beta y_1 \\
     y_2 = \sin \beta x_1 + \cos \beta y_1
@@ -55,7 +54,6 @@ there.
 The angle sum rule gives us:
 
 .. math::
-    :nowrap:
 
     \cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
     \sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta
@@ -63,7 +61,6 @@ The angle sum rule gives us:
 So, substituting from equations :eq:`x_1_y_1`, :eq:`x_2_y_2`:
 
 .. math::
-    :nowrap:
 
     L \cos(\alpha + \beta) =
     L \cos \alpha \cos \beta - L \sin \alpha \sin \beta \implies \\

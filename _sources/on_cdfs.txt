@@ -10,8 +10,8 @@ p values from cumulative distribution functions
 
 Imagine I have a t statistic with 20 degrees of freedom.
 
-`Scipy`_ provides a *t distribution object* that we can use to get values from
-the t statistic `probability density function`_ (PDF).
+`Scipy`_ provides a `t distribution class`_ that we can use to get values
+from the t statistic `probability density function`_ (PDF).
 
 As a start, we plot the PDF for a t statistic with 20 degrees of freedom:
 
@@ -50,8 +50,8 @@ PDF at and to the left of the given t value:
 Say I have a t value $x$ drawn from a t distribution with 20 degrees of
 freedom.  The PDF gives the probability for given values of $x$.  Because it
 is a probability density, the sum of the probabilities of all possible
-outcomes (values for $x$) of $-\infty < x < \infty$ must be 1.  Therefore the
-total area under the PDF curve is 1, and the maximum value of the CDF is 1.
+values for $x$: $\infty < x < \infty$ must be 1.  Therefore the total area
+under the PDF curve is 1, and the maximum value of the CDF is 1.
 
 The CDF gives us the area under the PDF curve at and to the left of a given t
 value $x$.  Therefore it is the probability that we will observe a value $x <=
