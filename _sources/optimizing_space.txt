@@ -6,7 +6,7 @@ In which we discover optimization, cost functions and how to use them.
 
 .. nbplot::
 
-    >>> # - compatibility with Python 3
+    >>> # - compatibility with Python 2
     >>> from __future__ import print_function  # print('me') instead of print 'me'
     >>> from __future__ import division  # 1/2 == 0.5, not 0
 
@@ -171,8 +171,8 @@ Now we can formulate our problem - we want to find the translation
 
 Practically, we are going to need the following things:
 
--  A function to generate :math:`\mathbf{Y_t}`;
--  A function to give the mismatch between two images.
+* a function to generate :math:`\mathbf{Y_t}`;
+* a function to give the mismatch between two images.
 
 Here's the function to generate :math:`\mathbf{Y_t}` - the image
 :math:`\mathbf{Y}` shifted by :math:`t` voxels in :math:`x`:
@@ -419,24 +419,22 @@ better way?
 Optimization
 ************
 
-*Optimization* is a field of mathematics / computer science that solves
-this exact problem:
-
-http://en.wikipedia.org/wiki/Mathematical\_optimization
+`Optimization`_ is a field of mathematics / computer science that solves this
+exact problem.
 
 There are many optimization routines in Python, MATLAB and other
 languages. These routines typically allow you to pass some function,
-called the *objective* function, or the *cost* function. The
-optimization routine returns the parameters of the cost function that
-give the lowest value.
+called the *objective* function, or the *cost* function. The optimization
+routine returns the parameters of the cost function that give the lowest
+value.
 
 In our case, the cost function we need to minimize will accept one
 parameter (the translation), and return the mismatch value for that
 translation. So, it will need to create the image :math:`\mathbf{X_t}`
 and return :math:`M(\mathbf{X}, \mathbf{Y_t})`.
 
-What does it mean to "pass" a function in Python. Remember, in Python,
-`functions are objects too <functions_are_objects.ipynb>`__.
+What does it mean to "pass" a function in Python. Remember that, in Python,
+:doc:`functions_are_objects` like any other.
 
 The optimization works by running the cost function at some starting
 value of the parameter (in our case, x translation), and using an
@@ -446,11 +444,9 @@ changes of the parameter up or down only increase the cost function
 value. At this point the routine stops and returns the parameter value.
 
 To write our cost function, we will use the fact that Python functions
-can access variables defined in the `global
-scope <global_scope.ipynb>`__. In our case the function
-``cost_function`` can access variables ``shifted_mid_vol1`` and
-``mid_vol0`` that we defined in the top level (global) scope of the
-notebook:
+can access variables defined in the :doc:`global scope`. In our case the
+function ``cost_function`` can access variables ``shifted_mid_vol1`` and
+``mid_vol0`` that we defined in the top level (global) scope of the notebook:
 
 .. nbplot::
 

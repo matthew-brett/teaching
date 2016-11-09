@@ -1,0 +1,2 @@
+type(add)
+# <class 'function'>

@@ -47,7 +47,7 @@
 <div class="section" id="calculating-transformations-between-images">
 <h1>Calculating transformations between images<a class="headerlink" href="#calculating-transformations-between-images" title="Permalink to this headline">¶</a></h1>
 <p>In which we discover optimization, cost functions and how to use them.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - compatibility with Python 3</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># - compatibility with Python 2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>  <span class="c1"># print(&#39;me&#39;) instead of print &#39;me&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>  <span class="c1"># 1/2 == 0.5, not 0</span>
 </pre></div>
@@ -194,8 +194,8 @@ should be lower when the images match well. We could therefore call
 <span class="math">\(M(\mathbf{X}, \mathbf{Y_t})\)</span>.</p>
 <p>Practically, we are going to need the following things:</p>
 <ul class="simple">
-<li>A function to generate <span class="math">\(\mathbf{Y_t}\)</span>;</li>
-<li>A function to give the mismatch between two images.</li>
+<li>a function to generate <span class="math">\(\mathbf{Y_t}\)</span>;</li>
+<li>a function to give the mismatch between two images.</li>
 </ul>
 <p>Here&#8217;s the function to generate <span class="math">\(\mathbf{Y_t}\)</span> - the image
 <span class="math">\(\mathbf{Y}\)</span> shifted by <span class="math">\(t\)</span> voxels in <span class="math">\(x\)</span>:</p>
@@ -433,20 +433,19 @@ better way?</p>
 </div>
 <div class="section" id="optimization">
 <h2>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">¶</a></h2>
-<p><em>Optimization</em> is a field of mathematics / computer science that solves
-this exact problem:</p>
-<p><a class="reference external" href="http://en.wikipedia.org/wiki/Mathematical_optimization">http://en.wikipedia.org/wiki/Mathematical_optimization</a></p>
+<p><a class="reference internal" href="#optimization">Optimization</a> is a field of mathematics / computer science that solves this
+exact problem.</p>
 <p>There are many optimization routines in Python, MATLAB and other
 languages. These routines typically allow you to pass some function,
-called the <em>objective</em> function, or the <em>cost</em> function. The
-optimization routine returns the parameters of the cost function that
-give the lowest value.</p>
+called the <em>objective</em> function, or the <em>cost</em> function. The optimization
+routine returns the parameters of the cost function that give the lowest
+value.</p>
 <p>In our case, the cost function we need to minimize will accept one
 parameter (the translation), and return the mismatch value for that
 translation. So, it will need to create the image <span class="math">\(\mathbf{X_t}\)</span>
 and return <span class="math">\(M(\mathbf{X}, \mathbf{Y_t})\)</span>.</p>
-<p>What does it mean to &#8220;pass&#8221; a function in Python. Remember, in Python,
-<a class="reference external" href="functions_are_objects.ipynb">functions are objects too</a>.</p>
+<p>What does it mean to &#8220;pass&#8221; a function in Python. Remember that, in Python,
+<a class="reference internal" href="functions_are_objects.html"><span class="doc">Functions are objects</span></a> like any other.</p>
 <p>The optimization works by running the cost function at some starting
 value of the parameter (in our case, x translation), and using an
 algorithm to choose the next value of the parameter to try. It continues
@@ -454,11 +453,9 @@ trying new values until it finds a parameter value for which very small
 changes of the parameter up or down only increase the cost function
 value. At this point the routine stops and returns the parameter value.</p>
 <p>To write our cost function, we will use the fact that Python functions
-can access variables defined in the <a class="reference external" href="global_scope.ipynb">global
-scope</a>. In our case the function
-<code class="docutils literal"><span class="pre">cost_function</span></code> can access variables <code class="docutils literal"><span class="pre">shifted_mid_vol1</span></code> and
-<code class="docutils literal"><span class="pre">mid_vol0</span></code> that we defined in the top level (global) scope of the
-notebook:</p>
+can access variables defined in the <span class="xref doc">global scope</span>. In our case the
+function <code class="docutils literal"><span class="pre">cost_function</span></code> can access variables <code class="docutils literal"><span class="pre">shifted_mid_vol1</span></code> and
+<code class="docutils literal"><span class="pre">mid_vol0</span></code> that we defined in the top level (global) scope of the notebook:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cost_function</span><span class="p">(</span><span class="n">x_trans</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="c1"># Function can use image slices defined in the global (notebook) scope</span>
 <span class="gp">... </span>    <span class="c1"># Calculate X_t - image translated by x_trans</span>
