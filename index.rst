@@ -51,12 +51,18 @@ Imaging
 * :doc:`fdr`;
 * :doc:`random_fields`.
 
-Computing
-=========
+General Computing
+=================
 
 * `The curious coder's guide to git <https://matthew-brett.github.io/curious-git>`_;
 * :doc:`floating_point`;
 * :doc:`floating_error`.
+
+Python background
+=================
+
+* :doc:`functions_are_objects`;
+* :doc:`global_scope`.
 
 .. The hidden toctree below is to suppress build warnings
 
@@ -96,3 +102,5 @@ Computing
     matrix_rank
     linear_interpolation
     on_cdfs
+    functions_are_objects
+    global_scope

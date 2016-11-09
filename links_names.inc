@@ -26,6 +26,13 @@
 .. _scipy stats t distribution:
 .. _t distribution class:
    https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html
+.. _variables and scope:
+    http://python-textbok.readthedocs.io/en/1.0/Variables_and_Scope.html
+.. _python textbook:
+.. _object oriented programming in python:
+    http://python-textbok.readthedocs.io
+.. _notebook on variable scope:
+    http://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/scope_resolution_legb_rule.ipynb
 
 .. Virtualenv and helpers
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
@@ -78,6 +85,8 @@
    https://en.wikipedia.org/wiki/Probability_density_function
 .. _cumulative distribution function:
     https://en.wikipedia.org/wiki/Cumulative_distribution_function
+.. _optimization:
+    http://en.wikipedia.org/wiki/Mathematical_optimization
 
 .. Licenses
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode
@@ -88,6 +97,9 @@
 .. _convolution: https://en.wikipedia.org/wiki/Convolution
 .. _impulse response: https://en.wikipedia.org/wiki/Impulse_response
 .. _boxcar function: https://en.wikipedia.org/wiki/Boxcar_function
+
+.. People
+.. _Sebastian Raschka: http://sebastianraschka.com/
 
 .. Substitutions
 .. |emdash| unicode:: U+02014
