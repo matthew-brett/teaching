@@ -54,8 +54,8 @@ It's the same for functions, because functions are objects too:
     >>> type(my_add)
     <class 'function'>
 
-Functions are objects you can "call" by following the function object name
-with parentheses and arguments you want to pass:
+Functions are objects you can "call" by appending parentheses enclosing
+arguments you want to pass:
 
 .. nbplot::
 

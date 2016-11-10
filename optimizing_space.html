@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Calculating transformations between images &#8212; Tutorials on imaging, computing and mathematics</title>
+    <title>Calculating transformations between images &mdash; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -80,7 +80,7 @@ transformations are to match - say - volume 1 to volume 0.</p>
 <h2>Get the data<a class="headerlink" href="#get-the-data" title="Permalink to this headline">¶</a></h2>
 <p>We start with a single slice from the each of the first two volumes in
 the EPI (BOLD) data.</p>
-<p>We load the 4D EPI image, and get the data:</p>
+<p>We load the 4D EPI image <a class="reference download internal" href="_downloads/ds107_sub012_t1r2.nii" download=""><code class="xref download docutils literal"><span class="pre">ds107_sub012_t1r2.nii</span></code></a>, and get the data:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="kn">as</span> <span class="nn">nib</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;ds107_sub012_t1r2.nii&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
@@ -809,7 +809,7 @@ problem.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

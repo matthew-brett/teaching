@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mutual information as an image matching metric &#8212; Tutorials on imaging, computing and mathematics</title>
+    <title>Mutual information as an image matching metric &mdash; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -125,7 +125,7 @@ Montreal Neurological Institute (MNI) standard brain atlas :
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;T1 vs T2 signal&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">t1_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">t2_slice</span><span class="o">.</span><span class="n">ravel</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="go">0.78707985510953171</span>
+<span class="go">0.787079...</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//mutual_information-7.png">png</a>, <a class="reference external" href=".//mutual_information-7.hires.png">hires.png</a>, <a class="reference external" href=".//mutual_information-7.pdf">pdf</a>)</p>
@@ -235,7 +235,7 @@ when the signal is spread across many bins (squares).</p>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mutual_information</span><span class="p">(</span><span class="n">hist_2d</span><span class="p">)</span>
-<span class="go">1.3399511058289812</span>
+<span class="go">1.339951...</span>
 </pre></div>
 </div>
 <p>If we move the T2 image 15 pixels down, we make the images less well
@@ -291,7 +291,7 @@ registered.</p>
 <p>Because the signal is less concentrated into a small number of bins, the
 mutual information has dropped:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mutual_information</span><span class="p">(</span><span class="n">hist_2d_moved</span><span class="p">)</span>
-<span class="go">0.45778273778245288</span>
+<span class="go">0.457782...</span>
 </pre></div>
 </div>
 </div>
@@ -335,7 +335,7 @@ mutual information has dropped:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
