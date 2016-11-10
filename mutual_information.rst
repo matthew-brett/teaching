@@ -92,7 +92,7 @@ Plotting the signal in the T1 slice against the signal in the T2 slice:
     >>> plt.title('T1 vs T2 signal')
     <...>
     >>> np.corrcoef(t1_slice.ravel(), t2_slice.ravel())[0, 1]
-    0.78707985510953171
+    0.787079...
 
 Notice that we can predict the T2 signal given the T1 signal, but it is not a
 linear relationship. For example, for T1 signal between 20 and 30, most
@@ -215,7 +215,7 @@ See http://en.wikipedia.org/wiki/Mutual_information
 .. nbplot::
 
     >>> mutual_information(hist_2d)
-    1.3399511058289812
+    1.339951...
 
 If we move the T2 image 15 pixels down, we make the images less well
 registered.
@@ -268,4 +268,4 @@ mutual information has dropped:
 .. nbplot::
 
     >>> mutual_information(hist_2d_moved)
-    0.45778273778245288
+    0.457782...
