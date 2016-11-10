@@ -47,7 +47,7 @@ Get the data
 We start with a single slice from the each of the first two volumes in
 the EPI (BOLD) data.
 
-We load the 4D EPI image, and get the data:
+We load the 4D EPI image :download:`ds107_sub012_t1r2.nii`, and get the data:
 
 .. nbplot::
 
