@@ -52,6 +52,7 @@ But here, down in the top (global) level of the notebook, we can't see that
 variable:
 
 .. nbplot::
+    :raises: NameError
 
     >>> a
     Traceback (most recent call last):
