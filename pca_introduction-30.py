@@ -1,1 +1,0 @@
-remaining = X - projected

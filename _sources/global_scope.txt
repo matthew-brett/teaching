@@ -68,3 +68,5 @@ examples.
 
 See this `notebook on variable scope`_ by `Sebastian Raschka`_ for a nice
 walkthrough.
+
+.. include:: links_names.inc

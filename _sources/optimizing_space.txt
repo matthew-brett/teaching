@@ -158,36 +158,56 @@ the second image :math:`\mathbf{Y}` (``shifted_mid_vol1`` in our case).
 :math:`t` is a good translation if the image :math:`\mathbf{Y}_t` is a
 good match for image :math:`\mathbf{X}`.
 
-We need to quantify what we mean by good match. That is, we need some
-measure of quality of match, given two images :math:`\mathbf{X}` and
-:math:`\mathbf{Y}`. Call this measure :math:`M(\mathbf{X}, \mathbf{Y})`,
-and let us specify that the value of :math:`M(\mathbf{X}, \mathbf{Y})`
-should be lower when the images match well. We could therefore call
-:math:`M(\mathbf{X}, \mathbf{Y})` a *mismatch* function.
+We need to quantify what we mean by good match. That is, we need some measure
+of quality of match, given two images :math:`\mathbf{X}` and
+:math:`\mathbf{Y}`. Call this measure :math:`M(\mathbf{X}, \mathbf{Y})`, and
+let us specify that the value of :math:`M(\mathbf{X}, \mathbf{Y})` should be
+lower when the images match well. We could therefore call :math:`M(\mathbf{X},
+\mathbf{Y})` a *mismatch* function.
 
-Now we can formulate our problem - we want to find the translation
-:math:`t` that gives the lowest value of
-:math:`M(\mathbf{X}, \mathbf{Y_t})`.
+Now we can formulate our problem - we want to find the translation :math:`t`
+that gives the lowest value of :math:`M(\mathbf{X}, \mathbf{Y_t})`. We can
+express this as:
+
+.. math::
+
+    \hat{t} = \mathrm{argmin}_t M(\mathbf{X}, \mathbf{Y_t})
+
+Read this as "the desired translation value $\hat{t}$ is the value of $t$ such
+that $M(\mathbf{X}, \mathbf{Y_t})$ is minimized".
 
 Practically, we are going to need the following things:
 
-* a function to generate :math:`\mathbf{Y_t}`;
-* a function to give the mismatch between two images.
+* a function to generate :math:`\mathbf{Y_t}` given $\mathbf{Y}$ and $t$.
+  Call this the *transformation function*;
+* a function $M$ to give the mismatch between two images.  Call this the
+  *mismatch function*.
 
-Here's the function to generate :math:`\mathbf{Y_t}` - the image
-:math:`\mathbf{Y}` shifted by :math:`t` voxels in :math:`x`:
+Here's the transformation function to generate :math:`\mathbf{Y_t}` - the
+image :math:`\mathbf{Y}` shifted by :math:`t` voxels in :math:`x`:
 
 .. nbplot::
 
     >>> def x_trans_slice(img_slice, x_vox_trans):
-    ...     """ Make a new copy of `img_slice` translated by `x_vox_trans` voxels
+    ...     """ Return copy of `img_slice` translated by `x_vox_trans` voxels
     ...
-    ...     `x_vox_trans` can be positive or negative
+    ...     Parameters
+    ...     ----------
+    ...     img_slice : array shape (M, N)
+    ...         2D image to transform with translation `x_vox_trans`
+    ...     x_vox_trans : int
+    ...         Number of pixels (voxels) to translate `img_slice`; can be
+    ...         positive or negative.
+    ...
+    ...     Returns
+    ...     -------
+    ...     img_slice_transformed : array shape (M, N)
+    ...         2D image translated by `x_vox_trans` pixels (voxels).
     ...     """
     ...     # Make a 0-filled array of same shape as `img_slice`
     ...     trans_slice = np.zeros(img_slice.shape)
     ...     # Use slicing to select voxels out of the image and move them
-    ...     # Up or down on the first (x) axis
+    ...     # up or down on the first (x) axis
     ...     if x_vox_trans < 0:
     ...         trans_slice[:x_vox_trans, :] = img_slice[-x_vox_trans:, :]
     ...     elif x_vox_trans == 0:
@@ -214,8 +234,8 @@ subtracting the two images:
 Can we take the sum of this difference as our scalar measure of
 mismatch?
 
-No, because the negative numbers (black) will cancel out the positive
-numbers (white). We need something better:
+No, because the negative numbers (black) will cancel out the positive numbers
+(white). We need something better:
 
 .. nbplot::
 
@@ -224,10 +244,9 @@ numbers (white). We need something better:
     ...     """
     ...     return np.mean(np.abs(slice0 - slice1))
 
-Now we can check different values of translation with our mismatch
-function. We move the image up and down for a range of values of
-:math:`t` and recalculate the mismatch measure for every candidate
-translation:
+Now we can check different values of translation with our mismatch function.
+We move the image up and down for a range of values of :math:`t` and
+recalculate the mismatch measure for every candidate translation:
 
 .. nbplot::
 
@@ -250,10 +269,10 @@ translation:
     >>> plt.ylabel('mean absolute difference')
     <...>
 
-We can try other measures of mismatch. Another measure of how well the
-images match might be the correlation of the voxel values at each voxel.
-When the images are well matched, we expect black values in one image to
-be matched with black in the other, ditto for white.
+We can try other measures of mismatch. Another measure of how well the images
+match might be the correlation of the voxel values at each voxel.  When the
+images are well matched, we expect black values in one image to be matched
+with black in the other, ditto for white.
 
 .. nbplot::
 
@@ -290,10 +309,10 @@ be matched with black in the other, ditto for white.
     >>> print(np.corrcoef(mid_vol0_as_1d, shifted_mid_vol1.ravel())[0, 1])
     0.446286936383
 
-We expect that the correlation will be high and positive when the images
-are well matched. Our *mismatch measure*, on the other hand, should be
-*low* when the images are well-matched. So, we can use the negative
-correlation as our mismatch measure:
+We expect that the correlation will be high and positive when the images are
+well matched. Our *mismatch measure*, on the other hand, should be *low* when
+the images are well-matched. So, we can use the negative correlation as our
+mismatch measure:
 
 .. nbplot::
 
@@ -332,25 +351,26 @@ how to make an image that matches another image, after a transformation.
 Resampling in 2D
 ****************
 
-We need a more general resampling algorithm. This is like the
-interpolation we do for slice timing, but in two dimensions.
+We need a more general resampling algorithm. This is like the :doc:`1D
+interpolation <linear_interpolation>` we do for :doc:`slice timing`, but in
+two dimensions.
 
-Let's say we want to do a voxel translation of 0.5 voxels in X. The way
-we might go about this is the following.
+Let's say we want to do a voxel translation of 0.5 voxels in x. The way we
+might go about this is the following.
 
 To start, here are some names:
 
--  ``img0`` is the image we are trying to match to (in our case
-   ``mid_vol0``);
--  ``img1`` is the image we are trying to match by moving (in our case
-   ``shifted_mid_vol1``);
--  ``trans`` is the transformation from pixel coordinates in ``img1`` to
-   pixel coordinates in ``img0`` (in our case adding 0.5 to the first
-   coordinate value, so that [0, 0] becomes [0.5, 0]);
--  ``itrans`` is the inverse of ``trans``, and gives the transformation
-   to go from pixel coordinates in ``img0`` to pixel coordinates in
-   ``img1``. In our case this is *subtracting* 0.5 from the first
-   coordinate value.
+* ``img0`` is the image we are trying to match to (in our case
+  ``mid_vol0``);
+* ``img1`` is the image we are trying to match by moving (in our case
+  ``shifted_mid_vol1``);
+* ``trans`` is the transformation from pixel coordinates in ``img1`` to
+  pixel coordinates in ``img0`` (in our case adding 0.5 to the first
+  coordinate value, so that [0, 0] becomes [0.5, 0]);
+* ``itrans`` is the inverse of ``trans``, and gives the transformation
+  to go from pixel coordinates in ``img0`` to pixel coordinates in
+  ``img1``. In our case this is *subtracting* 0.5 from the first
+  coordinate value.
 
 The procedure for resampling is:
 
@@ -369,12 +389,12 @@ The procedure for resampling is:
       ``coord_for_img0``.
 
 The "Estimate pixel value" step is called *resampling*. As you can see
-this is the same general idea as interpolating in one dimension. We saw
-one dimensional interpolation for slice timing. There are various ways
-of interpolating in two or three dimensions, but one of the most obvious
-is the simple extension of linear interpolation to two (or more)
-dimensions - `bilinear
-interpolation <http://en.wikipedia.org/wiki/Bilinear_interpolation>`__.
+this is the same general idea as :doc:`interpolating in one dimension <linear
+interpolation`. We saw one dimensional interpolation for :doc:`slice timing`.
+There are various ways of interpolating in two or three dimensions, but one of
+the most obvious is the simple extension of linear interpolation to two (or
+more) dimensions - `bilinear interpolation
+<http://en.wikipedia.org/wiki/Bilinear_interpolation>`__.
 
 The ``scipy.ndimage`` library has routines for resampling in 2 or 3
 dimensions:
@@ -389,9 +409,15 @@ the whole process for us.
 .. nbplot::
 
     >>> def fancy_x_trans_slice(img_slice, x_vox_trans):
-    ...     """ Make a new copy of `img_slice` translated by `x_vox_trans` voxels
+    ...     """ Return copy of `img_slice` translated by `x_vox_trans` voxels
     ...
-    ...     `x_vox_trans` can be positive or negative, and can be a float.
+    ...     Parameters
+    ...     ----------
+    ...     img_slice : array shape (M, N)
+    ...         2D image to transform with translation `x_vox_trans`
+    ...     x_vox_trans : float
+    ...         Number of pixels (voxels) to translate `img_slice`; can be
+    ...         positive or negative, and does not need to be integer value.
     ...     """
     ...     # Resample image using bilinear interpolation (order=1)
     ...     trans_slice = snd.affine_transform(img_slice, [1, 1], [-x_vox_trans, 0], order=1)
@@ -411,9 +437,8 @@ the whole process for us.
     >>> plt.plot(fine_translations, fine_mismatches)
     [...]
 
-We are looking for the best x translation. At the moment we have to
-sample lots of x translations and then choose the best. Is there a
-better way?
+We are looking for the best x translation. At the moment we have to sample
+lots of x translations and then choose the best. Is there a better way?
 
 ************
 Optimization
@@ -422,16 +447,15 @@ Optimization
 `Optimization`_ is a field of mathematics / computer science that solves this
 exact problem.
 
-There are many optimization routines in Python, MATLAB and other
-languages. These routines typically allow you to pass some function,
-called the *objective* function, or the *cost* function. The optimization
-routine returns the parameters of the cost function that give the lowest
-value.
+There are many optimization routines in Python, MATLAB and other languages.
+These routines typically allow you to pass some function, called the
+*objective* function, or the *cost* function. The optimization routine returns
+the parameters of the cost function that give the lowest value.
 
-In our case, the cost function we need to minimize will accept one
-parameter (the translation), and return the mismatch value for that
-translation. So, it will need to create the image :math:`\mathbf{X_t}`
-and return :math:`M(\mathbf{X}, \mathbf{Y_t})`.
+In our case, the cost function we need to minimize will accept one parameter
+(the translation), and return the mismatch value for that translation. So, it
+will need to create the image :math:`\mathbf{X_t}` and return
+:math:`M(\mathbf{X}, \mathbf{Y_t})`.
 
 What does it mean to "pass" a function in Python. Remember that, in Python,
 :doc:`functions_are_objects` like any other.
@@ -443,15 +467,15 @@ trying new values until it finds a parameter value for which very small
 changes of the parameter up or down only increase the cost function
 value. At this point the routine stops and returns the parameter value.
 
-To write our cost function, we will use the fact that Python functions
-can access variables defined in the :doc:`global scope`. In our case the
-function ``cost_function`` can access variables ``shifted_mid_vol1`` and
-``mid_vol0`` that we defined in the top level (global) scope of the notebook:
+To write the cost function, we use the fact that Python functions can access
+variables defined in the :doc:`global scope`. In our case the function
+``cost_function`` can access variables ``shifted_mid_vol1`` and ``mid_vol0``
+that we defined in the top level (global) scope of our interactive session:
 
 .. nbplot::
 
     >>> def cost_function(x_trans):
-    ...     # Function can use image slices defined in the global (notebook) scope
+    ...     # Function can use image slices defined in the global scope
     ...     # Calculate X_t - image translated by x_trans
     ...     unshifted = fancy_x_trans_slice(shifted_mid_vol1, x_trans)
     ...     # Return mismatch measure for the translated image X_t
@@ -490,19 +514,19 @@ starting value of zero for the translation:
              Function evaluations: 27
     -7.9960266912...
 
-The function ran, and found that a translation of very nearly -8 gave
-the smallest value for our cost function.
+The function ran, and found that a translation value very close to -8 gave the
+smallest value for our cost function.
 
-What actually happened there? Let's track the progress of
-``fmin_powell`` using a callback function:
+What actually happened there? Let's track the progress of ``fmin_powell``
+using a callback function:
 
 .. nbplot::
 
     >>> def my_callback(params):
     ...    print("Trying parameters " + str(params))
 
-``fmin_powell`` calls this ``my_callback`` function when it is testing a
-new set of parameters.
+``fmin_powell`` calls this ``my_callback`` function when it is testing a new
+set of parameters.
 
 .. nbplot::
 
@@ -517,8 +541,7 @@ new set of parameters.
     -7.9960266912...
 
 The optimization routine ``fmin_powell`` is trying various different
-translations, finally coming to the optimum (minimum) translation of
-very nearly -8.
+translations, finally coming to the optimum (minimum) translation close to -8.
 
 ***********************
 More than one parameter
@@ -533,11 +556,10 @@ optimizing the x translation, then the y translation, like this:
 -  Adjust the y translation until it has reached a minimum, then;
 -  Repeat x, y minimization until the minimum for both is stable.
 
-Although we could do that, in fact ``fmin_powell`` does something
-slightly more complicated when looking for the next best set of
-parameters to try. The details aren't important to the general idea of
-searching over different parameter values to find the lowest value for
-the cost function.
+Although we could do that, in fact ``fmin_powell`` does something slightly
+more complicated when looking for the next best set of parameters to try. The
+details aren't important to the general idea of searching over different
+parameter values to find the lowest value for the cost function.
 
 .. nbplot::
 
@@ -577,19 +599,18 @@ Do the optimization of ``fancy_cost_at_xy`` using ``fmin_powell``:
     >>> best_params
     array([-7.996,  0.   ])
 
-(You probably noticed that ``fmin_powell`` appears to be sticking to the
-right answer for y translation (0), without printing out any evidence
-that it is trying other y values. This is because of the way that the
-Powell optimization works - it is in effect doing separate 1-parameter
-minimizations in order to get the final 2-parameter minimization, and it
-is not reporting the intermediate steps in the 1-parameter
-minimizations)
+(You probably noticed that ``fmin_powell`` appears to be sticking to the right
+answer for y translation (0), without printing out any evidence that it is
+trying other y values. This is because of the way that the Powell optimization
+works - it is in effect doing separate 1-parameter minimizations in order to
+get the final 2-parameter minimization, and it is not reporting the
+intermediate steps in the 1-parameter minimizations)
 
 ****************
 Full 3D estimate
 ****************
 
-Now we know how to do two parameters, it's easy to extend this to six
+Now we know how to do two parameters, it is easy to extend this to six
 parameters.
 
 The six parameters are:
@@ -602,13 +623,12 @@ The six parameters are:
 -  rotation around z axis (yaw)
 
 Any transformation with these parameters is called a *rigid body*
-transformation because the transformation cannot make the object change
-shape (the object is *rigid*).
+transformation because the transformation cannot make the object change shape
+(the object is *rigid*).
 
-Implementing the rotations is just slightly out of scope for this
-tutorial (we would have to convert between angles and `rotation
-matrices <http://en.wikipedia.org/wiki/Rotation_matrix>`__), so here is
-the 3D optimization with the three translation parameters:
+Implementing the rotations is just slightly out of scope for this tutorial (we
+would have to convert between angles and `rotation matrices`_), so here is the
+3D optimization with the three translation parameters:
 
 To make it a bit more interesting, shift the second volume 8 voxels on
 the first axis, as we did for the 2D case. We will also push the image 5
@@ -733,19 +753,19 @@ we look at larger translations (values of :math:`t`):
     <...>
 
 Remember that a minimum is a value for which the values to the left and
-right are higher. So, the -8 value of :math:`t` is minimum (with a
-negative correlation value of -1), but the value at around :math:`t=44`
-is also a minimum, with a negative correlation value of around 0.2. The
-value at :math:`t=-8` is a *global minimum* in the sense that it is the
-minimum with the lowest cost value across all values of :math:`t`. The
-value at around :math:`t=44` is a *local minimum*.
+right are higher. So, the -8 value of :math:`t` is a minimum (with a negative
+correlation value of -1), but the value at around :math:`t=44` is also a
+minimum, with a negative correlation value of around 0.2. The value at
+:math:`t=-8` is a *global minimum* in the sense that it is the minimum with
+the lowest cost value across all values of :math:`t`. The value at around
+:math:`t=44` is a *local minimum*.
 
-In general, our optimization routines are only able to guarantee that
-they have found a local minimum. So, if we start our search in the wrong
-place, then the optimization routine may well find the wrong minimum.
+In general, our optimization routines are only able to guarantee that they
+have found a local minimum. So, if we start our search in the wrong place,
+then the optimization routine may well find the wrong minimum.
 
-Here is our original 1 parameter cost function (it is the same as the
-version above):
+Here is our original 1 parameter cost function (it is the same as the version
+above):
 
 .. nbplot::
 
@@ -778,3 +798,5 @@ for the optimization to find a "best" value that is a local rather than
 a global minimum. The art of optimization is finding a minimization
 algorithm and mismatch metric that are well-adapted to the particular
 problem.
+
+.. include:: links_names.inc

@@ -1,2 +1,0 @@
-type(add)
-# <class 'function'>
