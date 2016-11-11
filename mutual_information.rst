@@ -6,7 +6,7 @@ In which we look at the mutual information measure for comparing images.
 
 .. nbplot::
 
-    >>> # - compatibility with Python 3
+    >>> # - compatibility with Python 2
     >>> from __future__ import print_function  # print('me') instead of print 'me'
     >>> from __future__ import division  # 1/2 == 0.5, not 0
 
