@@ -5,9 +5,10 @@ Global and local scope of Python variables
 See: `variables and scope`_ in the online `Python textbook`_.
 
 .. nbplot::
+    :include-source: false
 
     >>> # - compatibility with Python 2
-    >>> from __future__ import print_function  # print('me') instead of print 'me'
+    >>> from __future__ import print_function
     >>> from __future__ import division  # 1/2 == 0.5, not 0
 
 The *scope* of a variable refers to the places that you can see or access a

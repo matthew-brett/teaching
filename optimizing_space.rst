@@ -352,7 +352,7 @@ Resampling in 2D
 ****************
 
 We need a more general resampling algorithm. This is like the :doc:`1D
-interpolation <linear_interpolation>` we do for :doc:`slice timing`, but in
+interpolation <linear_interpolation>` we do for :doc:`slice_timing`, but in
 two dimensions.
 
 Let's say we want to do a voxel translation of 0.5 voxels in x. The way we
@@ -388,12 +388,12 @@ The procedure for resampling is:
    -  Insert ``img1_value`` into ``new_img0`` at coordinate
       ``coord_for_img0``.
 
-The "Estimate pixel value" step is called *resampling*. As you can see
-this is the same general idea as :doc:`interpolating in one dimension <linear
-interpolation`. We saw one dimensional interpolation for :doc:`slice timing`.
-There are various ways of interpolating in two or three dimensions, but one of
-the most obvious is the simple extension of linear interpolation to two (or
-more) dimensions - `bilinear interpolation
+The "Estimate pixel value" step is called *resampling*. As you can see this is
+the same general idea as :doc:`interpolating in one dimension
+<linear_interpolation>`. We saw one dimensional interpolation for
+:doc:`slice_timing`.  There are various ways of interpolating in two or three
+dimensions, but one of the most obvious is the simple extension of linear
+interpolation to two (or more) dimensions - `bilinear interpolation
 <http://en.wikipedia.org/wiki/Bilinear_interpolation>`__.
 
 The ``scipy.ndimage`` library has routines for resampling in 2 or 3
@@ -468,7 +468,7 @@ changes of the parameter up or down only increase the cost function
 value. At this point the routine stops and returns the parameter value.
 
 To write the cost function, we use the fact that Python functions can access
-variables defined in the :doc:`global scope`. In our case the function
+variables defined in the :doc:`global_scope`. In our case the function
 ``cost_function`` can access variables ``shifted_mid_vol1`` and ``mid_vol0``
 that we defined in the top level (global) scope of our interactive session:
 
