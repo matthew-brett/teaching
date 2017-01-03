@@ -92,11 +92,15 @@ class DynamicTable(CSVTable):
         table_head.extend(rows[:header_rows])
         table_body = rows[header_rows:]
         col_widths = self.get_column_widths(max_cols)
+        # Deal with differences between docutils 0.12 and 0.13.1
+        kwargs = {}
+        if isinstance(col_widths, tuple):  # 0.13.1
+            kwargs['widths'], col_widths = col_widths
         self.extend_short_rows_with_empty_cells(max_cols,
                                                 (table_head, table_body))
         table = (col_widths, table_head, table_body)
         table_node = self.state.build_table(table, self.content_offset,
-                                            stub_columns)
+                                            stub_columns, **kwargs)
         table_node['classes'] += self.options.get('class', [])
         self.add_name(table_node)
         if title:
