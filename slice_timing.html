@@ -54,6 +54,12 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If running in the IPython console, consider running <code class="docutils literal"><span class="pre">%matplotlib</span></code> to enable
+interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal"><span class="pre">%matplotlib</span>
+<span class="pre">inline</span></code>.</p>
+</div>
 <p>The scanner collected each volume slice by slice. That means that each
 slice corresponds to a different time.</p>
 <p>For example, here is a 4D FMRI image:</p>
@@ -354,6 +360,10 @@ series, that has been <em>interpolated</em> from the original:</p>
 <p>We can do this for each time course in each slice, and make a new 4D image,
 that has a copy of the values in slice 0, but the interpolated values for all
 the other slices.  This new 4D image has been <em>slice time corrected</em>.</p>
+<ul class="simple">
+<li><a class="reference download internal" href="slice_timing.py">Download this page as a Python code file</a>;</li>
+<li><a class="reference download internal" href="slice_timing.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
+</ul>
 </div>
 </div>
 

@@ -253,8 +253,8 @@ and show it as binary:
 >>> np.binary_repr(float32_mem)
 '1001011100000000000000000000000'
 
-How about -16777215?  It should be 1 for the sign, 23 for the exponent ($u = 23 +
-127$ = 50), and all ones for the significand:
+How about -16777215?  It should be 1 for the sign, 23 for the exponent ($u =
+23 + 127$ = 50), and all ones for the significand:
 
 >>> np.binary_repr(150)
 '10010110'

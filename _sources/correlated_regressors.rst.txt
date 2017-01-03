@@ -17,6 +17,8 @@ Load and configure libraries:
     >>> # Seed random number generator
     >>> np.random.seed(42)
 
+.. mpl-interactive::
+
 Imagine we have a TR (image) every 2 seconds, for 30 seconds. Here are
 the times of the TR onsets, in seconds:
 
@@ -404,3 +406,5 @@ part* of the second regressor to explain the signal:
     >>> np.corrcoef(B_boths_o[0], B_boths_o[1])
     array([[ 1.    , -0.0053],
            [-0.0053,  1.    ]])
+
+.. code-links:: python clear

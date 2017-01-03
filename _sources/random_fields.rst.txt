@@ -61,6 +61,8 @@ $Z = 2.33 $ respectively.
     >>> # Tell numpy to print numbers to 4 decimal places only
     >>> np.set_printoptions(precision=4, suppress=True)
 
+.. mpl-interactive::
+
 .. nbplot::
 
     >>> import scipy.stats
@@ -622,3 +624,4 @@ significant signals in images of cerebral
 activation <http://www.math.mcgill.ca/~keith/unified/unified.abstract.html>`__
 Human Brain Mapping, 4:58-73.
 
+.. code-links::

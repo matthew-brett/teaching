@@ -48,20 +48,25 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="vector-projection">
 <h1>Vector projection<a class="headerlink" href="#vector-projection" title="Permalink to this headline">¶</a></h1>
-<p>This here page follows the discussion in <a class="reference external" href="https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/introduction-to-projections">this Khan academy video on projection</a>.  Please watch that video for a nice presentation of the mathematics on this page.</p>
-<p>For the video and this page, you will need the definitions and mathematics from <a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>.</p>
+<p>This here page follows the discussion in <a class="reference external" href="https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/introduction-to-projections">this Khan academy video on
+projection</a>.
+Please watch that video for a nice presentation of the mathematics on this
+page.</p>
+<p>For the video and this page, you will need the definitions and mathematics
+from <a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>.</p>
 <div class="section" id="start">
 <h2>Start<a class="headerlink" href="#start" title="Permalink to this headline">¶</a></h2>
 <p>Consider two vectors <span class="math">\(\vec{w}\)</span> and <span class="math">\(\vec{v}\)</span>.</p>
 <a class="reference internal image-reference" href="_images/vector_projection.svg"><img alt="_images/vector_projection.svg" height="500" src="_images/vector_projection.svg" width="400" /></a>
 <p>We can scale <span class="math">\(\vec{v}\)</span> with a scalar <span class="math">\(c\)</span>.  By choosing the correct <span class="math">\(c\)</span> we can
-create any vector on the infinite length dotted line in the diagram.  <span class="math">\(c \vec{v}\)</span> defines this infinite line.</p>
+create any vector on the infinite length dotted line in the diagram.  <span class="math">\(c
+\vec{v}\)</span> defines this infinite line.</p>
 <p>We&#8217;re going to find the projection of <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span>, written as:</p>
 <div class="math">
 \[\mathrm{proj}_\vec{v}\vec{w}\]</div>
-<p>The projection of <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span> is a vector on the line <span class="math">\(c \vec{v}\)</span>.
-Specifically it is <span class="math">\(c \vec{v}\)</span> such that the line joining <span class="math">\(\vec{w}\)</span> and <span class="math">\(c
-\vec{v}\)</span> is perpendicular to <span class="math">\(\vec{v}\)</span>.</p>
+<p>The projection of <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span> is a vector on the line <span class="math">\(c
+\vec{v}\)</span>.  Specifically it is <span class="math">\(c \vec{v}\)</span> such that the line joining <span class="math">\(\vec{w}\)</span>
+and <span class="math">\(c \vec{v}\)</span> is perpendicular to <span class="math">\(\vec{v}\)</span>.</p>
 </div>
 <div class="section" id="why-is-it-called-projection">
 <h2>Why is it called projection?<a class="headerlink" href="#why-is-it-called-projection" title="Permalink to this headline">¶</a></h2>
@@ -73,8 +78,9 @@ defined by <span class="math">\(\vec{v}\)</span>.</p>
 <div class="section" id="calculating-the-projection">
 <h2>Calculating the projection<a class="headerlink" href="#calculating-the-projection" title="Permalink to this headline">¶</a></h2>
 <p>The vector connecting <span class="math">\(\vec{w}\)</span> and <span class="math">\(c \vec{v}\)</span> is <span class="math">\(\vec{w} - c \vec{v}\)</span>.</p>
-<p>We want to find <span class="math">\(c\)</span> such that <span class="math">\(\vec{w} - c \vec{v}\)</span> is perpendicular to <span class="math">\(\vec{v}\)</span>.</p>
-<p>Two perpendicular vectors have vector dot product of zero, so:</p>
+<p>We want to find <span class="math">\(c\)</span> such that <span class="math">\(\vec{w} - c \vec{v}\)</span> is perpendicular to
+<span class="math">\(\vec{v}\)</span>.</p>
+<p>Two perpendicular vectors have <a class="reference internal" href="on_vectors.html#orthogonal-dot"><span class="std std-ref">vector dot product of zero</span></a>, so:</p>
 <div class="math">
 \[(\vec{w} - c \vec{v}) \cdot \vec{v} = 0\]</div>
 <p>By distribution over addition of dot products:</p>

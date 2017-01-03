@@ -48,6 +48,8 @@ Load and configure the Python libraries we will use:
     >>> # Tell numpy to print numbers to 4 decimal places only
     >>> np.set_printoptions(precision=4, suppress=True)
 
+.. mpl-interactive::
+
 ****************************
 Some actual numbers to start
 ****************************
@@ -709,4 +711,4 @@ functions:
     >>> np.angle(X_1)
     1.099999999999999
 
-.. code-links::
+.. code-links:: python clear

@@ -10,6 +10,8 @@ We load and configure libraries to start:
     >>> import numpy as np
     >>> import matplotlib.pyplot as plt
 
+.. mpl-interactive::
+
 The scanner collected each volume slice by slice. That means that each
 slice corresponds to a different time.
 
@@ -366,3 +368,5 @@ that has a copy of the values in slice 0, but the interpolated values for all
 the other slices.  This new 4D image has been *slice time corrected*.
 
 .. include:: links_names.inc
+
+.. code-links:: python clear

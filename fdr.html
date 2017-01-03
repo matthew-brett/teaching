@@ -48,12 +48,7 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="thresholding-with-false-discovery-rate">
 <h1>Thresholding with false discovery rate<a class="headerlink" href="#thresholding-with-false-discovery-rate" title="Permalink to this headline">¶</a></h1>
-<p>With J-B Poline.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
+<p>Written with J-B Poline.</p>
 <p>The false discovery rate is a different <em>type</em> of correction than
 family-wise correction. Instead of controlling for the risk of <em>any
 tests</em> falsely being declared significant under the null hypothesis, FDR
@@ -83,6 +78,17 @@ threshold; <span class="math">\(\theta = p(i)\)</span>. The expected number of f
 <span class="math">\(p(i)\)</span> was 0.1, then the expected number of false positive
 detections, thresholding at 0.1, is 0.1 * 100 = 10.</p>
 <p>Let&#8217;s take some data from a random normal distribution to illustrate:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If running in the IPython console, consider running <code class="docutils literal"><span class="pre">%matplotlib</span></code> to enable
+interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal"><span class="pre">%matplotlib</span>
+<span class="pre">inline</span></code>.</p>
+</div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># so we always get the same random numbers</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">z_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
@@ -242,7 +248,7 @@ not so interesting if you want to do brain imaging.</p>
 <ul class="simple">
 <li>In the case of no signal at all, the FDR threshold will be the
 Bonferroni threshold</li>
-<li>Under some conditions (see Benjamini and hochberg, JRSS-B 1995), the
+<li>Under some conditions (see Benjamini and Hochberg, JRSS-B 1995), the
 FDR threshold can be applied to correlated data</li>
 <li>FDR is an &#8220;adaptive&#8221; threshold</li>
 </ul>
@@ -252,6 +258,10 @@ FDR threshold can be applied to correlated data</li>
 <li>When there are lots of true positives, and many detections, the
 number of false positive detections increases. This can make FDR
 detections more difficult to interpret.</li>
+</ul>
+<ul class="simple">
+<li><a class="reference download internal" href="fdr.py">Download this page as a Python code file</a>;</li>
+<li><a class="reference download internal" href="fdr.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
 </ul>
 </div>
 

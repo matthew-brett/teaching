@@ -557,3 +557,5 @@ What if the result was significant at :math:`p < 0.01`?:
 
 So, even if our result is significant at :math:`p < 0.01`, the
 probability that :math:`H_A` is correct is still less than :math:`0.5`.
+
+.. code-links:: python clear

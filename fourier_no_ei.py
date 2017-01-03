@@ -19,14 +19,14 @@
 #
 # * basic trigonometry (SOH CAH TOA, Pythagoras' theorem);
 #
-# * the angle sum rule;
+# * the [angle sum rule](https://matthew-brett.github.io/teaching/angle_sum.html);
 #
-# * basic algebra with sums;
+# * [basic algebra with sums](https://matthew-brett.github.io/teaching/some_sums.html);
 #
-# * Vectors and dot products;
+# * [Vectors and dot products](https://matthew-brett.github.io/teaching/on_vectors.html);
 #
 # You will not need to go deep into complex numbers, but see
-# Refresher on complex numbers.
+# [Refresher on complex numbers](https://matthew-brett.github.io/teaching/simple_complex.html).
 #
 # #### Loading and configuring code libraries
 #
@@ -41,7 +41,11 @@ import matplotlib.pyplot as plt  # the Python plotting package
 # Tell numpy to print numbers to 4 decimal places only
 np.set_printoptions(precision=4, suppress=True)
 
-# Some actual numbers to start
+# If running in the IPython console, consider running `%matplotlib` to enable
+# interactive plots.  If running in the Jupyter Notebook, use `%matplotlib
+# inline`.
+#
+#  Some actual numbers to start
 #
 # Let us start with a DFT of some data.
 
@@ -154,7 +158,7 @@ x_back
 # same thing, rather than a single number with a real and imaginary part.
 #
 # Having said that, we will need some very basic properties of complex and
-# imaginary numbers - see Refresher on complex numbers.
+# imaginary numbers - see [Refresher on complex numbers](https://matthew-brett.github.io/teaching/simple_complex.html).
 #
 # ## How to rewrite without $e^i$
 #
@@ -219,7 +223,7 @@ x_back
 # Call $\vec{r^k}$ the *angle vector* for $k$.  This vector depend only on $k$
 # and $N$.
 #
-# Substituting the value of $D$ (equation (3)):
+# Substituting the value of $D$ (equation [(3)](https://matthew-brett.github.io/teaching/fourier_no_ei.html#equation-D)):
 #
 # $$
 # \vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N}, \ldots,
@@ -242,7 +246,7 @@ x_back
 # - i \sum_{n=0}^{N-1} x_n s^k_n
 # $$
 #
-# Given the definition of the Vector dot product, we can write the
+# Given the definition of the [Vector dot product](https://matthew-brett.github.io/teaching/on_vectors.html#vector-dot-product), we can write the
 # forward DFT as:
 #
 # $$
@@ -364,14 +368,14 @@ print(X[1])
 # = \vec{c^1} \cdot \vec{c^1} - i \vec{c^1} \cdot \vec{s^1}
 # $$
 #
-# In fact, as you can see in The Fourier basis, it is a property of the
+# In fact, as you can see in [The Fourier basis](https://matthew-brett.github.io/teaching/fourier_basis.html), it is a property of the
 # $\vec{c^k}, \vec{s^k}$ vectors that, for all $k, N$:
 #
 # $$
 # \vec{c^k} \cdot \vec{s^k} = 0
 # $$
 #
-# Remember from Vector length that, for any vector $\vec{w}$, we can
+# Remember from [Vector length](https://matthew-brett.github.io/teaching/on_vectors.html#vector-length) that, for any vector $\vec{w}$, we can
 # write $\vec{w} \cdot \vec{w}$ as $\VL{w}^2$
 #
 # So:
@@ -380,7 +384,7 @@ print(X[1])
 # V_1 = \VL{c^1}^2
 # $$
 #
-# The Fourier basis also shows that $\VL{c_1}^2 = N / 2$ for all N.  More
+# [The Fourier basis](https://matthew-brett.github.io/teaching/fourier_basis.html) also shows that $\VL{c_1}^2 = N / 2$ for all N.  More
 # generally $\VL{c_p}^2 = \VL{s_p}^2 = N / 2$ for all $p \notin {0, N/2}$.
 #
 # So:
@@ -395,7 +399,7 @@ V
 
 # Notice that $V_{N-1} = N/2 = V_1$.  This is the property of *conjugate
 # symmetry*.   It is so because of the properties of the vectors $\vec{c^k}$.
-# As you see in The Fourier basis $\vec{c_1} = \vec{c_{N-1}}$, and, more
+# As you see in [The Fourier basis](https://matthew-brett.github.io/teaching/fourier_basis.html) $\vec{c_1} = \vec{c_{N-1}}$, and, more
 # generally $\vec{c_p} = \vec{c_{N-p}}$ for $p \in 1, 2 \ldots, N / 2$.
 #
 # ## Adding a scaling factor to the cosine
@@ -406,7 +410,7 @@ V
 # V_1 = \vec{c^1} \cdot a \vec{c^1} - i \vec{c^1} \cdot a \vec{s^1}
 # $$
 #
-# By the properties of the dot product:
+# By the [properties of the dot product](https://matthew-brett.github.io/teaching/on_vectors.html#dot-product-properties):
 #
 # $$
 # V_1 = a \vec{c^1} \cdot \vec{c^1} - i a \vec{c^1} \cdot \vec{s^1} \\
@@ -432,7 +436,7 @@ plt.plot(vec_n, vec_c_1, 'o:', label='Unshifted cos')
 plt.plot(vec_n, vec_v, 'x:', label='Shifted cos')
 plt.legend()
 
-# We can rewrite the shifted cosine using the The angle sum rule:
+# We can rewrite the shifted cosine using the [The angle sum rule](https://matthew-brett.github.io/teaching/angle_sum.html):
 #
 # $$
 # \cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta
@@ -468,7 +472,7 @@ np.fft.fft(vec_v)
 # Notice that $V_{N-1}$ has the same value as $V_{1}$, but with the imaginary
 # part flipped in sign.  This is the *conjugate* in *conjugate symmetry*.  It
 # comes about because of the construction of the vectors $\vec{s^k}$.  As you
-# see in The Fourier basis $\vec{s_1} = -\vec{s_{N-1}}$, and, more generally
+# see in [The Fourier basis](https://matthew-brett.github.io/teaching/fourier_basis.html) $\vec{s_1} = -\vec{s_{N-1}}$, and, more generally
 # $\vec{s_p} = -\vec{s_{N-p}}$ for $p \in 1, 2 \ldots, N / 2$.
 #
 # # Reconstructing amplitude and phase from the DFT
@@ -502,7 +506,7 @@ np.fft.fft(vec_v)
 
 # What if I want to reconstruct $a$ and $\beta$ from the DFT coefficients?
 #
-# From (4):
+# From [(4)](https://matthew-brett.github.io/teaching/fourier_no_ei.html#equation-scale-and-offset):
 #
 # $$
 # \R{X_1} = a \cos(\beta) N / 2 \\

@@ -82,6 +82,12 @@ seconds, might look like this:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If running in the IPython console, consider running <code class="docutils literal"><span class="pre">%matplotlib</span></code> to enable
+interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal"><span class="pre">%matplotlib</span>
+<span class="pre">inline</span></code>.</p>
+</div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_time_points</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">neural_signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_time_points</span><span class="p">)</span>
@@ -98,9 +104,9 @@ seconds, might look like this:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-1.png">png</a>, <a class="reference external" href=".//on_convolution-1.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-1.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-2.png">png</a>, <a class="reference external" href=".//on_convolution-2.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-2.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-1.png" src="_images/on_convolution-1.png" />
+<img alt="_images/on_convolution-2.png" src="_images/on_convolution-2.png" />
 </div>
 <p>This type of simple off - on - off model is a <a class="reference external" href="https://en.wikipedia.org/wiki/Boxcar_function">boxcar function</a>.</p>
 <p>Of course we could have had another neural model, with the activity gradually
@@ -129,9 +135,9 @@ spike in time instead of the sustained rise of the box-car function.</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-2.png">png</a>, <a class="reference external" href=".//on_convolution-2.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-2.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-3.png">png</a>, <a class="reference external" href=".//on_convolution-3.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-3.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-2.png" src="_images/on_convolution-2.png" />
+<img alt="_images/on_convolution-3.png" src="_images/on_convolution-3.png" />
 </div>
 <p>Let us now imagine that I know what the hemodynamic <em>response</em> will be to such
 an impulse.  I might have got this estimate from taking the FMRI signal
@@ -154,9 +160,9 @@ estimate of the hemodynamic <em>response</em> to a very brief stimulus:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-3.png">png</a>, <a class="reference external" href=".//on_convolution-3.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-3.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-4.png">png</a>, <a class="reference external" href=".//on_convolution-4.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-4.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-3.png" src="_images/on_convolution-3.png" />
+<img alt="_images/on_convolution-4.png" src="_images/on_convolution-4.png" />
 </div>
 <p>This is the hemodynamic response to a neural impulse.  In signal processing
 terms this is the hemodynamic <a class="reference external" href="impulseresponse">impulse response function</a>.
@@ -182,9 +188,9 @@ shift it by 4 seconds-worth to give our predicted output:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-4.png">png</a>, <a class="reference external" href=".//on_convolution-4.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-4.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-5.png">png</a>, <a class="reference external" href=".//on_convolution-5.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-5.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-4.png" src="_images/on_convolution-4.png" />
+<img alt="_images/on_convolution-5.png" src="_images/on_convolution-5.png" />
 </div>
 <p>Our impulse so far has an amplitude of 1.  What if the impulse was twice as
 strong, with an amplitude of 2?</p>
@@ -201,9 +207,9 @@ strong, with an amplitude of 2?</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-5.png">png</a>, <a class="reference external" href=".//on_convolution-5.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-5.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-6.png">png</a>, <a class="reference external" href=".//on_convolution-6.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-6.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-5.png" src="_images/on_convolution-5.png" />
+<img alt="_images/on_convolution-6.png" src="_images/on_convolution-6.png" />
 </div>
 <p>Maybe I can make the assumption that, if the impulse is twice as large then the
 response will be twice as large.  This is the assumption that the response
@@ -222,9 +228,9 @@ shifting by 4, as before, and then multiplying the HRF by 2:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-6.png">png</a>, <a class="reference external" href=".//on_convolution-6.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-6.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-7.png">png</a>, <a class="reference external" href=".//on_convolution-7.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-7.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-6.png" src="_images/on_convolution-6.png" />
+<img alt="_images/on_convolution-7.png" src="_images/on_convolution-7.png" />
 </div>
 <p>What if I have several impulses?  For example, imagine I had an impulse
 amplitude 2 at time == 4, then another of amplitude 1 at time == 10, and another
@@ -246,9 +252,9 @@ of amplitude 3 at time == 20.</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-7.png">png</a>, <a class="reference external" href=".//on_convolution-7.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-7.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-8.png">png</a>, <a class="reference external" href=".//on_convolution-8.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-8.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-7.png" src="_images/on_convolution-7.png" />
+<img alt="_images/on_convolution-8.png" src="_images/on_convolution-8.png" />
 </div>
 <p>Maybe I can also make the assumption that the response to an impulse will be
 exactly the same over time.  The response to any given impulse at time 10 will
@@ -271,9 +277,9 @@ the HRF shifted to time == 20 and scaled by 3:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-8.png">png</a>, <a class="reference external" href=".//on_convolution-8.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-8.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-9.png">png</a>, <a class="reference external" href=".//on_convolution-9.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-9.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-8.png" src="_images/on_convolution-8.png" />
+<img alt="_images/on_convolution-9.png" src="_images/on_convolution-9.png" />
 </div>
 <p>At the moment, an <em>impulse</em> is an event that lasts for just one time point. In
 our case, the time vector (<code class="docutils literal"><span class="pre">times</span></code> in the code above) has one point for every
@@ -294,9 +300,9 @@ seconds apart:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-9.png">png</a>, <a class="reference external" href=".//on_convolution-9.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-9.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-10.png">png</a>, <a class="reference external" href=".//on_convolution-10.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-10.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-9.png" src="_images/on_convolution-9.png" />
+<img alt="_images/on_convolution-10.png" src="_images/on_convolution-10.png" />
 </div>
 <p>Now I need to add a new shifted HRF for the impulse corresponding to time == 4,
 and for time == 4.1 and so on until time == 4.4:</p>
@@ -315,9 +321,9 @@ and for time == 4.1 and so on until time == 4.4:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-10.png">png</a>, <a class="reference external" href=".//on_convolution-10.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-10.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-11.png">png</a>, <a class="reference external" href=".//on_convolution-11.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-11.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-10.png" src="_images/on_convolution-10.png" />
+<img alt="_images/on_convolution-11.png" src="_images/on_convolution-11.png" />
 </div>
 </div>
 <div class="section" id="working-out-an-algorithm">
@@ -371,9 +377,9 @@ M-1 points. Now we can do our algorithm in code.</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-11.png">png</a>, <a class="reference external" href=".//on_convolution-11.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-11.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-12.png">png</a>, <a class="reference external" href=".//on_convolution-12.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-12.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-11.png" src="_images/on_convolution-11.png" />
+<img alt="_images/on_convolution-12.png" src="_images/on_convolution-12.png" />
 </div>
 </div>
 <div class="section" id="we-have-convolution">
@@ -391,9 +397,9 @@ M-1 points. Now we can do our algorithm in code.</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-12.png">png</a>, <a class="reference external" href=".//on_convolution-12.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-12.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-13.png">png</a>, <a class="reference external" href=".//on_convolution-13.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-13.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-12.png" src="_images/on_convolution-12.png" />
+<img alt="_images/on_convolution-13.png" src="_images/on_convolution-13.png" />
 </div>
 </div>
 <div class="section" id="convolution-with-matrices">
@@ -427,9 +433,9 @@ event last 3 seconds:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-13.png">png</a>, <a class="reference external" href=".//on_convolution-13.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-13.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-14.png">png</a>, <a class="reference external" href=".//on_convolution-14.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-14.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-13.png" src="_images/on_convolution-13.png" />
+<img alt="_images/on_convolution-14.png" src="_images/on_convolution-14.png" />
 </div>
 <p>Our algorithm, which turned out to give convolution, had us add a shifted,
 scaled version of the HRF to the output, for every index.  This is step 5 of our
@@ -482,9 +488,9 @@ operation:</p>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-16.png">png</a>, <a class="reference external" href=".//on_convolution-16.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-16.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-17.png">png</a>, <a class="reference external" href=".//on_convolution-17.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-17.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-16.png" src="_images/on_convolution-16.png" />
+<img alt="_images/on_convolution-17.png" src="_images/on_convolution-17.png" />
 </div>
 <p>Each new row of <code class="docutils literal"><span class="pre">shifted_hrfs</span></code> corresponds to the HRF, shifted by one more
 column to the right:</p>
@@ -494,9 +500,9 @@ column to the right:</p>
 <span class="go">[...]</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-17.png">png</a>, <a class="reference external" href=".//on_convolution-17.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-17.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-18.png">png</a>, <a class="reference external" href=".//on_convolution-18.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-18.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-17.png" src="_images/on_convolution-17.png" />
+<img alt="_images/on_convolution-18.png" src="_images/on_convolution-18.png" />
 </div>
 <p>Now remember matrix multiplication:</p>
 <div class="math">
@@ -555,9 +561,9 @@ column <span class="math">\(i\)</span> in <code class="docutils literal"><span c
 <span class="go">[...]</span>
 </pre></div>
 </div>
-<p>(<a class="reference external" href=".//on_convolution-20.png">png</a>, <a class="reference external" href=".//on_convolution-20.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-20.pdf">pdf</a>)</p>
+<p>(<a class="reference external" href=".//on_convolution-21.png">png</a>, <a class="reference external" href=".//on_convolution-21.hires.png">hires.png</a>, <a class="reference external" href=".//on_convolution-21.pdf">pdf</a>)</p>
 <div class="figure">
-<img alt="_images/on_convolution-20.png" src="_images/on_convolution-20.png" />
+<img alt="_images/on_convolution-21.png" src="_images/on_convolution-21.png" />
 </div>
 <p>The column contains a <em>reversed</em> copy of the HRF signal, where the first value
 from the original HRF signal is at index 25 (<span class="math">\(i\)</span>), the second value is at
@@ -620,6 +626,10 @@ g(t - \tau)\, d\tau\]</div>
 convolution is the integral of the product of the two functions as the second
 function <span class="math">\(g\)</span> is reversed and shifted.</p>
 <p>See : the <a class="reference external" href="https://en.wikipedia.org/wiki/Convolution#Definition">wikipedia convolution definition section</a> for more discussion.</p>
+<ul class="simple">
+<li><a class="reference download internal" href="on_convolution.py">Download this page as a Python code file</a>;</li>
+<li><a class="reference download internal" href="on_convolution.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
+</ul>
 </div>
 </div>
 </div>

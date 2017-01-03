@@ -24,6 +24,8 @@ First we load and configure the libraries we need:
     >>> np.set_printoptions(precision=4, suppress=True)
     >>> np.random.seed(5) # To get predictable random numbers
 
+.. mpl-interactive::
+
 Here is a set of data, made out of random numbers, that we will use as a
 pretend time series, or a single line of data from one plane of an
 image.
@@ -305,3 +307,5 @@ images. Human Brain Mapping
 4:74-90 <http://www.math.mcgill.ca/~keith/scale/scale.abstract.html>`__
 
 Matthew Brett (FB) 19/8/99, updated 26 October 2014
+
+.. code-links:: python clear

@@ -38,7 +38,6 @@ Also see
 ********
 
 * :doc:`on_vectors`;
-* :doc:`vector_angles`;
 * An alternative proof using the `Law of Cosines
   <https://en.wikipedia.org/wiki/Law_of_cosines>`_ in this `Khan academy video
   on angles between vectors

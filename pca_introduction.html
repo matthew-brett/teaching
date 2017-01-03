@@ -66,6 +66,12 @@ is one feature (or measure or variable) (I have two rows).</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If running in the IPython console, consider running <code class="docutils literal"><span class="pre">%matplotlib</span></code> to enable
+interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal"><span class="pre">%matplotlib</span>
+<span class="pre">inline</span></code>.</p>
+</div>
 <p>Make the data:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make some random, but predictable data</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1966</span><span class="p">)</span>
@@ -673,6 +679,10 @@ explained by the components. If we do the SVD on the true covariance matrix,
 then we can describe the PCA as breaking up the <em>variance</em> of the data (across
 samples) into parts explained by the components. The only difference between
 these two is the scaling of the <code class="docutils literal"><span class="pre">S</span></code> vector.</p>
+<ul class="simple">
+<li><a class="reference download internal" href="pca_introduction.py">Download this page as a Python code file</a>;</li>
+<li><a class="reference download internal" href="pca_introduction.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
+</ul>
 </div>
 </div>
 </div>

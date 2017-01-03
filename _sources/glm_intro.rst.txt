@@ -49,6 +49,8 @@ need.
     >>> # Only show 6 decimals when printing
     >>> np.set_printoptions(precision=6)
 
+.. mpl-interactive::
+
 .. mathcode::
 
     # Get symbolic mathematics routines
@@ -768,3 +770,5 @@ We can then see our ANCOVA design above at a glance:
     >>> show_design(X, 'ANCOVA')
 
 .. include:: links_names.inc
+
+.. code-links::

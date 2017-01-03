@@ -41,6 +41,8 @@ Let's make a design with independent columns:
     >>> matplotlib.rcParams['image.interpolation'] = 'nearest'
     >>> matplotlib.rcParams['image.cmap'] = 'gray'
 
+.. mpl-interactive::
+
 .. nbplot::
 
     >>> trend = np.linspace(0, 1, 10)
@@ -131,3 +133,5 @@ columns / rows.  That is, a matrix is full rank if all the columns (or rows)
 are independent.
 
 If a matrix is not full rank then it is *rank deficient*.
+
+.. code-links:: python clear

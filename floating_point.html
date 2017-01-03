@@ -251,8 +251,8 @@ by the 23 significand bits, with the most significant bits first.</p>
 <span class="go">&#39;1001011100000000000000000000000&#39;</span>
 </pre></div>
 </div>
-<p>How about -16777215?  It should be 1 for the sign, 23 for the exponent (<span class="math">\(u = 23 +
-127\)</span> = 50), and all ones for the significand:</p>
+<p>How about -16777215?  It should be 1 for the sign, 23 for the exponent (<span class="math">\(u =
+23 + 127\)</span> = 50), and all ones for the significand:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
 <span class="go">&#39;10010110&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="o">-</span><span class="mi">16777215</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">))</span>

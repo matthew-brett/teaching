@@ -47,6 +47,10 @@ seconds, might look like this:
     >>> import numpy as np
     >>> import matplotlib.pyplot as plt
 
+.. mpl-interactive::
+
+.. nbplot::
+
     >>> times = np.arange(0, 40, 0.1)
     >>> n_time_points = len(times)
     >>> neural_signal = np.zeros(n_time_points)
@@ -586,3 +590,5 @@ See : the `wikipedia convolution definition section
 <https://en.wikipedia.org/wiki/Convolution#Definition>`_ for more discussion.
 
 .. include:: links_names.inc
+
+.. code-links:: python clear

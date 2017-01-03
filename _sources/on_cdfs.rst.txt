@@ -8,6 +8,8 @@ p values from cumulative distribution functions
     >>> np.set_printoptions(precision=4)  # print arrays to 4 decimal places
     >>> import matplotlib.pyplot as plt
 
+.. mpl-interactive::
+
 Imagine I have a t statistic with 20 degrees of freedom.
 
 `Scipy`_ provides a `t distribution class`_ that we can use to get values

@@ -25,6 +25,8 @@ Start by loading the libraries we need, and doing some configuration:
     >>> # Display array values to 6 digits of precision
     >>> np.set_printoptions(precision=6, suppress=True)
 
+.. mpl-interactive::
+
 Make the data:
 
 .. nbplot::
@@ -969,3 +971,5 @@ samples) into parts explained by the components. The only difference between
 these two is the scaling of the ``S`` vector.
 
 .. include:: links_names.inc
+
+.. code-links:: python clear
