@@ -1,0 +1,26 @@
+# This file runs automated testing on travis-ci.org cloud machines
+
+addons:
+  apt:
+    packages:
+      - texlive-latex-base
+      - texlive-latex-extra
+      - texlive-fonts-recommended
+
+language: python
+
+python:
+    - 3.4
+    - 3.5
+
+before_install:
+    - git submodule update --init --recursive
+    - python -m pip install -U pip
+
+install:
+    # Install project requirements
+    - pip install -r requirements.txt
+
+script:
+    - make doctest
+    - make html
