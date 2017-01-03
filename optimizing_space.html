@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Calculating transformations between images &mdash; Tutorials on imaging, computing and mathematics</title>
+    <title>Calculating transformations between images &#8212; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,8 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -25,7 +26,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Convolution" href="on_convolution.html" />
     <link rel="prev" title="Notation" href="notation.html" />
    
@@ -369,7 +371,7 @@ how to make an image that matches another image, after a transformation.</p>
 <div class="section" id="resampling-in-2d">
 <h2>Resampling in 2D<a class="headerlink" href="#resampling-in-2d" title="Permalink to this headline">¶</a></h2>
 <p>We need a more general resampling algorithm. This is like the <a class="reference internal" href="linear_interpolation.html"><span class="doc">1D
-interpolation</span></a> we do for <span class="xref doc">slice timing</span>, but in
+interpolation</span></a> we do for <a class="reference internal" href="slice_timing.html"><span class="doc">Slice timing correction</span></a>, but in
 two dimensions.</p>
 <p>Let&#8217;s say we want to do a voxel translation of 0.5 voxels in x. The way we
 might go about this is the following.</p>
@@ -404,12 +406,11 @@ becomes [-0.5, 0]). Call the transformed coordinate
 </ul>
 </li>
 </ul>
-<p>The &#8220;Estimate pixel value&#8221; step is called <em>resampling</em>. As you can see
-this is the same general idea as <span class="xref doc">interpolating in one dimension &lt;linear
-interpolation</span>. We saw one dimensional interpolation for <span class="xref doc">slice timing</span>.
-There are various ways of interpolating in two or three dimensions, but one of
-the most obvious is the simple extension of linear interpolation to two (or
-more) dimensions - <a class="reference external" href="http://en.wikipedia.org/wiki/Bilinear_interpolation">bilinear interpolation</a>.</p>
+<p>The &#8220;Estimate pixel value&#8221; step is called <em>resampling</em>. As you can see this is
+the same general idea as <a class="reference internal" href="linear_interpolation.html"><span class="doc">interpolating in one dimension</span></a>. We saw one dimensional interpolation for
+<a class="reference internal" href="slice_timing.html"><span class="doc">Slice timing correction</span></a>.  There are various ways of interpolating in two or three
+dimensions, but one of the most obvious is the simple extension of linear
+interpolation to two (or more) dimensions - <a class="reference external" href="http://en.wikipedia.org/wiki/Bilinear_interpolation">bilinear interpolation</a>.</p>
 <p>The <code class="docutils literal"><span class="pre">scipy.ndimage</span></code> library has routines for resampling in 2 or 3
 dimensions:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="kn">as</span> <span class="nn">snd</span>
@@ -473,7 +474,7 @@ trying new values until it finds a parameter value for which very small
 changes of the parameter up or down only increase the cost function
 value. At this point the routine stops and returns the parameter value.</p>
 <p>To write the cost function, we use the fact that Python functions can access
-variables defined in the <span class="xref doc">global scope</span>. In our case the function
+variables defined in the <a class="reference internal" href="global_scope.html"><span class="doc">Global and local scope of Python variables</span></a>. In our case the function
 <code class="docutils literal"><span class="pre">cost_function</span></code> can access variables <code class="docutils literal"><span class="pre">shifted_mid_vol1</span></code> and <code class="docutils literal"><span class="pre">mid_vol0</span></code>
 that we defined in the top level (global) scope of our interactive session:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cost_function</span><span class="p">(</span><span class="n">x_trans</span><span class="p">):</span>
@@ -803,7 +804,7 @@ problem.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/optimizing_space.txt"
+      <li><a href="_sources/optimizing_space.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -825,11 +826,11 @@ problem.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="_sources/optimizing_space.txt"
+      <a href="_sources/optimizing_space.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Fourier without the ei &mdash; Tutorials on imaging, computing and mathematics</title>
+    <title>Fourier without the ei &#8212; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,8 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -25,7 +26,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Fourier without the ei" href="fourier_no_ei_orig.html" />
     <link rel="prev" title="The Fourier basis" href="fourier_basis.html" />
    
@@ -130,8 +132,8 @@ frequency;</li>
 <li>The imaginary part of <code class="docutils literal"><span class="pre">X</span></code> has the scaling for a sine at that frequency.</li>
 </ul>
 <p>There are some patterns to these numbers.  Notice that the numbers at index 0
-and N/2 (=16) have 0 for their imaginary part, and that <cite>X[17:]</cite> is a mirror
-image of <cite>X[1:16]</cite>, with the imaginary parts having the opposite sign.</p>
+and N/2 (=16) have 0 for their imaginary part, and that <code class="docutils literal"><span class="pre">X[17:]</span></code> is a mirror
+image of <code class="docutils literal"><span class="pre">X[1:16]</span></code>, with the imaginary parts having the opposite sign.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
 <span class="go">array([ 9.0217-3.7036j, -0.5874-6.2268j,  2.5184+3.7749j,  0.5008-0.8433j,</span>
 <span class="go">        1.2904-0.4024j,  4.3391+0.8079j, -6.2614+2.1596j,  1.8974+2.4889j,</span>
@@ -178,12 +180,12 @@ signal not transformed to frequency.</p>
 <span class="math">\(k\)</span> is <span class="math">\(X_k\)</span>.</p>
 <p>Here is the equation for the discrete Fourier transform:</p>
 <div class="math" id="equation-forward-dft">
-<span class="eqno">(1)</span>\[X_k = \sum_{n=0}^{N-1} x_n \; e^{-i 2 \pi \frac{k}{N} n}\]</div>
+<span class="eqno">(1)<a class="headerlink" href="#equation-forward-dft" title="Permalink to this equation">¶</a></span>\[X_k = \sum_{n=0}^{N-1} x_n \; e^{-i 2 \pi \frac{k}{N} n}\]</div>
 <p>This is the transform from signal to frequency. We will call this the
 <em>forward</em> Fourier transform.</p>
 <p>Here is the equation for the inverse Fourier transform:</p>
 <div class="math" id="equation-inverse-dft">
-<span class="eqno">(2)</span>\[x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k \; e^{i 2 \pi \frac{k}{N} n}\]</div>
+<span class="eqno">(2)<a class="headerlink" href="#equation-inverse-dft" title="Permalink to this equation">¶</a></span>\[x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k \; e^{i 2 \pi \frac{k}{N} n}\]</div>
 <p>The inverse Fourier transform converts from frequency back to signal.</p>
 <div class="section" id="dft-and-fft">
 <h3>DFT and FFT<a class="headerlink" href="#dft-and-fft" title="Permalink to this headline">¶</a></h3>
@@ -223,15 +225,16 @@ allows us to rewrite the forward and inverse Fourier transforms:</p>
 <p>First let&#8217;s define a new value <span class="math">\(D\)</span>, that depends on <span class="math">\(N\)</span> - the
 number of observations in our vector <span class="math">\(\vec{x}\)</span>.</p>
 <div class="math" id="equation-D">
-<span class="eqno">(3)</span>\[D \triangleq \frac{2 \pi}{N}\]</div>
+<span class="eqno">(3)<a class="headerlink" href="#equation-D" title="Permalink to this equation">¶</a></span>\[D \triangleq \frac{2 \pi}{N}\]</div>
 <p>With that value:</p>
 <div class="math">
 \[X_k = \sum_{n=0}^{N-1} x_n \cos(-k n D) +
 i \sum_{n=0}^{N-1} x_n \sin(-k n D)\]</div>
 <p>We can simplify this further, because, for any angle <span class="math">\(\alpha\)</span>:</p>
 <div class="math">
-\cos(-\theta) = cos(\theta) \\
-\sin(-\theta) = -sin(\theta)</div><div class="math">
+\[\begin{split}\cos(-\theta) = cos(\theta) \\
+\sin(-\theta) = -sin(\theta)\end{split}\]</div>
+<div class="math">
 \[X_k = \sum_{n=0}^{N-1} x_n \cos(k n D) -
 i \sum_{n=0}^{N-1} x_n \sin(k n D)\]</div>
 <p>Following the same logic for the inverse transform:</p>
@@ -247,9 +250,10 @@ i \sum_{n=0}^{N-1} x_n \sin(k n D)\]</div>
 - i \sum_{n=0}^{N-1} x_n \sin(r^k_n)\]</div>
 <p>where:</p>
 <div class="math">
-\vec{r^k} \triangleq \left[ k 0 D, k 1 D, \ldots, k (N - 1) D \right]</div><p>Call <span class="math">\(\vec{r^k}\)</span> the <em>angle vector</em> for <span class="math">\(k\)</span>.  This vector depend only on <span class="math">\(k\)</span>
+\[\vec{r^k} \triangleq \left[ k 0 D, k 1 D, \ldots, k (N - 1) D \right]\]</div>
+<p>Call <span class="math">\(\vec{r^k}\)</span> the <em>angle vector</em> for <span class="math">\(k\)</span>.  This vector depend only on <span class="math">\(k\)</span>
 and <span class="math">\(N\)</span>.</p>
-<p>Substituting the value of <span class="math">\(D\)</span> (equation <a href="#equation-D">(3)</a>):</p>
+<p>Substituting the value of <span class="math">\(D\)</span> (equation <a class="reference internal" href="#equation-D">(3)</a>):</p>
 <div class="math">
 \[\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N}, \ldots,
 k 2 \pi \frac{N-1}{N}]\]</div>
@@ -340,12 +344,13 @@ around a circle.</p>
 <h3>First DFT output value is the vector sum<a class="headerlink" href="#first-dft-output-value-is-the-vector-sum" title="Permalink to this headline">¶</a></h3>
 <p>Consider <span class="math">\(\vec{r^0}, \vec{c^0}, \vec{s^0}\)</span>:</p>
 <div class="math">
-\vec{r^0} = \left[
+\[\begin{split}\vec{r^0} = \left[
 0 2 \pi \frac{0}{N}, 0 2 \pi \frac{1}{N}, \ldots
 \right] \\
 = \left[ 0, 0, \ldots \right] = \vec{0} \\
 \vec{c^0} = \left[ 1, 1, \ldots \right] = \vec{1} \\
-\vec{s^0} = \left[ 0, 0, \ldots \right] = \vec{0}</div><p>Therefore:</p>
+\vec{s^0} = \left[ 0, 0, \ldots \right] = \vec{0}\end{split}\]</div>
+<p>Therefore:</p>
 <div class="math">
 \[\begin{split}X_0 = \vec{x} \cdot \vec{1} - i \vec{x} \cdot \vec{0} \\
 = \Sigma x_n\end{split}\]</div>
@@ -395,8 +400,9 @@ very revealing.</p>
 frequency as <span class="math">\(\vec{c^1}\)</span>.  Start with <span class="math">\(\vec{v} = \vec{c^1}\)</span>.</p>
 <p>Our prediction for the DFT of <span class="math">\(\vec{v}\)</span> is:</p>
 <div class="math">
-V_1 = \vec{v} \cdot \vec{c^1} - i \vec{v} \cdot \vec{s^1} \\
-= \vec{c^1} \cdot \vec{c^1} - i \vec{c^1} \cdot \vec{s^1}</div><p>In fact, as you can see in <a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a>, it is a property of the
+\[\begin{split}V_1 = \vec{v} \cdot \vec{c^1} - i \vec{v} \cdot \vec{s^1} \\
+= \vec{c^1} \cdot \vec{c^1} - i \vec{c^1} \cdot \vec{s^1}\end{split}\]</div>
+<p>In fact, as you can see in <a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a>, it is a property of the
 <span class="math">\(\vec{c^k}, \vec{s^k}\)</span> vectors that, for all <span class="math">\(k, N\)</span>:</p>
 <div class="math">
 \[\vec{c^k} \cdot \vec{s^k} = 0\]</div>
@@ -432,8 +438,9 @@ generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span clas
 \[V_1 = \vec{c^1} \cdot a \vec{c^1} - i \vec{c^1} \cdot a \vec{s^1}\]</div>
 <p>By the <a class="reference internal" href="on_vectors.html#dot-product-properties"><span class="std std-ref">properties of the dot product</span></a>:</p>
 <div class="math">
-V_1 = a \vec{c^1} \cdot \vec{c^1} - i a \vec{c^1} \cdot \vec{s^1} \\
-= a \VL{c^1}^2</div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+\[\begin{split}V_1 = a \vec{c^1} \cdot \vec{c^1} - i a \vec{c^1} \cdot \vec{s^1} \\
+= a \VL{c^1}^2\end{split}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">vec_c_1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
 <span class="go">array([ -0.+0.j,  48.-0.j,   0.+0.j,   0.+0.j,  -0.-0.j,   0.+0.j,</span>
@@ -470,7 +477,7 @@ V_1 = a \vec{c^1} \cdot \vec{c^1} - i a \vec{c^1} \cdot \vec{s^1} \\
 \[\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta\]</div>
 <p>So:</p>
 <div class="math">
-\vec{v} = \left [\cos(r^1_0 + \beta), \cos(r^1_1 + \beta), \ldots,
+\[\begin{split}\vec{v} = \left [\cos(r^1_0 + \beta), \cos(r^1_1 + \beta), \ldots,
 \cos(r^1_{N-1} + \beta) \right] \\
 = \left [
 \cos(r^1_0) \cos(\beta) - \sin(r^1_0) \sin(\beta),
@@ -478,11 +485,13 @@ V_1 = a \vec{c^1} \cdot \vec{c^1} - i a \vec{c^1} \cdot \vec{s^1} \\
 \ldots,
 \cos(r^1_{N-1}) \cos(\beta) - \sin(r^1_{N-1}) \sin(\beta)
 \right] \\
-= \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}</div><p>Now apply the vector dot products to get <span class="math">\(V_1\)</span>:</p>
+= \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}\end{split}\]</div>
+<p>Now apply the vector dot products to get <span class="math">\(V_1\)</span>:</p>
 <div class="math">
-V_1 = (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
+\[\begin{split}V_1 = (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
 i (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
-= \cos(\beta) \VL{c^1}^2 + i \sin(\beta) \VL{s^1}^2</div><p>Do we get this answer from the DFT?</p>
+= \cos(\beta) \VL{c^1}^2 + i \sin(\beta) \VL{s^1}^2\end{split}\]</div>
+<p>Do we get this answer from the DFT?</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
 <span class="go">7.25753794281 14.259317761</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
@@ -510,7 +519,7 @@ see in <a class="reference internal" href="fourier_basis.html"><span class="doc"
 <p>To complete our journey into <span class="math">\(X_1\)</span>, let us add a scaling <span class="math">\(a\)</span> to the
 phase-shifted cosine:</p>
 <div class="math">
-\vec{v} = \left [a \cos(r^1_0 + \beta), a \cos(r^1_1 + \beta), \ldots,
+\[\begin{split}\vec{v} = \left [a \cos(r^1_0 + \beta), a \cos(r^1_1 + \beta), \ldots,
 a \cos(r^1_{N-1} + \beta) \right] \\
 = \left [
 a (\cos(r^1_0) \cos(\beta) - \sin(r^1_0) \sin(\beta)),
@@ -518,10 +527,13 @@ a (\cos(r^1_1) \cos(\beta) - \sin(r^1_1) \sin(\beta)),
 \ldots,
 a (\cos(r^1_{N-1}) \cos(\beta) - \sin(r^1_{N-1}) \sin(\beta))
 \right] \\
-= a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1})</div><div class="math" id="equation-scale-and-offset">
-V_1 = a ( \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
+= a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1})\end{split}\]</div>
+<p>This gives us:</p>
+<div class="math" id="equation-scale-and-offset">
+<span class="eqno">(4)<a class="headerlink" href="#equation-scale-and-offset" title="Permalink to this equation">¶</a></span>\[\begin{split}V_1 = a ( \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
 i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
-= a \cos(\beta) \VL{c^1}^2 + i a \sin(\beta) \VL{s^1}^2</div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
+= a \cos(\beta) \VL{c^1}^2 + i a \sin(\beta) \VL{s^1}^2\end{split}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">),</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">))</span>
 <span class="go">21.7726138284 42.7779532829</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_v</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)</span>
@@ -539,15 +551,18 @@ i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 </pre></div>
 </div>
 <p>What if I want to reconstruct <span class="math">\(a\)</span> and <span class="math">\(\beta\)</span> from the DFT coefficients?</p>
-<p>From <a href="#equation-scale-and-offset">(4)</a>:</p>
+<p>From <a class="reference internal" href="#equation-scale-and-offset">(4)</a>:</p>
 <div class="math">
-\R{X_1} = a \cos(\beta) N / 2 \\
-\I{X_1} = a \sin(\beta) N / 2</div><p>So:</p>
+\[\begin{split}\R{X_1} = a \cos(\beta) N / 2 \\
+\I{X_1} = a \sin(\beta) N / 2\end{split}\]</div>
+<p>So:</p>
 <div class="math">
-\R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 (\cos(\beta)^2 + \sin(\beta)^2)</div><p>By Pythagoras:</p>
+\[\R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 (\cos(\beta)^2 + \sin(\beta)^2)\]</div>
+<p>By Pythagoras:</p>
 <div class="math">
-\R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 \implies \\
-\sqrt{\R{X_1}^2 + \I{X_1}^2} = a N / 2</div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+\[\begin{split}\R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 \implies \\
+\sqrt{\R{X_1}^2 + \I{X_1}^2} = a N / 2\end{split}\]</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">vec_v</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">X_1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">47.999999999999993</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span>
@@ -575,6 +590,11 @@ functions:</p>
 <span class="go">1.099999999999999</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><a class="reference download internal" href="fourier_no_ei.py">Download this page as a Python code file</a>;</li>
+<li><a class="reference download internal" href="fourier_no_ei.ipynb">Download this page as a Jupyter notebook (no outputs)</a>;</li>
+<li><a class="reference download internal" href="fourier_no_ei_full.ipynb">Download this page as a Jupyter notebook (with outputs)</a>.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -631,7 +651,7 @@ functions:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/fourier_no_ei.txt"
+      <li><a href="_sources/fourier_no_ei.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -653,11 +673,11 @@ functions:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="_sources/fourier_no_ei.txt"
+      <a href="_sources/fourier_no_ei.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

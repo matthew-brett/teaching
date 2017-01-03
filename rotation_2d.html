@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Formula for rotating a vector in 2D &mdash; Tutorials on imaging, computing and mathematics</title>
+    <title>Formula for rotating a vector in 2D &#8212; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,8 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -25,7 +26,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Vector projection" href="vector_projection.html" />
     <link rel="prev" title="Teaching repo" href="README.html" />
    
@@ -62,12 +64,12 @@ y_2 = \sin \beta x_1 + \cos \beta y_1\end{split}\]</div>
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
 <p>Call the angle between <span class="math">\((x_1, y_1)\)</span> and the x-axis : <span class="math">\(\alpha\)</span>.  Then:</p>
 <div class="math" id="equation-x_1_y_1">
-<span class="eqno">(1)</span>\[\begin{split}x_1 = L \cos(\alpha) \\
+<span class="eqno">(1)<a class="headerlink" href="#equation-x_1_y_1" title="Permalink to this equation">¶</a></span>\[\begin{split}x_1 = L \cos(\alpha) \\
 y_1 = L \sin(\alpha)\end{split}\]</div>
 <p>We rotate <span class="math">\((x_1, y_1)\)</span> by angle <span class="math">\(\beta\)</span> to get <span class="math">\((x_2, y_2)\)</span>.  So the angle
 between <span class="math">\((x_2, y_2)\)</span> and the x-axis is <span class="math">\(\alpha + \beta\)</span>:</p>
 <div class="math" id="equation-x_2_y_2">
-<span class="eqno">(2)</span>\[\begin{split}x_2 = L \cos(\alpha + \beta) \\
+<span class="eqno">(2)<a class="headerlink" href="#equation-x_2_y_2" title="Permalink to this equation">¶</a></span>\[\begin{split}x_2 = L \cos(\alpha + \beta) \\
 y_2 = L \sin(\alpha + \beta)\end{split}\]</div>
 </div>
 <div class="section" id="proof-by-the-angle-sum-rule">
@@ -78,7 +80,7 @@ there.</p>
 <div class="math">
 \[\begin{split}\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
 \sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta\end{split}\]</div>
-<p>So, substituting from equations <a href="#equation-x_1_y_1">(1)</a>, <a href="#equation-x_2_y_2">(2)</a>:</p>
+<p>So, substituting from equations <a class="reference internal" href="#equation-x_1_y_1">(1)</a>, <a class="reference internal" href="#equation-x_2_y_2">(2)</a>:</p>
 <div class="math">
 \[\begin{split}L \cos(\alpha + \beta) =
 L \cos \alpha \cos \beta - L \sin \alpha \sin \beta \implies \\
@@ -139,7 +141,7 @@ s\)</span>.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/rotation_2d.txt"
+      <li><a href="_sources/rotation_2d.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -161,11 +163,11 @@ s\)</span>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="_sources/rotation_2d.txt"
+      <a href="_sources/rotation_2d.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

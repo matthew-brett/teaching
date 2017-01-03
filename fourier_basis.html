@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Fourier basis &mdash; Tutorials on imaging, computing and mathematics</title>
+    <title>The Fourier basis &#8212; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,7 +17,8 @@
         VERSION:     '1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -25,7 +26,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Tutorials on imaging, computing and mathematics" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Fourier without the ei" href="fourier_no_ei.html" />
     <link rel="prev" title="Floating point error" href="floating_error.html" />
    
@@ -53,12 +55,13 @@ that:</p>
 \[X_k = \vec{x} \cdot \vec{c^k} - i \vec{x} \cdot \vec{s^k}\]</div>
 <p>where:</p>
 <div class="math">
-\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N},
+\[\begin{split}\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N},
 k 2 \pi \frac{N-1}{N}] \\
 \vec{c^k} \triangleq \left[ \cos(r^k_0), \cos(r^k_1), \ldots
 \cos(r^k_{N-1} \right] \\
 \vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots
-\sin(r^k_{N-1} \right]</div><p><span class="math">\(\vec{c_k}, \vec{s_k}\)</span> are <em>Fourier basis vectors</em>.</p>
+\sin(r^k_{N-1} \right]\end{split}\]</div>
+<p><span class="math">\(\vec{c_k}, \vec{s_k}\)</span> are <em>Fourier basis vectors</em>.</p>
 <p>We can compile all these vectors into matrices to form <em>Fourier basis
 matrices</em>.</p>
 <div class="section" id="rewriting-the-dft-with-cosine-and-sine-basis-matrices">
@@ -466,7 +469,7 @@ including 0. When the denominator is zero, the sum will be equal to
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/fourier_basis.txt"
+      <li><a href="_sources/fourier_basis.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -488,11 +491,11 @@ including 0. When the denominator is zero, the sum will be equal to
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="_sources/fourier_basis.txt"
+      <a href="_sources/fourier_basis.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
