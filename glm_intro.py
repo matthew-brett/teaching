@@ -178,7 +178,7 @@ plt.title('Clammy vs psychopathy with guessed line')
 # \right]
 # $$
 #
-# This gives us the same formula as `matrix-addition` but in terms of matrix
+# This gives us the same formula as [(1)](https://matthew-brett.github.io/teaching/glm_intro.html#equation-matrix-addition) but in terms of matrix
 # multiplication:
 #
 # $$

@@ -194,7 +194,7 @@ of ones, then we can rewrite the formula as:</p>
 \[\yvec = c\mathbf{o} + b\xvec + \evec\]</div>
 <p>because <span class="math">\(o_i = 1\)</span> and so <span class="math">\(co_i = c\)</span>.</p>
 <div class="math" id="equation-matrix-addition">
-\[\begin{split}\left[\begin{matrix}11.416\\4.514\\12.204\\14.835\\8.416\\6.563\\17.343\\13.02\\15.19\\11.902\\22.721\\22.324\end{matrix}\right] = c \left[\begin{matrix}1\\1\\1\\1\\1\\1\\1\\1\\1\\1\\1\\1\end{matrix}\right] + b \left[\begin{matrix}0.389\\0.2\\0.241\\0.463\\4.585\\1.097\\1.642\\4.972\\7.957\\5.585\\5.527\\6.964\end{matrix}\right] + \left[\begin{matrix}e_{1}\\e_{2}\\e_{3}\\e_{4}\\e_{5}\\e_{6}\\e_{7}\\e_{8}\\e_{9}\\e_{10}\\e_{11}\\e_{12}\end{matrix}\right]\end{split}\]</div>
+<span class="eqno">(1)<a class="headerlink" href="#equation-matrix-addition" title="Permalink to this equation">¶</a></span>\[\begin{split}\left[\begin{matrix}11.416\\4.514\\12.204\\14.835\\8.416\\6.563\\17.343\\13.02\\15.19\\11.902\\22.721\\22.324\end{matrix}\right] = c \left[\begin{matrix}1\\1\\1\\1\\1\\1\\1\\1\\1\\1\\1\\1\end{matrix}\right] + b \left[\begin{matrix}0.389\\0.2\\0.241\\0.463\\4.585\\1.097\\1.642\\4.972\\7.957\\5.585\\5.527\\6.964\end{matrix}\right] + \left[\begin{matrix}e_{1}\\e_{2}\\e_{3}\\e_{4}\\e_{5}\\e_{6}\\e_{7}\\e_{8}\\e_{9}\\e_{10}\\e_{11}\\e_{12}\end{matrix}\right]\end{split}\]</div>
 <p><span class="math">\(\newcommand{Xmat}{\boldsymbol X} \newcommand{\bvec}{\vec{\beta}}\)</span></p>
 <p>We can now rephrase the calculation in terms of matrix multiplication.</p>
 <p>Call <span class="math">\(\Xmat\)</span> the matrix of two columns, where the first column is
@@ -207,7 +207,7 @@ c \\
 b \\
 \end{array}
 \right]\end{split}\]</div>
-<p>This gives us the same formula as <code class="xref eq docutils literal"><span class="pre">matrix-addition</span></code> but in terms of matrix
+<p>This gives us the same formula as <a class="reference internal" href="#equation-matrix-addition">(1)</a> but in terms of matrix
 multiplication:</p>
 <div class="math">
 \[\begin{split}\left[\begin{matrix}11.416\\4.514\\12.204\\14.835\\8.416\\6.563\\17.343\\13.02\\15.19\\11.902\\22.721\\22.324\end{matrix}\right] = \left[\begin{matrix}1 &amp; 0.389\\1 &amp; 0.2\\1 &amp; 0.241\\1 &amp; 0.463\\1 &amp; 4.585\\1 &amp; 1.097\\1 &amp; 1.642\\1 &amp; 4.972\\1 &amp; 7.957\\1 &amp; 5.585\\1 &amp; 5.527\\1 &amp; 6.964\end{matrix}\right] \left[\begin{matrix}c\\b\end{matrix}\right] + \left[\begin{matrix}e_{1}\\e_{2}\\e_{3}\\e_{4}\\e_{5}\\e_{6}\\e_{7}\\e_{8}\\e_{9}\\e_{10}\\e_{11}\\e_{12}\end{matrix}\right]\end{split}\]</div>
