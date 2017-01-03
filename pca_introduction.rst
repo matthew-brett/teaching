@@ -800,7 +800,7 @@ variant in NumPy:
     >>> VT.shape
     (2, 50)
 
-By the definition of the SVD, $\U$ and \V^T$ are orthogonal matrices, so
+By the definition of the SVD, $\U$ and $\V^T$ are orthogonal matrices, so
 $\U^T$ is the inverse of $\U$ and $\U^T \U = I$.  Therefore:
 
 .. math::
