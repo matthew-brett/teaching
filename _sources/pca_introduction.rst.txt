@@ -471,7 +471,7 @@ already explained everything that can be explained along the direction of
 remaining direction along which the variation can occur.
 
 I get the new $\hat{u_{orth}}$ vector with a rotation by 90 degrees ($\pi /
-2):
+2$):
 
 .. nbplot::
 

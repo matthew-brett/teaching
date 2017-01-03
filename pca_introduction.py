@@ -336,8 +336,8 @@ remaining = X - projected
 # $\hat{u_{best}}$, and we only have two dimensions, so there is only one
 # remaining direction along which the variation can occur.
 #
-# I get the new $\hat{u_{orth}}$ vector with a rotation by 90 degrees ($pi /
-# 2):
+# I get the new $\hat{u_{orth}}$ vector with a rotation by 90 degrees ($\pi /
+# 2$):
 
 u_best_orth = np.array([np.cos(angle_best + np.pi / 2), np.sin(angle_best + np.pi / 2)])
 
