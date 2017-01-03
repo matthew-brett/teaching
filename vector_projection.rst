@@ -2,10 +2,14 @@
 Vector projection
 #################
 
-This here page follows the discussion in `this Khan academy video on projection
-<https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/introduction-to-projections>`__.  Please watch that video for a nice presentation of the mathematics on this page.
+This here page follows the discussion in `this Khan academy video on
+projection
+<https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/introduction-to-projections>`__.
+Please watch that video for a nice presentation of the mathematics on this
+page.
 
-For the video and this page, you will need the definitions and mathematics from :doc:`on_vectors`.
+For the video and this page, you will need the definitions and mathematics
+from :doc:`on_vectors`.
 
 *****
 Start
@@ -19,7 +23,8 @@ Consider two vectors $\vec{w}$ and $\vec{v}$.
     :scale: 300
 
 We can scale $\vec{v}$ with a scalar $c$.  By choosing the correct $c$ we can
-create any vector on the infinite length dotted line in the diagram.  $c \vec{v}$ defines this infinite line.
+create any vector on the infinite length dotted line in the diagram.  $c
+\vec{v}$ defines this infinite line.
 
 We're going to find the projection of $\vec{w}$ onto $\vec{v}$, written as:
 
@@ -27,9 +32,9 @@ We're going to find the projection of $\vec{w}$ onto $\vec{v}$, written as:
 
     \mathrm{proj}_\vec{v}\vec{w}
 
-The projection of $\vec{w}$ onto $\vec{v}$ is a vector on the line $c \vec{v}$.
-Specifically it is $c \vec{v}$ such that the line joining $\vec{w}$ and $c
-\vec{v}$ is perpendicular to $\vec{v}$.
+The projection of $\vec{w}$ onto $\vec{v}$ is a vector on the line $c
+\vec{v}$.  Specifically it is $c \vec{v}$ such that the line joining $\vec{w}$
+and $c \vec{v}$ is perpendicular to $\vec{v}$.
 
 ****************************
 Why is it called projection?
@@ -47,9 +52,11 @@ Calculating the projection
 
 The vector connecting $\vec{w}$ and $c \vec{v}$ is $\vec{w} - c \vec{v}$.
 
-We want to find $c$ such that $\vec{w} - c \vec{v}$ is perpendicular to $\vec{v}$.
+We want to find $c$ such that $\vec{w} - c \vec{v}$ is perpendicular to
+$\vec{v}$.
 
-Two perpendicular vectors have vector dot product of zero, so:
+Two perpendicular vectors have :ref:`vector dot product of zero
+<orthogonal-dot>`, so:
 
 .. math::
 

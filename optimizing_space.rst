@@ -27,6 +27,8 @@ In which we discover optimization, cost functions and how to use them.
     >>> # Tell numpy to print numbers to 4 decimal places only
     >>> np.set_printoptions(precision=4, suppress=True)
 
+.. mpl-interactive::
+
 ************
 Introduction
 ************
@@ -800,3 +802,5 @@ algorithm and mismatch metric that are well-adapted to the particular
 problem.
 
 .. include:: links_names.inc
+
+.. code-links:: python clear

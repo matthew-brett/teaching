@@ -2,13 +2,7 @@
 Thresholding with false discovery rate
 ######################################
 
-With J-B Poline.
-
-.. nbplot::
-
-    >>> from __future__ import print_function, division
-    >>> import numpy as np
-    >>> import matplotlib.pyplot as plt
+Written with J-B Poline.
 
 The false discovery rate is a different *type* of correction than
 family-wise correction. Instead of controlling for the risk of *any
@@ -50,6 +44,14 @@ For example, if we had 100 tests, and the particular p value
 detections, thresholding at 0.1, is 0.1 \* 100 = 10.
 
 Let's take some data from a random normal distribution to illustrate:
+
+.. nbplot::
+
+    >>> from __future__ import print_function, division
+    >>> import numpy as np
+    >>> import matplotlib.pyplot as plt
+
+.. mpl-interactive::
 
 .. nbplot::
 
@@ -219,7 +221,7 @@ not so interesting if you want to do brain imaging.
 
 -  In the case of no signal at all, the FDR threshold will be the
    Bonferroni threshold
--  Under some conditions (see Benjamini and hochberg, JRSS-B 1995), the
+-  Under some conditions (see Benjamini and Hochberg, JRSS-B 1995), the
    FDR threshold can be applied to correlated data
 -  FDR is an "adaptive" threshold
 
@@ -229,3 +231,5 @@ Not so "interesting"
 -  When there are lots of true positives, and many detections, the
    number of false positive detections increases. This can make FDR
    detections more difficult to interpret.
+
+.. code-links:: python clear

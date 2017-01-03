@@ -11,6 +11,8 @@ We load and configure the libraries we need:
     >>> import numpy.linalg as npl
     >>> import matplotlib.pyplot as plt
 
+.. mpl-interactive::
+
 *****************************
 Smoothing as weighted average
 *****************************
@@ -244,3 +246,5 @@ off the edge of the image, for example by assuming the signal is a
 flipped version of the signal going towards the edge. See the
 description of the ``mode`` argument in the docstring for
 ``scipy.ndimage.gaussian_filter`` for some other options.
+
+.. code-links:: python clear

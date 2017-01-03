@@ -327,3 +327,6 @@ def setup(app):
 # Use local mathjax when environment variable IN_CUBA is set
 if os.environ.get('IN_CUBA'):
     mathjax_path="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+
+# Make Markdown links relative to built HTTP
+markdown_http_base = 'https://matthew-brett.github.io/teaching'

@@ -22,6 +22,8 @@ In which we look at the mutual information measure for comparing images.
     >>> plt.rcParams['image.cmap'] = 'gray'
     >>> plt.rcParams['image.interpolation'] = 'nearest'
 
+.. mpl-interactive::
+
 When the images to match are the same modality and are well aligned, the
 signal should be similar in corresponding voxels. In that case, a metric like
 correlation is useful as a measure of how well the images are matched.
@@ -269,3 +271,5 @@ mutual information has dropped:
 
     >>> mutual_information(hist_2d_moved)
     0.457782...
+
+.. code-links::

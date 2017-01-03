@@ -175,6 +175,7 @@ Let $g \triangleq \frac{1}{\VL{v}}$.  Then:
     ( g \vec{v} ) \cdot ( g \vec{v} ) = \\
     g^2  \VL{v}^2 = 1
 
+.. _orthogonal-dot:
 
 ********************************************************
 If two vectors are perpendicular, their dot product is 0

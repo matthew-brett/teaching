@@ -55,6 +55,8 @@ Load and configure the Python libraries we will use:
     >>> def to_4dp(f):
     ...     return '{0:.4f}'.format(f)
 
+.. mpl-interactive::
+
 ****************************
 Some actual numbers to start
 ****************************
@@ -1391,3 +1393,5 @@ To unpack the :math:`\pm, \mp`:
 
 See `angle sum proof <https://perrin.dynevor.org/angle_sum.html>`__ for
 a visual proof in the case of real angles :math:`\alpha, \beta`.
+
+.. code-links:: python clear

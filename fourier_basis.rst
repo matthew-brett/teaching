@@ -96,6 +96,8 @@ In order to run the commands in this page, you will need to download the file
     >>> import matplotlib.pyplot as plt
     >>> import dft_plots as dftp
 
+.. mpl-interactive::
+
 *****************************************************
 Some properties of the cosine and sine basis matrices
 *****************************************************
@@ -468,3 +470,5 @@ This gives:
    -\frac{1}{2} N & \text{if } p + q = N, p \ne N/2 \\
    0 & \text{otherwise}
    \end{cases}
+
+.. code-links:: python clear
