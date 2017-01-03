@@ -96,8 +96,8 @@ If the input to the DFT is real, as here, then:
 * The imaginary part of ``X`` has the scaling for a sine at that frequency.
 
 There are some patterns to these numbers.  Notice that the numbers at index 0
-and N/2 (=16) have 0 for their imaginary part, and that `X[17:]` is a mirror
-image of `X[1:16]`, with the imaginary parts having the opposite sign.
+and N/2 (=16) have 0 for their imaginary part, and that ``X[17:]`` is a mirror
+image of ``X[1:16]``, with the imaginary parts having the opposite sign.
 
 .. nbplot::
 
@@ -236,7 +236,6 @@ With that value:
 We can simplify this further, because, for any angle :math:`\alpha`:
 
 .. math::
-    :nowrap:
 
     \cos(-\theta) = cos(\theta) \\
     \sin(-\theta) = -sin(\theta)
@@ -268,7 +267,6 @@ We can write the elements inside the DFT summations as values from vectors:
 where:
 
 .. math::
-    :nowrap:
 
     \vec{r^k} \triangleq \left[ k 0 D, k 1 D, \ldots, k (N - 1) D \right]
 
@@ -384,7 +382,6 @@ First DFT output value is the vector sum
 Consider $\vec{r^0}, \vec{c^0}, \vec{s^0}$:
 
 .. math::
-    :nowrap:
 
     \vec{r^0} = \left[
     0 2 \pi \frac{0}{N}, 0 2 \pi \frac{1}{N}, \ldots
@@ -459,7 +456,6 @@ frequency as $\vec{c^1}$.  Start with $\vec{v} = \vec{c^1}$.
 Our prediction for the DFT of $\vec{v}$ is:
 
 .. math::
-    :nowrap:
 
     V_1 = \vec{v} \cdot \vec{c^1} - i \vec{v} \cdot \vec{s^1} \\
     = \vec{c^1} \cdot \vec{c^1} - i \vec{c^1} \cdot \vec{s^1}
@@ -519,7 +515,6 @@ Now set $\vec{v} = a \vec{c^1}$ where $a$ is a constant:
 By the :ref:`properties of the dot product <dot-product-properties>`:
 
 .. math::
-    :nowrap:
 
     V_1 = a \vec{c^1} \cdot \vec{c^1} - i a \vec{c^1} \cdot \vec{s^1} \\
     = a \VL{c^1}^2
@@ -567,7 +562,6 @@ We can rewrite the shifted cosine using the :doc:`angle_sum`:
 So:
 
 .. math::
-    :nowrap:
 
     \vec{v} = \left [\cos(r^1_0 + \beta), \cos(r^1_1 + \beta), \ldots,
     \cos(r^1_{N-1} + \beta) \right] \\
@@ -582,7 +576,6 @@ So:
 Now apply the vector dot products to get $V_1$:
 
 .. math::
-    :nowrap:
 
     V_1 = (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
     i (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
@@ -620,7 +613,6 @@ To complete our journey into $X_1$, let us add a scaling $a$ to the
 phase-shifted cosine:
 
 .. math::
-    :nowrap:
 
     \vec{v} = \left [a \cos(r^1_0 + \beta), a \cos(r^1_1 + \beta), \ldots,
     a \cos(r^1_{N-1} + \beta) \right] \\
@@ -632,8 +624,9 @@ phase-shifted cosine:
     \right] \\
     = a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1})
 
+This gives us:
+
 .. math::
-    :nowrap:
     :label: scale-and-offset
 
     V_1 = a ( \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
@@ -663,7 +656,6 @@ What if I want to reconstruct $a$ and $\beta$ from the DFT coefficients?
 From :eq:`scale-and-offset`:
 
 .. math::
-    :nowrap:
 
     \R{X_1} = a \cos(\beta) N / 2 \\
     \I{X_1} = a \sin(\beta) N / 2
@@ -671,14 +663,12 @@ From :eq:`scale-and-offset`:
 So:
 
 .. math::
-    :nowrap:
 
     \R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 (\cos(\beta)^2 + \sin(\beta)^2)
 
 By Pythagoras:
 
 .. math::
-    :nowrap:
 
     \R{X_1}^2 + \I{X_1}^2 = a^2 N^2/4 \implies \\
     \sqrt{\R{X_1}^2 + \I{X_1}^2} = a N / 2
@@ -718,3 +708,5 @@ functions:
     47.999999999999993
     >>> np.angle(X_1)
     1.099999999999999
+
+.. code-links::

@@ -32,7 +32,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',  # to silence math_dollar warning
-    'nb2plots.nbplots',
+    'nb2plots',
     'dyntables',
     'texext.mathcode',
     'texext.math_dollar',

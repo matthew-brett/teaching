@@ -13,7 +13,6 @@ that:
 where:
 
 .. math::
-    :nowrap:
 
     \vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N},
     k 2 \pi \frac{N-1}{N}] \\

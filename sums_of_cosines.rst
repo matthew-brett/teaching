@@ -16,7 +16,6 @@ Theorems
 For a positive integer :math:`N` and real numbers :math:`a, d`:
 
 .. math::
-    :nowrap:
 
     R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
     \sum_{n=0}^{N-1} \cos(a + nd) =
@@ -66,7 +65,6 @@ Now we cover the case where :math:`\sin(\frac{1}{2} d) \ne 0`.
 From the `angle sum rules <./angle_sum.html>`__:
 
 .. math::
-    :nowrap:
 
     \sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta \\
     \sin(\alpha - \beta) = \sin \alpha \cos \beta - \cos \alpha \sin \beta \\
@@ -90,7 +88,6 @@ Now we use the angle sum derivation above. Let :math:`\alpha = a + nd`,
 :math:`\beta = \frac{1}{2} d`:
 
 .. math::
-    :nowrap:
 
     2 \sin(\frac{1}{2} d) C =
     \sum_{n=0}^{N-1} \bigg ( \sin(a + (n + \frac{1}{2}) d) - \sin(a + (n -
@@ -99,7 +96,6 @@ Now we use the angle sum derivation above. Let :math:`\alpha = a + nd`,
 Writing out the terms in the sum:
 
 .. math::
-    :nowrap:
 
     2 \sin(\frac{1}{2} d) C = \\
     \bigg ( \sin(a + \frac{1}{2}d) - \sin(a - \frac{1}{2}d) \bigg ) + \\
@@ -140,7 +136,6 @@ Sine sum
 This is almost identical, but applying:
 
 .. math::
-    :nowrap:
 
     \cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
     \cos(\alpha - \beta) = \cos \alpha \cos \beta + \sin \alpha \sin \beta \\
@@ -158,7 +153,6 @@ sides by :math:`-2 \sin(\frac{1}{2}d)` and continue with the same steps
 as for the cosine:
 
 .. math::
-    :nowrap:
 
     -2 \sin(\frac{1}{2} d) S =
     \sum_{n=0}^{N-1}-2 \sin( a + nd ) \sin( \frac{1}{2} d ) \\
