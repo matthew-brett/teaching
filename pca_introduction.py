@@ -559,8 +559,8 @@ U, S, VT = npl.svd(X, full_matrices=False)
 U.shape
 VT.shape
 
-# By the definition of the SVD, $\U$ and V^T$ are orthogonal matrices, so
-# $U^T$ is the inverse of $U$ and $U^T U = I$.  Therefore:
+# By the definition of the SVD, $\U$ and $\V^T$ are orthogonal matrices, so
+# $\U^T$ is the inverse of $\U$ and $\U^T \U = I$.  Therefore:
 #
 # $$
 # \X = \U \Sigma \V^T \implies
