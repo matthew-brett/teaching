@@ -61,8 +61,7 @@ We can test this with ``np.linalg.matrix_rank``:
     >>> npl.matrix_rank(X)
     3
 
-This does not mean the columns are orthogonal.  :doc:`Equivalently
-<correlation_projection>` it does not mean the columns have zero correlation.
+This does not mean the columns are orthogonal:
 
 .. nbplot::
 
@@ -71,6 +70,10 @@ This does not mean the columns are orthogonal.  :doc:`Equivalently
     array([[  3.5185,   2.7778,   5.    ],
            [  2.7778,   2.337 ,   3.5185],
            [  5.    ,   3.5185,  10.    ]])
+
+Nor does it mean that the columns have zero correlation (see
+:doc:`correlation_projection` for the relationship between correlation and the
+vector dot product):
 
 .. nbplot::
 

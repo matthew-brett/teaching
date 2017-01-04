@@ -55,10 +55,14 @@ plt.imshow(X)
 import numpy.linalg as npl
 npl.matrix_rank(X)
 
-# This does not mean the columns are orthogonal.  [Equivalently](https://matthew-brett.github.io/teaching/correlation_projection.html) it does not mean the columns have zero correlation.
+# This does not mean the columns are orthogonal:
 
 # Orthogonal columns have dot products of zero
 X.T.dot(X)
+
+# Nor does it mean that the columns have zero correlation (see
+# [Correlation and projection](https://matthew-brett.github.io/teaching/correlation_projection.html) for the relationship between correlation and the
+# vector dot product):
 
 np.corrcoef(X[:,0], X[:, 1])
 

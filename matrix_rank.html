@@ -103,7 +103,7 @@ We can test this with <code class="docutils literal"><span class="pre">np.linalg
 <span class="go">3</span>
 </pre></div>
 </div>
-<p>This does not mean the columns are orthogonal.  <a class="reference internal" href="correlation_projection.html"><span class="doc">Equivalently</span></a> it does not mean the columns have zero correlation.</p>
+<p>This does not mean the columns are orthogonal:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Orthogonal columns have dot products of zero</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="go">array([[  3.5185,   2.7778,   5.    ],</span>
@@ -111,6 +111,9 @@ We can test this with <code class="docutils literal"><span class="pre">np.linalg
 <span class="go">       [  5.    ,   3.5185,  10.    ]])</span>
 </pre></div>
 </div>
+<p>Nor does it mean that the columns have zero correlation (see
+<a class="reference internal" href="correlation_projection.html"><span class="doc">Correlation and projection</span></a> for the relationship between correlation and the
+vector dot product):</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="go">array([[ 1.    ,  0.9627],</span>
 <span class="go">       [ 0.9627,  1.    ]])</span>
