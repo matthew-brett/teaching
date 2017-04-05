@@ -125,3 +125,5 @@ where $\mathrm{CDF}_d$ is the cumulative distribution function for a t value
 with $d$ degrees of freedom.
 
 .. include:: links_names.inc
+
+.. code-links:: python clear

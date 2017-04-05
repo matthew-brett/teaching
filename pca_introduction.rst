@@ -38,7 +38,8 @@ Make the data:
     (2, 50)
 
 To make things simpler, I will subtract the mean across samples from each
-feature:
+feature.  As each feature is one row, I need to subtract the mean of each row,
+from each value in the row:
 
 .. nbplot::
 
@@ -180,6 +181,8 @@ Our best fitting line :math:`c\hat{u}` is the line that comes closest to the
 points, in the sense of minimizing the squared distance between the line and
 points.
 
+.. _distance-formula:
+
 Put a little more formally, for each point :math:`\vec{v_j}` we will find the
 distance :math:`d_j` between :math:`\vec{v_j}` and the line. We want the line
 with the smallest :math:`\sum_j{d_j^2}`.
@@ -298,8 +301,9 @@ the actual points from the projected points:
             0.287912,  0.479475,  0.977735,  0.064308,  0.127375,  0.157425,
             0.01017 ,  0.519997])
 
-I can also express the overall (squared) remaining distance as the sum
-of squares:
+I can also express the overall (squared) remaining distance as the sum of
+squares.  The following is the code version of the formula $\sum_j{d_j^2}$
+that you saw :ref:`above <distance-formula>`:
 
 .. nbplot::
 
@@ -692,8 +696,8 @@ explained by the second:
 Why is this?
 
 Consider the first vector in :math:`\mathbf{X}` : :math:`\vec{v_1}`. We have
-re-expressed the length of :math:`\vec{v_1}` with the squared length of
-:math:`proj_1\vec{v_1}` plus the squared length of :math:`proj_2\vec{v_1}`.
+re-expressed the squared length of :math:`\vec{v_1}` with the squared length
+of :math:`proj_1\vec{v_1}` plus the squared length of :math:`proj_2\vec{v_1}`.
 The length of :math:`\vec{v_1}` is unchanged, but we now have two new
 orthogonal vectors making up the sides of the right angled triangle of which
 :math:`\vec{v_1}` is the hypotenuse. The total sum of squares in the data is
