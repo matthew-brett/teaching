@@ -81,7 +81,8 @@ interactive plots.  If running in the Jupyter Notebook, use <code class="docutil
 </pre></div>
 </div>
 <p>To make things simpler, I will subtract the mean across samples from each
-feature:</p>
+feature.  As each feature is one row, I need to subtract the mean of each row,
+from each value in the row:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Subtract mean across samples (mean of each feature)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_mean</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -151,7 +152,7 @@ can be expressed with <span class="math">\(c\hat{u}\)</span> where <span class="
 <p>Our best fitting line <span class="math">\(c\hat{u}\)</span> is the line that comes closest to the
 points, in the sense of minimizing the squared distance between the line and
 points.</p>
-<p>Put a little more formally, for each point <span class="math">\(\vec{v_j}\)</span> we will find the
+<p id="distance-formula">Put a little more formally, for each point <span class="math">\(\vec{v_j}\)</span> we will find the
 distance <span class="math">\(d_j\)</span> between <span class="math">\(\vec{v_j}\)</span> and the line. We want the line
 with the smallest <span class="math">\(\sum_j{d_j^2}\)</span>.</p>
 <p>What do we mean by the <em>distance</em> in this case? The distance <span class="math">\(d_i\)</span> is
@@ -220,8 +221,9 @@ the actual points from the projected points:</p>
 <span class="go">        0.01017 ,  0.519997])</span>
 </pre></div>
 </div>
-<p>I can also express the overall (squared) remaining distance as the sum
-of squares:</p>
+<p>I can also express the overall (squared) remaining distance as the sum of
+squares.  The following is the code version of the formula <span class="math">\(\sum_j{d_j^2}\)</span>
+that you saw <a class="reference internal" href="#distance-formula"><span class="std std-ref">above</span></a>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">remaining</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">22.2879691152</span>
 </pre></div>
@@ -468,8 +470,8 @@ explained by the second:</p>
 </div>
 <p>Why is this?</p>
 <p>Consider the first vector in <span class="math">\(\mathbf{X}\)</span> : <span class="math">\(\vec{v_1}\)</span>. We have
-re-expressed the length of <span class="math">\(\vec{v_1}\)</span> with the squared length of
-<span class="math">\(proj_1\vec{v_1}\)</span> plus the squared length of <span class="math">\(proj_2\vec{v_1}\)</span>.
+re-expressed the squared length of <span class="math">\(\vec{v_1}\)</span> with the squared length
+of <span class="math">\(proj_1\vec{v_1}\)</span> plus the squared length of <span class="math">\(proj_2\vec{v_1}\)</span>.
 The length of <span class="math">\(\vec{v_1}\)</span> is unchanged, but we now have two new
 orthogonal vectors making up the sides of the right angled triangle of which
 <span class="math">\(\vec{v_1}\)</span> is the hypotenuse. The total sum of squares in the data is

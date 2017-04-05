@@ -36,7 +36,8 @@ X = np.random.multivariate_normal([0, 0], [[3, 1.5], [1.5, 1]], size=50).T
 X.shape
 
 # To make things simpler, I will subtract the mean across samples from each
-# feature:
+# feature.  As each feature is one row, I need to subtract the mean of each row,
+# from each value in the row:
 
 # Subtract mean across samples (mean of each feature)
 x_mean = X.mean(axis=1)
@@ -208,8 +209,9 @@ remaining = X - projected
 distances = np.sqrt(np.sum(remaining ** 2, axis=0))
 distances
 
-# I can also express the overall (squared) remaining distance as the sum
-# of squares:
+# I can also express the overall (squared) remaining distance as the sum of
+# squares.  The following is the code version of the formula $\sum_j{d_j^2}$
+# that you saw [above](https://matthew-brett.github.io/teaching/pca_introduction.html#distance-formula):
 
 print(np.sum(remaining ** 2))
 
@@ -476,8 +478,8 @@ print((ss_in_first, ss_in_second, ss_in_first + ss_in_second))
 # Why is this?
 #
 # Consider the first vector in $\mathbf{X}$ : $\vec{v_1}$. We have
-# re-expressed the length of $\vec{v_1}$ with the squared length of
-# $proj_1\vec{v_1}$ plus the squared length of $proj_2\vec{v_1}$.
+# re-expressed the squared length of $\vec{v_1}$ with the squared length
+# of $proj_1\vec{v_1}$ plus the squared length of $proj_2\vec{v_1}$.
 # The length of $\vec{v_1}$ is unchanged, but we now have two new
 # orthogonal vectors making up the sides of the right angled triangle of which
 # $\vec{v_1}$ is the hypotenuse. The total sum of squares in the data is
