@@ -61,6 +61,9 @@ General Computing
 Python background
 =================
 
+* :doc:`brisk_python`;
+* :doc:`string_formatting`;
+* :doc:`on_loops`;
 * :doc:`functions_are_objects`;
 * :doc:`global_scope`.
 
@@ -104,3 +107,6 @@ Python background
     on_cdfs
     functions_are_objects
     global_scope
+    brisk_python
+    string_formatting
+    on_loops

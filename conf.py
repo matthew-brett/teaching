@@ -330,3 +330,6 @@ if os.environ.get('IN_CUBA'):
 
 # Make Markdown links relative to built HTTP
 markdown_http_base = 'https://matthew-brett.github.io/teaching'
+
+# nbplot parts variables
+nbplot_flags = dict(have_f_strings=sys.version_info[:2] >= (3, 6))
