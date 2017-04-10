@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Inserting values into strings &#8212; Tutorials on imaging, computing and mathematics</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="“for” and “while”, “break” and “else:”" href="on_loops.html" />
+    <link rel="prev" title="Brisk introduction to Python" href="brisk_python.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="inserting-values-into-strings">
+<h1>Inserting values into strings<a class="headerlink" href="#inserting-values-into-strings" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="option-1-the-format-method">
+<h2>Option 1 - the <code class="docutils literal"><span class="pre">format</span></code> method<a class="headerlink" href="#option-1-the-format-method" title="Permalink to this headline">¶</a></h2>
+<p>You can use the string method <code class="docutils literal"><span class="pre">format</span></code> method to create new strings with
+inserted values. This method works for all current releases of Python. Here we
+insert a string into another string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shepherd</span> <span class="o">=</span> <span class="s2">&quot;Mary&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">string_in_string</span> <span class="o">=</span> <span class="s2">&quot;Shepherd {} is on duty.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shepherd</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">string_in_string</span><span class="p">)</span>
+<span class="go">Shepherd Mary is on duty.</span>
+</pre></div>
+</div>
+<p>The curly braces show where the inserted value should go.</p>
+<p>You can insert more than one value.  The values do not have to be strings,
+they can be numbers and other Python objects.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shepherd</span> <span class="o">=</span> <span class="s2">&quot;Mary&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">age</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuff_in_string</span> <span class="o">=</span> <span class="s2">&quot;Shepherd {} is {} years old.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">shepherd</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">stuff_in_string</span><span class="p">)</span>
+<span class="go">Shepherd Mary is 32 years old.</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;Here is a {} floating point number&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mf">3.33333</span><span class="p">)</span>
+<span class="go">&#39;Here is a 3.33333 floating point number&#39;</span>
+</pre></div>
+</div>
+<p>You can do more complex formatting of numbers and strings using formatting
+options within the curly brackets — see the documentation on <a class="reference external" href="https://docs.python.org/3/library/string.html#format-string-syntax">curly brace
+string formatting</a>.</p>
+<p>This system allows us to give formatting instructions for things like numbers,
+by using a <code class="docutils literal"><span class="pre">:</span></code> inside the curly braces, followed by the formatting
+instructions.  Here we ask to print in integer (<code class="docutils literal"><span class="pre">d</span></code>) where the number should
+be prepended with <code class="docutils literal"><span class="pre">0</span></code> to fill up the field width of <code class="docutils literal"><span class="pre">3</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Number {:03d} is here.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+<span class="go">Number 011 is here.</span>
+</pre></div>
+</div>
+<p>This prints a floating point value (<code class="docutils literal"><span class="pre">f</span></code>) with exactly <code class="docutils literal"><span class="pre">4</span></code> digits after the
+decimal point:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;A formatted number - {:.4f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">&#39;A formatted number - 0.2000&#39;</span>
+</pre></div>
+</div>
+<p>See the Python <a class="reference external" href="https://docs.python.org/3/library/string.html#format-string-syntax">string formatting</a> documentation for more details and
+examples.</p>
+</div>
+<div class="section" id="option-2-f-strings-in-python-3-6">
+<h2>Option 2 - f-strings in Python &gt;= 3.6<a class="headerlink" href="#option-2-f-strings-in-python-3-6" title="Permalink to this headline">¶</a></h2>
+<p>If you can depend on having Python &gt;= version 3.6, then you have another
+attractive option, which is to use the new <a class="reference external" href="https://docs.python.org/3.6/reference/lexical_analysis.html#f-strings">formatted string literal</a>
+(f-string) syntax to insert variable values.  An <code class="docutils literal"><span class="pre">f</span></code> at the beginning of the
+string tells Python to allow any currently valid variable names as variable
+names within the string.  For example, here is an example like the one above,
+using the f-string syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">shepherd</span> <span class="o">=</span> <span class="s2">&quot;Martha&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">age</span> <span class="o">=</span> <span class="mi">34</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Note f before first quote of string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuff_in_string</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;Shepherd {shepherd} is {age} years old.&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">stuff_in_string</span><span class="p">)</span>
+<span class="go">Shepherd Martha is 34 years old.</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Inserting values into strings</a><ul>
+<li><a class="reference internal" href="#option-1-the-format-method">Option 1 - the <code class="docutils literal"><span class="pre">format</span></code> method</a></li>
+<li><a class="reference internal" href="#option-2-f-strings-in-python-3-6">Option 2 - f-strings in Python &gt;= 3.6</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="brisk_python.html" title="previous chapter">Brisk introduction to Python</a></li>
+      <li>Next: <a href="on_loops.html" title="next chapter">&#8220;for&#8221; and &#8220;while&#8221;, &#8220;break&#8221; and &#8220;else:&#8221;</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/string_formatting.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/string_formatting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
