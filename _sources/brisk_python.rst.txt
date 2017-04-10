@@ -704,14 +704,21 @@ elements.
     (9, 4, 7, 0, 8)
 
 .. nbplot::
+    :raises: TypeError
 
-    >>> # This raises a TypeError
-    >>> # my_tuple[1] = 99
+    >>> my_tuple[1] = 99
+    Traceback (most recent call last):
+       ...
+    TypeError: 'tuple' object does not support item assignment
 
 .. nbplot::
+    :raises: AttributeError
 
     >>> # This raises an AttributeError, because tuples have no append method
-    >>> # my_tuple.append(20)
+    >>> my_tuple.append(20)
+    Traceback (most recent call last):
+       ...
+    AttributeError: 'tuple' object has no attribute 'append'
 
 Here's an empty tuple:
 
@@ -836,9 +843,12 @@ Unlike lists, strings are immutable. You cannot change the characters within a
 string:
 
 .. nbplot::
+    :raises: TypeError
 
-    >>> # Raises a TypeError
-    >>> # my_string[1] = 'N'
+    >>> my_string[1] = 'N'
+    Traceback (most recent call last):
+       ...
+    TypeError: 'str' object does not support item assignment
 
 Adding strings
 ==============
@@ -1003,9 +1013,12 @@ reserves the right to order set elements in any way it chooses:
 Because there is no defined order, you cannot index into a set:
 
 .. nbplot::
+    :raises: TypeError
 
-    >>> # Raises a TypeError
-    >>> # my_set[1]
+    >>> my_set[1]
+    Traceback (most recent call last):
+       ...
+    TypeError: 'set' object does not support indexing
 
 You can add elements to a set with the ``add`` method:
 
@@ -1241,10 +1254,10 @@ The function definition begins with the ``def`` keyword followed by a space.
 There follows the name of the function ``my_function``. Next we have an open
 parenthesis, followed by a specification of the arguments that the function
 expects to be passed to it. In this case, the function expects a single
-argument. In our case, the value of the input argument will be attached to the
-name ``an_argument`` when the function starts to execute.  Last, we have an
-indented block, with code that will run when the function is called. We can
-return a value from the function using the ``return`` statement.
+argument.  For this function, the value of the input argument will be attached
+to the name ``an_argument`` when the function starts to execute.  Last, we
+have an indented block, with code that will run when the function is called.
+We can return a value from the function using the ``return`` statement.
 
 .. nbplot::
 

@@ -600,12 +600,17 @@ elements.</p>
 <span class="go">(9, 4, 7, 0, 8)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This raises a TypeError</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># my_tuple[1] = 99</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="gt">Traceback (most recent call last):</span>
+   <span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;tuple&#39; object does not support item assignment</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This raises an AttributeError, because tuples have no append method</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># my_tuple.append(20)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_tuple</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+   <span class="c">...</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;tuple&#39; object has no attribute &#39;append&#39;</span>
 </pre></div>
 </div>
 <p>Here&#8217;s an empty tuple:</p>
@@ -712,8 +717,10 @@ can slice).</p>
 <h3>Strings are immutable<a class="headerlink" href="#strings-are-immutable" title="Permalink to this headline">¶</a></h3>
 <p>Unlike lists, strings are immutable. You cannot change the characters within a
 string:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Raises a TypeError</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># my_string[1] = &#39;N&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_string</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+<span class="gt">Traceback (most recent call last):</span>
+   <span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;str&#39; object does not support item assignment</span>
 </pre></div>
 </div>
 </div>
@@ -847,8 +854,10 @@ reserves the right to order set elements in any way it chooses:</p>
 </pre></div>
 </div>
 <p>Because there is no defined order, you cannot index into a set:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Raises a TypeError</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># my_set[1]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_set</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+   <span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;set&#39; object does not support indexing</span>
 </pre></div>
 </div>
 <p>You can add elements to a set with the <code class="docutils literal"><span class="pre">add</span></code> method:</p>
@@ -1037,10 +1046,10 @@ of the <code class="docutils literal"><span class="pre">for</span></code> or <co
 There follows the name of the function <code class="docutils literal"><span class="pre">my_function</span></code>. Next we have an open
 parenthesis, followed by a specification of the arguments that the function
 expects to be passed to it. In this case, the function expects a single
-argument. In our case, the value of the input argument will be attached to the
-name <code class="docutils literal"><span class="pre">an_argument</span></code> when the function starts to execute.  Last, we have an
-indented block, with code that will run when the function is called. We can
-return a value from the function using the <code class="docutils literal"><span class="pre">return</span></code> statement.</p>
+argument.  For this function, the value of the input argument will be attached
+to the name <code class="docutils literal"><span class="pre">an_argument</span></code> when the function starts to execute.  Last, we
+have an indented block, with code that will run when the function is called.
+We can return a value from the function using the <code class="docutils literal"><span class="pre">return</span></code> statement.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_function</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="go">11</span>
 </pre></div>
