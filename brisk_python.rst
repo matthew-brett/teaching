@@ -1543,10 +1543,10 @@ the file again to show this in action:
 
 .. [#py2-division] Python 3 returns a floating point value from dividing two
    integers, but the default for Python 2 is to return the integer part of the
-   division.  Thus, in Python 2, ``1 / 2 == 1 // 2 == 0``. If your code may
-   run on Python 2, remember to add the statement ``from __future__ import
-   division`` at the top of your code files, to make sure you get the Python 3
-   behavior when dividing integers.
+   division.  Thus, in Python 2 ``1 / 2`` returns the same result as ``1 //
+   2`` i.e. ``0``. If your code may run on Python 2, remember to add the
+   statement ``from __future__ import division`` at the top of your code
+   files, to make sure you get the Python 3 behavior when dividing integers.
 
 .. [#if-statement-equivalents] Here is an ``if`` statement in Python:
 
@@ -1582,7 +1582,8 @@ the file again to show this in action:
 
    For Python, the indentation defines the block.  For R and MATLAB,
    indentation is an optional way of formatting the code to make it look
-   nicer:
+   nicer. In R and MATLAB, the same code without indentation will run just as
+   well, but most people find the code harder to read:
 
    .. code-block:: R
 
