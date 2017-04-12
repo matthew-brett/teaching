@@ -17,6 +17,15 @@ MATLAB and the R language are `examples of dynamic programming languages
 
     from __future__ import print_function, division
 
+*********************
+How to read this page
+*********************
+
+Read this page in one shot from beginning to end.  We go through all the basic
+Python data types, stopping from time to time to talk about relevant features
+of the Python language.  By the end of the page you should have an idea of the
+Python landscape to orient you, as you start to learn the language.
+
 *******
 Numbers
 *******
