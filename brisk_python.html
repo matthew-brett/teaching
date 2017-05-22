@@ -51,6 +51,18 @@
 <p>This is an introduction designed for those of us who already know a <a class="reference external" href="https://en.wikipedia.org/wiki/Dynamic_programming_language">dynamic
 programming language</a> fairly well.
 MATLAB and the R language are <a class="reference external" href="https://en.wikipedia.org/wiki/Dynamic_programming_language#Examples_of_Dynamic_Programming_Languages">examples of dynamic programming languages</a>.</p>
+<div class="section" id="how-to-read-this-page">
+<h2>How to read this page<a class="headerlink" href="#how-to-read-this-page" title="Permalink to this headline">¶</a></h2>
+<p>Read this page in one shot from beginning to end.  We go through all the basic
+Python data types, stopping from time to time to talk about relevant features
+of the Python language.</p>
+<p>While you are reading, I suggest you open an <a class="reference external" href="https://ipython.org">IPython</a> console, and type or
+copy / paste the code fragments, to run them.  To copy / paste, click the
+<code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></code> symbol at the right of each code cell to remove the leading characters
+and output, before selecting the cell contents.</p>
+<p>By the end of the page you should have an idea of the Python landscape to
+orient you, as you start to learn the language.</p>
+</div>
 <div class="section" id="numbers">
 <h2>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h2>
 <p>There are two types of numbers in Python: integer and floating point.  In
@@ -1272,10 +1284,10 @@ the file again to show this in action:</p>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Python 3 returns a floating point value from dividing two
 integers, but the default for Python 2 is to return the integer part of the
-division.  Thus, in Python 2, <code class="docutils literal"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">//</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">0</span></code>. If your code may
-run on Python 2, remember to add the statement <code class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span>
-<span class="pre">division</span></code> at the top of your code files, to make sure you get the Python 3
-behavior when dividing integers.</td></tr>
+division.  Thus, in Python 2 <code class="docutils literal"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">2</span></code> returns the same result as <code class="docutils literal"><span class="pre">1</span> <span class="pre">//</span>
+<span class="pre">2</span></code> i.e. <code class="docutils literal"><span class="pre">0</span></code>. If your code may run on Python 2, remember to add the
+statement <code class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">division</span></code> at the top of your code
+files, to make sure you get the Python 3 behavior when dividing integers.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="if-statement-equivalents" rules="none">
@@ -1309,7 +1321,8 @@ my_var <span class="o">=</span> <span class="m">10</span>
 </div>
 <p>For Python, the indentation defines the block.  For R and MATLAB,
 indentation is an optional way of formatting the code to make it look
-nicer:</p>
+nicer. In R and MATLAB, the same code without indentation will run just as
+well, but most people find the code harder to read:</p>
 <div class="highlight-R"><div class="highlight"><pre><span></span><span class="c1"># R</span>
 my_var <span class="o">=</span> <span class="m">10</span>
 <span class="kr">if</span> <span class="p">(</span>my_var <span class="o">==</span> <span class="m">10</span><span class="p">)</span> <span class="p">{</span>
@@ -1380,6 +1393,7 @@ objects).</td></tr>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Brisk introduction to Python</a><ul>
+<li><a class="reference internal" href="#how-to-read-this-page">How to read this page</a></li>
 <li><a class="reference internal" href="#numbers">Numbers</a></li>
 <li><a class="reference internal" href="#true-and-false">True and False</a></li>
 <li><a class="reference internal" href="#none">None</a></li>

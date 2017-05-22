@@ -48,11 +48,23 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="introducing-principal-component-analysis">
 <h1>Introducing principal component analysis<a class="headerlink" href="#introducing-principal-component-analysis" title="Permalink to this headline">¶</a></h1>
-<p>This page was largely inspired by these two excellent tutorials:</p>
+<p>This page was much inspired by these two excellent tutorials:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://randomanalyses.blogspot.com/2012/01/principal-components-analysis.html">http://randomanalyses.blogspot.com/2012/01/principal-components-analysis.html</a></li>
-<li><a class="reference external" href="https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis">https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis</a></li>
+<li><a class="reference external" href="http://randomanalyses.blogspot.com/2012/01/principal-components-analysis.html">Kendrick Kay&#8217;s tutorial on principal component analysis</a>;</li>
+<li><a class="reference external" href="https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis">Lior Pachter&#8217;s tutorial</a>.</li>
 </ul>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Check that you understand:</p>
+<ul class="simple">
+<li><a class="reference internal" href="vector_projection.html"><span class="doc">Vector projection</span></a>;</li>
+<li>matrix multiplication.  See this <a class="reference external" href="https://www.khanacademy.org/math/precalculus/precalc-matrices/multiplying-matrices-by-matrices/v/matrix-multiplication-intro">Khan academy introduction to matrix
+multiplication</a>.
+I highly recommend <a class="reference external" href="https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/video-lectures/lecture-3-multiplication-and-inverse-matrices">Gilbert Strang&#8217;s lecture on matrix multiplication</a>.</li>
+</ul>
+</div>
+<div class="section" id="setting-the-scene">
+<h2>Setting the scene<a class="headerlink" href="#setting-the-scene" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s say I have some data in a 2D array <span class="math">\(\mathbf{X}\)</span>.</p>
 <p>I have taken two different measures for each sample, and 50 samples.  We can
 also call the measures <em>variables</em> or <em>features</em>.  So, I have two <em>features</em>
@@ -415,6 +427,7 @@ projections in <span class="math">\(\C\)</span>:</p>
 <span class="go">True</span>
 </pre></div>
 </div>
+</div>
 <div class="section" id="the-principal-component-lines-are-new-axes-to-express-the-data">
 <h2>The principal component lines are new axes to express the data<a class="headerlink" href="#the-principal-component-lines-are-new-axes-to-express-the-data" title="Permalink to this headline">¶</a></h2>
 <p>My original points were expressed in the orthogonal, standard x and y axes. My
@@ -698,6 +711,8 @@ these two is the scaling of the <code class="docutils literal"><span class="pre"
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introducing principal component analysis</a><ul>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#setting-the-scene">Setting the scene</a></li>
 <li><a class="reference internal" href="#the-principal-component-lines-are-new-axes-to-express-the-data">The principal component lines are new axes to express the data</a></li>
 <li><a class="reference internal" href="#the-components-partition-the-sums-of-squares">The components partition the sums of squares</a></li>
 <li><a class="reference internal" href="#finding-the-principal-components-with-svd">Finding the principal components with SVD</a><ul>

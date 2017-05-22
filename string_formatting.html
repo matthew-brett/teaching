@@ -48,8 +48,8 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="inserting-values-into-strings">
 <h1>Inserting values into strings<a class="headerlink" href="#inserting-values-into-strings" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="option-1-the-format-method">
-<h2>Option 1 - the <code class="docutils literal"><span class="pre">format</span></code> method<a class="headerlink" href="#option-1-the-format-method" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="option-1-the-string-format-method">
+<span id="string-format-method"></span><h2>Option 1 - the string <code class="docutils literal"><span class="pre">format</span></code> method<a class="headerlink" href="#option-1-the-string-format-method" title="Permalink to this headline">¶</a></h2>
 <p>You can use the string method <code class="docutils literal"><span class="pre">format</span></code> method to create new strings with
 inserted values. This method works for all current releases of Python. Here we
 insert a string into another string:</p>
@@ -110,6 +110,22 @@ using the f-string syntax:</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="option-3-old-school-formatting">
+<h2>Option 3 - old school % formatting<a class="headerlink" href="#option-3-old-school-formatting" title="Permalink to this headline">¶</a></h2>
+<p>There is an older method of string formatting that uses the <code class="docutils literal"><span class="pre">%</span></code> operator.
+It is a bit less flexible than the other two options, but you will still see
+it in use in older code, and where using <code class="docutils literal"><span class="pre">%</span></code> formatting is more concise.</p>
+<p>For <code class="docutils literal"><span class="pre">%</span></code> operator formating, you show where the inserted values should go
+using a <code class="docutils literal"><span class="pre">%</span></code> character followed by a format specifier, to say how the value
+should be inserted.</p>
+<p>Here is the example above, using <code class="docutils literal"><span class="pre">%</span></code> formatting.  Notice the <code class="docutils literal"><span class="pre">%s</span></code> marker
+to insert a string, and the <code class="docutils literal"><span class="pre">%d</span></code> marker to insert an integer.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stuff_in_string</span> <span class="o">=</span> <span class="s2">&quot;Shepherd </span><span class="si">%s</span><span class="s2"> is </span><span class="si">%d</span><span class="s2"> years old.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">shepherd</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">stuff_in_string</span><span class="p">)</span>
+<span class="go">Shepherd Martha is 34 years old.</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -121,8 +137,9 @@ using the f-string syntax:</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Inserting values into strings</a><ul>
-<li><a class="reference internal" href="#option-1-the-format-method">Option 1 - the <code class="docutils literal"><span class="pre">format</span></code> method</a></li>
+<li><a class="reference internal" href="#option-1-the-string-format-method">Option 1 - the string <code class="docutils literal"><span class="pre">format</span></code> method</a></li>
 <li><a class="reference internal" href="#option-2-f-strings-in-python-3-6">Option 2 - f-strings in Python &gt;= 3.6</a></li>
+<li><a class="reference internal" href="#option-3-old-school-formatting">Option 3 - old school % formatting</a></li>
 </ul>
 </li>
 </ul>

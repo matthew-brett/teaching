@@ -2,11 +2,23 @@
 #
 # ## Introducing principal component analysis
 #
-# This page was largely inspired by these two excellent tutorials:
+# This page was much inspired by these two excellent tutorials:
 #
-# * [http://randomanalyses.blogspot.com/2012/01/principal-components-analysis.html](http://randomanalyses.blogspot.com/2012/01/principal-components-analysis.html)
+# * [Kendrick Kay's tutorial on principal component analysis](http://randomanalyses.blogspot.com/2012/01/principal-components-analysis.html);
 #
-# * [https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis](https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis)
+# * [Lior Pachter's tutorial](https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis).
+#
+# ### Background
+#
+# Check that you understand:
+#
+# * [Vector projection](https://matthew-brett.github.io/teaching/vector_projection.html);
+#
+# * matrix multiplication.  See this [Khan academy introduction to matrix
+#   multiplication](https://www.khanacademy.org/math/precalculus/precalc-matrices/multiplying-matrices-by-matrices/v/matrix-multiplication-intro).
+#   I highly recommend [Gilbert Strang's lecture on matrix multiplication](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/video-lectures/lecture-3-multiplication-and-inverse-matrices).
+#
+# ### Setting the scene
 #
 # Let's say I have some data in a 2D array $\mathbf{X}$.
 #
@@ -428,7 +440,7 @@ projected_onto_2 = np.outer(U[:, 1], C[1, :])
 # The same as doing the original calculation
 np.allclose(projected_onto_2, line_projection(u_best_orth, X))
 
-# ## The principal component lines are new axes to express the data
+# # The principal component lines are new axes to express the data
 #
 # My original points were expressed in the orthogonal, standard x and y axes. My
 # principal components give new orthogonal axes. When I project, I have just

@@ -17,6 +17,22 @@ MATLAB and the R language are `examples of dynamic programming languages
 
     from __future__ import print_function, division
 
+*********************
+How to read this page
+*********************
+
+Read this page in one shot from beginning to end.  We go through all the basic
+Python data types, stopping from time to time to talk about relevant features
+of the Python language.
+
+While you are reading, I suggest you open an IPython_ console, and type or
+copy / paste the code fragments, to run them.  To copy / paste, click the
+``>>>`` symbol at the right of each code cell to remove the leading characters
+and output, before selecting the cell contents.
+
+By the end of the page you should have an idea of the Python landscape to
+orient you, as you start to learn the language.
+
 *******
 Numbers
 *******
@@ -1543,10 +1559,10 @@ the file again to show this in action:
 
 .. [#py2-division] Python 3 returns a floating point value from dividing two
    integers, but the default for Python 2 is to return the integer part of the
-   division.  Thus, in Python 2, ``1 / 2 == 1 // 2 == 0``. If your code may
-   run on Python 2, remember to add the statement ``from __future__ import
-   division`` at the top of your code files, to make sure you get the Python 3
-   behavior when dividing integers.
+   division.  Thus, in Python 2 ``1 / 2`` returns the same result as ``1 //
+   2`` i.e. ``0``. If your code may run on Python 2, remember to add the
+   statement ``from __future__ import division`` at the top of your code
+   files, to make sure you get the Python 3 behavior when dividing integers.
 
 .. [#if-statement-equivalents] Here is an ``if`` statement in Python:
 
@@ -1582,7 +1598,8 @@ the file again to show this in action:
 
    For Python, the indentation defines the block.  For R and MATLAB,
    indentation is an optional way of formatting the code to make it look
-   nicer:
+   nicer. In R and MATLAB, the same code without indentation will run just as
+   well, but most people find the code harder to read:
 
    .. code-block:: R
 

@@ -2,9 +2,11 @@
 Inserting values into strings
 #############################
 
-********************************
-Option 1 - the ``format`` method
-********************************
+.. _string-format-method:
+
+***************************************
+Option 1 - the string ``format`` method
+***************************************
 
 You can use the string method ``format`` method to create new strings with
 inserted values. This method works for all current releases of Python. Here we
@@ -62,13 +64,39 @@ string tells Python to allow any currently valid variable names as variable
 names within the string.  For example, here is an example like the one above,
 using the f-string syntax:
 
+
 .. nbplot::
-    :run-parts: 0 if have_f_strings else ()
+    :run-parts: (0, 1) if have_f_strings else 0
+    :render-parts: (0, 1)
 
     >>> shepherd = "Martha"
     >>> age = 34
+
+    .. part
+
     >>> # Note f before first quote of string
     >>> stuff_in_string = f"Shepherd {shepherd} is {age} years old."
+    >>> print(stuff_in_string)
+    Shepherd Martha is 34 years old.
+
+**********************************
+Option 3 - old school % formatting
+**********************************
+
+There is an older method of string formatting that uses the ``%`` operator.
+It is a bit less flexible than the other two options, but you will still see
+it in use in older code, and where using ``%`` formatting is more concise.
+
+For ``%`` operator formating, you show where the inserted values should go
+using a ``%`` character followed by a format specifier, to say how the value
+should be inserted.
+
+Here is the example above, using ``%`` formatting.  Notice the ``%s`` marker
+to insert a string, and the ``%d`` marker to insert an integer.
+
+.. nbplot::
+
+    >>> stuff_in_string = "Shepherd %s is %d years old." % (shepherd, age)
     >>> print(stuff_in_string)
     Shepherd Martha is 34 years old.
 
