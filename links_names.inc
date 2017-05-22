@@ -35,6 +35,7 @@
     http://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/scope_resolution_legb_rule.ipynb
 .. _string formatting:
     https://docs.python.org/3/library/string.html#format-string-syntax
+.. _ipython: https://ipython.org
 
 .. Virtualenv and helpers
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv

@@ -23,8 +23,15 @@ How to read this page
 
 Read this page in one shot from beginning to end.  We go through all the basic
 Python data types, stopping from time to time to talk about relevant features
-of the Python language.  By the end of the page you should have an idea of the
-Python landscape to orient you, as you start to learn the language.
+of the Python language.
+
+While you are reading, I suggest you open an IPython_ console, and type or
+copy / paste the code fragments, to run them.  To copy / paste, click the
+``>>>`` symbol at the right of each code cell to remove the leading characters
+and output, before selecting the cell contents.
+
+By the end of the page you should have an idea of the Python landscape to
+orient you, as you start to learn the language.
 
 *******
 Numbers
