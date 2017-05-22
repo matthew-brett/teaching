@@ -2,10 +2,27 @@
 Introducing principal component analysis
 ########################################
 
-This page was largely inspired by these two excellent tutorials:
+This page was much inspired by these two excellent tutorials:
 
-*  http://randomanalyses.blogspot.com/2012/01/principal-components-analysis.html
-*  https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis
+* `Kendrick Kay's tutorial on principal component analysis <http://randomanalyses.blogspot.com/2012/01/principal-components-analysis.html>`_;
+* `Lior Pachter's tutorial <https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis>`_.
+
+**********
+Background
+**********
+
+Check that you understand:
+
+* :doc:`vector_projection`;
+* matrix multiplication.  See this `Khan academy introduction to matrix
+  multiplication
+  <https://www.khanacademy.org/math/precalculus/precalc-matrices/multiplying-matrices-by-matrices/v/matrix-multiplication-intro>`_.
+  I highly recommend `Gilbert Strang's lecture on matrix multiplication
+  <https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/video-lectures/lecture-3-multiplication-and-inverse-matrices>`_.
+
+*****************
+Setting the scene
+*****************
 
 Let's say I have some data in a 2D array :math:`\mathbf{X}`.
 
