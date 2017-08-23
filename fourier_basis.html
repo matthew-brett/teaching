@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Fourier without the ei" href="fourier_no_ei.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -61,7 +61,7 @@ k 2 \pi \frac{N-1}{N}] \\
 \cos(r^k_{N-1} \right] \\
 \vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots
 \sin(r^k_{N-1} \right]\end{split}\]</div>
-<p><span class="math">\(\vec{c_k}, \vec{s_k}\)</span> are <em>Fourier basis vectors</em>.</p>
+<p>$vec{c_k}, vec{s_k}$ are <em>Fourier basis vectors</em>.</p>
 <p>We can compile all these vectors into matrices to form <em>Fourier basis
 matrices</em>.</p>
 <div class="section" id="rewriting-the-dft-with-cosine-and-sine-basis-matrices">
@@ -127,7 +127,7 @@ interactive plots.  If running in the Jupyter Notebook, use <code class="docutil
 <h2>Some properties of the cosine and sine basis matrices<a class="headerlink" href="#some-properties-of-the-cosine-and-sine-basis-matrices" title="Permalink to this headline">¶</a></h2>
 <p>First we note that <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> are always real matrices,
 regardless of the input <span class="math">\(\vec{x}\)</span> or <span class="math">\(\vec{X}\)</span>.</p>
-<p>Let&#8217;s show <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> as grayscale images.</p>
+<p>Let’s show <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> as grayscale images.</p>
 <p>First we build <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> for our case with <span class="math">\(N=32\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
@@ -162,7 +162,7 @@ correct:</p>
 <div class="math">
 \[\begin{split}C_{p,:} = C_{N-p,:} \; \mathrm{for} \; p &gt; 0 \\
 S_{p,:} = -S_{N-p,:} \; \mathrm{for} \; p &gt; 0\end{split}\]</div>
-<p>Why is this? Let&#8217;s look at lines from the center of <span class="math">\(\C\)</span>. Here we
+<p>Why is this? Let’s look at lines from the center of <span class="math">\(\C\)</span>. Here we
 are plotting the continuous cosine function with dotted lines, with
 filled circles to represent the discrete samples we took to fill the row
 of <span class="math">\(\C\)</span>:</p>
@@ -255,7 +255,7 @@ at horizontal axis values for <span class="math">\(n = 1\)</span>:</p>
 t_{1,1} = (1) 2 \pi \frac{1}{N} \\
 ... \\
 t_{N-1,1} = (N-1) 2 \pi \frac{1}{N} \\\end{split}\]</div>
-<p>In general, because the sequence <span class="math">\(k 0,1,,N-1 \)</span> is equal to the sequence
+<p>In general, because the sequence $k 0,1,,N-1 $ is equal to the sequence
 <span class="math">\(n \in 0,1,\ldots,N-1\)</span>, this means that the column sampling
 positions for row <span class="math">\(n \in t_{0, n}, t_{1, n}, ... , t_{N-1, n}\)</span> are
 equal to the row sampling positions for corresponding (<span class="math">\(k = n\)</span>)
@@ -338,7 +338,7 @@ as <span class="math">\(-\| \vec{s_n} \|^2\)</span>.</li>
 </div>
 <p>The rows <span class="math">\(\vec{s_0}\)</span> and <span class="math">\(\vec{s_{N / 2}}\)</span> have squared
 length <span class="math">\(0\)</span>, and the other rows have squared length <span class="math">\(N / 2\)</span>.</p>
-<p>Finally, let&#8217;s look at the relationship between the rows of <span class="math">\(\C\)</span>
+<p>Finally, let’s look at the relationship between the rows of <span class="math">\(\C\)</span>
 and the rows of <span class="math">\(\S\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 <span class="go">True</span>
@@ -351,7 +351,7 @@ and the rows of <span class="math">\(\S\)</span>:</p>
 <h4>Proof for <span class="math">\(\C, \S\)</span> dot products<a class="headerlink" href="#proof-for-dot-products" title="Permalink to this headline">¶</a></h4>
 <p>We can show these relationships with some more or less basic
 trigonometry.</p>
-<p>Let&#8217;s start by looking at the dot product of two rows from <span class="math">\(\C\)</span>.
+<p>Let’s start by looking at the dot product of two rows from <span class="math">\(\C\)</span>.
 We will take rows <span class="math">\(\vec{c_p} =\C_{p,:}\)</span> and
 <span class="math">\(\vec{c_q} = \C_{q,:}\)</span>. As we remember, these vectors are:</p>
 <div class="math">
@@ -501,7 +501,7 @@ including 0. When the denominator is zero, the sum will be equal to
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

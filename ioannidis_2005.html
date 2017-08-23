@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Mutual information as an image matching metric" href="mutual_information.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -47,7 +47,7 @@
             
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="the-argument-in-why-most-published-research-findings-are-false">
-<h1>The argument in &#8220;Why most published research findings are false&#8221;<a class="headerlink" href="#the-argument-in-why-most-published-research-findings-are-false" title="Permalink to this headline">¶</a></h1>
+<h1>The argument in “Why most published research findings are false”<a class="headerlink" href="#the-argument-in-why-most-published-research-findings-are-false" title="Permalink to this headline">¶</a></h1>
 <p>I spent some time trying to understand the argument in this paper:</p>
 <ul class="simple">
 <li>Ioannidis, John PA. 2005. “Why most published research findings are
@@ -68,7 +68,7 @@ studies.” <em>Journal of the National Cancer Institute</em> 96 (6): 434–442.
 </ul>
 </div>
 <div class="section" id="the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">
-<h1>&#8220;The practice of science is profoundly broken&#8221;. Discuss? - no - model and test!<a class="headerlink" href="#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test" title="Permalink to this headline">¶</a></h1>
+<h1>“The practice of science is profoundly broken”. Discuss? - no - model and test!<a class="headerlink" href="#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test" title="Permalink to this headline">¶</a></h1>
 <p>The point that Ioannidis makes is:</p>
 <p>We know that the scientific process is flawed in a variety of ways. We
 assume that these flaws do not have a large effect on the outcome. But,
@@ -76,13 +76,13 @@ if we model some of the flaws, we see that their effect can be
 catastrophic, in the sense that a large proportion of scientific
 findings are likely to be wrong.</p>
 <p>We scientists commit ourselves to rational thinking. In this case,
-rational thinking is asking, &#8220;how likely is it that we are getting the
-answers wrong&#8221;?. We have to ask this question in a rational way. This is
+rational thinking is asking, “how likely is it that we are getting the
+answers wrong”?. We have to ask this question in a rational way. This is
 what Ioannidis sets out to do in this paper.</p>
 </div>
 <div class="section" id="different-ways-of-phrasing-the-argument">
 <h1>Different ways of phrasing the argument<a class="headerlink" href="#different-ways-of-phrasing-the-argument" title="Permalink to this headline">¶</a></h1>
-<p>The basis of Ioannidis&#8217; argument comes from <a class="reference external" href="http://jnci.oxfordjournals.org/content/96/6/434.long">Wacholder et al
+<p>The basis of Ioannidis’ argument comes from <a class="reference external" href="http://jnci.oxfordjournals.org/content/96/6/434.long">Wacholder et al
 2004</a> (see
 appendix table 1). <a class="reference external" href="http://www.plosmedicine.org/article/info%3Adoi%2F10.1371%2Fjournal.pmed.0040168">Goodman and Greenland
 2007</a>
@@ -93,7 +93,7 @@ terms of probabilities.</p>
 </div>
 <div class="section" id="some-terms">
 <h1>Some terms<a class="headerlink" href="#some-terms" title="Permalink to this headline">¶</a></h1>
-<p>We&#8217;ve done an experiment, and we have conducted a statistical test:</p>
+<p>We’ve done an experiment, and we have conducted a statistical test:</p>
 <ul class="simple">
 <li><span class="math">\(H_A\)</span> - alternative hypothesis</li>
 <li><span class="math">\(H_0\)</span> - null hypothesis</li>
@@ -104,9 +104,9 @@ terms of probabilities.</p>
 <li><span class="math">\(1 - \beta\)</span> : power - probability we will reject <span class="math">\(H_0\)</span> if
 <span class="math">\(H_A\)</span> is true (<span class="math">\(H_0\)</span> is false)</li>
 </ul>
-<p>Let&#8217;s say that the test can either be &#8220;significant&#8221; (test gives
-<span class="math">\(p \le \alpha\)</span>) or &#8220;not significant&#8221; (<span class="math">\(p &gt; \alpha\)</span>). Denote
-&#8220;test is significant&#8221; by <span class="math">\(T_S\)</span>, &#8220;test not significant&#8221; by
+<p>Let’s say that the test can either be “significant” (test gives
+<span class="math">\(p \le \alpha\)</span>) or “not significant” (<span class="math">\(p &gt; \alpha\)</span>). Denote
+“test is significant” by <span class="math">\(T_S\)</span>, “test not significant” by
 <span class="math">\(T_N\)</span>.</p>
 <p>Before we did the experiment there were two possibilities - <span class="math">\(H_A\)</span>
 is true, or <span class="math">\(H_0\)</span> is true. After we have four possibilities:</p>
@@ -120,7 +120,7 @@ test is not significant.</li>
 </ul>
 </div>
 <div class="section" id="what-does-a-significant-statistical-test-result-tell-us">
-<h1>What does a &#8220;significant&#8221; statistical test result tell us?<a class="headerlink" href="#what-does-a-significant-statistical-test-result-tell-us" title="Permalink to this headline">¶</a></h1>
+<h1>What does a “significant” statistical test result tell us?<a class="headerlink" href="#what-does-a-significant-statistical-test-result-tell-us" title="Permalink to this headline">¶</a></h1>
 <p>In this section we work up slowly to Ioannidis table 1.</p>
 <p>First we need to load functions for symbolic mathematics from the Sympy
 library:</p>
@@ -138,7 +138,7 @@ following probabilities:</p>
 <col width="33%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td><span class="math">\(T_S\)</span></td>
 <td><span class="math">\(T_N\)</span></td>
 </tr>
@@ -195,7 +195,7 @@ column of the table above. Substituting into the equation:</p>
 <p><span class="math">\(1 - \pi = Pr(H_0)\)</span></p>
 <p>and:</p>
 <p><span class="math">\(P(H_A | T_S) = \Frac{(1 - \beta) \pi}{(1 - \beta) \pi + \alpha (1 - \pi)}\)</span></p>
-<p>Let&#8217;s put that formula into Sympy for later:</p>
+<p>Let’s put that formula into Sympy for later:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span> <span class="c1"># get symbolic variables</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob</span>
@@ -211,7 +211,7 @@ column of the table above. Substituting into the equation:</p>
 <col width="33%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td><span class="math">\(T_S\)</span></td>
 <td><span class="math">\(T_N\)</span></td>
 </tr>
@@ -230,19 +230,19 @@ column of the table above. Substituting into the equation:</p>
 </tbody>
 </table>
 <p>This table is equivalent to Ioannidis table 1. The first column of the
-table gives the probabilities in the case we&#8217;re interested in, of
+table gives the probabilities in the case we’re interested in, of
 <span class="math">\(T_S\)</span>. The posterior probability is the first row, first column -
 <span class="math">\(Pr(T_S | H_A)\)</span>, divided by the total row, first column -
 <span class="math">\(Pr(T_S)\)</span>.</p>
-<p>Ioannidis uses &#8220;positive predictive value&#8221; (PPV) for the posterior
+<p>Ioannidis uses “positive predictive value” (PPV) for the posterior
 probability <span class="math">\(P(H_A | T_S)\)</span>. Goodman and Greenland complain,
-reasonably enough, that &#8220;positive predictive value&#8221; is a confusing new
+reasonably enough, that “positive predictive value” is a confusing new
 term for a standard concept.</p>
 <p>Ioannidis also prefers his equations in terms of <span class="math">\(R\)</span> - the <em>prior
 odds ratio</em>. <span class="math">\(R := \Frac{Pr(H_A)}{Pr(H_0)}\)</span>. Also (from
 <span class="math">\(\pi := Pr(H_A)\)</span> and <span class="math">\(Pr(H_0) = 1 - Pr(H_A)\)</span>):
 <span class="math">\(R = \Frac{\pi}{1 - \pi}\)</span>.</p>
-<p>Ioannidis&#8217; formula for PPV is
+<p>Ioannidis’ formula for PPV is
 <span class="math">\(\Frac{(1 - \beta) R}{R - \beta R + \alpha}\)</span>. This is the same as
 our formula above, only rephrased in terms of <span class="math">\(R\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">R</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
@@ -267,7 +267,7 @@ greater than <span class="math">\(0.5\)</span></p>
 <h1>Whether a finding is likely to be true depends on the power of the experiment<a class="headerlink" href="#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment" title="Permalink to this headline">¶</a></h1>
 <p>Assume that <span class="math">\(\alpha = 0.05\)</span> (standard significance threshold for
 null hypothesis test).</p>
-<p>Let&#8217;s have a look at the posterior probability as a function of power
+<p>Let’s have a look at the posterior probability as a function of power
 and prior probability:</p>
 <p>(<a class="reference external" href=".//ioannidis_2005-4.png">png</a>, <a class="reference external" href=".//ioannidis_2005-4.hires.png">hires.png</a>, <a class="reference external" href=".//ioannidis_2005-4.pdf">pdf</a>)</p>
 <div class="figure">
@@ -319,7 +319,7 @@ this looks like:</p>
 <col width="33%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td><span class="math">\(T_S\)</span></td>
 <td><span class="math">\(T_N\)</span></td>
 </tr>
@@ -353,7 +353,7 @@ this looks like:</p>
 <col width="33%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td><span class="math">\(T_S\)</span></td>
 <td><span class="math">\(T_N\)</span></td>
 </tr>
@@ -396,7 +396,7 @@ probability <span class="math">\(Pr(H_A | T_S)\)</span> is:</p>
 <div class="figure">
 <img alt="_images/ioannidis_2005-9.png" src="_images/ioannidis_2005-9.png" />
 </div>
-<p>As we&#8217;d expect, as bias increases to 1, the result of the experiment has
+<p>As we’d expect, as bias increases to 1, the result of the experiment has
 less and less effect on our posterior estimate. If the analysis was
 entirely biased, then our posterior estimate is unchanged from the prior
 (diagonal line on the graph).</p>
@@ -431,7 +431,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 <col width="33%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td><span class="math">\(T_S\)</span></td>
 <td><span class="math">\(T_N\)</span></td>
 </tr>
@@ -465,7 +465,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 <col width="33%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td><span class="math">\(T_S\)</span></td>
 <td><span class="math">\(T_N\)</span></td>
 </tr>
@@ -519,7 +519,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 <col width="33%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td><span class="math">\(T_S\)</span></td>
 <td><span class="math">\(T_N\)</span></td>
 </tr>
@@ -552,7 +552,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 <col width="33%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&nbsp;</td>
+<tr class="row-odd"><td>&#160;</td>
 <td><span class="math">\(T_S\)</span></td>
 <td><span class="math">\(T_N\)</span></td>
 </tr>
@@ -579,12 +579,12 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </pre></div>
 </div>
 <p>Now we make a numerical version of this symbolic expression, so we can
-evaluate it for different values of <span class="math">\(\alpha, \beta, \pi, u, n\)</span>:</p>
+evaluate it for different values of $alpha, beta, pi, u, n$:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numerical version of symbolic expression</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pp_mb_func</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">post_prob_multi_bias</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let&#8217;s assume that two groups are doing more or less the same study, and
+<p>Let’s assume that two groups are doing more or less the same study, and
 only the positive study publishes (<span class="math">\(n = 2\)</span>). There is an analysis
 bias of 10% (<span class="math">\(u= 0.1\)</span>). We take the power from the Button et al
 estimate for neuroimaging studies = 0.08. Therefore
@@ -630,11 +630,11 @@ probability that <span class="math">\(H_A\)</span> is correct is still less than
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">The argument in &#8220;Why most published research findings are false&#8221;</a></li>
-<li><a class="reference internal" href="#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">&#8220;The practice of science is profoundly broken&#8221;. Discuss? - no - model and test!</a></li>
+<li><a class="reference internal" href="#">The argument in “Why most published research findings are false”</a></li>
+<li><a class="reference internal" href="#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
 <li><a class="reference internal" href="#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
 <li><a class="reference internal" href="#some-terms">Some terms</a></li>
-<li><a class="reference internal" href="#what-does-a-significant-statistical-test-result-tell-us">What does a &#8220;significant&#8221; statistical test result tell us?</a></li>
+<li><a class="reference internal" href="#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
 <li><a class="reference internal" href="#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
 <li><a class="reference internal" href="#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
 <li><a class="reference internal" href="#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
@@ -675,7 +675,7 @@ probability that <span class="math">\(H_A\)</span> is correct is still less than
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

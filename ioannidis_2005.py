@@ -1,6 +1,6 @@
 # $\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}$
 #
-# ## The argument in "Why most published research findings are false"
+# ## The argument in “Why most published research findings are false”
 #
 # I spent some time trying to understand the argument in this paper:
 #
@@ -22,7 +22,7 @@
 #   a positive report is false: an approach for molecular epidemiology
 #   studies.” *Journal of the National Cancer Institute* 96 (6): 434–442.
 #
-# ## "The practice of science is profoundly broken". Discuss? - no - model and test!
+# ## “The practice of science is profoundly broken”. Discuss? - no - model and test!
 #
 # The point that Ioannidis makes is:
 #
@@ -33,13 +33,13 @@
 # findings are likely to be wrong.
 #
 # We scientists commit ourselves to rational thinking. In this case,
-# rational thinking is asking, "how likely is it that we are getting the
-# answers wrong"?. We have to ask this question in a rational way. This is
+# rational thinking is asking, “how likely is it that we are getting the
+# answers wrong”?. We have to ask this question in a rational way. This is
 # what Ioannidis sets out to do in this paper.
 #
 # ## Different ways of phrasing the argument
 #
-# The basis of Ioannidis' argument comes from [Wacholder et al
+# The basis of Ioannidis’ argument comes from [Wacholder et al
 # 2004](http://jnci.oxfordjournals.org/content/96/6/434.long) (see
 # appendix table 1). [Goodman and Greenland
 # 2007](http://www.plosmedicine.org/article/info%3Adoi%2F10.1371%2Fjournal.pmed.0040168)
@@ -51,7 +51,7 @@
 #
 # ## Some terms
 #
-# We've done an experiment, and we have conducted a statistical test:
+# We’ve done an experiment, and we have conducted a statistical test:
 #
 # * $H_A$ - alternative hypothesis
 #
@@ -66,9 +66,9 @@
 # * $1 - \beta$ : power - probability we will reject $H_0$ if
 #   $H_A$ is true ($H_0$ is false)
 #
-# Let's say that the test can either be "significant" (test gives
-# $p \le \alpha$) or "not significant" ($p > \alpha$). Denote
-# "test is significant" by $T_S$, "test not significant" by
+# Let’s say that the test can either be “significant” (test gives
+# $p \le \alpha$) or “not significant” ($p > \alpha$). Denote
+# “test is significant” by $T_S$, “test not significant” by
 # $T_N$.
 #
 # Before we did the experiment there were two possibilities - $H_A$
@@ -84,7 +84,7 @@
 # * $H_0 \land T_N$ : $H_0$ is true ($H_A$ is false) -
 #   test is not significant.
 #
-# ## What does a "significant" statistical test result tell us?
+# ## What does a “significant” statistical test result tell us?
 #
 # In this section we work up slowly to Ioannidis table 1.
 #
@@ -158,7 +158,7 @@ init_printing(use_latex=True, order='old')
 #
 # $P(H_A | T_S) = \Frac{(1 - \beta) \pi}{(1 - \beta) \pi + \alpha (1 - \pi)}$
 #
-# Let's put that formula into Sympy for later:
+# Let’s put that formula into Sympy for later:
 
 from sympy.abc import alpha, beta, pi # get symbolic variables
 post_prob = (1 - beta) * pi / ((1 - beta) * pi + alpha * (1 - pi))
@@ -167,14 +167,14 @@ post_prob
 # A table shows the new probabilities that take the prior into account:
 #
 # This table is equivalent to Ioannidis table 1. The first column of the
-# table gives the probabilities in the case we're interested in, of
+# table gives the probabilities in the case we’re interested in, of
 # $T_S$. The posterior probability is the first row, first column -
 # $Pr(T_S | H_A)$, divided by the total row, first column -
 # $Pr(T_S)$.
 #
-# Ioannidis uses "positive predictive value" (PPV) for the posterior
+# Ioannidis uses “positive predictive value” (PPV) for the posterior
 # probability $P(H_A | T_S)$. Goodman and Greenland complain,
-# reasonably enough, that "positive predictive value" is a confusing new
+# reasonably enough, that “positive predictive value” is a confusing new
 # term for a standard concept.
 #
 # Ioannidis also prefers his equations in terms of $R$ - the *prior
@@ -182,7 +182,7 @@ post_prob
 # $\pi := Pr(H_A)$ and $Pr(H_0) = 1 - Pr(H_A)$):
 # $R = \Frac{\pi}{1 - \pi}$.
 #
-# Ioannidis' formula for PPV is
+# Ioannidis’ formula for PPV is
 # $\Frac{(1 - \beta) R}{R - \beta R + \alpha}$. This is the same as
 # our formula above, only rephrased in terms of $R$:
 
@@ -207,7 +207,7 @@ simplify(ppv - post_prob) == 0
 # Assume that $\alpha = 0.05$ (standard significance threshold for
 # null hypothesis test).
 #
-# Let's have a look at the posterior probability as a function of power
+# Let’s have a look at the posterior probability as a function of power
 # and prior probability:
 #
 # The posterior probability depends on the power. If the power is low and
@@ -279,7 +279,7 @@ simplify(ppv_bias - post_prob_bias) == 0
 
 # What effect does bias have on the posterior probabilities?
 #
-# As we'd expect, as bias increases to 1, the result of the experiment has
+# As we’d expect, as bias increases to 1, the result of the experiment has
 # less and less effect on our posterior estimate. If the analysis was
 # entirely biased, then our posterior estimate is unchanged from the prior
 # (diagonal line on the graph).
@@ -349,12 +349,12 @@ post_prob_multi_bias = (
 post_prob_multi_bias
 
 # Now we make a numerical version of this symbolic expression, so we can
-# evaluate it for different values of $\alpha, \beta, \pi, u, n$:
+# evaluate it for different values of $alpha, beta, pi, u, n$:
 
 # Make numerical version of symbolic expression
 pp_mb_func = lambdify((alpha, beta, pi, u, n), post_prob_multi_bias)
 
-# Let's assume that two groups are doing more or less the same study, and
+# Let’s assume that two groups are doing more or less the same study, and
 # only the positive study publishes ($n = 2$). There is an analysis
 # bias of 10% ($u= 0.1$). We take the power from the Button et al
 # estimate for neuroimaging studies = 0.08. Therefore

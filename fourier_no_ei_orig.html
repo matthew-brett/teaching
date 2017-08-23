@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Introduction to the general linear model" href="glm_intro.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -58,12 +58,12 @@ This page goes through this process, and tries to show how thinking in
 this way can explain some features of the DFT.</p>
 <div class="section" id="how-hard-is-the-mathematics">
 <h3>How hard is the mathematics?<a class="headerlink" href="#how-hard-is-the-mathematics" title="Permalink to this headline">¶</a></h3>
-<p>You will not need heavy math to follow this page. If you don&#8217;t remember
+<p>You will not need heavy math to follow this page. If you don’t remember
 the following concepts you might want to brush up on them. There are
 also links to proofs and explanations for these ideas in the page as we
 go along:</p>
 <ul class="simple">
-<li>basic trigonometry (SOH CAH TOA, Pythagoras&#8217; theorem);</li>
+<li>basic trigonometry (SOH CAH TOA, Pythagoras’ theorem);</li>
 <li>the <a class="reference internal" href="angle_sum.html"><span class="doc">angle sum rule</span></a>;</li>
 <li><a class="reference internal" href="some_sums.html"><span class="doc">basic algebra with sums</span></a>;</li>
 <li><a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>;</li>
@@ -155,7 +155,7 @@ input <code class="docutils literal"><span class="pre">x</span></code>, but as c
 <h3>DFT and FFT<a class="headerlink" href="#dft-and-fft" title="Permalink to this headline">¶</a></h3>
 <p>The fast fourier transform (FFT) refers to a particular set of - er -
 fast algorithms for calculating the DFT. It is common, but confusing, to
-use &#8220;FFT&#8221; to mean DFT.</p>
+use “FFT” to mean DFT.</p>
 </div>
 <div class="section" id="introducing-the-discrete-fourier-transform">
 <h3>Introducing the discrete Fourier transform<a class="headerlink" href="#introducing-the-discrete-fourier-transform" title="Permalink to this headline">¶</a></h3>
@@ -188,7 +188,7 @@ signal not transformed to frequency.</p>
 <span class="math">\(e^{iz}\)</span>, where <span class="math">\(z = -2 \pi \frac{k}{N} n\)</span> for the forward
 transform; <span class="math">\(z = 2 \pi \frac{k}{N} n\)</span> for the inverse transform.</p>
 <p>Some people are used to looking at the form <span class="math">\(e^{iz}\)</span> and thinking
-&#8220;aha, that&#8217;s a rotation around a circle&#8221;. Apparently this is an
+“aha, that’s a rotation around a circle”. Apparently this is an
 intuition that builds up over time working with these sorts of
 equations.</p>
 <p>Unfortunately, some of us find it hard to think in complex exponentials,
@@ -202,14 +202,14 @@ imaginary numbers - see <a class="reference internal" href="simple_complex.html"
 </div>
 <div class="section" id="back-to-scrubbing-the">
 <h3>Back to scrubbing the <span class="math">\(e^i\)</span><a class="headerlink" href="#back-to-scrubbing-the" title="Permalink to this headline">¶</a></h3>
-<p>Our first tool in this enterprise is Euler&#8217;s formula:</p>
+<p>Our first tool in this enterprise is Euler’s formula:</p>
 <div class="math">
 \[e^{ix} = \cos x + i\sin x\]</div>
 <p>This is the basis for thinking of <span class="math">\(e^{ix}\)</span> as being rotation
 around a circle, of which you will hear no more in this page. In our
 case, it allows us to rewrite the forward and inverse Fourier
 transforms:</p>
-<p>First let&#8217;s define a new value <span class="math">\(D\)</span>, that depends on <span class="math">\(N\)</span> -
+<p>First let’s define a new value <span class="math">\(D\)</span>, that depends on <span class="math">\(N\)</span> -
 the number of observations in our vector <span class="math">\(\vec{x}\)</span>.</p>
 <div class="math">
 \[D \triangleq \frac{2 \pi}{N}\]</div>
@@ -234,7 +234,7 @@ x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k \cdot \cos(k n D) + i \frac{1}{N}
 <h3>Rewriting as dot products<a class="headerlink" href="#rewriting-as-dot-products" title="Permalink to this headline">¶</a></h3>
 <p>We can simplify the notation, and maybe make the process clearer, by
 rewriting these sums in terms of dot products.</p>
-<p>As y&#8217;all remember, the dot product of two length <span class="math">\(N\)</span> vectors
+<p>As y’all remember, the dot product of two length <span class="math">\(N\)</span> vectors
 <span class="math">\(\vec{v}, \vec{w}\)</span> is given by:</p>
 <div class="math">
 \[\vec{v} \cdot \vec{w} \triangleq \sum_{i=0}^{N-1} v_i w_i\]</div>
@@ -483,7 +483,7 @@ about real number input to the DFT.</p>
 <h2>Some properties of the cosine and sine basis matrices<a class="headerlink" href="#some-properties-of-the-cosine-and-sine-basis-matrices" title="Permalink to this headline">¶</a></h2>
 <p>First we note that <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> are always real matrices,
 regardless of the input <span class="math">\(\vec{x}\)</span> or <span class="math">\(\vec{X}\)</span>.</p>
-<p>Let&#8217;s show <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> as grayscale images again:</p>
+<p>Let’s show <span class="math">\(\C\)</span> and <span class="math">\(\S\)</span> as grayscale images again:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$\mathbf{C}$&quot;</span><span class="p">)</span>
@@ -507,7 +507,7 @@ correct:</p>
 <div class="math">
 \[\begin{split}C_{p,:} = C_{N-p,:} \; \mathrm{for} \; p &gt; 0 \\
 S_{p,:} = -S_{N-p,:} \; \mathrm{for} \; p &gt; 0\end{split}\]</div>
-<p>Why is this? Let&#8217;s look at lines from the center of <span class="math">\(\C\)</span>. Here we
+<p>Why is this? Let’s look at lines from the center of <span class="math">\(\C\)</span>. Here we
 are plotting the continuous cosine function with dotted lines, with
 filled circles to represent the discrete samples we took to fill the row
 of <span class="math">\(\C\)</span>:</p>
@@ -600,7 +600,7 @@ at horizontal axis values for <span class="math">\(n = 1\)</span>:</p>
 t_{1,1} = (1) 2 \pi \frac{1}{N} \\
 ... \\
 t_{N-1,1} = (N-1) 2 \pi \frac{1}{N} \\\end{split}\]</div>
-<p>In general, because the sequence <span class="math">\(k 0,1,,N-1 \)</span> is equal to the sequence
+<p>In general, because the sequence $k 0,1,,N-1 $ is equal to the sequence
 <span class="math">\(n \in 0,1,\ldots,N-1\)</span>, this means that the column sampling
 positions for row <span class="math">\(n \in t_{0, n}, t_{1, n}, ... , t_{N-1, n}\)</span> are
 equal to the row sampling positions for corresponding (<span class="math">\(k = n\)</span>)
@@ -683,7 +683,7 @@ as <span class="math">\(-\| \vec{s_n} \|^2\)</span>.</li>
 </div>
 <p>The rows <span class="math">\(\vec{s_0}\)</span> and <span class="math">\(\vec{s_{N / 2}}\)</span> have squared
 length <span class="math">\(0\)</span>, and the other rows have squared length <span class="math">\(N / 2\)</span>.</p>
-<p>Finally, let&#8217;s look at the relationship between the rows of <span class="math">\(\C\)</span>
+<p>Finally, let’s look at the relationship between the rows of <span class="math">\(\C\)</span>
 and the rows of <span class="math">\(\S\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 <span class="go">True</span>
@@ -696,7 +696,7 @@ and the rows of <span class="math">\(\S\)</span>:</p>
 <h4>Proof for <span class="math">\(\C, \S\)</span> dot products<a class="headerlink" href="#proof-for-dot-products" title="Permalink to this headline">¶</a></h4>
 <p>We can show these relationships with some more or less basic
 trigonometry.</p>
-<p>Let&#8217;s start by looking at the dot product of two rows from <span class="math">\(\C\)</span>.
+<p>Let’s start by looking at the dot product of two rows from <span class="math">\(\C\)</span>.
 We will take rows <span class="math">\(\vec{c_p} =\C_{p,:}\)</span> and
 <span class="math">\(\vec{c_q} = \C_{q,:}\)</span>. As we remember, these vectors are:</p>
 <div class="math">
@@ -1289,7 +1289,7 @@ a visual proof in the case of real angles <span class="math">\(\alpha, \beta\)</
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

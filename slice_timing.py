@@ -31,7 +31,7 @@ data.shape
 # The scanner acquired each of these 16 z slices at a different time, relative
 # to the start of the TR.
 #
-# For the moment, let's consider the first volume only.
+# For the moment, let’s consider the first volume only.
 
 vol0 = data[..., 0]
 
@@ -50,12 +50,12 @@ plt.xlabel('x axis')  # doctest: +SKIP
 plt.ylabel('z axis')  # doctest: +SKIP
 
 # The scanner acquired the slices in interleaved order, first acquiring slice
-# index 0, 2, 4, ... 14 (where 0 is the bottom slice) then acquiring slices 1, 3,
+# index 0, 2, 4, … 14 (where 0 is the bottom slice) then acquiring slices 1, 3,
 # 5, .. 15:
 #
 # So the scanner collected the bottom slice, at slice index 0, at the beginning
 # of the TR, but it collected the next slice in space, at slice index 1, half
-# way through the TR.  Let's say the TR == 2.0.  The time that the scanner takes
+# way through the TR.  Let’s say the TR == 2.0.  The time that the scanner takes
 # to acquire a single slice will be:
 
 TR = 2.0
@@ -87,7 +87,7 @@ time_for_slice_1
 #
 # ## Slice timing is interpolation in time
 #
-# Let's first get a time series from the bottom slice.  Here's what the bottom
+# Let’s first get a time series from the bottom slice.  Here’s what the bottom
 # slice looks like, for the first volume:
 
 plt.imshow(vol0[:, :, 0])  # doctest: +SKIP
@@ -130,7 +130,7 @@ plt.legend()
 plt.title('Time courses for slice 0, slice 1')
 plt.xlabel('time (seconds)')  # doctest: +SKIP
 
-# We can't see the time offset very well here, so let's plot only the first 10
+# We can’t see the time offset very well here, so let’s plot only the first 10
 # values (values for the first 10 volumes):
 
 plt.plot(times_slice_0[:10], time_course_slice_0[:10], 'b:+',
@@ -146,7 +146,7 @@ plt.xlabel('time (seconds)')  # doctest: +SKIP
 # values for slice 0.
 #
 # One easy way to do this, might be to do the following for each of our desired
-# samples at times $t \in 0, 2, 4, ... 198$:
+# samples at times $t in 0, 2, 4, … 198$:
 #
 # * draw a vertical line at $x = t$;
 #

@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Correlation and projection" href="correlation_projection.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -48,15 +48,15 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="angles-between-vectors">
 <h1>Angles between vectors<a class="headerlink" href="#angles-between-vectors" title="Permalink to this headline">¶</a></h1>
-<p>Consider two vectors <span class="math">\(\vec{w}\)</span> and <span class="math">\(\vec{v}\)</span>.</p>
+<p>Consider two vectors $vec{w}$ and $vec{v}$.</p>
 <a class="reference internal image-reference" href="_images/vector_projection.svg"><img alt="_images/vector_projection.svg" height="500" src="_images/vector_projection.svg" width="400" /></a>
 <p>We already know from <a class="reference internal" href="vector_projection.html"><span class="doc">Vector projection</span></a> that the vector projection of
-<span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span> is <span class="math">\(c \vec{v}\)</span> where:</p>
+$vec{w}$ onto $vec{v}$ is $c vec{v}$ where:</p>
 <div class="math">
 \[c = \frac{\vec{w} \cdot \vec{v}}{\VL{v}^2}\]</div>
-<p>We know from the definition of projection that <span class="math">\(c \vec{v}\)</span> and <span class="math">\(\vec{w} - c
-\vec{v}\)</span> form a right angle.</p>
-<p>If the angle between <span class="math">\(\vec{v}\)</span> and <span class="math">\(\vec{w}\)</span> is <span class="math">\(\alpha\)</span>, then:</p>
+<p>We know from the definition of projection that $c vec{v}$ and $vec{w} - c
+vec{v}$ form a right angle.</p>
+<p>If the angle between $vec{v}$ and $vec{w}$ is $alpha$, then:</p>
 <div class="math">
 \[\VL{w} cos(\alpha) = \L{ c \vec{v} }
 = c \VL{v}
@@ -121,7 +121,7 @@ on angles between vectors</a>.</li>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

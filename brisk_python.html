@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Inserting values into strings" href="string_formatting.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -160,7 +160,7 @@ about Boolean values:</p>
 <h2>None<a class="headerlink" href="#none" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">None</span></code> is also a special object in Python.  By convention, Python often uses
 <code class="docutils literal"><span class="pre">None</span></code> to mean that no valid value resulted from an operation, or to signal
-that we don&#8217;t have a value for a parameter.</p>
+that we don’t have a value for a parameter.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
 <span class="go">&lt;class &#39;NoneType&#39;&gt;</span>
 </pre></div>
@@ -189,7 +189,7 @@ different from MATLAB, which uses <code class="docutils literal"><span class="pr
 </div>
 </div>
 <div class="section" id="if-statements-blocks-and-indention">
-<h2>&#8220;If&#8221; statements, blocks and indention<a class="headerlink" href="#if-statements-blocks-and-indention" title="Permalink to this headline">¶</a></h2>
+<h2>“If” statements, blocks and indention<a class="headerlink" href="#if-statements-blocks-and-indention" title="Permalink to this headline">¶</a></h2>
 <p>A conditional statement in Python looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_var</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">my_var</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
@@ -259,9 +259,9 @@ contraction for <code class="docutils literal"><span class="pre">else</span> <sp
 </div>
 </div>
 <div class="section" id="while-statements">
-<h2>&#8220;While&#8221; statements<a class="headerlink" href="#while-statements" title="Permalink to this headline">¶</a></h2>
+<h2>“While” statements<a class="headerlink" href="#while-statements" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">while</span></code> statements are another example with an initial test followed by an
-indented block.   Here&#8217;s an example where we find the largest <a class="reference external" href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci
+indented block.   Here’s an example where we find the largest <a class="reference external" href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci
 number</a> less than 1000:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">last_but_1</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fibonacci</span> <span class="o">=</span> <span class="mi">1</span>
@@ -303,7 +303,7 @@ run the statements in the <code class="docutils literal"><span class="pre">while
 </div>
 <p>A Python list is like a cell array in MATLAB, or a <code class="docutils literal"><span class="pre">list</span></code> in R.</p>
 <div class="section" id="for-loops-and-iteration">
-<span id="for-loops"></span><h3>&#8220;for&#8221; loops and iteration<a class="headerlink" href="#for-loops-and-iteration" title="Permalink to this headline">¶</a></h3>
+<span id="for-loops"></span><h3>“for” loops and iteration<a class="headerlink" href="#for-loops-and-iteration" title="Permalink to this headline">¶</a></h3>
 <p>We can <em>iterate</em> over a list.  To iterate, means to fetch one element after
 another from some container, such as a list.  We can use a <code class="docutils literal"><span class="pre">for</span></code> loop to
 iterate over a list:</p>
@@ -581,8 +581,8 @@ the list:</p>
 <span class="go">[20, 8, 0]</span>
 </pre></div>
 </div>
-<p>If you have a negative step size, and you don&#8217;t specify the start index, then
-the start index defaults to the last element in the list. If you don&#8217;t specify
+<p>If you have a negative step size, and you don’t specify the start index, then
+the start index defaults to the last element in the list. If you don’t specify
 the stop index, it defaults to one prior to index 0:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span>
 <span class="go">[9, 999, 0, 8, 20]</span>
@@ -625,7 +625,7 @@ elements.</p>
 <span class="gr">AttributeError</span>: <span class="n">&#39;tuple&#39; object has no attribute &#39;append&#39;</span>
 </pre></div>
 </div>
-<p>Here&#8217;s an empty tuple:</p>
+<p>Here’s an empty tuple:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">empty_tuple</span> <span class="o">=</span> <span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">empty_tuple</span>
 <span class="go">()</span>
@@ -643,7 +643,7 @@ elements.</p>
 <span class="go">1</span>
 </pre></div>
 </div>
-<p>This is because Python can&#8217;t tell that you meant this to be a tuple,
+<p>This is because Python can’t tell that you meant this to be a tuple,
 rather than an expression with parentheses round it:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_a_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">not_a_tuple</span>
@@ -756,7 +756,7 @@ of the input, but replacing instances of one string with another:</p>
 <span class="go">&#39;extraordinary text&#39;</span>
 </pre></div>
 </div>
-<p>Notice that the original string has not changed (it&#8217;s immutable):</p>
+<p>Notice that the original string has not changed (it’s immutable):</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_string</span>
 <span class="go">&#39;interesting text&#39;</span>
 </pre></div>
@@ -956,7 +956,7 @@ string — <code class="docutils literal"><span class="pre">'MATLAB'</span></cod
 </div>
 <p>We can iterate over the keys in the dictionary, but the order of the
 keys is arbitrary. Python returns the keys in any order it chooses, and
-we can&#8217;t rely on the order being the same in any two runs of our
+we can’t rely on the order being the same in any two runs of our
 program:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">software</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>  
 <span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -1010,7 +1010,7 @@ have a key in a dictionary:</p>
 </div>
 </div>
 <div class="section" id="for-while-continue-and-break">
-<h2>&#8220;for&#8221;, &#8220;while&#8221;, &#8220;continue&#8221; and &#8220;break&#8221;<a class="headerlink" href="#for-while-continue-and-break" title="Permalink to this headline">¶</a></h2>
+<h2>“for”, “while”, “continue” and “break”<a class="headerlink" href="#for-while-continue-and-break" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">for</span></code> statements and <code class="docutils literal"><span class="pre">while</span></code> statement are <em>loops</em>, because Python keeps
 executing the <code class="docutils literal"><span class="pre">for</span></code> or <code class="docutils literal"><span class="pre">while</span></code> block until the <code class="docutils literal"><span class="pre">for</span></code> runs out of
 elements or the <code class="docutils literal"><span class="pre">while</span></code> condition is False.  You can break out of a loop
@@ -1045,7 +1045,7 @@ of the <code class="docutils literal"><span class="pre">for</span></code> or <co
 <span class="go">9</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="on_loops.html"><span class="doc">&#8220;for&#8221; and &#8220;while&#8221;, &#8220;break&#8221; and &#8220;else:&#8221;</span></a> for more on loops and <code class="docutils literal"><span class="pre">break</span></code>.</p>
+<p>See <a class="reference internal" href="on_loops.html"><span class="doc">“for” and “while”, “break” and “else:”</span></a> for more on loops and <code class="docutils literal"><span class="pre">break</span></code>.</p>
 </div>
 <div class="section" id="functions">
 <span id="id6"></span><h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
@@ -1183,7 +1183,7 @@ comparing the elements. If so, then you can define a <em>sort function</em>.  A 
 function is a function that accepts an element as its argument, and returns a
 <em>sort value</em> for that element. Python does the sorting, not on the elements
 themselves, but on the returned sort value for each element.</p>
-<p>For example, let&#8217;s say we have first and last names stored as tuples:</p>
+<p>For example, let’s say we have first and last names stored as tuples:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">people</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;JB&#39;</span><span class="p">,</span> <span class="s1">&#39;Poline&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Matthew&#39;</span><span class="p">,</span> <span class="s1">&#39;Brett&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Mark&#39;</span><span class="p">,</span> <span class="s1">&#39;DEsposito&#39;</span><span class="p">)]</span>
 </pre></div>
 </div>
@@ -1243,7 +1243,7 @@ attributes and methods — e.g. <code class="docutils literal"><span class="pre"
 <span class="go">26</span>
 </pre></div>
 </div>
-<p>You should close the file when you&#8217;ve finished with it:</p>
+<p>You should close the file when you’ve finished with it:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1265,7 +1265,7 @@ without arguments:</p>
 </pre></div>
 </div>
 <p>An open text file object is also <em>iterable</em>, meaning, that you can ask the
-file object to return its contents line by line, in a <code class="docutils literal"><span class="pre">for</span></code> loop. Let&#8217;s open
+file object to return its contents line by line, in a <code class="docutils literal"><span class="pre">for</span></code> loop. Let’s open
 the file again to show this in action:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_file2</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;a_text_file.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">my_file2</span><span class="p">:</span>  <span class="c1"># iterating over the file object</span>
@@ -1398,10 +1398,10 @@ objects).</td></tr>
 <li><a class="reference internal" href="#true-and-false">True and False</a></li>
 <li><a class="reference internal" href="#none">None</a></li>
 <li><a class="reference internal" href="#equals">Equals</a></li>
-<li><a class="reference internal" href="#if-statements-blocks-and-indention">&#8220;If&#8221; statements, blocks and indention</a></li>
-<li><a class="reference internal" href="#while-statements">&#8220;While&#8221; statements</a></li>
+<li><a class="reference internal" href="#if-statements-blocks-and-indention">“If” statements, blocks and indention</a></li>
+<li><a class="reference internal" href="#while-statements">“While” statements</a></li>
 <li><a class="reference internal" href="#lists">Lists</a><ul>
-<li><a class="reference internal" href="#for-loops-and-iteration">&#8220;for&#8221; loops and iteration</a></li>
+<li><a class="reference internal" href="#for-loops-and-iteration">“for” loops and iteration</a></li>
 <li><a class="reference internal" href="#lists-are-sequences">Lists are sequences</a></li>
 <li><a class="reference internal" href="#python-indices-are-0-based">Python indices are 0-based</a></li>
 <li><a class="reference internal" href="#negative-indices">Negative indices</a></li>
@@ -1428,7 +1428,7 @@ objects).</td></tr>
 <li><a class="reference internal" href="#dictionaries-are-containers">Dictionaries are containers</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#for-while-continue-and-break">&#8220;for&#8221;, &#8220;while&#8221;, &#8220;continue&#8221; and &#8220;break&#8221;</a></li>
+<li><a class="reference internal" href="#for-while-continue-and-break">“for”, “while”, “continue” and “break”</a></li>
 <li><a class="reference internal" href="#functions">Functions</a><ul>
 <li><a class="reference internal" href="#default-values-for-function-arguments">Default values for function arguments</a></li>
 <li><a class="reference internal" href="#functions-are-objects-too">Functions are objects too</a></li>
@@ -1473,7 +1473,7 @@ objects).</td></tr>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

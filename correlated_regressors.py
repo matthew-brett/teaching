@@ -68,7 +68,7 @@ plt.plot(hrf2, label='hrf2')
 plt.plot(signal, label='signal (combined hrfs)')
 plt.legend()
 
-# We're going to make our simulated data from taking the signal (the two HRFs)
+# We’re going to make our simulated data from taking the signal (the two HRFs)
 # and adding some random noise:
 
 noise = np.random.normal(size=times.shape)
@@ -128,7 +128,7 @@ B_boths = npl.pinv(X_both).dot(Ys)
 # $(X^T X)^+$ is the [pseudo-inverse](https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse) of
 # $X^T X$.
 #
-# That's the theory. So, what is the distribution of the estimates we get for
+# That’s the theory. So, what is the distribution of the estimates we get for
 # the first beta, in the single-HRF model?
 
 plt.hist(B_ones[0], bins=50)

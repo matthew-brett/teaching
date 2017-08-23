@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Sums of sinusoids" href="sums_of_sinusoids.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -49,11 +49,11 @@
 <div class="section" id="sum-of-sines-and-cosines">
 <h1>Sum of sines and cosines<a class="headerlink" href="#sum-of-sines-and-cosines" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>Samuel Greitzer &#8220;Many cheerful Facts&#8221; Arbelos 4 (1986), no. 5, 14-17.</li>
+<li>Samuel Greitzer “Many cheerful Facts” Arbelos 4 (1986), no. 5, 14-17.</li>
 <li>Michael P. Knapp <a class="reference external" href="http://evergreen.loyola.edu/mpknapp/www/papers/knapp-sv.pdf">Sines and cosines of angles in arithmetic progression</a> Mathematics
 Magazine 82.5 (2009): 371-372.</li>
 </ul>
-<p>The proof on this page follows Samuel Greitzner&#8217;s &#8220;Many cheerful facts&#8221;.</p>
+<p>The proof on this page follows Samuel Greitzner’s “Many cheerful facts”.</p>
 <div class="section" id="theorems">
 <h2>Theorems<a class="headerlink" href="#theorems" title="Permalink to this headline">¶</a></h2>
 <p>For a positive integer <span class="math">\(N\)</span> and real numbers <span class="math">\(a, d\)</span>:</p>
@@ -190,7 +190,7 @@ as for the cosine:</p>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>When <span class="math">\(\sin(\frac{1}{2}d) \ne 0\)</span>:</p>
+<p>When $sin(frac{1}{2}d) ne 0$:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;cos&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
@@ -201,7 +201,7 @@ as for the cosine:</p>
 <span class="go">sin -6.27049470825 -6.27049470825</span>
 </pre></div>
 </div>
-<p>When <span class="math">\(\sin(\frac{1}{2}d) \approx 0\)</span>:</p>
+<p>When $sin(frac{1}{2}d) approx 0$:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
@@ -268,7 +268,7 @@ as for the cosine:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

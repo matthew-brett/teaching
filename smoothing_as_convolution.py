@@ -64,7 +64,7 @@ print(y_vals.dot(kernel_at_pos))
 # efficient, by only doing the y value multiplication for kernel values
 # that are larger than some threshold, like 0.0001.
 #
-# Let's have another look at the Gaussian
+# Let’s have another look at the Gaussian
 
 # Make a +/- x range large enough to let kernel drop to zero
 x_for_kernel = np.arange(-10, 10)

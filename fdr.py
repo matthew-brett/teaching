@@ -29,7 +29,7 @@
 # For the FDR, we will try to find a p value within the family of tests
 # (the set of p values), that we can use as a detection threshold.
 #
-# Let's look at the p value for a particular test. Let's say there are
+# Let’s look at the p value for a particular test. Let’s say there are
 # $N$ tests, indexed with $i \in 1 .. N$. We look at a test
 # $i$, and consider using p value from this test as a detection
 # threshold; $\theta = p(i)$. The expected number of false positives
@@ -43,7 +43,7 @@
 # $p(i)$ was 0.1, then the expected number of false positive
 # detections, thresholding at 0.1, is 0.1 \* 100 = 10.
 #
-# Let's take some data from a random normal distribution to illustrate:
+# Let’s take some data from a random normal distribution to illustrate:
 
 from __future__ import print_function, division
 import numpy as np
@@ -97,7 +97,7 @@ plt.ylabel('p value')
 # N p(i) / i < q \implies p(i) < q i / N
 # $$
 #
-# Let's take $q$ (the proportion of false discoveries = detections)
+# Let’s take $q$ (the proportion of false discoveries = detections)
 # as 0.05. We plot $q i / N$ (in red) on the same graph as
 # $p(i)$ (in blue):
 
@@ -188,9 +188,9 @@ print('i:', max_below + 1) # Python indices 0-based, we want 1-based
 # * Under some conditions (see Benjamini and Hochberg, JRSS-B 1995), the
 #   FDR threshold can be applied to correlated data
 #
-# * FDR is an "adaptive" threshold
+# * FDR is an “adaptive” threshold
 #
-# Not so "interesting"
+# Not so “interesting”
 #
 # * FDR can be very variable
 #

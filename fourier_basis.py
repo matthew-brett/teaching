@@ -21,7 +21,7 @@
 # \sin(r^k_{N-1} \right]
 # $$
 #
-# $\vec{c_k}, \vec{s_k}$ are *Fourier basis vectors*.
+# $vec{c_k}, vec{s_k}$ are *Fourier basis vectors*.
 #
 # We can compile all these vectors into matrices to form *Fourier basis
 # matrices*.
@@ -97,7 +97,7 @@ import dft_plots as dftp
 # First we note that $\C$ and $\S$ are always real matrices,
 # regardless of the input $\vec{x}$ or $\vec{X}$.
 #
-# Let's show $\C$ and $\S$ as grayscale images.
+# Let’s show $\C$ and $\S$ as grayscale images.
 #
 # First we build $\C$ and $\S$ for our case with $N=32$:
 
@@ -129,7 +129,7 @@ axes[1].set_title("$\mathbf{S}$")
 # S_{p,:} = -S_{N-p,:} \; \mathrm{for} \; p > 0
 # $$
 #
-# Why is this? Let's look at lines from the center of $\C$. Here we
+# Why is this? Let’s look at lines from the center of $\C$. Here we
 # are plotting the continuous cosine function with dotted lines, with
 # filled circles to represent the discrete samples we took to fill the row
 # of $\C$:
@@ -287,7 +287,7 @@ np.diag(S.T.dot(S))
 # The rows $\vec{s_0}$ and $\vec{s_{N / 2}}$ have squared
 # length $0$, and the other rows have squared length $N / 2$.
 #
-# Finally, let's look at the relationship between the rows of $\C$
+# Finally, let’s look at the relationship between the rows of $\C$
 # and the rows of $\S$:
 
 np.allclose(C.T.dot(S), 0)
@@ -302,7 +302,7 @@ np.allclose(C.T.dot(S), 0)
 # We can show these relationships with some more or less basic
 # trigonometry.
 #
-# Let's start by looking at the dot product of two rows from $\C$.
+# Let’s start by looking at the dot product of two rows from $\C$.
 # We will take rows $\vec{c_p} =\C_{p,:}$ and
 # $\vec{c_q} = \C_{q,:}$. As we remember, these vectors are:
 #

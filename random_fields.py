@@ -21,7 +21,7 @@
 # the scan data for that voxel, across scans. $t$ values and
 # $F$ values are the most common.
 #
-# For the sake of simplicity, I'll assume that we have $Z$ values
+# For the sake of simplicity, I’ll assume that we have $Z$ values
 # instead of $t$ or $F$ values. $Z$ values are values
 # from the standard normal distribution. The same sort of arguments apply
 # to $t$ and $F$ values, just with slightly different
@@ -69,8 +69,8 @@ inv_n_cdf([0.95, 0.99])
 # be confident that the remaining peak $Z$ scores are indeed too
 # high to be expected by chance? This is the multiple comparison problem.
 #
-# We could call all the $Z$ scores in the brain a "family" of tests.
-# We want to find a threshold so that we can correct for a whole "family"
+# We could call all the $Z$ scores in the brain a “family” of tests.
+# We want to find a threshold so that we can correct for a whole “family”
 # of tests. For this reason, these multiple comparison correction methods
 # are often known as *family-wise* correction methods.
 #
@@ -282,7 +282,7 @@ plt.title('Image 1 - smoothed with Gaussian kernel of FWHM %s by %s pixels' %
 #
 # # What is a resel?
 #
-# A resel is a "resolution element". The number of resels in an image is
+# A resel is a “resolution element”. The number of resels in an image is
 # similar to the number of independent observations in the image. However,
 # they are not the same, as we will see below. A resel is defined as a
 # block of pixels of the same size as the FWHM of the smoothness of the
@@ -427,7 +427,7 @@ print('False positive rate in simulation was %s (%s expected)' %
 #
 # Exactly the same principles apply to a smoothed random number image in
 # three dimensions. In this case, the EC is the number of 3D blobs -
-# perhaps "globules" - of $Z$ scores above a certain threshold.
+# perhaps “globules” - of $Z$ scores above a certain threshold.
 # Pixels might better be described as voxels (pixels with volume). The
 # resels are now in 3D, and one resel is a cube of voxels that is of size
 # (FWHM in x) by (FWHM in y) by (FWHM in z). The formula for the expected
@@ -460,7 +460,7 @@ print('False positive rate in simulation was %s (%s expected)' %
 #
 # ## t and F statistic volumes
 #
-# Keith Worsley's 1996 paper gives the random field formulae for $t$
+# Keith Worsley’s 1996 paper gives the random field formulae for $t$
 # and $F$ statistics. `SPM` and other imaging packages generate
 # $t$ and $F$ statistics maps. They use the random fields
 # formulae for $t$, $F$ to work out the corrected
@@ -491,7 +491,7 @@ FWHM = [4.0528, 4.0172, 4.1192]
 resel_volume = np.prod(FWHM)
 print(resel_volume)
 
-# That's the value you see at the bottom the SPM printout after
+# That’s the value you see at the bottom the SPM printout after
 # `resel =`. The resel count of 592.9 in the printout comes from a
 # calculation based on this estimated FWHM smoothness and the shape of the
 # brain. In other words it applies the search volume correction I
@@ -507,11 +507,11 @@ print(44532 / resel_volume)
 #
 # Look at the peak voxel for the third-most significant cluster. This is
 # the third bold line in the table, and the seventh line overall. On the
-# left-hand side of the table, you see the values for the "peak-level"
+# left-hand side of the table, you see the values for the “peak-level”
 # statistics. The extreme left gives the voxel location in millimeters.
 # Our voxel of interest is at location x=-42, y=18, z=3.
 #
-# The value in the "T" column for this voxel is 4.89. This is the raw
+# The value in the “T” column for this voxel is 4.89. This is the raw
 # $t$ statistic. The column $P_{FWE-corr}$ gives the random
 # field corrected $p$ value. In this case the value is 0.037. 0.037
 # is the expected EC, in a 3D image of 592.9 resels when thresholded at
@@ -519,7 +519,7 @@ print(44532 / resel_volume)
 # getting one or more blobs of $t$ value 4.89 or greater, is 0.037.
 #
 # There are other corrected $p$ values here, based on cluster size,
-# and based on the false discovery rate, but I didn't cover those
+# and based on the false discovery rate, but I didn’t cover those
 # corrections here.
 #
 # # References

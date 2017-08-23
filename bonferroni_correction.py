@@ -66,10 +66,10 @@ print(sidak_thresh(0.05, 10))
 # # The Bonferroni correction
 #
 # $\newcommand{\P}{\mathbb P}$ The Bonferroni correction uses a
-# result from probability theory, called Boole's inequality. The result is
-# by George Boole, of *boolean* fame. Boole's inequality applies to the
-# situation where we have a set of events $A_1, A_2, A_3, \ldots $, each
-# with some probability of occurring ${P}(A_1), {P}(A_2), {P}(A_3) \ldots
+# result from probability theory, called Boole’s inequality. The result is
+# by George Boole, of *boolean* fame. Boole’s inequality applies to the
+# situation where we have a set of events $A_1, A_2, A_3, ldots $, each
+# with some probability of occurring ${P}(A_1), {P}(A_2), {P}(A_3) ldots
 # $. The inequality states that the probability of one or more of these
 # events occurring is no greater than the sum of the probabilities of the
 # individual events:
@@ -78,18 +78,18 @@ print(sidak_thresh(0.05, 10))
 # \P\biggl(\bigcup_{i} A_i\biggr) \le \sum_i {\mathbb P}(A_i).
 # $$
 #
-# You can read the $\cup$ symbol here as "or" or "union".
+# You can read the $\cup$ symbol here as “or” or “union”.
 # $\P\biggl(\bigcup_{i} A_i\biggr)$ is the probability of the
 # *union* of all events, and therefore the probability of one or more
 # event occurring.
 #
-# Boole's inequality is true because:
+# Boole’s inequality is true because:
 #
 # $$
 # \P(A \cup B) = P(A) + P(B) - P(A \cap B)
 # $$
 #
-# where you can read $\cap$ as "and" or "intersection". Because
+# where you can read $\cap$ as “and” or “intersection”. Because
 # $P(A \cap B) \ge 0$:
 #
 # $$
@@ -117,7 +117,7 @@ print(bonferroni_thresh(0.05, 10))
 
 # The Bonferroni correction does not assume the tests are independent.
 #
-# As we have seen, Boole's inequality relies on:
+# As we have seen, Boole’s inequality relies on:
 #
 # $$
 # \P(A \cup B) = P(A) + P(B) - P(A \cap B) \implies \\

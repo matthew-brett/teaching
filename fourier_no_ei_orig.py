@@ -13,12 +13,12 @@
 #
 # #### How hard is the mathematics?
 #
-# You will not need heavy math to follow this page. If you don't remember
+# You will not need heavy math to follow this page. If you don’t remember
 # the following concepts you might want to brush up on them. There are
 # also links to proofs and explanations for these ideas in the page as we
 # go along:
 #
-# * basic trigonometry (SOH CAH TOA, Pythagoras' theorem);
+# * basic trigonometry (SOH CAH TOA, Pythagoras’ theorem);
 #
 # * the [angle sum rule](https://matthew-brett.github.io/teaching/angle_sum.html);
 #
@@ -87,7 +87,7 @@ x_back
 #
 # The fast fourier transform (FFT) refers to a particular set of - er -
 # fast algorithms for calculating the DFT. It is common, but confusing, to
-# use "FFT" to mean DFT.
+# use “FFT” to mean DFT.
 #
 # ## Introducing the discrete Fourier transform
 #
@@ -132,7 +132,7 @@ x_back
 # transform; $z = 2 \pi \frac{k}{N} n$ for the inverse transform.
 #
 # Some people are used to looking at the form $e^{iz}$ and thinking
-# "aha, that's a rotation around a circle". Apparently this is an
+# “aha, that’s a rotation around a circle”. Apparently this is an
 # intuition that builds up over time working with these sorts of
 # equations.
 #
@@ -149,7 +149,7 @@ x_back
 #
 # ## Back to scrubbing the $e^i$
 #
-# Our first tool in this enterprise is Euler's formula:
+# Our first tool in this enterprise is Euler’s formula:
 #
 # $$
 # e^{ix} = \cos x + i\sin x
@@ -160,7 +160,7 @@ x_back
 # case, it allows us to rewrite the forward and inverse Fourier
 # transforms:
 #
-# First let's define a new value $D$, that depends on $N$ -
+# First let’s define a new value $D$, that depends on $N$ -
 # the number of observations in our vector $\vec{x}$.
 #
 # $$
@@ -196,7 +196,7 @@ x_back
 # We can simplify the notation, and maybe make the process clearer, by
 # rewriting these sums in terms of dot products.
 #
-# As y'all remember, the dot product of two length $N$ vectors
+# As y’all remember, the dot product of two length $N$ vectors
 # $\vec{v}, \vec{w}$ is given by:
 #
 # $$
@@ -483,7 +483,7 @@ sketch.title('Forward DFT for complex input vector')
 # First we note that $\C$ and $\S$ are always real matrices,
 # regardless of the input $\vec{x}$ or $\vec{X}$.
 #
-# Let's show $\C$ and $\S$ as grayscale images again:
+# Let’s show $\C$ and $\S$ as grayscale images again:
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 5))
 dftp.show_array(axes[0], dftp.scale_array(C))
@@ -504,7 +504,7 @@ axes[1].set_title("$\mathbf{S}$")
 # S_{p,:} = -S_{N-p,:} \; \mathrm{for} \; p > 0
 # $$
 #
-# Why is this? Let's look at lines from the center of $\C$. Here we
+# Why is this? Let’s look at lines from the center of $\C$. Here we
 # are plotting the continuous cosine function with dotted lines, with
 # filled circles to represent the discrete samples we took to fill the row
 # of $\C$:
@@ -662,7 +662,7 @@ np.diag(S.T.dot(S))
 # The rows $\vec{s_0}$ and $\vec{s_{N / 2}}$ have squared
 # length $0$, and the other rows have squared length $N / 2$.
 #
-# Finally, let's look at the relationship between the rows of $\C$
+# Finally, let’s look at the relationship between the rows of $\C$
 # and the rows of $\S$:
 
 np.allclose(C.T.dot(S), 0)
@@ -677,7 +677,7 @@ np.allclose(C.T.dot(S), 0)
 # We can show these relationships with some more or less basic
 # trigonometry.
 #
-# Let's start by looking at the dot product of two rows from $\C$.
+# Let’s start by looking at the dot product of two rows from $\C$.
 # We will take rows $\vec{c_p} =\C_{p,:}$ and
 # $\vec{c_q} = \C_{q,:}$. As we remember, these vectors are:
 #

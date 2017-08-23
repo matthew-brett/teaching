@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="p values from cumulative distribution functions" href="on_cdfs.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -49,19 +49,19 @@
 <div class="section" id="linear-interpolation">
 <h1>Linear interpolation<a class="headerlink" href="#linear-interpolation" title="Permalink to this headline">¶</a></h1>
 <p>See: <a class="reference external" href="linearinterpolation">wikipedia on linear interpolation</a>.</p>
-<p>Let us say that we have two known points <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span>.</p>
-<p>Now we want to estimate what <span class="math">\(y\)</span> value we would get for some <span class="math">\(x\)</span> value that is
-between <span class="math">\(x_1\)</span> and <span class="math">\(x_2\)</span>.  Call this <span class="math">\(y\)</span> value estimate — an <em>interpolated</em>
+<p>Let us say that we have two known points $x_1, y_1$ and $x_2, y_2$.</p>
+<p>Now we want to estimate what $y$ value we would get for some $x$ value that is
+between $x_1$ and $x_2$.  Call this $y$ value estimate — an <em>interpolated</em>
 value.</p>
-<p>Two simple methods for choosing <span class="math">\(y\)</span> come to mind.  The first is see whether
-<span class="math">\(x\)</span> is closer to <span class="math">\(x_1\)</span> or to <span class="math">\(x_2\)</span>.  If <span class="math">\(x\)</span> is closer to <span class="math">\(x_1\)</span> then we use
-<span class="math">\(y_1\)</span> as the estimate, otherwise we use <span class="math">\(y_2\)</span>.  This is called <em>nearest
+<p>Two simple methods for choosing $y$ come to mind.  The first is see whether
+$x$ is closer to $x_1$ or to $x_2$.  If $x$ is closer to $x_1$ then we use
+$y_1$ as the estimate, otherwise we use $y_2$.  This is called <em>nearest
 neighbor</em> interpolation.</p>
-<p>The second is to draw a straight line between <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span>. We
-look to see the <span class="math">\(y\)</span> value on the line for our chosen <span class="math">\(x\)</span>.  This is <em>linear
+<p>The second is to draw a straight line between $x_1, y_1$ and $x_2, y_2$. We
+look to see the $y$ value on the line for our chosen $x$.  This is <em>linear
 interpolation</em>.</p>
 <p>It is <a class="reference external" href="https://vimeo.com/124728992">possible to show</a> that the formula of
-the line between <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span> is:</p>
+the line between $x_1, y_1$ and $x_2, y_2$ is:</p>
 <div class="math">
 \[y = y_1 + (x-x_1)\frac{y_2-y_1}{x_2-x_1}\]</div>
 <p>(<a class="reference external" href=".//linear_interpolation-1.png">png</a>, <a class="reference external" href=".//linear_interpolation-1.hires.png">hires.png</a>, <a class="reference external" href=".//linear_interpolation-1.pdf">pdf</a>)</p>
@@ -109,7 +109,7 @@ the line between <span class="math">\(x_1, y_1\)</span> and <span class="math">\
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

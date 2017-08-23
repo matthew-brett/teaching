@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The argument in “Why most published research findings are false”" href="ioannidis_2005.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -54,7 +54,7 @@ general linear model.</p>
 forever?</a>.</p>
 <p>This page starts by setting up a simple regression. Then I will try to
 show how the simple regression gets expressed in a <em>design matrix</em>. Once
-we have that, it&#8217;s easy to extend simple regression to multiple
+we have that, it’s easy to extend simple regression to multiple
 regression. By adding some specially formed regressors, we can also
 express group membership, and therefore do analysis of variance. This
 last step is where multiple regression becomes the general linear model.</p>
@@ -65,12 +65,12 @@ how it works in symbols, and in code, with actual numbers.</p>
 </div>
 <div class="section" id="the-example-regression-problem">
 <h2>The example regression problem<a class="headerlink" href="#the-example-regression-problem" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s imagine that we have measured scores for a &#8220;psychopathy&#8221;
+<p>Let’s imagine that we have measured scores for a “psychopathy”
 personality trait in 12 students. We also have some other information
 about these students. For example, we measured how much sweat each
-student had on their palms, and we call this a &#8220;clammy&#8221; score. We first
-try and work out whether the &#8220;clammy&#8221; score predicts the &#8220;psychopathy&#8221;
-score. We&#8217;ll do this with simple linear regression.</p>
+student had on their palms, and we call this a “clammy” score. We first
+try and work out whether the “clammy” score predicts the “psychopathy”
+score. We’ll do this with simple linear regression.</p>
 </div>
 <div class="section" id="simple-linear-regression">
 <h2>Simple linear regression<a class="headerlink" href="#simple-linear-regression" title="Permalink to this headline">¶</a></h2>
@@ -90,7 +90,7 @@ need.</p>
 interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal"><span class="pre">%matplotlib</span>
 <span class="pre">inline</span></code>.</p>
 </div>
-<p>Here are our scores of &#8220;psychopathy&#8221; from the 12 students:</p>
+<p>Here are our scores of “psychopathy” from the 12 students:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">psychopathy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">11.416</span><span class="p">,</span>   <span class="mf">4.514</span><span class="p">,</span>  <span class="mf">12.204</span><span class="p">,</span>  <span class="mf">14.835</span><span class="p">,</span>
 <span class="gp">... </span>               <span class="mf">8.416</span><span class="p">,</span>   <span class="mf">6.563</span><span class="p">,</span>  <span class="mf">17.343</span><span class="p">,</span> <span class="mf">13.02</span><span class="p">,</span>
 <span class="gp">... </span>               <span class="mf">15.19</span> <span class="p">,</span>  <span class="mf">11.902</span><span class="p">,</span>  <span class="mf">22.721</span><span class="p">,</span>  <span class="mf">22.324</span><span class="p">]</span>
@@ -118,7 +118,7 @@ and <code class="docutils literal"><span class="pre">psychopathy</span></code>. 
 <img alt="_images/glm_intro-4.png" src="_images/glm_intro-4.png" />
 </div>
 <p>It looks like there may be some sort of straight line relationship. We
-could try guessing at a line to fit the data. Let&#8217;s try an intercept of
+could try guessing at a line to fit the data. Let’s try an intercept of
 <span class="math">\(10\)</span> and slope <span class="math">\(0.9\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot the data</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clammy</span><span class="p">,</span> <span class="n">psychopathy</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">)</span>
@@ -151,7 +151,7 @@ could try guessing at a line to fit the data. Let&#8217;s try an intercept of
 <p>We are saying that the values of <code class="docutils literal"><span class="pre">psychopathy</span></code> can be partly predicted by
 a straight line of formula <code class="docutils literal"><span class="pre">10</span> <span class="pre">+</span> <span class="pre">clammy</span> <span class="pre">*</span> <span class="pre">0.9</span></code>.</p>
 <p><span class="math">\(\newcommand{\yvec}{\vec{y}} \newcommand{\xvec}{\vec{x}} \newcommand{\evec}{\vec{\varepsilon}}\)</span></p>
-<p>To make this more general, let&#8217;s call our <code class="docutils literal"><span class="pre">psychopathy</span></code> data
+<p>To make this more general, let’s call our <code class="docutils literal"><span class="pre">psychopathy</span></code> data
 <span class="math">\(\yvec\)</span> - a vector with 12 values, one for each student.
 <span class="math">\(y_1\)</span> is the value for the first student (= 11.416) and
 <span class="math">\(y_i\)</span> is the value for student <span class="math">\(i\)</span> where
@@ -174,7 +174,7 @@ above) plus some error for each observation:</p>
 <div class="section" id="simple-regression-in-matrix-form">
 <h2>Simple regression in matrix form<a class="headerlink" href="#simple-regression-in-matrix-form" title="Permalink to this headline">¶</a></h2>
 <p>It turns out it will be useful to rephrase the simple regression model
-in matrix form. Let&#8217;s make the data and predictor and errors into
+in matrix form. Let’s make the data and predictor and errors into
 vectors.</p>
 <p><span class="math">\(\yvec\)</span> is the vector of values <span class="math">\(y_1 ... y_{12}\)</span>.</p>
 <div class="math">
@@ -214,12 +214,12 @@ multiplication:</p>
 <p>In symbols:</p>
 <div class="math">
 \[\yvec = \Xmat \bvec + \evec\]</div>
-<p>We still haven&#8217;t found our best fitting line. But before we go further,
+<p>We still haven’t found our best fitting line. But before we go further,
 it might be obvious that we can easily add a new predictor here.</p>
 <div class="section" id="multiple-regression">
 <h3>Multiple regression<a class="headerlink" href="#multiple-regression" title="Permalink to this headline">¶</a></h3>
-<p>Let&#8217;s say we think that psychopathy increases with age. We add the
-student&#8217;s age as another predictor:</p>
+<p>Let’s say we think that psychopathy increases with age. We add the
+student’s age as another predictor:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">age</span> <span class="o">=</span> <span class="p">[</span><span class="mf">22.5</span><span class="p">,</span>  <span class="mf">25.3</span><span class="p">,</span>  <span class="mf">24.6</span><span class="p">,</span>  <span class="mf">21.4</span><span class="p">,</span>
 <span class="gp">... </span>       <span class="mf">20.7</span><span class="p">,</span>  <span class="mf">23.3</span><span class="p">,</span>  <span class="mf">23.8</span><span class="p">,</span>  <span class="mf">21.7</span><span class="p">,</span>
 <span class="gp">... </span>       <span class="mf">21.3</span><span class="p">,</span> <span class="mf">25.2</span><span class="p">,</span>  <span class="mf">24.6</span><span class="p">,</span>  <span class="mf">21.8</span><span class="p">]</span>
@@ -254,7 +254,7 @@ would be a column of ones, to express the intercept in the model.</p>
 <h2>Population, sample, estimate<a class="headerlink" href="#population-sample-estimate" title="Permalink to this headline">¶</a></h2>
 <p><span class="math">\(\newcommand{\bhat}{\hat{\bvec}} \newcommand{\yhat}{\hat{\yvec}}\)</span>
 Our students and their psychopathy scores are a <em>sample</em> from the
-population of all students&#8217; psychopathy scores. The parameters
+population of all students’ psychopathy scores. The parameters
 <span class="math">\(\bvec\)</span> are the parameters that fit the design <span class="math">\(\Xmat\)</span> to
 the <em>population</em> scores. We only have a sample from this population, so
 we cannot get the true population <span class="math">\(\bvec\)</span> vector, we can only
@@ -265,11 +265,11 @@ parameters <span class="math">\(\bvec\)</span>.</p>
 <div class="section" id="solving-the-model-with-matrix-algebra">
 <h2>Solving the model with matrix algebra<a class="headerlink" href="#solving-the-model-with-matrix-algebra" title="Permalink to this headline">¶</a></h2>
 <p>The reason to formulate our problem with matrices is so we can use some
-basic matrix algebra to estimate the &#8220;best&#8221; line.</p>
-<p>Let&#8217;s assume that we want an estimate for the line parameters (intercept
-and slope) that gives the smallest &#8220;distance&#8221; between the estimated
+basic matrix algebra to estimate the “best” line.</p>
+<p>Let’s assume that we want an estimate for the line parameters (intercept
+and slope) that gives the smallest “distance” between the estimated
 values (predicted from the line), and the actual values (the data).</p>
-<p>We&#8217;ll define &#8216;distance&#8217; as the squared difference of the predicted value
+<p>We’ll define ‘distance’ as the squared difference of the predicted value
 from the actual value. These are the squared error terms
 <span class="math">\(e_1^2, e_2^2 ... e_{n}^2\)</span>, where <span class="math">\(n\)</span> is the number of
 observations - 12 in our case.</p>
@@ -392,7 +392,7 @@ intercept of 10 and a slope of 0.9?</p>
 <span class="math">\(\bhat\)</span> vector in different ways by using a <em>contrast</em> vector. A
 contrast vector <span class="math">\(\cvec\)</span> is a vector of weights
 <span class="math">\(c_1, c_2 ... c_p\)</span> for each value in the <span class="math">\(\bhat\)</span> vector.
-Assume that all vectors we&#8217;ve defined up until now are column vectors.
+Assume that all vectors we’ve defined up until now are column vectors.
 Then a scalar value that is a linear combination of the <span class="math">\(\bhat\)</span>
 values can be written:</p>
 <div class="math">
@@ -418,11 +418,11 @@ slope relating <code class="docutils literal"><span class="pre">clammy</span></c
 if our estimate is further from zero than expected by chance.</p>
 <p>To test whether the estimate is different from zero, we can divide the estimate
 by the variability of the estimate. This gives us an idea of how far the
-estimate is from zero, in terms of the variability of the estimate. We won&#8217;t go
-into the estimate of the variability here though, we&#8217;ll just assume it (the
+estimate is from zero, in terms of the variability of the estimate. We won’t go
+into the estimate of the variability here though, we’ll just assume it (the
 formula is in the code below). The estimate divided by the variability of the
 estimate gives us a t statistic.</p>
-<p>With that introduction, here&#8217;s how to do the estimation and a t statistic given
+<p>With that introduction, here’s how to do the estimation and a t statistic given
 the data <span class="math">\(\yvec\)</span>, the design <span class="math">\(\Xmat\)</span>, and a contrast vector
 <span class="math">\(\cvec\)</span>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get t distribution code from scipy library</span>
@@ -492,11 +492,11 @@ different observations come from different groups.</p>
 <p>Expressing group membership in this way allows us to express <em>analysis
 of variance</em> designs using this same notation.</p>
 <p>To do this, we use columns of <em>dummy variables</em>.</p>
-<p>Let&#8217;s say we get some new and interesting information. The first 4
+<p>Let’s say we get some new and interesting information. The first 4
 students come from Berkeley, the second set of 4 come from Stanford, and
-the last set of 4 come from MIT. Maybe the student&#8217;s college predicts if
+the last set of 4 come from MIT. Maybe the student’s college predicts if
 they are a psychopath?</p>
-<p>How do we express this information? Let&#8217;s forget about the clamminess
+<p>How do we express this information? Let’s forget about the clamminess
 score for now and just use the school information. Our model might be
 that we can best predict the psychopathy scores by approximating the
 individual student psychopathy scores with a mean score for the relevant
@@ -504,7 +504,7 @@ school:</p>
 <div class="math">
 \[ \begin{align}\begin{aligned}y_i = \mu_{Berkeley} + e_i  \space\mbox{if}\space 1 \le i \le 4\\y_i = \mu_{Stanford} + e_i \space\mbox{if}\space 5 \le i \le 8\\y_i = \mu_{MIT} + e_i \space\mbox{if}\space 9 \le i \le 12\end{aligned}\end{align} \]</div>
 <p>We can code this with predictors in our design using <em>indicator
-variables</em>. The &#8220;Berkeley&#8221; indicator variable vector is 1 when the
+variables</em>. The “Berkeley” indicator variable vector is 1 when the
 student is from Berkeley and zero otherwise. Similarly for the other two
 schools:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">berkeley_indicator</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
@@ -603,7 +603,7 @@ on the clammy slope parameter:</p>
 <span class="go">(array([[-0.010661]]), array([[ 0.504122]]))</span>
 </pre></div>
 </div>
-<p>It looks like there&#8217;s not much independent effect of clamminess. The MIT
+<p>It looks like there’s not much independent effect of clamminess. The MIT
 students seem to have clammy hands, and once we know that the student is
 from MIT, the clammy score is not as useful.</p>
 </div>
@@ -691,7 +691,7 @@ image display parameters:</p>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="fourier_no_ei_orig.html" title="previous chapter">Fourier without the ei</a></li>
-      <li>Next: <a href="ioannidis_2005.html" title="next chapter">The argument in &#8220;Why most published research findings are false&#8221;</a></li>
+      <li>Next: <a href="ioannidis_2005.html" title="next chapter">The argument in “Why most published research findings are false”</a></li>
   </ul></li>
 </ul>
 </div>
@@ -720,7 +720,7 @@ image display parameters:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

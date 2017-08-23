@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Points on floats" href="floating_point.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -67,7 +67,7 @@ number of false positive detections.</p>
 rate.</p>
 <p>For the FDR, we will try to find a p value within the family of tests
 (the set of p values), that we can use as a detection threshold.</p>
-<p>Let&#8217;s look at the p value for a particular test. Let&#8217;s say there are
+<p>Let’s look at the p value for a particular test. Let’s say there are
 <span class="math">\(N\)</span> tests, indexed with <span class="math">\(i \in 1 .. N\)</span>. We look at a test
 <span class="math">\(i\)</span>, and consider using p value from this test as a detection
 threshold; <span class="math">\(\theta = p(i)\)</span>. The expected number of false positives
@@ -77,7 +77,7 @@ threshold; <span class="math">\(\theta = p(i)\)</span>. The expected number of f
 <p>For example, if we had 100 tests, and the particular p value
 <span class="math">\(p(i)\)</span> was 0.1, then the expected number of false positive
 detections, thresholding at 0.1, is 0.1 * 100 = 10.</p>
-<p>Let&#8217;s take some data from a random normal distribution to illustrate:</p>
+<p>Let’s take some data from a random normal distribution to illustrate:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -136,7 +136,7 @@ that <span class="math">\(E(FP) / i &lt; q\)</span>. We know <span class="math">
 the largest <span class="math">\(p(i)\)</span> such that:</p>
 <div class="math">
 \[N p(i) / i &lt; q \implies p(i) &lt; q i / N\]</div>
-<p>Let&#8217;s take <span class="math">\(q\)</span> (the proportion of false discoveries = detections)
+<p>Let’s take <span class="math">\(q\)</span> (the proportion of false discoveries = detections)
 as 0.05. We plot <span class="math">\(q i / N\)</span> (in red) on the same graph as
 <span class="math">\(p(i)\)</span> (in blue):</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="mf">0.05</span>
@@ -250,9 +250,9 @@ not so interesting if you want to do brain imaging.</p>
 Bonferroni threshold</li>
 <li>Under some conditions (see Benjamini and Hochberg, JRSS-B 1995), the
 FDR threshold can be applied to correlated data</li>
-<li>FDR is an &#8220;adaptive&#8221; threshold</li>
+<li>FDR is an “adaptive” threshold</li>
 </ul>
-<p>Not so &#8220;interesting&#8221;</p>
+<p>Not so “interesting”</p>
 <ul class="simple">
 <li>FDR can be very variable</li>
 <li>When there are lots of true positives, and many detections, the
@@ -304,7 +304,7 @@ detections more difficult to interpret.</li>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

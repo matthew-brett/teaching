@@ -16,7 +16,7 @@ name = 'Matthew'
 
 type(name)
 
-# Let's say I defined a function `add`:
+# Let’s say I defined a function `add`:
 
 def add(a, b):
     return a + b
@@ -31,12 +31,12 @@ type(add)
 prisoner = name
 prisoner
 
-# It's the same for functions, because functions are objects too:
+# It’s the same for functions, because functions are objects too:
 
 my_add = add
 type(my_add)
 
-# Functions are objects you can "call" by appending parentheses enclosing
+# Functions are objects you can “call” by appending parentheses enclosing
 # arguments you want to pass:
 
 add(1, 2)

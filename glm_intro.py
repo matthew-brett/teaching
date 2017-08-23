@@ -10,7 +10,7 @@
 #
 # This page starts by setting up a simple regression. Then I will try to
 # show how the simple regression gets expressed in a *design matrix*. Once
-# we have that, it's easy to extend simple regression to multiple
+# we have that, it’s easy to extend simple regression to multiple
 # regression. By adding some specially formed regressors, we can also
 # express group membership, and therefore do analysis of variance. This
 # last step is where multiple regression becomes the general linear model.
@@ -22,12 +22,12 @@
 #
 # ### The example regression problem
 #
-# Let's imagine that we have measured scores for a "psychopathy"
+# Let’s imagine that we have measured scores for a “psychopathy”
 # personality trait in 12 students. We also have some other information
 # about these students. For example, we measured how much sweat each
-# student had on their palms, and we call this a "clammy" score. We first
-# try and work out whether the "clammy" score predicts the "psychopathy"
-# score. We'll do this with simple linear regression.
+# student had on their palms, and we call this a “clammy” score. We first
+# try and work out whether the “clammy” score predicts the “psychopathy”
+# score. We’ll do this with simple linear regression.
 #
 # ### Simple linear regression
 #
@@ -45,7 +45,7 @@ np.set_printoptions(precision=6)
 # interactive plots.  If running in the Jupyter Notebook, use `%matplotlib
 # inline`.
 #
-# Here are our scores of "psychopathy" from the 12 students:
+# Here are our scores of “psychopathy” from the 12 students:
 
 psychopathy = [11.416,   4.514,  12.204,  14.835,
                8.416,   6.563,  17.343, 13.02,
@@ -66,7 +66,7 @@ plt.xlabel('Clamminess of handshake')
 plt.ylabel('Psychopathy score')
 
 # It looks like there may be some sort of straight line relationship. We
-# could try guessing at a line to fit the data. Let's try an intercept of
+# could try guessing at a line to fit the data. Let’s try an intercept of
 # $10$ and slope $0.9$:
 
 # Plot the data
@@ -91,7 +91,7 @@ plt.title('Clammy vs psychopathy with guessed line')
 #
 # $\newcommand{\yvec}{\vec{y}} \newcommand{\xvec}{\vec{x}} \newcommand{\evec}{\vec{\varepsilon}}$
 #
-# To make this more general, let's call our `psychopathy` data
+# To make this more general, let’s call our `psychopathy` data
 # $\yvec$ - a vector with 12 values, one for each student.
 # $y_1$ is the value for the first student (= 11.416) and
 # $y_i$ is the value for student $i$ where
@@ -121,7 +121,7 @@ plt.title('Clammy vs psychopathy with guessed line')
 # # Simple regression in matrix form
 #
 # It turns out it will be useful to rephrase the simple regression model
-# in matrix form. Let's make the data and predictor and errors into
+# in matrix form. Let’s make the data and predictor and errors into
 # vectors.
 #
 # $\yvec$ is the vector of values $y_1 ... y_{12}$.
@@ -191,13 +191,13 @@ plt.title('Clammy vs psychopathy with guessed line')
 # \yvec = \Xmat \bvec + \evec
 # $$
 #
-# We still haven't found our best fitting line. But before we go further,
+# We still haven’t found our best fitting line. But before we go further,
 # it might be obvious that we can easily add a new predictor here.
 #
 # ## Multiple regression
 #
-# Let's say we think that psychopathy increases with age. We add the
-# student's age as another predictor:
+# Let’s say we think that psychopathy increases with age. We add the
+# student’s age as another predictor:
 
 age = [22.5,  25.3,  24.6,  21.4,
        20.7,  23.3,  23.8,  21.7,
@@ -250,7 +250,7 @@ age = [22.5,  25.3,  24.6,  21.4,
 #
 # $\newcommand{\bhat}{\hat{\bvec}} \newcommand{\yhat}{\hat{\yvec}}$
 # Our students and their psychopathy scores are a *sample* from the
-# population of all students' psychopathy scores. The parameters
+# population of all students’ psychopathy scores. The parameters
 # $\bvec$ are the parameters that fit the design $\Xmat$ to
 # the *population* scores. We only have a sample from this population, so
 # we cannot get the true population $\bvec$ vector, we can only
@@ -261,13 +261,13 @@ age = [22.5,  25.3,  24.6,  21.4,
 #  Solving the model with matrix algebra
 #
 # The reason to formulate our problem with matrices is so we can use some
-# basic matrix algebra to estimate the "best" line.
+# basic matrix algebra to estimate the “best” line.
 #
-# Let's assume that we want an estimate for the line parameters (intercept
-# and slope) that gives the smallest "distance" between the estimated
+# Let’s assume that we want an estimate for the line parameters (intercept
+# and slope) that gives the smallest “distance” between the estimated
 # values (predicted from the line), and the actual values (the data).
 #
-# We'll define 'distance' as the squared difference of the predicted value
+# We’ll define ‘distance’ as the squared difference of the predicted value
 # from the actual value. These are the squared error terms
 # $e_1^2, e_2^2 ... e_{n}^2$, where $n$ is the number of
 # observations - 12 in our case.
@@ -384,7 +384,7 @@ print(np.sum(errors ** 2))
 # $\bhat$ vector in different ways by using a *contrast* vector. A
 # contrast vector $\cvec$ is a vector of weights
 # $c_1, c_2 ... c_p$ for each value in the $\bhat$ vector.
-# Assume that all vectors we've defined up until now are column vectors.
+# Assume that all vectors we’ve defined up until now are column vectors.
 # Then a scalar value that is a linear combination of the $\bhat$
 # values can be written:
 #
@@ -419,12 +419,12 @@ print(np.sum(errors ** 2))
 #
 # To test whether the estimate is different from zero, we can divide the estimate
 # by the variability of the estimate. This gives us an idea of how far the
-# estimate is from zero, in terms of the variability of the estimate. We won't go
-# into the estimate of the variability here though, we'll just assume it (the
+# estimate is from zero, in terms of the variability of the estimate. We won’t go
+# into the estimate of the variability here though, we’ll just assume it (the
 # formula is in the code below). The estimate divided by the variability of the
 # estimate gives us a t statistic.
 #
-# With that introduction, here's how to do the estimation and a t statistic given
+# With that introduction, here’s how to do the estimation and a t statistic given
 # the data $\yvec$, the design $\Xmat$, and a contrast vector
 # $\cvec$.
 
@@ -497,12 +497,12 @@ t, p
 #
 # To do this, we use columns of *dummy variables*.
 #
-# Let's say we get some new and interesting information. The first 4
+# Let’s say we get some new and interesting information. The first 4
 # students come from Berkeley, the second set of 4 come from Stanford, and
-# the last set of 4 come from MIT. Maybe the student's college predicts if
+# the last set of 4 come from MIT. Maybe the student’s college predicts if
 # they are a psychopath?
 #
-# How do we express this information? Let's forget about the clamminess
+# How do we express this information? Let’s forget about the clamminess
 # score for now and just use the school information. Our model might be
 # that we can best predict the psychopathy scores by approximating the
 # individual student psychopathy scores with a mean score for the relevant
@@ -517,7 +517,7 @@ t, p
 # $$
 #
 # We can code this with predictors in our design using *indicator
-# variables*. The "Berkeley" indicator variable vector is 1 when the
+# variables*. The “Berkeley” indicator variable vector is 1 when the
 # student is from Berkeley and zero otherwise. Similarly for the other two
 # schools:
 
@@ -593,7 +593,7 @@ X
 B, t, df, p = t_stat(psychopathy, X, [0, 0, 0, 1])
 t, p
 
-# It looks like there's not much independent effect of clamminess. The MIT
+# It looks like there’s not much independent effect of clamminess. The MIT
 # students seem to have clammy hands, and once we know that the student is
 # from MIT, the clammy score is not as useful.
 #

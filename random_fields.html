@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Teaching repo" href="README.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -63,7 +63,7 @@ parametric maps. These maps have a value for a certain statistic at each
 voxel in the brain, which is the result of the statistical test done on
 the scan data for that voxel, across scans. <span class="math">\(t\)</span> values and
 <span class="math">\(F\)</span> values are the most common.</p>
-<p>For the sake of simplicity, I&#8217;ll assume that we have <span class="math">\(Z\)</span> values
+<p>For the sake of simplicity, I’ll assume that we have <span class="math">\(Z\)</span> values
 instead of <span class="math">\(t\)</span> or <span class="math">\(F\)</span> values. <span class="math">\(Z\)</span> values are values
 from the standard normal distribution. The same sort of arguments apply
 to <span class="math">\(t\)</span> and <span class="math">\(F\)</span> values, just with slightly different
@@ -86,8 +86,8 @@ scores. Because we have so many <span class="math">\(Z\)</span> scores, even if 
 hypothesis is true, we can be confident that some of these <span class="math">\(Z\)</span>
 scores will appear to be significant at standard statistical thresholds
 for the the individual <span class="math">\(Z\)</span> scores. For example, <span class="math">\(p\)</span> value
-thresholds such as <span class="math">\(p&lt;0.05 \)</span> or <span class="math">\(p&lt;0.01 \)</span> correspond to <span class="math">\(Z = 1.64 \)</span> and
-<span class="math">\(Z = 2.33 \)</span> respectively.</p>
+thresholds such as $p&lt;0.05 $ or $p&lt;0.01 $ correspond to $Z = 1.64 $ and
+$Z = 2.33 $ respectively.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Tell numpy to print numbers to 4 decimal places only</span>
@@ -108,13 +108,13 @@ interactive plots.  If running in the Jupyter Notebook, use <code class="docutil
 <span class="go">array([ 1.6449,  2.3263])</span>
 </pre></div>
 </div>
-<p>So, if we threshold our brain <span class="math">\(Z\)</span> scores at <span class="math">\(2.33 \)</span> or above, we
+<p>So, if we threshold our brain <span class="math">\(Z\)</span> scores at $2.33 $ or above, we
 would expect a number of false positives, even if the null hypothesis is
 true. So, how high should we set our <span class="math">\(Z\)</span> threshold, so that we can
 be confident that the remaining peak <span class="math">\(Z\)</span> scores are indeed too
 high to be expected by chance? This is the multiple comparison problem.</p>
-<p>We could call all the <span class="math">\(Z\)</span> scores in the brain a &#8220;family&#8221; of tests.
-We want to find a threshold so that we can correct for a whole &#8220;family&#8221;
+<p>We could call all the <span class="math">\(Z\)</span> scores in the brain a “family” of tests.
+We want to find a threshold so that we can correct for a whole “family”
 of tests. For this reason, these multiple comparison correction methods
 are often known as <em>family-wise</em> correction methods.</p>
 </div>
@@ -344,7 +344,7 @@ the correct threshold for the required control of false positives
 </div>
 <div class="section" id="what-is-a-resel">
 <h2>What is a resel?<a class="headerlink" href="#what-is-a-resel" title="Permalink to this headline">¶</a></h2>
-<p>A resel is a &#8220;resolution element&#8221;. The number of resels in an image is
+<p>A resel is a “resolution element”. The number of resels in an image is
 similar to the number of independent observations in the image. However,
 they are not the same, as we will see below. A resel is defined as a
 block of pixels of the same size as the FWHM of the smoothness of the
@@ -434,7 +434,7 @@ image, of 256 resels, when thresholded at different <span class="math">\(Z\)</sp
 </div>
 <p>Note that the graph does a reasonable job of predicting the EC in our
 image; at <span class="math">\(Z = 2.75\)</span> threshold it predicted an EC of 2.8, and at a
-<span class="math">\(Z = 3.25 \)</span> it predicted an EC of 0.74</p>
+$Z = 3.25 $ it predicted an EC of 0.74</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expected_ec_2d</span><span class="p">([</span><span class="mf">2.75</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">],</span> <span class="n">resels</span><span class="p">)</span>
 <span class="go">array([ 2.825 ,  0.7449])</span>
 </pre></div>
@@ -513,7 +513,7 @@ correct threshold for 0.05 false positive rate.</p>
 <h2>To three dimensions<a class="headerlink" href="#to-three-dimensions" title="Permalink to this headline">¶</a></h2>
 <p>Exactly the same principles apply to a smoothed random number image in
 three dimensions. In this case, the EC is the number of 3D blobs -
-perhaps &#8220;globules&#8221; - of <span class="math">\(Z\)</span> scores above a certain threshold.
+perhaps “globules” - of <span class="math">\(Z\)</span> scores above a certain threshold.
 Pixels might better be described as voxels (pixels with volume). The
 resels are now in 3D, and one resel is a cube of voxels that is of size
 (FWHM in x) by (FWHM in y) by (FWHM in z). The formula for the expected
@@ -546,7 +546,7 @@ require a threshold for a small volume, such as a region of interest.</p>
 </div>
 <div class="section" id="t-and-f-statistic-volumes">
 <h3>t and F statistic volumes<a class="headerlink" href="#t-and-f-statistic-volumes" title="Permalink to this headline">¶</a></h3>
-<p>Keith Worsley&#8217;s 1996 paper gives the random field formulae for <span class="math">\(t\)</span>
+<p>Keith Worsley’s 1996 paper gives the random field formulae for <span class="math">\(t\)</span>
 and <span class="math">\(F\)</span> statistics. <code class="docutils literal"><span class="pre">SPM</span></code> and other imaging packages generate
 <span class="math">\(t\)</span> and <span class="math">\(F\)</span> statistics maps. They use the random fields
 formulae for <span class="math">\(t\)</span>, <span class="math">\(F\)</span> to work out the corrected
@@ -578,7 +578,7 @@ rounded; I can get the exact values from MATLAB by looking at
 <span class="go">67.0643168927</span>
 </pre></div>
 </div>
-<p>That&#8217;s the value you see at the bottom the SPM printout after
+<p>That’s the value you see at the bottom the SPM printout after
 <code class="docutils literal"><span class="pre">resel</span> <span class="pre">=</span></code>. The resel count of 592.9 in the printout comes from a
 calculation based on this estimated FWHM smoothness and the shape of the
 brain. In other words it applies the search volume correction I
@@ -594,17 +594,17 @@ peak voxel for a particular cluster. Lines in standard type are
 sub-clusters within the same cluster.</p>
 <p>Look at the peak voxel for the third-most significant cluster. This is
 the third bold line in the table, and the seventh line overall. On the
-left-hand side of the table, you see the values for the &#8220;peak-level&#8221;
+left-hand side of the table, you see the values for the “peak-level”
 statistics. The extreme left gives the voxel location in millimeters.
 Our voxel of interest is at location x=-42, y=18, z=3.</p>
-<p>The value in the &#8220;T&#8221; column for this voxel is 4.89. This is the raw
+<p>The value in the “T” column for this voxel is 4.89. This is the raw
 <span class="math">\(t\)</span> statistic. The column <span class="math">\(P_{FWE-corr}\)</span> gives the random
 field corrected <span class="math">\(p\)</span> value. In this case the value is 0.037. 0.037
 is the expected EC, in a 3D image of 592.9 resels when thresholded at
 <span class="math">\(t = 4.89\)</span>. This is equivalent to saying that the probability of
 getting one or more blobs of <span class="math">\(t\)</span> value 4.89 or greater, is 0.037.</p>
 <p>There are other corrected <span class="math">\(p\)</span> values here, based on cluster size,
-and based on the false discovery rate, but I didn&#8217;t cover those
+and based on the false discovery rate, but I didn’t cover those
 corrections here.</p>
 </div>
 <div class="section" id="references">
@@ -694,7 +694,7 @@ Human Brain Mapping, 4:58-73.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

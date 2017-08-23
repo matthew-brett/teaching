@@ -92,7 +92,7 @@ axes[1].set_title('slice 1')
 # volumes is very small - often the movements in an FMRI run are less than
 # a single voxel.
 #
-# In order to show the automated matching procedure in action, let's start
+# In order to show the automated matching procedure in action, let’s start
 # with an image that is obviously badly matched with slice 0. We will do
 # this by pushing slice 0 (`mid_vol1`) 8 voxels down.
 #
@@ -109,10 +109,10 @@ plt.imshow(shifted_mid_vol1)
 
 # # Formulating the matching problem
 #
-# Let's say we did not know how many voxels the image had been translated.
+# Let’s say we did not know how many voxels the image had been translated.
 # We want a good way to find out.
 #
-# Let's put our problem in a more concrete form. We are going to try
+# Let’s put our problem in a more concrete form. We are going to try
 # translating our `shifted_mid_vol1` over the first ($x$) axis.
 # Call this translation $t$, so a movement of -5 voxels in $x$
 # gives $t=-5$.
@@ -140,18 +140,18 @@ plt.imshow(shifted_mid_vol1)
 # \hat{t} = \mathrm{argmin}_t M(\mathbf{X}, \mathbf{Y_t})
 # $$
 #
-# Read this as "the desired translation value $\hat{t}$ is the value of $t$ such
-# that $M(\mathbf{X}, \mathbf{Y_t})$ is minimized".
+# Read this as “the desired translation value $hat{t}$ is the value of $t$ such
+# that $M(mathbf{X}, mathbf{Y_t})$ is minimized”.
 #
 # Practically, we are going to need the following things:
 #
-# * a function to generate $\mathbf{Y_t}$ given $\mathbf{Y}$ and $t$.
+# * a function to generate $\mathbf{Y_t}$ given $mathbf{Y}$ and $t$.
 #   Call this the *transformation function*;
 #
 # * a function $M$ to give the mismatch between two images.  Call this the
 #   *mismatch function*.
 #
-# Here's the transformation function to generate $\mathbf{Y_t}$ - the
+# Here’s the transformation function to generate $\mathbf{Y_t}$ - the
 # image $\mathbf{Y}$ shifted by $t$ voxels in $x$:
 
 def x_trans_slice(img_slice, x_vox_trans):
@@ -271,7 +271,7 @@ plt.xlabel('translation (t)')
 plt.ylabel('correlation mismatch')
 
 # So far we have only tried translations of integer numbers of voxels (0,
-# 1, 2, 3...).
+# 1, 2, 3…).
 #
 # How about non-integer translations? Will these work?
 #
@@ -284,7 +284,7 @@ plt.ylabel('correlation mismatch')
 # interpolation](https://matthew-brett.github.io/teaching/linear_interpolation.html) we do for [Slice timing correction](https://matthew-brett.github.io/teaching/slice_timing.html), but in
 # two dimensions.
 #
-# Let's say we want to do a voxel translation of 0.5 voxels in x. The way we
+# Let’s say we want to do a voxel translation of 0.5 voxels in x. The way we
 # might go about this is the following.
 #
 # To start, here are some names:
@@ -324,7 +324,7 @@ plt.ylabel('correlation mismatch')
 #   * Insert `img1_value` into `new_img0` at coordinate
 #     `coord_for_img0`.
 #
-# The "Estimate pixel value" step is called *resampling*. As you can see this is
+# The “Estimate pixel value” step is called *resampling*. As you can see this is
 # the same general idea as [interpolating in one dimension](https://matthew-brett.github.io/teaching/linear_interpolation.html). We saw one dimensional interpolation for
 # [Slice timing correction](https://matthew-brett.github.io/teaching/slice_timing.html).  There are various ways of interpolating in two or three
 # dimensions, but one of the most obvious is the simple extension of linear
@@ -380,7 +380,7 @@ plt.plot(fine_translations, fine_mismatches)
 # will need to create the image $\mathbf{X_t}$ and return
 # $M(\mathbf{X}, \mathbf{Y_t})$.
 #
-# What does it mean to "pass" a function in Python. Remember that, in Python,
+# What does it mean to “pass” a function in Python. Remember that, in Python,
 # [Functions are objects](https://matthew-brett.github.io/teaching/functions_are_objects.html) like any other.
 #
 # The optimization works by running the cost function at some starting
@@ -409,7 +409,7 @@ print(cost_function(0))
 print(cost_function(-8))
 
 # Now we get a general optimizing routine from the `scipy` Python
-# library. `fmin_powell` finds the minimum of a function using [Powell's
+# library. `fmin_powell` finds the minimum of a function using [Powell’s
 # method](https://en.wikipedia.org/wiki/Powell%27s_method) of numerical
 # optimization:
 
@@ -423,7 +423,7 @@ print(fmin_powell(cost_function, [0]))
 # The function ran, and found that a translation value very close to -8 gave the
 # smallest value for our cost function.
 #
-# What actually happened there? Let's track the progress of `fmin_powell`
+# What actually happened there? Let’s track the progress of `fmin_powell`
 # using a callback function:
 
 def my_callback(params):
@@ -453,7 +453,7 @@ print(best_params)
 #
 # Although we could do that, in fact `fmin_powell` does something slightly
 # more complicated when looking for the next best set of parameters to try. The
-# details aren't important to the general idea of searching over different
+# details aren’t important to the general idea of searching over different
 # parameter values to find the lowest value for the cost function.
 
 def fancy_xy_trans_slice(img_slice, x_y_trans):
@@ -584,7 +584,7 @@ plt.title('Cost as a function of $t$')
 
 # Notice the nice single minimum at around $t=-8$.
 #
-# Unfortunately, many cost functions don't have one single minimum, but
+# Unfortunately, many cost functions don’t have one single minimum, but
 # several. In fact this is so even for our simple correlation measure, if
 # we look at larger translations (values of $t$):
 
@@ -631,7 +631,7 @@ print(fmin_powell(cost_function, [35]))
 # value of 0.
 #
 # One major part of using optimization, is being aware that it is possible
-# for the optimization to find a "best" value that is a local rather than
+# for the optimization to find a “best” value that is a local rather than
 # a global minimum. The art of optimization is finding a minimization
 # algorithm and mismatch metric that are well-adapted to the particular
 # problem.

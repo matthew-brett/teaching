@@ -68,7 +68,7 @@ plt.title("Neural model for 5 second event starting at time 4")
 #
 # # The impulse response
 #
-# Let's simplify a little by specifying that the event was really short.  Call
+# Let’s simplify a little by specifying that the event was really short.  Call
 # this event — an *impulse*.  This simplifies our neural model to a single
 # spike in time instead of the sustained rise of the box-car function.
 
@@ -251,7 +251,7 @@ plt.title('Output BOLD signal using our algorithm')
 
 # # We have *convolution*
 #
-# We now have — convolution.  Here's the same thing using the numpy
+# We now have — convolution.  Here’s the same thing using the numpy
 # `convolve` function:
 
 bold_signal = np.convolve(neural_signal, hrf_signal)
@@ -263,7 +263,7 @@ plt.title('Our algorithm is the same as convolution')
 # # Convolution with matrices
 #
 # For what follows, it is a bit easier to see what is going on with a lower time
-# resolution — say one time point per second.  This time we'll make the first
+# resolution — say one time point per second.  This time we’ll make the first
 # event last 3 seconds:
 
 times = np.arange(0, 40)  # One time point per second
@@ -392,7 +392,7 @@ npt.assert_almost_equal(as_row_vector(bold_signal), bold_signal_again.T)
 # We are now ready to show something slightly odd that arises from the way that
 # convolution works.
 #
-# Consider index $i$ in the input (neural) vector.  Let's say $i = 25$.  We want to get
+# Consider index $i$ in the input (neural) vector.  Let’s say $i = 25$.  We want to get
 # value index $i$ in the output (hemodynamic vector). What do we need to do?
 #
 # Looking at our non-transposed matrix formulation, we see that value $i$ in the
@@ -410,13 +410,13 @@ plt.plot(shifted_hrfs[:, 25])
 # from the diagonals, will also give you the HRF shape.
 #
 # Let us rephrase the matrix multiplication that gives us the value at index $i$
-# in the output vector.  Call the neural input vector $\mathbf{n}$ with values
-# $n_0, n_1 ... n_{N-1}$.  Call the `shifted_hrfs` array $\mathbf{S}$ with $N$
-# rows and $N + M - 1$ columns.  $\mathbf{S}_{:,i}$ is column $i$ in
-# $\mathbf{S}$.
+# in the output vector.  Call the neural input vector $mathbf{n}$ with values
+# $n_0, n_1 … n_{N-1}$.  Call the `shifted_hrfs` array $mathbf{S}$ with $N$
+# rows and $N + M - 1$ columns.  $mathbf{S}_{:,i}$ is column $i$ in
+# $mathbf{S}$.
 #
 # So, the output value $o_i$ is given by the matrix multiplication of row
-# $\mathbf{n}$ onto column $\mathbf{S}_{:,i}$.  The matrix multiplication (dot
+# $mathbf{n}$ onto column $mathbf{S}_{:,i}$.  The matrix multiplication (dot
 # product) gives us the usual sum of products as the output:
 #
 # $$
@@ -431,7 +431,7 @@ bold_i = neural_vector.dot(shifted_hrfs[:, i])
 
 npt.assert_almost_equal(bold_i, bold_signal[i])
 
-# Can we simplify the formula without using the `shifted_hrfs` $\mathbf{S}$
+# Can we simplify the formula without using the `shifted_hrfs` $mathbf{S}$
 # matrix?  We saw above that column $i$ in `shifted_hrfs` contains a reversed
 # HRF, starting at index $i$ and going backwards towards index 0.
 #
@@ -442,16 +442,16 @@ npt.assert_almost_equal(bold_i, bold_signal[i])
 # we return zero for any `hrf_signal[i-j]` where `i-j` is outside the
 # bounds of the vector, with `i-j` < 0 or >= M).
 #
-# Realizing this, we can replace $\mathbf{S}_{:,i}$ in our equation above.  Call
-# our `hrf_signal` vector $\mathbf{h}$ with values $h_0, h_1, ... h_{M-1}$.
+# Realizing this, we can replace $mathbf{S}_{:,i}$ in our equation above.  Call
+# our `hrf_signal` vector $mathbf{h}$ with values $h_0, h_1, … h_{M-1}$.
 # Then:
 #
 # $$
 # o_i = \sum_{j=0}^{N-1}{n_j h_{i-j}}
 # $$
 #
-# This is the sum of the {products of the elements of $\mathbf{n}$ with the
-# matching elements from the [reversed HRF vector $\mathbf{h}$, shifted by $i$
+# This is the sum of the {products of the elements of $mathbf{n}$ with the
+# matching elements from the [reversed HRF vector $mathbf{h}$, shifted by $i$
 # elements]}.
 #
 # # The mathematical definition for convolution
@@ -461,11 +461,11 @@ npt.assert_almost_equal(bold_i, bold_signal[i])
 #
 # In general, call the continuous input a function $f$.  In our case the input
 # signal is the neuronal model, that is a function of time.  This is the
-# continuous generalization of the vector $\mathbf{n}$ in our discrete model.
+# continuous generalization of the vector $mathbf{n}$ in our discrete model.
 # The continuous function to convolve with is $g$.  In our case $g$ is the HRF,
 # also a function of time.  $g$ is the generalized continuous version of the
-# vector $\mathbf{h}$ in the previous section.  The convolution of $f$ and $g$
-# is often written $(f * g)$ and for any given $t$ is defined as:
+# vector $mathbf{h}$ in the previous section.  The convolution of $f$ and $g$
+# is often written $(f \* g)$ and for any given $t$ is defined as:
 #
 # $$
 # (f * g )(t) \stackrel{\mathrm{def}}{=}\ \int_{-\infty}^\infty f(\tau)\,

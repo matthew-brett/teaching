@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="An introduction to smoothing" href="smoothing_intro.html" />
@@ -37,7 +37,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -77,7 +77,7 @@ volumes:</p>
 </div>
 <p>The scanner acquired each of these 16 z slices at a different time, relative
 to the start of the TR.</p>
-<p>For the moment, let&#8217;s consider the first volume only.</p>
+<p>For the moment, let’s consider the first volume only.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vol0</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -103,7 +103,7 @@ to the start of the TR.</p>
 <img alt="_images/slice_timing-5.png" src="_images/slice_timing-5.png" />
 </div>
 <p>The scanner acquired the slices in interleaved order, first acquiring slice
-index 0, 2, 4, ... 14 (where 0 is the bottom slice) then acquiring slices 1, 3,
+index 0, 2, 4, … 14 (where 0 is the bottom slice) then acquiring slices 1, 3,
 5, .. 15:</p>
 <p>(<a class="reference external" href=".//slice_timing-6.png">png</a>, <a class="reference external" href=".//slice_timing-6.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-6.pdf">pdf</a>)</p>
 <div class="figure">
@@ -111,7 +111,7 @@ index 0, 2, 4, ... 14 (where 0 is the bottom slice) then acquiring slices 1, 3,
 </div>
 <p>So the scanner collected the bottom slice, at slice index 0, at the beginning
 of the TR, but it collected the next slice in space, at slice index 1, half
-way through the TR.  Let&#8217;s say the TR == 2.0.  The time that the scanner takes
+way through the TR.  Let’s say the TR == 2.0.  The time that the scanner takes
 to acquire a single slice will be:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TR</span> <span class="o">=</span> <span class="mf">2.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_z_slices</span> <span class="o">=</span> <span class="mi">16</span>
@@ -141,7 +141,7 @@ we had acquired them all at the same time?</p>
 <p>This is the job of the <em>slice timing correction</em>.</p>
 <div class="section" id="slice-timing-is-interpolation-in-time">
 <h2>Slice timing is interpolation in time<a class="headerlink" href="#slice-timing-is-interpolation-in-time" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s first get a time series from the bottom slice.  Here&#8217;s what the bottom
+<p>Let’s first get a time series from the bottom slice.  Here’s what the bottom
 slice looks like, for the first volume:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">vol0</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">])</span>  
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Vol 0, z slice 0&#39;</span><span class="p">)</span>  
@@ -199,7 +199,7 @@ with the slice 1 time course against slice 1 acquisition time:</p>
 <div class="figure">
 <img alt="_images/slice_timing-15.png" src="_images/slice_timing-15.png" />
 </div>
-<p>We can&#8217;t see the time offset very well here, so let&#8217;s plot only the first 10
+<p>We can’t see the time offset very well here, so let’s plot only the first 10
 values (values for the first 10 volumes):</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;slice 0 time course&#39;</span><span class="p">)</span>
@@ -223,13 +223,13 @@ values (values for the first 10 volumes):</p>
 we collected them at the beginning of the TR — at the same times as the
 values for slice 0.</p>
 <p>One easy way to do this, might be to do the following for each of our desired
-samples at times <span class="math">\(t \in 0, 2, 4, ... 198\)</span>:</p>
+samples at times $t in 0, 2, 4, … 198$:</p>
 <ul class="simple">
-<li>draw a vertical line at <span class="math">\(x = t\)</span>;</li>
+<li>draw a vertical line at $x = t$;</li>
 <li>at the point where the line crosses the slice 1 time course, draw a
 horizontal line across to the y axis;</li>
 <li>take this new y value as our <em>interpolation</em> of the slice 1 course, at time
-<span class="math">\(t\)</span>.</li>
+$t$.</li>
 </ul>
 <p>Here are the vertical lines at the times of slice 0:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
@@ -258,10 +258,10 @@ between two points that we have values for (inter == between).  It is <em>linear
 interpolation because we are getting our estimate by assuming a straight line
 between to the two known points in order to estimate our new value.</p>
 <p>In the general case of linear interpolation (see <a class="reference internal" href="linear_interpolation.html"><span class="doc">Linear interpolation</span></a>),
-we have two points, <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span>.  In our case we have time on
+we have two points, $x_1, y_1$ and $x_2, y_2$.  In our case we have time on
 the x axis and voxel values on the y axis.</p>
-<p>The formula for the linear interpolation <span class="math">\(y\)</span> value between two points <span class="math">\(x_1,
-y_1\)</span> and <span class="math">\(x_2, y_2\)</span> is:</p>
+<p>The formula for the linear interpolation $y$ value between two points $x_1,
+y_1$ and $x_2, y_2$ is:</p>
 <div class="math">
 \[y = y_1 + (x-x_1)\frac{y_2-y_1}{x_2-x_1}\]</div>
 <p>Now we know the formula for the interpolation, we can apply this to find the
@@ -415,7 +415,7 @@ the other slices.  This new 4D image has been <em>slice time corrected</em>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |

@@ -35,10 +35,10 @@ plt.bar(x_vals, y_vals)
 
 # # The Gaussian kernel
 #
-# The 'kernel' for smoothing, defines the shape of the function that is
+# The ‘kernel’ for smoothing, defines the shape of the function that is
 # used to take the average of the neighboring points. A Gaussian kernel
 # is a kernel with the shape of a Gaussian (normal distribution) curve.
-# Here is a standard Gaussian, with a mean of 0 and a $\sigma$ (=population
+# Here is a standard Gaussian, with a mean of 0 and a $sigma$ (=population
 # standard deviation) of 1.
 
 x = np.arange(-6, 6, 0.1) # x from -6 to 6 in steps of 0.1
@@ -46,7 +46,7 @@ y = 1 / np.sqrt(2 * np.pi) * np.exp(-x ** 2 / 2.)
 plt.plot(x, y)
 
 # In the standard statistical way, we have defined the width of the Gaussian
-# shape in terms of $\sigma$. However, when the Gaussian is used for smoothing,
+# shape in terms of $sigma$. However, when the Gaussian is used for smoothing,
 # it is common for imagers to describe the width of the Gaussian with another
 # related measure, the Full Width at Half Maximum (FWHM).
 #
@@ -80,7 +80,7 @@ sigma2fwhm(1)
 # 4 units on the x axis. To generate the Gaussian kernel average for this
 # 14th data point, we first move the Gaussian shape to have its center at
 # 13 on the x axis (13 is the 14th value because the first value is 0). In order
-# to make sure that we don't do an overall scaling of the values after
+# to make sure that we don’t do an overall scaling of the values after
 # smoothing, we divide the values in the Gaussian curve by the total area under
 # the curve, so that the values add up to one:
 
@@ -174,7 +174,7 @@ ax.plot_surface(x2d, y2d, kernel_2d)
 # difficult to visualize, being something like a sphere with edges that fade
 # out, as the cone fades out at the edges in the 2D case.
 #
-# In fact, it turns out that we don't have to generate these 2D and 3D versions
+# In fact, it turns out that we don’t have to generate these 2D and 3D versions
 # of the kernel for the computations, because we can get the same result from
 # applying a one dimensional smooth sequentially in the 2 or 3 dimensions. Thus,
 # for 2 dimensions, we could first smooth in the x direction, and then smooth

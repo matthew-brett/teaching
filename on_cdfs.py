@@ -40,7 +40,7 @@ plt.title('CDF for t distribution with df=20')
 # Say I have a t value $x$ drawn from a t distribution with 20 degrees of
 # freedom.  The PDF gives the probability for given values of $x$.  Because it
 # is a probability density, the sum of the probabilities of all possible
-# values for $x$: $\infty < x < \infty$ must be 1.  Therefore the total area
+# values for $x$: $infty < x < infty$ must be 1.  Therefore the total area
 # under the PDF curve is 1, and the maximum value of the CDF is 1.
 #
 # The CDF gives us the area under the PDF curve at and to the left of a given t
@@ -100,7 +100,7 @@ t_dist.cdf(1.5)
 # \mathbb{P}(x > q) = 1 - \mathrm{CDF}_d(q)
 # $$
 #
-# where $\mathrm{CDF}_d$ is the cumulative distribution function for a t value
+# where $mathrm{CDF}_d$ is the cumulative distribution function for a t value
 # with $d$ degrees of freedom.
 #
 # <!-- A file containing links and substitutions -->
