@@ -1,15 +1,14 @@
-####################
-Comparing two groups
-####################
+#############################################
+Comparing two groups with permutation testing
+#############################################
 
 In a moment we are going to compare some measures we collected from two
 different groups.
 
 The data we are going to compare is from an experiment in which domestic
-chicks raised for the broiler chicken industry were fed a feed supplement
-(``with_supplement``), or were fed a normal diet without supplements
-(``no_supplement``). They were weighed after 2 weeks on these diets to test
-whether the supplement increases chick weight.
+chicks were fed a feed supplement (``with_supplement``), or were fed a normal
+diet without supplements (``no_supplement``). They were weighed after 2 weeks
+on these diets to test whether the supplement increases chick weight.
 
 Here are the chick weights for the two groups:
 
@@ -70,7 +69,7 @@ The mean is greater for the ``with_supplement`` group:
 
 .. nbplot::
 
-    >>> mean(no_supplement)
+    >>> mean(with_supplement)
     218.75
 
 The difference between the means is:
@@ -119,12 +118,12 @@ hypothesis that the difference can be explained by ordinary variation alone.
 One way we could check whether ``observed_difference`` could have come about
 by ordinary variation, is by measuring the weights of thousands of chicks in
 the ``no_supplement`` condition.  We could split these new samples into groups
-of 23, and then further split the group of 23 into a ``no_supplement_A`` group
-of size 10 and another ``no_supplement_B`` group of size 13.  Then we
-calculate the difference in the means between ``no_supplement_A`` and
-``no_supplement_B``, store it, and move on to the next 23 chick weights, to
+of 23, and then further split the group of 23 into a ``group_A`` group
+of size 10 and another ``group_B`` group of size 13.  Then we
+calculate the difference in the means between ``group_A`` and
+``group_B``, store it, and move on to the next 23 chick weights, to
 repeat the procedure.  We would end up with a distribution of the mean weight
-differences that arise just due to ordinary varation.  If
+differences that arise just due to ordinary variation.  If
 ``observed_difference`` is very large compared to the range of differences in
 this no-supplement experiment, we might be prepared to reject the null
 hypothesis.
@@ -146,28 +145,7 @@ this:
     >>> # The + below appends the second list to the first
     >>> all_chicks = no_supplement + with_supplement
     >>> all_chicks
-    [179,
-     160,
-     136,
-     227,
-     217,
-     168,
-     108,
-     124,
-     143,
-     140,
-     309,
-     229,
-     181,
-     141,
-     260,
-     203,
-     148,
-     169,
-     213,
-     257,
-     244,
-     271]
+    [179, 160, 136, 227, 217, 168, 108, 124, 143, 140, 309, 229, 181, 141, 260, 203, 148, 169, 213, 257, 244, 271]
 
 In this new pooled list, the first 10 weights are from the
 ``no_supplement`` group, and the rest are from the ``with_supplement``
@@ -193,11 +171,11 @@ We can also get the ``with_supplement`` values from the combined list:
     [309, 229, 181, 141, 260, 203, 148, 169, 213, 257, 244, 271]
 
 Now we have the new pooled list, we can do something similar to taking the new
-``no_supplement_A`` and ``no_supplement_B`` groups we imagined above.  That
+``group_A`` and ``group_B`` groups we imagined above.  That
 is, we can *shuffle* the combined group to a random order, and split this
 shuffled combined group into a group of 10 and a group of 13.  We get the
 difference in means of these two groups, and store it.  We keep shuffling, to
-create more ``no_supplement_A`` and ``no_supplement_B`` groups, and more
+create more ``group_A`` and ``group_B`` groups, and more
 differences in means. The generated distribution of the mean differences is
 the distribution we expect on the null hypothesis, that there is no real
 difference between the two groups.  We can see where ``observed_difference``
@@ -210,28 +188,41 @@ Python's ``random.shuffle`` function can do the shuffle for us:
 
     >>> import random
 
+.. nbplot::
+    :hidden:
+
+    # By setting the "seed" we make sure that the random permutations below are
+    # the same each time this code is run.  Comment this guy out to see what
+    # happens when you get a different set of random permutations below.
+    >>> random.seed(42)
+
 ``random.shuffle`` takes a list and shuffles it to a random order. Here I make
 a small example list and shuffle it a few times to show you that the order of
 the list changes:
 
 .. nbplot::
 
+    >>> random.seed(42)
+    >>> # A small example list
     >>> a_list = [1, 2, 3, 4, 5]
+    >>> # Shuffle it
+    >>> random.shuffle(a_list)
+    >>> # The shuffled list has a different (random) order
+    >>> a_list
+    [4, 2, 3, 5, 1]
+
+.. nbplot::
+
+    >>> # Shuffling again gives a different order
     >>> random.shuffle(a_list)
     >>> a_list
-    [5, 3, 2, 1, 4]
+    [5, 3, 4, 1, 2]
 
 .. nbplot::
 
     >>> random.shuffle(a_list)
     >>> a_list
-    [3, 5, 4, 2, 1]
-
-.. nbplot::
-
-    >>> random.shuffle(a_list)
-    >>> a_list
-    [1, 5, 2, 4, 3]
+    [1, 3, 4, 5, 2]
 
 Here's a random shuffle of the combined ``no_supplement`` and
 ``with_supplement`` list:
@@ -240,36 +231,15 @@ Here's a random shuffle of the combined ``no_supplement`` and
 
     >>> random.shuffle(all_chicks)
     >>> all_chicks
-    [181,
-     179,
-     213,
-     136,
-     160,
-     148,
-     124,
-     169,
-     257,
-     143,
-     244,
-     271,
-     140,
-     227,
-     260,
-     217,
-     203,
-     108,
-     141,
-     229,
-     168,
-     309]
+    [140, 181, 168, 271, 203, 257, 217, 169, 141, 213, 260, 309, 229, 227, 143, 244, 148, 124, 108, 136, 179, 160]
 
-Now for our permuation test.  We've assumed the null hypothesis.  We have
+Now for our permutation test.  We've assumed the null hypothesis.  We have
 randomly shuffled the combined group.  We'll call the first 10 values
-``no_supplement_A`` and the last 13 values ``no_supplement_B``.
+``group_A`` and the last 13 values ``group_B``.
 
-After the shuffling, the ``no_supplement_A`` group is a random mix of the
+After the shuffling, the ``group_A`` group is a random mix of the
 ``no_supplement`` and ``with_supplement`` values, as is the
-``no_supplement_B`` group.
+``group_B`` group.
 
 Here is a function that takes the combined list and returns the difference in
 means:
@@ -279,9 +249,9 @@ means:
     >>> def difference_in_means(combined_list):
     ...     """ Split suffled combind group into two, return mean difference
     ...     """
-    ...     no_supplement_A = combined_list[:10]
-    ...     no_supplement_B = combined_list[10:]
-    ...     return mean(no_supplement_B) - mean(no_supplement_A)
+    ...     group_A = combined_list[:10]
+    ...     group_B = combined_list[10:]
+    ...     return mean(group_B) - mean(group_A)
 
 
 Let's get the difference in means for these new groups, generated by the
@@ -290,7 +260,7 @@ shuffle:
 .. nbplot::
 
     >>> difference_in_means(all_chicks)
-    38.75
+    -7.083333333333343
 
 That difference from the shuffled groups looks a lot less than the difference
 we originally found:
@@ -318,8 +288,8 @@ get a large range of values:
     ...     # Count down
     ...     counter = counter - 1
 
-This gives us 5000 differences from groups that that are compatible with our
-null hypothesis.   We can now ask whether ``observed_difference`` is unusually
+This gives us 5000 differences from groups that are compatible with our null
+hypothesis.   We can now ask whether ``observed_difference`` is unusually
 large compared to the distribution of these 5000 differences.
 
 .. mpl-interactive::
@@ -332,7 +302,7 @@ large compared to the distribution of these 5000 differences.
 .. nbplot::
 
     >>> plt.hist(shuffled_differences)
-    [...]
+    (...)
 
 Remember our ``observed_difference``?
 
@@ -376,7 +346,7 @@ difference is:
 .. nbplot::
 
     >>> index
-    4985
+    4977
 
 We calculate how many values in ``sorted_differences`` are greater than or
 equal to ``observed_difference``:
@@ -385,7 +355,7 @@ equal to ``observed_difference``:
 
     >>> n_greater_than_equal = n_repeats - index
     >>> n_greater_than_equal
-    15
+    23
 
 Therefore, the *proportion* of the null-hypothesis differences that are
 greater than or equal to the observed difference is:
@@ -394,12 +364,13 @@ greater than or equal to the observed difference is:
 
     >>> prop_greater = n_greater_than_equal / n_repeats
     >>> prop_greater
-    0.003
+    0.0046
 
-This proportion is very small.  Therefore our observed difference is extremely
-atypical of the shuffled differences. Rephrasing, we can say that our observed
-difference is very unlikely on the sceptical (null) hypothesis, that
-observations in the two groups are equivalent. We might be tempted to reject
-the null hypothesis, and conclude that the two groups are not equivalent, and
-therefore, that the supplement really did have an effect on the weight of the
-chicks, even allowing for the ordinary variation in chick weight.
+This proportion is very small.  Therefore, our observed difference is very
+unlikely on the null hypothesis that observations in the two groups are
+equivalent. We might be tempted to reject the null hypothesis, and conclude
+that the two groups are not equivalent, and therefore, that the supplement
+really did have an effect on the weight of the chicks, even allowing for the
+ordinary variation in chick weight.
+
+.. code-links::

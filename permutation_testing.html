@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Comparing two groups &#8212; Tutorials on imaging, computing and mathematics</title>
+    <title>Comparing two groups with permutation testing &#8212; Tutorials on imaging, computing and mathematics</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -44,15 +44,14 @@
           <div class="body" role="main">
             
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
-<div class="section" id="comparing-two-groups">
-<h1>Comparing two groups<a class="headerlink" href="#comparing-two-groups" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="comparing-two-groups-with-permutation-testing">
+<h1>Comparing two groups with permutation testing<a class="headerlink" href="#comparing-two-groups-with-permutation-testing" title="Permalink to this headline">¶</a></h1>
 <p>In a moment we are going to compare some measures we collected from two
 different groups.</p>
 <p>The data we are going to compare is from an experiment in which domestic
-chicks raised for the broiler chicken industry were fed a feed supplement
-(<code class="docutils literal"><span class="pre">with_supplement</span></code>), or were fed a normal diet without supplements
-(<code class="docutils literal"><span class="pre">no_supplement</span></code>). They were weighed after 2 weeks on these diets to test
-whether the supplement increases chick weight.</p>
+chicks were fed a feed supplement (<code class="docutils literal"><span class="pre">with_supplement</span></code>), or were fed a normal
+diet without supplements (<code class="docutils literal"><span class="pre">no_supplement</span></code>). They were weighed after 2 weeks
+on these diets to test whether the supplement increases chick weight.</p>
 <p>Here are the chick weights for the two groups:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">no_supplement</span> <span class="o">=</span> <span class="p">[</span><span class="mi">179</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">136</span><span class="p">,</span> <span class="mi">227</span><span class="p">,</span> <span class="mi">217</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">143</span><span class="p">,</span> <span class="mi">140</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">with_supplement</span> <span class="o">=</span> <span class="p">[</span><span class="mi">309</span><span class="p">,</span> <span class="mi">229</span><span class="p">,</span> <span class="mi">181</span><span class="p">,</span> <span class="mi">141</span><span class="p">,</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">203</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">257</span><span class="p">,</span> <span class="mi">244</span><span class="p">,</span> <span class="mi">271</span><span class="p">]</span>
@@ -95,7 +94,7 @@ the number of items. For example, here is the mean of the weights in the
 </pre></div>
 </div>
 <p>The mean is greater for the <code class="docutils literal"><span class="pre">with_supplement</span></code> group:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mean</span><span class="p">(</span><span class="n">no_supplement</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mean</span><span class="p">(</span><span class="n">with_supplement</span><span class="p">)</span>
 <span class="go">218.75</span>
 </pre></div>
 </div>
@@ -139,12 +138,12 @@ hypothesis that the difference can be explained by ordinary variation alone.</p>
 <p>One way we could check whether <code class="docutils literal"><span class="pre">observed_difference</span></code> could have come about
 by ordinary variation, is by measuring the weights of thousands of chicks in
 the <code class="docutils literal"><span class="pre">no_supplement</span></code> condition.  We could split these new samples into groups
-of 23, and then further split the group of 23 into a <code class="docutils literal"><span class="pre">no_supplement_A</span></code> group
-of size 10 and another <code class="docutils literal"><span class="pre">no_supplement_B</span></code> group of size 13.  Then we
-calculate the difference in the means between <code class="docutils literal"><span class="pre">no_supplement_A</span></code> and
-<code class="docutils literal"><span class="pre">no_supplement_B</span></code>, store it, and move on to the next 23 chick weights, to
+of 23, and then further split the group of 23 into a <code class="docutils literal"><span class="pre">group_A</span></code> group
+of size 10 and another <code class="docutils literal"><span class="pre">group_B</span></code> group of size 13.  Then we
+calculate the difference in the means between <code class="docutils literal"><span class="pre">group_A</span></code> and
+<code class="docutils literal"><span class="pre">group_B</span></code>, store it, and move on to the next 23 chick weights, to
 repeat the procedure.  We would end up with a distribution of the mean weight
-differences that arise just due to ordinary varation.  If
+differences that arise just due to ordinary variation.  If
 <code class="docutils literal"><span class="pre">observed_difference</span></code> is very large compared to the range of differences in
 this no-supplement experiment, we might be prepared to reject the null
 hypothesis.</p>
@@ -160,28 +159,7 @@ this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># The + below appends the second list to the first</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_chicks</span> <span class="o">=</span> <span class="n">no_supplement</span> <span class="o">+</span> <span class="n">with_supplement</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_chicks</span>
-<span class="go">[179,</span>
-<span class="go"> 160,</span>
-<span class="go"> 136,</span>
-<span class="go"> 227,</span>
-<span class="go"> 217,</span>
-<span class="go"> 168,</span>
-<span class="go"> 108,</span>
-<span class="go"> 124,</span>
-<span class="go"> 143,</span>
-<span class="go"> 140,</span>
-<span class="go"> 309,</span>
-<span class="go"> 229,</span>
-<span class="go"> 181,</span>
-<span class="go"> 141,</span>
-<span class="go"> 260,</span>
-<span class="go"> 203,</span>
-<span class="go"> 148,</span>
-<span class="go"> 169,</span>
-<span class="go"> 213,</span>
-<span class="go"> 257,</span>
-<span class="go"> 244,</span>
-<span class="go"> 271]</span>
+<span class="go">[179, 160, 136, 227, 217, 168, 108, 124, 143, 140, 309, 229, 181, 141, 260, 203, 148, 169, 213, 257, 244, 271]</span>
 </pre></div>
 </div>
 <p>In this new pooled list, the first 10 weights are from the
@@ -203,11 +181,11 @@ group.</p>
 </pre></div>
 </div>
 <p>Now we have the new pooled list, we can do something similar to taking the new
-<code class="docutils literal"><span class="pre">no_supplement_A</span></code> and <code class="docutils literal"><span class="pre">no_supplement_B</span></code> groups we imagined above.  That
+<code class="docutils literal"><span class="pre">group_A</span></code> and <code class="docutils literal"><span class="pre">group_B</span></code> groups we imagined above.  That
 is, we can <em>shuffle</em> the combined group to a random order, and split this
 shuffled combined group into a group of 10 and a group of 13.  We get the
 difference in means of these two groups, and store it.  We keep shuffling, to
-create more <code class="docutils literal"><span class="pre">no_supplement_A</span></code> and <code class="docutils literal"><span class="pre">no_supplement_B</span></code> groups, and more
+create more <code class="docutils literal"><span class="pre">group_A</span></code> and <code class="docutils literal"><span class="pre">group_B</span></code> groups, and more
 differences in means. The generated distribution of the mean differences is
 the distribution we expect on the null hypothesis, that there is no real
 difference between the two groups.  We can see where <code class="docutils literal"><span class="pre">observed_difference</span></code>
@@ -220,70 +198,54 @@ the <code class="docutils literal"><span class="pre">observed_difference</span><
 <p><code class="docutils literal"><span class="pre">random.shuffle</span></code> takes a list and shuffles it to a random order. Here I make
 a small example list and shuffle it a few times to show you that the order of
 the list changes:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># A small example list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shuffle it</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The shuffled list has a different (random) order</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a_list</span>
+<span class="go">[4, 2, 3, 5, 1]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shuffling again gives a different order</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a_list</span>
-<span class="go">[5, 3, 2, 1, 4]</span>
+<span class="go">[5, 3, 4, 1, 2]</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a_list</span>
-<span class="go">[3, 5, 4, 2, 1]</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">a_list</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a_list</span>
-<span class="go">[1, 5, 2, 4, 3]</span>
+<span class="go">[1, 3, 4, 5, 2]</span>
 </pre></div>
 </div>
 <p>Here’s a random shuffle of the combined <code class="docutils literal"><span class="pre">no_supplement</span></code> and
 <code class="docutils literal"><span class="pre">with_supplement</span></code> list:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">all_chicks</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">all_chicks</span>
-<span class="go">[181,</span>
-<span class="go"> 179,</span>
-<span class="go"> 213,</span>
-<span class="go"> 136,</span>
-<span class="go"> 160,</span>
-<span class="go"> 148,</span>
-<span class="go"> 124,</span>
-<span class="go"> 169,</span>
-<span class="go"> 257,</span>
-<span class="go"> 143,</span>
-<span class="go"> 244,</span>
-<span class="go"> 271,</span>
-<span class="go"> 140,</span>
-<span class="go"> 227,</span>
-<span class="go"> 260,</span>
-<span class="go"> 217,</span>
-<span class="go"> 203,</span>
-<span class="go"> 108,</span>
-<span class="go"> 141,</span>
-<span class="go"> 229,</span>
-<span class="go"> 168,</span>
-<span class="go"> 309]</span>
+<span class="go">[140, 181, 168, 271, 203, 257, 217, 169, 141, 213, 260, 309, 229, 227, 143, 244, 148, 124, 108, 136, 179, 160]</span>
 </pre></div>
 </div>
-<p>Now for our permuation test.  We’ve assumed the null hypothesis.  We have
+<p>Now for our permutation test.  We’ve assumed the null hypothesis.  We have
 randomly shuffled the combined group.  We’ll call the first 10 values
-<code class="docutils literal"><span class="pre">no_supplement_A</span></code> and the last 13 values <code class="docutils literal"><span class="pre">no_supplement_B</span></code>.</p>
-<p>After the shuffling, the <code class="docutils literal"><span class="pre">no_supplement_A</span></code> group is a random mix of the
+<code class="docutils literal"><span class="pre">group_A</span></code> and the last 13 values <code class="docutils literal"><span class="pre">group_B</span></code>.</p>
+<p>After the shuffling, the <code class="docutils literal"><span class="pre">group_A</span></code> group is a random mix of the
 <code class="docutils literal"><span class="pre">no_supplement</span></code> and <code class="docutils literal"><span class="pre">with_supplement</span></code> values, as is the
-<code class="docutils literal"><span class="pre">no_supplement_B</span></code> group.</p>
+<code class="docutils literal"><span class="pre">group_B</span></code> group.</p>
 <p>Here is a function that takes the combined list and returns the difference in
 means:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">difference_in_means</span><span class="p">(</span><span class="n">combined_list</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Split suffled combind group into two, return mean difference</span>
 <span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="gp">... </span>    <span class="n">no_supplement_A</span> <span class="o">=</span> <span class="n">combined_list</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-<span class="gp">... </span>    <span class="n">no_supplement_B</span> <span class="o">=</span> <span class="n">combined_list</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="n">no_supplement_B</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">no_supplement_A</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">group_A</span> <span class="o">=</span> <span class="n">combined_list</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">group_B</span> <span class="o">=</span> <span class="n">combined_list</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="n">group_B</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">group_A</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Let’s get the difference in means for these new groups, generated by the
 shuffle:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">difference_in_means</span><span class="p">(</span><span class="n">all_chicks</span><span class="p">)</span>
-<span class="go">38.75</span>
+<span class="go">-7.083333333333343</span>
 </pre></div>
 </div>
 <p>That difference from the shuffled groups looks a lot less than the difference
@@ -308,8 +270,8 @@ get a large range of values:</p>
 <span class="gp">... </span>    <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">-</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>This gives us 5000 differences from groups that that are compatible with our
-null hypothesis.   We can now ask whether <code class="docutils literal"><span class="pre">observed_difference</span></code> is unusually
+<p>This gives us 5000 differences from groups that are compatible with our null
+hypothesis.   We can now ask whether <code class="docutils literal"><span class="pre">observed_difference</span></code> is unusually
 large compared to the distribution of these 5000 differences.</p>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
@@ -322,7 +284,7 @@ interactive plots.  If running in the Jupyter Notebook, use <code class="docutil
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">shuffled_differences</span><span class="p">)</span>
-<span class="go">[...]</span>
+<span class="go">(...)</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//permutation_testing-23.png">png</a>, <a class="reference external" href=".//permutation_testing-23.hires.png">hires.png</a>, <a class="reference external" href=".//permutation_testing-23.pdf">pdf</a>)</p>
@@ -361,30 +323,34 @@ equal to the <code class="docutils literal"><span class="pre">observed_differenc
 <p>So, the index of the first difference greater than or equal to observed
 difference is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">index</span>
-<span class="go">4985</span>
+<span class="go">4977</span>
 </pre></div>
 </div>
 <p>We calculate how many values in <code class="docutils literal"><span class="pre">sorted_differences</span></code> are greater than or
 equal to <code class="docutils literal"><span class="pre">observed_difference</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n_greater_than_equal</span> <span class="o">=</span> <span class="n">n_repeats</span> <span class="o">-</span> <span class="n">index</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_greater_than_equal</span>
-<span class="go">15</span>
+<span class="go">23</span>
 </pre></div>
 </div>
 <p>Therefore, the <em>proportion</em> of the null-hypothesis differences that are
 greater than or equal to the observed difference is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prop_greater</span> <span class="o">=</span> <span class="n">n_greater_than_equal</span> <span class="o">/</span> <span class="n">n_repeats</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">prop_greater</span>
-<span class="go">0.003</span>
+<span class="go">0.0046</span>
 </pre></div>
 </div>
-<p>This proportion is very small.  Therefore our observed difference is extremely
-atypical of the shuffled differences. Rephrasing, we can say that our observed
-difference is very unlikely on the sceptical (null) hypothesis, that
-observations in the two groups are equivalent. We might be tempted to reject
-the null hypothesis, and conclude that the two groups are not equivalent, and
-therefore, that the supplement really did have an effect on the weight of the
-chicks, even allowing for the ordinary variation in chick weight.</p>
+<p>This proportion is very small.  Therefore, our observed difference is very
+unlikely on the null hypothesis that observations in the two groups are
+equivalent. We might be tempted to reject the null hypothesis, and conclude
+that the two groups are not equivalent, and therefore, that the supplement
+really did have an effect on the weight of the chicks, even allowing for the
+ordinary variation in chick weight.</p>
+<ul class="simple">
+<li><a class="reference download internal" href="permutation_testing.py">Download this page as a Python code file</a>;</li>
+<li><a class="reference download internal" href="permutation_testing.ipynb">Download this page as a Jupyter notebook (no outputs)</a>;</li>
+<li><a class="reference download internal" href="permutation_testing_full.ipynb">Download this page as a Jupyter notebook (with outputs)</a>.</li>
+</ul>
 </div>
 
 
