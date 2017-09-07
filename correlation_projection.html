@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Correlation and projection &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Matrix rank" href="matrix_rank.html" />
@@ -50,44 +47,44 @@
 <h1>Correlation and projection<a class="headerlink" href="#correlation-and-projection" title="Permalink to this headline">¶</a></h1>
 <p>Here we phrase the <a class="reference external" href="https://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient">Pearson product-moment correlation coefficient</a> in terms
 of vectors.</p>
-<p>Say we have two vectors of $n$ values:</p>
+<p>Say we have two vectors of <span class="math">\(n\)</span> values:</p>
 <div class="math">
 \[ \begin{align}\begin{aligned}\vec{x} = [x_1, x_2, ... , x_n]\\\vec{y} = [y_1, y_2, ... , y_n]\end{aligned}\end{align} \]</div>
-<p>Write the mean of the values in $vec{x}$ as $bar{x}$:</p>
+<p>Write the mean of the values in <span class="math">\(\vec{x}\)</span> as <span class="math">\(\bar{x}\)</span>:</p>
 <div class="math">
 \[\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i\]</div>
-<p>Define two new vectors, $vec{x^c}, vec{y^c}$ that contain the values in
-$vec{x}, vec{y}$ with their respective means subtracted:</p>
+<p>Define two new vectors, <span class="math">\(\vec{x^c}, \vec{y^c}\)</span> that contain the values in
+<span class="math">\(\vec{x}, \vec{y}\)</span> with their respective means subtracted:</p>
 <div class="math">
 \[ \begin{align}\begin{aligned}\vec{x^c} = [x_1 - \bar{x}, x_2 - \bar{x}, ... , x_n - \bar{x}]\\\vec{y^c} = [y_1 - \bar{y}, y_2 - \bar{y}, ... , y_n - \bar{y}]\end{aligned}\end{align} \]</div>
-<p>Define the sample variance of $vec{x}$ as the mean of the squared deviations
+<p>Define the sample variance of <span class="math">\(\vec{x}\)</span> as the mean of the squared deviations
 from the mean:</p>
 <div class="math">
 \[v_x = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2\]</div>
-<p>The sample standard deviation of $vec{x}$:</p>
+<p>The sample standard deviation of <span class="math">\(\vec{x}\)</span>:</p>
 <div class="math">
 \[s_x = \sqrt{v_x}\]</div>
 <p>Now define the <a class="reference external" href="https://en.wikipedia.org/wiki/Standard_score">standardized</a>
-versions of $vec{x}, vec{y}$ as:</p>
+versions of <span class="math">\(\vec{x}, \vec{y}\)</span> as:</p>
 <div class="math">
 \[ \begin{align}\begin{aligned}\vec{x^z} = \frac{1}{s_x} \vec{x^c}\\\vec{y^z} = \frac{1}{s_y} \vec{y^c}\end{aligned}\end{align} \]</div>
-<p>The Pearson product-moment correlation coefficient of $vec{x}, vec{y}$ is
-given by $1 / n$ times the dot product of $vec{x^z}, vec{y^z}$:</p>
+<p>The Pearson product-moment correlation coefficient of <span class="math">\(\vec{x}, \vec{y}\)</span> is
+given by <span class="math">\(1 / n\)</span> times the dot product of <span class="math">\(\vec{x^z}, \vec{y^z}\)</span>:</p>
 <div class="math">
 \[r_{xy} = \frac{1}{n} \vec{x^z} \cdot \vec{y^z}\]</div>
 <p>The equivalent expression in terms of sums rather than vectors is:</p>
 <div class="math">
 \[r_{xy} =\frac{1}{n} \sum ^n _{i=1} \left( \frac{x_i - \bar{x}}{s_x}
 \right) \left( \frac{y_i - \bar{y}}{s_y} \right)\]</div>
-<p>Rewrite in terms of $vec{x^c}, vec{y^c}$ (see <a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>):</p>
+<p>Rewrite in terms of <span class="math">\(\vec{x^c}, \vec{y^c}\)</span> (see <a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>):</p>
 <div class="math">
 \[ \begin{align}\begin{aligned}r_{xy} = \frac{1}{n} \frac{\vec{x^c} \cdot \vec{y^c}}
         {s_x s_y}\\s_x = \sqrt{ \frac{1}{n} \vec{x^c} \cdot \vec{x^c} }
     = \sqrt{\frac{1}{n}} \; \VL{x^c}\\s_y = \sqrt{\frac{1}{n}} \; \VL{y^c}\\r_{xy} = \frac{\vec{x^c} \cdot \vec{y^c}} {\VL{x^c} \VL{y^c}}\end{aligned}\end{align} \]</div>
 <p>The Pearson product-moment correlation coefficient is the dot product between
-the vectors $vec{x^c}, vec{y^c}$ after normalizing the vectors to unit length.</p>
-<p>$r_{xy}$ is therefore <a class="reference internal" href="vector_angles.html"><span class="doc">the cosine of the angle</span></a> between
-$vec{x^c}$ and $vec{y^c}$.</p>
+the vectors <span class="math">\(\vec{x^c}, \vec{y^c}\)</span> after normalizing the vectors to unit length.</p>
+<p><span class="math">\(r_{xy}\)</span> is therefore <a class="reference internal" href="vector_angles.html"><span class="doc">the cosine of the angle</span></a> between
+<span class="math">\(\vec{x^c}\)</span> and <span class="math">\(\vec{y^c}\)</span>.</p>
 </div>
 
 
@@ -129,8 +126,8 @@ $vec{x^c}$ and $vec{y^c}$.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/correlation_projection.rst.txt"

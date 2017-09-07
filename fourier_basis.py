@@ -21,7 +21,7 @@
 # \sin(r^k_{N-1} \right]
 # $$
 #
-# $vec{c_k}, vec{s_k}$ are *Fourier basis vectors*.
+# $\vec{c_k}, \vec{s_k}$ are *Fourier basis vectors*.
 #
 # We can compile all these vectors into matrices to form *Fourier basis
 # matrices*.

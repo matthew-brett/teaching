@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>The argument in “Why most published research findings are false” &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Mutual information as an image matching metric" href="mutual_information.html" />
@@ -579,7 +576,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </pre></div>
 </div>
 <p>Now we make a numerical version of this symbolic expression, so we can
-evaluate it for different values of $alpha, beta, pi, u, n$:</p>
+evaluate it for different values of <span class="math">\(\alpha, \beta, \pi, u, n\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numerical version of symbolic expression</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pp_mb_func</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">post_prob_multi_bias</span><span class="p">)</span>
 </pre></div>
@@ -675,8 +672,8 @@ probability that <span class="math">\(H_A\)</span> is correct is still less than
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/ioannidis_2005.rst.txt"

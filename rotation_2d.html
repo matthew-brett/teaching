@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Formula for rotating a vector in 2D &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Vector projection" href="vector_projection.html" />
@@ -48,11 +45,11 @@
   <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="formula-for-rotating-a-vector-in-2d">
 <h1>Formula for rotating a vector in 2D<a class="headerlink" href="#formula-for-rotating-a-vector-in-2d" title="Permalink to this headline">¶</a></h1>
-<p>Let’s say we have a point $(x_1, y_1)$.  The point also defines the vector $(x_1, y_1)$.</p>
-<p>The vector $(x_1, y_1)$ has length $L$.</p>
-<p>We rotate this vector anticlockwise around the origin by $beta$ degrees.</p>
-<p>The rotated vector has coordinates $(x_2, y_2)$</p>
-<p>The rotated vector must also have length $L$.</p>
+<p>Let’s say we have a point <span class="math">\((x_1, y_1)\)</span>.  The point also defines the vector <span class="math">\((x_1, y_1)\)</span>.</p>
+<p>The vector <span class="math">\((x_1, y_1)\)</span> has length <span class="math">\(L\)</span>.</p>
+<p>We rotate this vector anticlockwise around the origin by <span class="math">\(\beta\)</span> degrees.</p>
+<p>The rotated vector has coordinates <span class="math">\((x_2, y_2)\)</span></p>
+<p>The rotated vector must also have length <span class="math">\(L\)</span>.</p>
 <div class="section" id="theorem">
 <h2>Theorem<a class="headerlink" href="#theorem" title="Permalink to this headline">¶</a></h2>
 <div class="math">
@@ -62,12 +59,12 @@ y_2 = \sin \beta x_1 + \cos \beta y_1\end{split}\]</div>
 </div>
 <div class="section" id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
-<p>Call the angle between $(x_1, y_1)$ and the x-axis : $alpha$.  Then:</p>
+<p>Call the angle between <span class="math">\((x_1, y_1)\)</span> and the x-axis : <span class="math">\(\alpha\)</span>.  Then:</p>
 <div class="math" id="equation-x_1_y_1">
 <span class="eqno">(1)<a class="headerlink" href="#equation-x_1_y_1" title="Permalink to this equation">¶</a></span>\[\begin{split}x_1 = L \cos(\alpha) \\
 y_1 = L \sin(\alpha)\end{split}\]</div>
-<p>We rotate $(x_1, y_1)$ by angle $beta$ to get $(x_2, y_2)$.  So the angle
-between $(x_2, y_2)$ and the x-axis is $alpha + beta$:</p>
+<p>We rotate <span class="math">\((x_1, y_1)\)</span> by angle <span class="math">\(\beta\)</span> to get <span class="math">\((x_2, y_2)\)</span>.  So the angle
+between <span class="math">\((x_2, y_2)\)</span> and the x-axis is <span class="math">\(\alpha + \beta\)</span>:</p>
 <div class="math" id="equation-x_2_y_2">
 <span class="eqno">(2)<a class="headerlink" href="#equation-x_2_y_2" title="Permalink to this equation">¶</a></span>\[\begin{split}x_2 = L \cos(\alpha + \beta) \\
 y_2 = L \sin(\alpha + \beta)\end{split}\]</div>
@@ -85,8 +82,8 @@ there.</p>
 \[\begin{split}L \cos(\alpha + \beta) =
 L \cos \alpha \cos \beta - L \sin \alpha \sin \beta \implies \\
 x_2 = x_1 \cos \beta - y_1 \sin \beta \\\end{split}\]</div>
-<p>We do the matching substitutions into $sin(alpha + beta)$ to get $y_2$.</p>
-<p>$blacksquare$</p>
+<p>We do the matching substitutions into <span class="math">\(\sin(\alpha + \beta)\)</span> to get <span class="math">\(y_2\)</span>.</p>
+<p><span class="math">\(\blacksquare\)</span></p>
 </div>
 <div class="section" id="proof-by-long-hand-variant-of-angle-sum-proof">
 <h2>Proof by long-hand variant of angle sum proof<a class="headerlink" href="#proof-by-long-hand-variant-of-angle-sum-proof" title="Permalink to this headline">¶</a></h2>
@@ -96,11 +93,11 @@ angle-sum proof to prove the rotation formulae.</p>
 <p>We can see from the picture that:</p>
 <div class="math">
 \[ \begin{align}\begin{aligned}x_2 = r - u\\y_2 = t + s\end{aligned}\end{align} \]</div>
-<p>We are going to use some basic trigonometry to get the lengths of $r, u, t,
-s$.</p>
-<p>Because the angles in a triangle sum to 180 degrees, $phi$ on the picture is
-$90 - alpha$ and therefore the angle between lines $q, t$ is also $alpha$.</p>
-<p>Remembering the definitions of $cos$ and $sin$:</p>
+<p>We are going to use some basic trigonometry to get the lengths of <span class="math">\(r, u, t,
+s\)</span>.</p>
+<p>Because the angles in a triangle sum to 180 degrees, <span class="math">\(\phi\)</span> on the picture is
+<span class="math">\(90 - \alpha\)</span> and therefore the angle between lines <span class="math">\(q, t\)</span> is also <span class="math">\(\alpha\)</span>.</p>
+<p>Remembering the definitions of <span class="math">\(\cos\)</span> and <span class="math">\(\sin\)</span>:</p>
 <div class="math">
 \[ \begin{align}\begin{aligned}\cos\theta = \frac{A}{H} \implies A = \cos \theta H\\\sin\theta = \frac{O}{H} \implies O = \sin \theta H\end{aligned}\end{align} \]</div>
 <p>Thus:</p>
@@ -109,7 +106,7 @@ $90 - alpha$ and therefore the angle between lines $q, t$ is also $alpha$.</p>
 <p>So:</p>
 <div class="math">
 \[ \begin{align}\begin{aligned}x_2 = r - u = \cos \beta x_1 - \sin \beta y_1\\y_2 = t + s = \sin \beta x_1 + \cos \beta y_1\end{aligned}\end{align} \]</div>
-<p>$blacksquare$.</p>
+<p><span class="math">\(\blacksquare\)</span>.</p>
 </div>
 </div>
 
@@ -163,8 +160,8 @@ $90 - alpha$ and therefore the angle between lines $q, t$ is also $alpha$.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/rotation_2d.rst.txt"

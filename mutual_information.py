@@ -102,20 +102,6 @@ axes[2].set_title('T2 slice')
 # the number of observations in each square defined by the intersection of the
 # rows and columns:
 #
-# <!-- >>> from matplotlib.ticker import MaxNLocator
-# >>> ax = plt.subplot(111)
-# >>> ax.plot(t1_slice.ravel(), t2_slice.ravel(), '.')
-# [...]
-# >>> ax.set_xlabel('T1 signal')
-# <...>
-# >>> ax.set_ylabel('T2 signal')
-# <...>
-# >>> ax.set_title('T1 vs T2 signal split into squares')
-# <...>
-# >>> ax.xaxis.set_minor_locator(MaxNLocator(nbins=20))
-# >>> ax.yaxis.set_minor_locator(MaxNLocator(nbins=20))
-# >>> ax.xaxis.grid(True, 'minor')
-# >>> ax.yaxis.grid(True, 'minor') -->
 # Numpy has a function for doing the 2D histogram calculation:
 
 hist_2d, x_edges, y_edges = np.histogram2d(

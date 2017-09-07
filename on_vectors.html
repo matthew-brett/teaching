@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Vectors and dot products &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Introducing principal component analysis" href="pca_introduction.html" />
@@ -62,20 +59,20 @@
 </div>
 <div class="section" id="vector-scaling">
 <h2>Vector scaling<a class="headerlink" href="#vector-scaling" title="Permalink to this headline">¶</a></h2>
-<p>A vector can be <em>scaled</em> by a scalar $c$:</p>
+<p>A vector can be <em>scaled</em> by a scalar <span class="math">\(c\)</span>:</p>
 <div class="math">
 \[c \vec{v} \triangleq [ c v_1, c v_2, \cdots c v_n ]\]</div>
 </div>
 <div class="section" id="vector-addition">
 <h2>Vector addition<a class="headerlink" href="#vector-addition" title="Permalink to this headline">¶</a></h2>
-<p>Say we have two vectors containing $n$ values:</p>
+<p>Say we have two vectors containing <span class="math">\(n\)</span> values:</p>
 <div class="math">
 \[\begin{split}\vec{v} = [ v_1, v_2, \cdots v_n ] \\
 \vec{w} = [ w_1, w_2, \cdots w_n ]\end{split}\]</div>
-<p>Vector <em>addition</em> gives a new vector with $n$ values:</p>
+<p>Vector <em>addition</em> gives a new vector with <span class="math">\(n\)</span> values:</p>
 <div class="math">
 \[\vec{v} + \vec{w} \triangleq [ v_1 + w_1, v_2 + w_2, \cdots v_n + w_n ]\]</div>
-<p>Vector addition is commutative because $v_i + w_i = w_i + v_i$:</p>
+<p>Vector addition is commutative because <span class="math">\(v_i + w_i = w_i + v_i\)</span>:</p>
 <div class="math">
 \[\vec{v} + \vec{w} = \vec{w} + \vec{v}\]</div>
 </div>
@@ -87,16 +84,16 @@
 </div>
 <div class="section" id="vector-length">
 <span id="id2"></span><h2>Vector length<a class="headerlink" href="#vector-length" title="Permalink to this headline">¶</a></h2>
-<p>We write the <em>length</em> of a vector $vec{v}$ as $VL{v}$:</p>
+<p>We write the <em>length</em> of a vector <span class="math">\(\vec{v}\)</span> as <span class="math">\(\VL{v}\)</span>:</p>
 <div class="math">
 \[\VL{v} \triangleq \sqrt{ \Sigma v_i^2 }\]</div>
-<p>This is a generalization of Pythagoras’ theorem to $n$ dimensions.  For
-example, the length of a two dimensional vector $[ x, y ]$ is the length of the
-hypotenuse of the right-angle triangle formed by the points $(x, 0), (0, y),
-(x, y)$.  This length is $sqrt{x^2 + y^2}$.  For a point in three dimensions
-${x, y, z}$, consider the right-angle triangle formed by $(x, y, 0), (0, 0,
-z), (x, y, z)$.  The hypotenuse is length $sqrt{L{ [ x, y ] }^2 + z^2} =
-sqrt{ x^2 + y^2 + z^2 }$.</p>
+<p>This is a generalization of Pythagoras’ theorem to <span class="math">\(n\)</span> dimensions.  For
+example, the length of a two dimensional vector <span class="math">\([ x, y ]\)</span> is the length of the
+hypotenuse of the right-angle triangle formed by the points <span class="math">\((x, 0), (0, y),
+(x, y)\)</span>.  This length is <span class="math">\(\sqrt{x^2 + y^2}\)</span>.  For a point in three dimensions
+<span class="math">\({x, y, z}\)</span>, consider the right-angle triangle formed by <span class="math">\((x, y, 0), (0, 0,
+z), (x, y, z)\)</span>.  The hypotenuse is length <span class="math">\(\sqrt{\L{ [ x, y ] }^2 + z^2} =
+\sqrt{ x^2 + y^2 + z^2 }\)</span>.</p>
 <p>From the definition of vector length and the dot product, the square root of
 the dot product of the vector with itself gives the vector length:</p>
 <div class="math">
@@ -109,7 +106,7 @@ the dot product of the vector with itself gives the vector length:</p>
 <h3>Commutative<a class="headerlink" href="#commutative" title="Permalink to this headline">¶</a></h3>
 <div class="math">
 \[\vec{v} \cdot \vec{w} = \vec{w} \cdot \vec{v}\]</div>
-<p>because $v_i w_i = w_i v_i$.</p>
+<p>because <span class="math">\(v_i w_i = w_i v_i\)</span>.</p>
 </div>
 <div class="section" id="distributive-over-vector-addition">
 <h3>Distributive over vector addition<a class="headerlink" href="#distributive-over-vector-addition" title="Permalink to this headline">¶</a></h3>
@@ -125,7 +122,7 @@ the dot product of the vector with itself gives the vector length:</p>
 </div>
 <div class="section" id="scalar-multiplication">
 <h3>Scalar multiplication<a class="headerlink" href="#scalar-multiplication" title="Permalink to this headline">¶</a></h3>
-<p>Say we have two scalars, $c$ and $d$:</p>
+<p>Say we have two scalars, <span class="math">\(c\)</span> and <span class="math">\(d\)</span>:</p>
 <div class="math">
 \[(c \vec{v}) \cdot (d \vec{w}) = c d ( \vec{v} \cdot \vec{w} )\]</div>
 <p>because:</p>
@@ -143,11 +140,11 @@ c d \Sigma{ v_i w_i }\end{split}\]</div>
 <div class="section" id="unit-vector">
 <h2>Unit vector<a class="headerlink" href="#unit-vector" title="Permalink to this headline">¶</a></h2>
 <p>A unit vector is any vector with length 1.</p>
-<p>To make a corresponding unit vector from any vector $vec{v}$, divide by
-$VL{v}$:</p>
+<p>To make a corresponding unit vector from any vector <span class="math">\(\vec{v}\)</span>, divide by
+<span class="math">\(\VL{v}\)</span>:</p>
 <div class="math">
 \[\vec{u} = \frac{1}{ \VL{v} } \vec{v}\]</div>
-<p>Let $g triangleq frac{1}{VL{v}}$.  Then:</p>
+<p>Let <span class="math">\(g \triangleq \frac{1}{\VL{v}}\)</span>.  Then:</p>
 <div class="math">
 \[\begin{split}\L{ g \vec{v} }^2 = \\
 ( g \vec{v} ) \cdot ( g \vec{v} ) = \\
@@ -157,10 +154,10 @@ g^2  \VL{v}^2 = 1\end{split}\]</div>
 <span id="orthogonal-dot"></span><h2>If two vectors are perpendicular, their dot product is 0<a class="headerlink" href="#if-two-vectors-are-perpendicular-their-dot-product-is-0" title="Permalink to this headline">¶</a></h2>
 <p>I based this proof on that in Gilbert Strang’s “Introduction to Linear
 Algebra” 4th edition, page 14.</p>
-<p>Consider the triangle formed by the two vectors $vec{v}$ and $vec{w}$.  The
-lengths of the sides of the triangle are $VL{v}, VL{w}, L{vec{v} -
-vec{w}}$.  When $vec{v}$ and $vec{w}$ are perpendicular, this is a
-right-angled triangle with hypotenuse length $L{vec{v} - vec{w}}$.  In this
+<p>Consider the triangle formed by the two vectors <span class="math">\(\vec{v}\)</span> and <span class="math">\(\vec{w}\)</span>.  The
+lengths of the sides of the triangle are <span class="math">\(\VL{v}, \VL{w}, \L{\vec{v} -
+\vec{w}}\)</span>.  When <span class="math">\(\vec{v}\)</span> and <span class="math">\(\vec{w}\)</span> are perpendicular, this is a
+right-angled triangle with hypotenuse length <span class="math">\(\L{\vec{v} - \vec{w}}\)</span>.  In this
 situation, by Pythagoras:</p>
 <div class="math">
 \[\VL{v}^2 + \VL{w}^2 = \L{\vec{v} - \vec{w}}^2\]</div>
@@ -176,13 +173,13 @@ w_1^2 + w_2^2 + \cdots w_n^2\]</div>
 (v_2^2 - 2v_2 w_2 + w_2^2) +
 \cdots
 (v_n^2 - 2v_n w_1 + w_n^2)\]</div>
-<p>The $v_i^2$ and $w_i^2$ terms on left and right cancel, so:</p>
+<p>The <span class="math">\(v_i^2\)</span> and <span class="math">\(w_i^2\)</span> terms on left and right cancel, so:</p>
 <div class="math">
 \[\begin{split}\VL{v}^2 + \VL{w}^2 = \L{\vec{v} - \vec{w}}^2 \implies \\
 0 = 2(v_1 w_1 + v_2 w_2 + \cdots v_n w_n) \implies \\
 0 = \vec{v} \cdot \vec{w}\end{split}\]</div>
-<p>By the <a class="reference external" href="https://en.wikipedia.org/wiki/Pythagorean_theorem#Converse">converse of Pythagoras’ theorem</a>, if $VL{v}^2 +
-VL{w}^2 ne L{vec{v} - vec{w}}^2$ then vectors $vec{v}$ and $vec{w}$ do
+<p>By the <a class="reference external" href="https://en.wikipedia.org/wiki/Pythagorean_theorem#Converse">converse of Pythagoras’ theorem</a>, if <span class="math">\(\VL{v}^2 +
+\VL{w}^2 \ne \L{\vec{v} - \vec{w}}^2\)</span> then vectors <span class="math">\(\vec{v}\)</span> and <span class="math">\(\vec{w}\)</span> do
 not form a right angle and are not perpendicular.</p>
 </div>
 <div class="section" id="also-see">
@@ -254,8 +251,8 @@ not form a right angle and are not perpendicular.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/on_vectors.rst.txt"

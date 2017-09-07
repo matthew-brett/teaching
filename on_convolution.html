@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Convolution &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Vectors and dot products" href="on_vectors.html" />
@@ -333,12 +330,12 @@ our input neural signal:</p>
 <ol class="arabic">
 <li><p class="first">Start with an output vector that is a vector of zeros;</p>
 </li>
-<li><p class="first">For each index $i$ in the <em>input vector</em> (the neural signal):</p>
+<li><p class="first">For each index <span class="math">\(i\)</span> in the <em>input vector</em> (the neural signal):</p>
 <blockquote>
 <div><ol class="arabic simple" start="3">
-<li>Prepare a shifted copy of the HRF vector, starting at $i$. Call this the
+<li>Prepare a shifted copy of the HRF vector, starting at <span class="math">\(i\)</span>. Call this the
 <em>shifted HRF vector</em>;</li>
-<li>Multiply the shifted HRF vector by the value in the input at index $i$,
+<li>Multiply the shifted HRF vector by the value in the input at index <span class="math">\(i\)</span>,
 to give the <em>shifted, scaled HRF vector</em>;</li>
 <li>Add the shifted scaled HRF vector to the output.</li>
 </ol>
@@ -350,7 +347,7 @@ vector.</p>
 <p>Imagine that our input (neural) vector is N time points long.  Say the original
 HRF vector is M time points long.</p>
 <p>In our algorithm, when the iteration gets to the last index of the <em>input
-vector</em> ($i = N-1$), the shifted scaled HRF vector will, as ever, be M points
+vector</em> (<span class="math">\(i = N-1\)</span>), the shifted scaled HRF vector will, as ever, be M points
 long.  If the output vector is the same length as the input vector, we can add
 only the first point of the new scaled HRF vector to the last point of the
 output vector, but all the subsequent values of the scaled HRF vector extend
@@ -534,8 +531,8 @@ scaling of the HRFs and the sum operation, all in one go.  Like this:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">npt</span><span class="o">.</span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">as_row_vector</span><span class="p">(</span><span class="n">bold_signal</span><span class="p">),</span> <span class="n">bold_signal_again</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The matrix transpose rule says $(A B)^T = B^T A^T$ where $A^T$ is the transpose
-of matrix $A$.  So we could also do this exact same operation by doing a matrix
+<p>The matrix transpose rule says <span class="math">\((A B)^T = B^T A^T\)</span> where <span class="math">\(A^T\)</span> is the transpose
+of matrix <span class="math">\(A\)</span>.  So we could also do this exact same operation by doing a matrix
 multiply of the transpose of <code class="docutils literal"><span class="pre">shifted_hrfs</span></code> onto the <code class="docutils literal"><span class="pre">neural_signal</span></code> as a
 column vector:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bold_signal_again</span> <span class="o">=</span> <span class="n">shifted_hrfs</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">neural_vector</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
@@ -551,11 +548,11 @@ HRF by matrix multiplying onto an input vector.</p>
 <h3>Convolution is like cross-correlation with the reversed HRF<a class="headerlink" href="#convolution-is-like-cross-correlation-with-the-reversed-hrf" title="Permalink to this headline">¶</a></h3>
 <p>We are now ready to show something slightly odd that arises from the way that
 convolution works.</p>
-<p>Consider index $i$ in the input (neural) vector.  Let’s say $i = 25$.  We want to get
-value index $i$ in the output (hemodynamic vector). What do we need to do?</p>
-<p>Looking at our non-transposed matrix formulation, we see that value $i$ in the
+<p>Consider index <span class="math">\(i\)</span> in the input (neural) vector.  Let’s say <span class="math">\(i = 25\)</span>.  We want to get
+value index <span class="math">\(i\)</span> in the output (hemodynamic vector). What do we need to do?</p>
+<p>Looking at our non-transposed matrix formulation, we see that value <span class="math">\(i\)</span> in the
 output is the matrix multiplication of the neural signal (row vector) by
-column $i$ in <code class="docutils literal"><span class="pre">shifted_hrfs</span></code>.  Here is a plot of column 25 in
+column <span class="math">\(i\)</span> in <code class="docutils literal"><span class="pre">shifted_hrfs</span></code>.  Here is a plot of column 25 in
 <code class="docutils literal"><span class="pre">shifted_hrfs</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">shifted_hrfs</span><span class="p">[:,</span> <span class="mi">25</span><span class="p">])</span>
 <span class="go">[...]</span>
@@ -566,18 +563,18 @@ column $i$ in <code class="docutils literal"><span class="pre">shifted_hrfs</spa
 <img alt="_images/on_convolution-21.png" src="_images/on_convolution-21.png" />
 </div>
 <p>The column contains a <em>reversed</em> copy of the HRF signal, where the first value
-from the original HRF signal is at index 25 ($i$), the second value is at
-index 24 ($i - 1$) and so on back to index 25 - 20 = 5.  The reversed HRF
+from the original HRF signal is at index 25 (<span class="math">\(i\)</span>), the second value is at
+index 24 (<span class="math">\(i - 1\)</span>) and so on back to index 25 - 20 = 5.  The reversed HRF
 follows from the way we constructed the rows of the original matrix.  Each new
 HRF row was shifted across by one column, therefore, reading up the columns
 from the diagonals, will also give you the HRF shape.</p>
-<p>Let us rephrase the matrix multiplication that gives us the value at index $i$
-in the output vector.  Call the neural input vector $mathbf{n}$ with values
-$n_0, n_1 … n_{N-1}$.  Call the <code class="docutils literal"><span class="pre">shifted_hrfs</span></code> array $mathbf{S}$ with $N$
-rows and $N + M - 1$ columns.  $mathbf{S}_{:,i}$ is column $i$ in
-$mathbf{S}$.</p>
-<p>So, the output value $o_i$ is given by the matrix multiplication of row
-$mathbf{n}$ onto column $mathbf{S}_{:,i}$.  The matrix multiplication (dot
+<p>Let us rephrase the matrix multiplication that gives us the value at index <span class="math">\(i\)</span>
+in the output vector.  Call the neural input vector <span class="math">\(\mathbf{n}\)</span> with values
+<span class="math">\(n_0, n_1 ... n_{N-1}\)</span>.  Call the <code class="docutils literal"><span class="pre">shifted_hrfs</span></code> array <span class="math">\(\mathbf{S}\)</span> with <span class="math">\(N\)</span>
+rows and <span class="math">\(N + M - 1\)</span> columns.  <span class="math">\(\mathbf{S}_{:,i}\)</span> is column <span class="math">\(i\)</span> in
+<span class="math">\(\mathbf{S}\)</span>.</p>
+<p>So, the output value <span class="math">\(o_i\)</span> is given by the matrix multiplication of row
+<span class="math">\(\mathbf{n}\)</span> onto column <span class="math">\(\mathbf{S}_{:,i}\)</span>.  The matrix multiplication (dot
 product) gives us the usual sum of products as the output:</p>
 <div class="math">
 \[o_i = \sum_{j=0}^{N-1}{n_j S_{j,i}}\]</div>
@@ -590,41 +587,41 @@ this piece of code:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">npt</span><span class="o">.</span><span class="n">assert_almost_equal</span><span class="p">(</span><span class="n">bold_i</span><span class="p">,</span> <span class="n">bold_signal</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>Can we simplify the formula without using the <code class="docutils literal"><span class="pre">shifted_hrfs</span></code> $mathbf{S}$
-matrix?  We saw above that column $i$ in <code class="docutils literal"><span class="pre">shifted_hrfs</span></code> contains a reversed
-HRF, starting at index $i$ and going backwards towards index 0.</p>
+<p>Can we simplify the formula without using the <code class="docutils literal"><span class="pre">shifted_hrfs</span></code> <span class="math">\(\mathbf{S}\)</span>
+matrix?  We saw above that column <span class="math">\(i\)</span> in <code class="docutils literal"><span class="pre">shifted_hrfs</span></code> contains a reversed
+HRF, starting at index <span class="math">\(i\)</span> and going backwards towards index 0.</p>
 <p>The 1-second resolution HRF is our array <code class="docutils literal"><span class="pre">hrf_signal</span></code>.  So <code class="docutils literal"><span class="pre">shifted_hrfs[i,</span>
 <span class="pre">i]</span></code> contains <code class="docutils literal"><span class="pre">hrf_signal[0]</span></code>, <code class="docutils literal"><span class="pre">shifted_hrfs[i-1,</span> <span class="pre">i]</span></code> contains
-<code class="docutils literal"><span class="pre">hrf_signal[1]</span></code> and so on.  In general, for any index $j$ into
+<code class="docutils literal"><span class="pre">hrf_signal[1]</span></code> and so on.  In general, for any index <span class="math">\(j\)</span> into
 <code class="docutils literal"><span class="pre">shifted_hrfs[:,</span> <span class="pre">i]</span></code>, <code class="docutils literal"><span class="pre">shifted_hrfs[j,</span> <span class="pre">i]</span> <span class="pre">==</span> <span class="pre">hrf_signal[i-j]</span></code> (assuming
 we return zero for any <code class="docutils literal"><span class="pre">hrf_signal[i-j]</span></code> where <code class="docutils literal"><span class="pre">i-j</span></code> is outside the
 bounds of the vector, with <code class="docutils literal"><span class="pre">i-j</span></code> &lt; 0 or &gt;= M).</p>
-<p>Realizing this, we can replace $mathbf{S}_{:,i}$ in our equation above.  Call
-our <code class="docutils literal"><span class="pre">hrf_signal</span></code> vector $mathbf{h}$ with values $h_0, h_1, … h_{M-1}$.
+<p>Realizing this, we can replace <span class="math">\(\mathbf{S}_{:,i}\)</span> in our equation above.  Call
+our <code class="docutils literal"><span class="pre">hrf_signal</span></code> vector <span class="math">\(\mathbf{h}\)</span> with values <span class="math">\(h_0, h_1, ... h_{M-1}\)</span>.
 Then:</p>
 <div class="math">
 \[o_i = \sum_{j=0}^{N-1}{n_j h_{i-j}}\]</div>
-<p>This is the sum of the {products of the elements of $mathbf{n}$ with the
-matching elements from the [reversed HRF vector $mathbf{h}$, shifted by $i$
+<p>This is the sum of the {products of the elements of <span class="math">\(\mathbf{n}\)</span> with the
+matching elements from the [reversed HRF vector <span class="math">\(\mathbf{h}\)</span>, shifted by <span class="math">\(i\)</span>
 elements]}.</p>
 </div>
 <div class="section" id="the-mathematical-definition-for-convolution">
 <h3>The mathematical definition for convolution<a class="headerlink" href="#the-mathematical-definition-for-convolution" title="Permalink to this headline">¶</a></h3>
 <p>This brings us to the abstract definition of convolution for continuous
 functions.</p>
-<p>In general, call the continuous input a function $f$.  In our case the input
+<p>In general, call the continuous input a function <span class="math">\(f\)</span>.  In our case the input
 signal is the neuronal model, that is a function of time.  This is the
-continuous generalization of the vector $mathbf{n}$ in our discrete model.
-The continuous function to convolve with is $g$.  In our case $g$ is the HRF,
-also a function of time.  $g$ is the generalized continuous version of the
-vector $mathbf{h}$ in the previous section.  The convolution of $f$ and $g$
-is often written $(f * g)$ and for any given $t$ is defined as:</p>
+continuous generalization of the vector <span class="math">\(\mathbf{n}\)</span> in our discrete model.
+The continuous function to convolve with is <span class="math">\(g\)</span>.  In our case <span class="math">\(g\)</span> is the HRF,
+also a function of time.  <span class="math">\(g\)</span> is the generalized continuous version of the
+vector <span class="math">\(\mathbf{h}\)</span> in the previous section.  The convolution of <span class="math">\(f\)</span> and <span class="math">\(g\)</span>
+is often written <span class="math">\((f * g)\)</span> and for any given <span class="math">\(t\)</span> is defined as:</p>
 <div class="math">
 \[(f * g )(t) \stackrel{\mathrm{def}}{=}\ \int_{-\infty}^\infty f(\tau)\,
 g(t - \tau)\, d\tau\]</div>
 <p>As you can see, and as we have already discovered in the discrete case, the
 convolution is the integral of the product of the two functions as the second
-function $g$ is reversed and shifted.</p>
+function <span class="math">\(g\)</span> is reversed and shifted.</p>
 <p>See : the <a class="reference external" href="https://en.wikipedia.org/wiki/Convolution#Definition">wikipedia convolution definition section</a> for more discussion.</p>
 <ul class="simple">
 <li><a class="reference download internal" href="on_convolution.py">Download this page as a Python code file</a>;</li>
@@ -691,8 +688,8 @@ function $g$ is reversed and shifted.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/on_convolution.rst.txt"

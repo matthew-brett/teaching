@@ -349,7 +349,7 @@ post_prob_multi_bias = (
 post_prob_multi_bias
 
 # Now we make a numerical version of this symbolic expression, so we can
-# evaluate it for different values of $alpha, beta, pi, u, n$:
+# evaluate it for different values of $\alpha, \beta, \pi, u, n$:
 
 # Make numerical version of symbolic expression
 pp_mb_func = lambdify((alpha, beta, pi, u, n), post_prob_multi_bias)

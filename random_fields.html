@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Thresholding with random field theory &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Teaching repo" href="README.html" />
@@ -86,8 +83,8 @@ scores. Because we have so many <span class="math">\(Z\)</span> scores, even if 
 hypothesis is true, we can be confident that some of these <span class="math">\(Z\)</span>
 scores will appear to be significant at standard statistical thresholds
 for the the individual <span class="math">\(Z\)</span> scores. For example, <span class="math">\(p\)</span> value
-thresholds such as $p&lt;0.05 $ or $p&lt;0.01 $ correspond to $Z = 1.64 $ and
-$Z = 2.33 $ respectively.</p>
+thresholds such as <span class="math">\(p&lt;0.05 \)</span> or <span class="math">\(p&lt;0.01 \)</span> correspond to <span class="math">\(Z = 1.64 \)</span> and
+<span class="math">\(Z = 2.33 \)</span> respectively.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Tell numpy to print numbers to 4 decimal places only</span>
@@ -108,7 +105,7 @@ interactive plots.  If running in the Jupyter Notebook, use <code class="docutil
 <span class="go">array([ 1.6449,  2.3263])</span>
 </pre></div>
 </div>
-<p>So, if we threshold our brain <span class="math">\(Z\)</span> scores at $2.33 $ or above, we
+<p>So, if we threshold our brain <span class="math">\(Z\)</span> scores at <span class="math">\(2.33 \)</span> or above, we
 would expect a number of false positives, even if the null hypothesis is
 true. So, how high should we set our <span class="math">\(Z\)</span> threshold, so that we can
 be confident that the remaining peak <span class="math">\(Z\)</span> scores are indeed too
@@ -434,7 +431,7 @@ image, of 256 resels, when thresholded at different <span class="math">\(Z\)</sp
 </div>
 <p>Note that the graph does a reasonable job of predicting the EC in our
 image; at <span class="math">\(Z = 2.75\)</span> threshold it predicted an EC of 2.8, and at a
-$Z = 3.25 $ it predicted an EC of 0.74</p>
+<span class="math">\(Z = 3.25 \)</span> it predicted an EC of 0.74</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expected_ec_2d</span><span class="p">([</span><span class="mf">2.75</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">],</span> <span class="n">resels</span><span class="p">)</span>
 <span class="go">array([ 2.825 ,  0.7449])</span>
 </pre></div>
@@ -694,8 +691,8 @@ Human Brain Mapping, 4:58-73.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/random_fields.rst.txt"

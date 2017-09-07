@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Introducing principal component analysis &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Refresher on complex numbers" href="simple_complex.html" />
@@ -234,7 +231,7 @@ the actual points from the projected points:</p>
 </pre></div>
 </div>
 <p>I can also express the overall (squared) remaining distance as the sum of
-squares.  The following is the code version of the formula $sum_j{d_j^2}$
+squares.  The following is the code version of the formula <span class="math">\(\sum_j{d_j^2}\)</span>
 that you saw <a class="reference internal" href="#distance-formula"><span class="std std-ref">above</span></a>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">remaining</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">22.2879691152</span>
@@ -346,13 +343,13 @@ want another unit vector orthogonal to the first.  This is because we have
 already explained everything that can be explained along the direction of
 <span class="math">\(\hat{u_{best}}\)</span>, and we only have two dimensions, so there is only one
 remaining direction along which the variation can occur.</p>
-<p>I get the new $hat{u_{orth}}$ vector with a rotation by 90 degrees ($pi /
-2$):</p>
+<p>I get the new <span class="math">\(\hat{u_{orth}}\)</span> vector with a rotation by 90 degrees (<span class="math">\(\pi /
+2\)</span>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best_orth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle_best</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle_best</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)])</span>
 </pre></div>
 </div>
-<p>Within error due to the floating point calculations, $hat{u_{orth}}$ is
-orthogonal to $hat{u_{best}}$:</p>
+<p>Within error due to the floating point calculations, <span class="math">\(\hat{u_{orth}}\)</span> is
+orthogonal to <span class="math">\(\hat{u_{best}}\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">u_best</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u_best_orth</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
@@ -390,7 +387,7 @@ from the original array <span class="math">\(\mathbf{X}\)</span>.</p>
 <p><span class="math">\(\newcommand{\X}{\mathbf{X}}\newcommand{\U}{\mathbf{U}}\newcommand{\S}{\mathbf{\Sigma}}\newcommand{\V}{\mathbf{V}}\newcommand{\C}{\mathbf{C}}\)</span>
 For the same reason, I can calculate the scalar projections <span class="math">\(c\)</span> for both
 components at the same time, by doing matrix multiplication. First assemble
-the components into the columns of a 2 by 2 array $U$:</p>
+the components into the columns of a 2 by 2 array <span class="math">\(\U\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Components as columns in a 2 by 2 array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">u_best</span><span class="p">,</span> <span class="n">u_best_orth</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U</span>
@@ -398,19 +395,19 @@ the components into the columns of a 2 by 2 array $U$:</p>
 <span class="go">       [ 0.478215,  0.878243]])</span>
 </pre></div>
 </div>
-<p>Call the 2 by 50 scalar projection values matrix $C$. I can calculate $C$ in
+<p>Call the 2 by 50 scalar projection values matrix <span class="math">\(\C\)</span>. I can calculate <span class="math">\(\C\)</span> in
 one shot by matrix multiplication:</p>
 <div class="math">
 \[\C = \U^T \X\]</div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The first row of $C$ has the scalar projections for the first component (the
-first component is the first column of $U$).  The second row has the scalar
+<p>The first row of <span class="math">\(\C\)</span> has the scalar projections for the first component (the
+first component is the first column of <span class="math">\(\U\)</span>).  The second row has the scalar
 projections for the second component.</p>
-<p>Finally, we can get the projections of the vectors in $X$ onto the components
-in $U$ by taking the dot products of the columns in $U$ with the scalar
-projections in $C$:</p>
+<p>Finally, we can get the projections of the vectors in <span class="math">\(\X\)</span> onto the components
+in <span class="math">\(\U\)</span> by taking the dot products of the columns in <span class="math">\(\U\)</span> with the scalar
+projections in <span class="math">\(\C\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result of projecting on first component, via array dot</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># np.outer does the equivalent of a matrix multiply of a column vector</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># with a row vector, to give a matrix.</span>
@@ -453,7 +450,7 @@ data projected onto the second, I get back the original data:</p>
 </pre></div>
 </div>
 <p>Doing the sum above is the same operation as matrix multiplication of the
-components $U$ with the scalar projections $C$.  Seeing that this is so
+components <span class="math">\(\U\)</span> with the scalar projections <span class="math">\(\C\)</span>.  Seeing that this is so
 involves writing out a few cells of the matrix multiplication in symbols and
 staring at it for a while.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_again</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
@@ -513,10 +510,10 @@ using <a class="reference external" href="https://en.wikipedia.org/wiki/Singular
 <span class="math">\(\mathbf{X}\)</span> is defined as:</p>
 <div class="math">
 \[\X = \U \Sigma \V^T\]</div>
-<p>If $X$ is shape $M$ by $N$ then $U$ is an $M$ by $M$ <a class="reference external" href="https://en.wikipedia.org/wiki/Orthogonal_matrix">orthogonal
-matrix</a>, $S$ is a
-<a class="reference external" href="https://en.wikipedia.org/wiki/Diagonal_matrix">diagonal matrix</a> shape $M$
-by $N$, and $V^T$ is an $N$ by $N$ orthogonal matrix.</p>
+<p>If <span class="math">\(\X\)</span> is shape <span class="math">\(M\)</span> by <span class="math">\(N\)</span> then <span class="math">\(\U\)</span> is an <span class="math">\(M\)</span> by <span class="math">\(M\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Orthogonal_matrix">orthogonal
+matrix</a>, <span class="math">\(\S\)</span> is a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Diagonal_matrix">diagonal matrix</a> shape <span class="math">\(M\)</span>
+by <span class="math">\(N\)</span>, and <span class="math">\(\V^T\)</span> is an <span class="math">\(N\)</span> by <span class="math">\(N\)</span> orthogonal matrix.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(2, 2)</span>
@@ -524,7 +521,7 @@ by $N$, and $V^T$ is an $N$ by $N$ orthogonal matrix.</p>
 <span class="go">(50, 50)</span>
 </pre></div>
 </div>
-<p>The components are in the columns of the returned matrix $U$.</p>
+<p>The components are in the columns of the returned matrix <span class="math">\(\U\)</span>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span>
 <span class="go">array([[-0.878298, -0.478114],</span>
 <span class="go">       [-0.478114,  0.878298]])</span>
@@ -543,20 +540,20 @@ the principal components:</p>
 </div>
 <p>The returned vector <code class="docutils literal"><span class="pre">S</span></code> gives the <span class="math">\(M\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value">singular
 values</a> that form the
-main diagonal of the $M$ by $N$ diagonal matrix $S$. The values in <code class="docutils literal"><span class="pre">S</span></code> give
+main diagonal of the <span class="math">\(M\)</span> by <span class="math">\(N\)</span> diagonal matrix <span class="math">\(\S\)</span>. The values in <code class="docutils literal"><span class="pre">S</span></code> give
 the square root of the explained sum of squares for each component:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="go">array([ 143.973173,   11.696117])</span>
 </pre></div>
 </div>
-<p>The formula above is for the “full” SVD.  When the number of rows in $X$
-($= M$) is less than the number of columns ($= N$) the SVD formula above
-requires an $M$ by $N$ matrix $S$ padded on the right with $N - M$ all zero
-columns, and an $N$ by $N$ matrix $V^T$, where the last $N - M$ rows will be
-discarded by matrix multiplication with the all zero rows in $S$.  A variant
+<p>The formula above is for the “full” SVD.  When the number of rows in <span class="math">\(\X\)</span>
+(<span class="math">\(= M\)</span>) is less than the number of columns (<span class="math">\(= N\)</span>) the SVD formula above
+requires an <span class="math">\(M\)</span> by <span class="math">\(N\)</span> matrix <span class="math">\(\S\)</span> padded on the right with <span class="math">\(N - M\)</span> all zero
+columns, and an <span class="math">\(N\)</span> by <span class="math">\(N\)</span> matrix <span class="math">\(\V^T\)</span>, where the last <span class="math">\(N - M\)</span> rows will be
+discarded by matrix multiplication with the all zero rows in <span class="math">\(\S\)</span>.  A variant
 of the full SVD is the <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value_decomposition#Thin_SVD">thin SVD</a>, where
-we discard the useless columns and rows and return $S$ as a diagonal matrix
-$M x M$ and $V^T$ with shape $M x N$.  This is the <code class="docutils literal"><span class="pre">full_matrices=False</span></code>
+we discard the useless columns and rows and return <span class="math">\(\S\)</span> as a diagonal matrix
+<span class="math">\(M x M\)</span> and <span class="math">\(\V^T\)</span> with shape <span class="math">\(M x N\)</span>.  This is the <code class="docutils literal"><span class="pre">full_matrices=False</span></code>
 variant in NumPy:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="o">.</span><span class="n">shape</span>
@@ -565,25 +562,25 @@ variant in NumPy:</p>
 <span class="go">(2, 50)</span>
 </pre></div>
 </div>
-<p>By the definition of the SVD, $U$ and $V^T$ are orthogonal matrices, so
-$U^T$ is the inverse of $U$ and $U^T U = I$.  Therefore:</p>
+<p>By the definition of the SVD, <span class="math">\(\U\)</span> and <span class="math">\(\V^T\)</span> are orthogonal matrices, so
+<span class="math">\(\U^T\)</span> is the inverse of <span class="math">\(\U\)</span> and <span class="math">\(\U^T \U = I\)</span>.  Therefore:</p>
 <div class="math">
 \[\X = \U \Sigma \V^T \implies
 \U^T \X = \Sigma \V^T\]</div>
-<p>You may recognize $U^T X$ as the matrix of scalar projections $C$ above:</p>
+<p>You may recognize <span class="math">\(\U^T \X\)</span> as the matrix of scalar projections <span class="math">\(\C\)</span> above:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">VT</span><span class="p">),</span> <span class="n">C</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>Because $V^T$ is also an orthogonal matrix, it has row lengths of 1, and we
-can get the values in $S$ from the row lengths of $C$:</p>
+<p>Because <span class="math">\(\V^T\)</span> is also an orthogonal matrix, it has row lengths of 1, and we
+can get the values in <span class="math">\(\S\)</span> from the row lengths of <span class="math">\(\C\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_from_C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">C</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">S_from_C</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>Now we can reconstruct $V^T$:</p>
+<p>Now we can reconstruct <span class="math">\(\V^T\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Divide out reconstructed S values</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">S_as_column</span> <span class="o">=</span> <span class="n">S_from_C</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span> <span class="o">/</span> <span class="n">S_as_column</span><span class="p">,</span> <span class="n">VT</span><span class="p">)</span>
@@ -591,8 +588,8 @@ can get the values in $S$ from the row lengths of $C$:</p>
 </pre></div>
 </div>
 <p>The SVD is quick to compute for a small matrix like <code class="docutils literal"><span class="pre">X</span></code>, but when the larger
-dimension of $X$ becomes large, it is more efficient in CPU time and memory
-to calculate $U$ and $S$ by doing the SVD on the variance / covariance
+dimension of <span class="math">\(\X\)</span> becomes large, it is more efficient in CPU time and memory
+to calculate <span class="math">\(\U\)</span> and <span class="math">\(\S\)</span> by doing the SVD on the variance / covariance
 matrix of the features.</p>
 <p>Here’s why that works:</p>
 <div class="math">
@@ -601,13 +598,13 @@ matrix of the features.</p>
 <p>By the matrix transpose rule and associativity of matrix multiplication:</p>
 <div class="math">
 \[\U \S \V^T \V \S^T \U^T = \X \X^T\]</div>
-<p>$V^T$ is an orthogonal matrix, so $V^T$ and $V^T V = I$. $S$ is a
-diagonal matrix so $S S^T = S^2$, where $S^2$ is a square diagonal matrix
-shape $M$ by $M$ containing the squares of the singular values from $S$:</p>
+<p><span class="math">\(\V^T\)</span> is an orthogonal matrix, so <span class="math">\(\V^T\)</span> and <span class="math">\(\V^T \V = I\)</span>. <span class="math">\(\S\)</span> is a
+diagonal matrix so <span class="math">\(\S \S^T = \S^2\)</span>, where <span class="math">\(\S^2\)</span> is a square diagonal matrix
+shape <span class="math">\(M\)</span> by <span class="math">\(M\)</span> containing the squares of the singular values from <span class="math">\(\S\)</span>:</p>
 <div class="math">
 \[\U \S^2 \U^T = \X \X^T\]</div>
-<p>This last formula is the formula for the SVD of $X X^T$. So, we can get our
-$U$ and $S$ from the SVD on $X X^T$.</p>
+<p>This last formula is the formula for the SVD of <span class="math">\(\X \X^T\)</span>. So, we can get our
+<span class="math">\(\U\)</span> and <span class="math">\(\S\)</span> from the SVD on <span class="math">\(\X \X^T\)</span>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Finding principal components using SVD on X X^T</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">unscaled_cov</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U_vcov</span><span class="p">,</span> <span class="n">S_vcov</span><span class="p">,</span> <span class="n">VT_vcov</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">unscaled_cov</span><span class="p">)</span>
@@ -617,12 +614,12 @@ $U$ and $S$ from the SVD on $X X^T$.</p>
 </pre></div>
 </div>
 <p>We know from the derivation above that <code class="docutils literal"><span class="pre">VT_vcov</span></code> is just the transpose of
-$U$:</p>
+<span class="math">\(\U\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">VT_vcov</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>The returned vector <code class="docutils literal"><span class="pre">S_vcov</span></code> from the SVD on $X X^T$ now contains the
+<p>The returned vector <code class="docutils literal"><span class="pre">S_vcov</span></code> from the SVD on <span class="math">\(\X \X^T\)</span> now contains the
 explained sum of squares for each component:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_vcov</span>
 <span class="go">array([ 143.973173,   11.696117])</span>
@@ -756,8 +753,8 @@ these two is the scaling of the <code class="docutils literal"><span class="pre"
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/pca_introduction.rst.txt"

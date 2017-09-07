@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Calculating transformations between images &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Convolution" href="on_convolution.html" />
@@ -202,13 +199,13 @@ that gives the lowest value of <span class="math">\(M(\mathbf{X}, \mathbf{Y_t})\
 express this as:</p>
 <div class="math">
 \[\hat{t} = \mathrm{argmin}_t M(\mathbf{X}, \mathbf{Y_t})\]</div>
-<p>Read this as “the desired translation value $hat{t}$ is the value of $t$ such
-that $M(mathbf{X}, mathbf{Y_t})$ is minimized”.</p>
+<p>Read this as “the desired translation value <span class="math">\(\hat{t}\)</span> is the value of <span class="math">\(t\)</span> such
+that <span class="math">\(M(\mathbf{X}, \mathbf{Y_t})\)</span> is minimized”.</p>
 <p>Practically, we are going to need the following things:</p>
 <ul class="simple">
-<li>a function to generate <span class="math">\(\mathbf{Y_t}\)</span> given $mathbf{Y}$ and $t$.
+<li>a function to generate <span class="math">\(\mathbf{Y_t}\)</span> given <span class="math">\(\mathbf{Y}\)</span> and <span class="math">\(t\)</span>.
 Call this the <em>transformation function</em>;</li>
-<li>a function $M$ to give the mismatch between two images.  Call this the
+<li>a function <span class="math">\(M\)</span> to give the mismatch between two images.  Call this the
 <em>mismatch function</em>.</li>
 </ul>
 <p>Here’s the transformation function to generate <span class="math">\(\mathbf{Y_t}\)</span> - the
@@ -836,8 +833,8 @@ problem.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/optimizing_space.rst.txt"

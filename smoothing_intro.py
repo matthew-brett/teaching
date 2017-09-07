@@ -38,7 +38,7 @@ plt.bar(x_vals, y_vals)
 # The ‘kernel’ for smoothing, defines the shape of the function that is
 # used to take the average of the neighboring points. A Gaussian kernel
 # is a kernel with the shape of a Gaussian (normal distribution) curve.
-# Here is a standard Gaussian, with a mean of 0 and a $sigma$ (=population
+# Here is a standard Gaussian, with a mean of 0 and a $\sigma$ (=population
 # standard deviation) of 1.
 
 x = np.arange(-6, 6, 0.1) # x from -6 to 6 in steps of 0.1
@@ -46,7 +46,7 @@ y = 1 / np.sqrt(2 * np.pi) * np.exp(-x ** 2 / 2.)
 plt.plot(x, y)
 
 # In the standard statistical way, we have defined the width of the Gaussian
-# shape in terms of $sigma$. However, when the Gaussian is used for smoothing,
+# shape in terms of $\sigma$. However, when the Gaussian is used for smoothing,
 # it is common for imagers to describe the width of the Gaussian with another
 # related measure, the Full Width at Half Maximum (FWHM).
 #
@@ -147,25 +147,11 @@ kernel_2d = np.exp(-(x2d ** 2 + y2d ** 2) / (2 * sigma ** 2))
 kernel_2d = kernel_2d / (2 * np.pi * sigma ** 2) # unit integral
 ax.plot_surface(x2d, y2d, kernel_2d)
 
-# <!-- >>> # To avoid trying to plot to the 3D canvas
-# >>> plt.close(fig) -->
 # As for the 1D case, we can center this kernel to any point in a 2D plane, and
 # get the equivalent kernel values for each point on the plane.  Here is a 2D
 # Gaussian kernel centered at point (10, 10) on a size (20, 20) plane.  See the
 # page source for the code to make the figure:
 #
-# <!-- >>> fig = plt.figure()
-# >>> ax = fig.add_subplot(111, projection='3d')
-# >>> x = np.arange(20)
-# >>> y = np.arange(20)
-# >>> x2d, y2d = np.meshgrid(x, y)
-# >>> kernel_2d = np.exp(-((x2d - 10) ** 2 + (y2d - 10) ** 2) / (2 * sigma ** 2))
-# >>> kernel_2d = kernel_2d / np.sum(kernel_2d)
-# >>> x2d, y2d, kernel_2d = x2d.ravel(), y2d.ravel(), kernel_2d.ravel()
-# >>> ax.bar3d(x2d, y2d, x2d * 0, 1, 1, kernel_2d, color='b')
-# <...> -->
-# <!-- >>> # To avoid trying to plot to the 3D canvas
-# >>> plt.close(fig) -->
 # We then proceed as before, multiplying the values of the kernel (as shown in
 # the figure above) by the data in the image, to get the smoothed value for that
 # point, and doing the same for every point on the image.

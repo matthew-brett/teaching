@@ -59,15 +59,6 @@ X[1] = X[1] - x_mean[1]
 # The values for the two features (rows) in $\mathbf{X}$ are somewhat
 # correlated:
 #
-# <!-- >>> import matplotlib.pyplot as plt
-# >>> plt.scatter(X[0], X[1])
-# <...>
-# >>> plt.axis('equal')
-# (...)
-# >>> plt.xlabel('Feature 1')
-# <...>
-# >>> plt.ylabel('Feature 2')
-# <...> -->
 # We want to explain the variation in these data.
 #
 # The variation we want to explain is given by the sum of squares of the data
@@ -100,19 +91,6 @@ v1
 # of the squared distance of each point from the origin, where the points
 # (vectors) are the columns of $\mathbf{X}$:
 #
-# <!-- >>> # Plot points and lines connecting points to origin
-# >>> plt.scatter(X[0], X[1])
-# <...>
-# >>> for point in X.T:  # iterate over columns
-# ...     plt.plot(0, 0)
-# ...     plt.plot([0, point[0]], [0, point[1]], 'r:')
-# [...]
-# >>> plt.axis('equal')
-# (...)
-# >>> plt.xlabel('Feature 1')
-# <...>
-# >>> plt.ylabel('Feature 2')
-# <...> -->
 # Put another way, we are trying to explain the squares of the lengths of the
 # dotted red lines on the plot.
 #
@@ -158,18 +136,6 @@ u_guessed
 
 np.sum(u_guessed ** 2)
 
-# <!-- >>> plt.scatter(X[0], X[1])
-# <...>
-# >>> plt.arrow(0, 0, u_guessed[0], u_guessed[1], width=0.01, color='r')
-# <...>
-# >>> plt.axis('equal')
-# (...)
-# >>> plt.title('Guessed unit vector')
-# <...>
-# >>> plt.xlabel('Feature 1')
-# <...>
-# >>> plt.ylabel('Feature 2')
-# <...> -->
 # Let’s project all the points onto that line:
 
 u_guessed_row = u_guessed.reshape((1, 2))  # A row vector
@@ -177,26 +143,6 @@ c_values = u_guessed_row.dot(X)  # c values for scaling u
 # scale u by values to get projection
 projected = u_guessed_row.T.dot(c_values)
 
-# <!-- >>> plt.scatter(X[0], X[1], label='actual')
-# <...>
-# >>> plt.scatter(projected[0], projected[1], color='r', label='projected')
-# <...>
-# >>> for i in range(X.shape[1]):
-# ...     # Plot line between projected and actual point
-# ...     proj_pt = projected[:, i]
-# ...     actual_pt = X[:, i]
-# ...     plt.plot([proj_pt[0], actual_pt[0]], [proj_pt[1], actual_pt[1]], 'k')
-# [...]
-# >>> plt.axis('equal')
-# (...)
-# >>> plt.legend(loc='upper left')
-# <...>
-# >>> plt.title("Actual and projected points for guessed $\hat{u}$")
-# <...>
-# >>> plt.xlabel('Feature 1')
-# <...>
-# >>> plt.ylabel('Feature 2')
-# <...> -->
 # The projected points (in red), are the positions of the points that can be
 # explained by projection onto the guessed line defined by $\hat{u}$. The
 # red projected points also have their own sum of squares:
@@ -222,7 +168,7 @@ distances = np.sqrt(np.sum(remaining ** 2, axis=0))
 distances
 
 # I can also express the overall (squared) remaining distance as the sum of
-# squares.  The following is the code version of the formula $sum_j{d_j^2}$
+# squares.  The following is the code version of the formula $\sum_j{d_j^2}$
 # that you saw [above](https://matthew-brett.github.io/teaching/pca_introduction.html#distance-formula):
 
 print(np.sum(remaining ** 2))
@@ -288,94 +234,32 @@ u_best
 
 # I plot the data with the new unit vector I found:
 #
-# <!-- >>> plt.scatter(X[0], X[1])
-# <...>
-# >>> plt.arrow(0, 0, u_best[0], u_best[1], width=0.01, color='r')
-# <...>
-# >>> plt.axis('equal')
-# (...)
-# >>> plt.title('Best unit vector')
-# <...>
-# >>> plt.xlabel('Feature 1')
-# <...>
-# >>> plt.ylabel('Feature 2')
-# <...> -->
 # Do the projections for this best line look better than before?
 
 projected = line_projection(u_best, X)
 
-# <!-- >>> plt.scatter(X[0], X[1], label='actual')
-# <...>
-# >>> plt.scatter(projected[0], projected[1], color='r', label='projected')
-# <...>
-# >>> for i in range(X.shape[1]):
-# ...     # Plot line between projected and actual point
-# ...     proj_pt = projected[:, i]
-# ...     actual_pt = X[:, i]
-# ...     plt.plot([proj_pt[0], actual_pt[0]], [proj_pt[1], actual_pt[1]], 'k')
-# [...]
-# >>> plt.axis('equal')
-# (...)
-# >>> plt.legend(loc='upper left')
-# <...>
-# >>> plt.title("Actual and projected points for $\hat{u_{best}}$")
-# <...>
-# >>> plt.xlabel('Feature 1')
-# <...>
-# >>> plt.ylabel('Feature 2')
-# <...> -->
 # Now we have found a reasonable choice for our first best fitting line, we have
 # a set of remaining vectors that we have not explained. These are the vectors
 # between the projected and actual points.
 
 remaining = X - projected
 
-# <!-- >>> plt.scatter(remaining[0], remaining[1], label='remaining')
-# <...>
-# >>> plt.arrow(0, 0, u_best[0], u_best[1], width=0.01, color='r')
-# <...>
-# >>> plt.annotate('$\hat{u_{best}}$', u_best, xytext=(20, 20), textcoords='offset points', fontsize=20)
-# <...>
-# >>> plt.legend(loc='upper left')
-# <...>
-# >>> plt.axis('equal')
-# (...)
-# >>> plt.xlabel('Feature 1')
-# <...>
-# >>> plt.ylabel('Feature 2')
-# <...> -->
 # What is the next line we need to best explain the remaining sum of squares? We
 # want another unit vector orthogonal to the first.  This is because we have
 # already explained everything that can be explained along the direction of
 # $\hat{u_{best}}$, and we only have two dimensions, so there is only one
 # remaining direction along which the variation can occur.
 #
-# I get the new $hat{u_{orth}}$ vector with a rotation by 90 degrees ($pi /
+# I get the new $\hat{u_{orth}}$ vector with a rotation by 90 degrees ($\pi /
 # 2$):
 
 u_best_orth = np.array([np.cos(angle_best + np.pi / 2), np.sin(angle_best + np.pi / 2)])
 
-# Within error due to the floating point calculations, $hat{u_{orth}}$ is
-# orthogonal to $hat{u_{best}}$:
+# Within error due to the floating point calculations, $\hat{u_{orth}}$ is
+# orthogonal to $\hat{u_{best}}$:
 
 np.allclose(u_best.dot(u_best_orth), 0, atol=1e-6)
 
-# <!-- >>> plt.scatter(remaining[0], remaining[1], label='remaining')
-# <...>
-# >>> plt.arrow(0, 0, u_best[0], u_best[1], width=0.01, color='r')
-# <...>
-# >>> plt.arrow(0, 0, u_best_orth[0], u_best_orth[1], width=0.01, color='g')
-# <...>
-# >>> plt.annotate('$\hat{u_{best}}$', u_best, xytext=(20, 20), textcoords='offset points', fontsize=20)
-# <...>
-# >>> plt.annotate('$\hat{u_{orth}}$', u_best_orth, xytext=(20, 20), textcoords='offset points', fontsize=20)
-# <...>
-# >>> plt.axis('equal')
-# (...)
-# >>> plt.xlabel('Feature 1')
-# <...>
-# >>> plt.ylabel('Feature 2')
-# <...> -->
 # The projections onto $\hat{u_{orth}}$ are the same as the remaining
 # points, because the remaining points already lie along the line defined by
 # $\hat{u_{orth}}$.
@@ -405,13 +289,13 @@ np.allclose(projected_onto_orth_again, projected_onto_orth)
 # $\newcommand{\X}{\mathbf{X}}\newcommand{\U}{\mathbf{U}}\newcommand{\S}{\mathbf{\Sigma}}\newcommand{\V}{\mathbf{V}}\newcommand{\C}{\mathbf{C}}$
 # For the same reason, I can calculate the scalar projections $c$ for both
 # components at the same time, by doing matrix multiplication. First assemble
-# the components into the columns of a 2 by 2 array $U$:
+# the components into the columns of a 2 by 2 array $\U$:
 
 # Components as columns in a 2 by 2 array
 U = np.column_stack((u_best, u_best_orth))
 U
 
-# Call the 2 by 50 scalar projection values matrix $C$. I can calculate $C$ in
+# Call the 2 by 50 scalar projection values matrix $\C$. I can calculate $\C$ in
 # one shot by matrix multiplication:
 #
 # $$
@@ -420,13 +304,13 @@ U
 
 C = U.T.dot(X)
 
-# The first row of $C$ has the scalar projections for the first component (the
-# first component is the first column of $U$).  The second row has the scalar
+# The first row of $\C$ has the scalar projections for the first component (the
+# first component is the first column of $\U$).  The second row has the scalar
 # projections for the second component.
 #
-# Finally, we can get the projections of the vectors in $X$ onto the components
-# in $U$ by taking the dot products of the columns in $U$ with the scalar
-# projections in $C$:
+# Finally, we can get the projections of the vectors in $\X$ onto the components
+# in $\U$ by taking the dot products of the columns in $\U$ with the scalar
+# projections in $\C$:
 
 # Result of projecting on first component, via array dot
 # np.outer does the equivalent of a matrix multiply of a column vector
@@ -464,7 +348,7 @@ np.allclose(projected_onto_2, line_projection(u_best_orth, X))
 np.allclose(projected_onto_1 + projected_onto_2, X)
 
 # Doing the sum above is the same operation as matrix multiplication of the
-# components $U$ with the scalar projections $C$.  Seeing that this is so
+# components $\U$ with the scalar projections $\C$.  Seeing that this is so
 # involves writing out a few cells of the matrix multiplication in symbols and
 # staring at it for a while.
 
@@ -531,16 +415,16 @@ print((ss_in_first, ss_in_second, ss_in_first + ss_in_second))
 # \X = \U \Sigma \V^T
 # $$
 #
-# If $X$ is shape $M$ by $N$ then $U$ is an $M$ by $M$ [orthogonal
-# matrix](https://en.wikipedia.org/wiki/Orthogonal_matrix), $S$ is a
+# If $\X$ is shape $M$ by $N$ then $\U$ is an $M$ by $M$ [orthogonal
+# matrix](https://en.wikipedia.org/wiki/Orthogonal_matrix), $\S$ is a
 # [diagonal matrix](https://en.wikipedia.org/wiki/Diagonal_matrix) shape $M$
-# by $N$, and $V^T$ is an $N$ by $N$ orthogonal matrix.
+# by $N$, and $\V^T$ is an $N$ by $N$ orthogonal matrix.
 
 U, S, VT = npl.svd(X)
 U.shape
 VT.shape
 
-# The components are in the columns of the returned matrix $U$.
+# The components are in the columns of the returned matrix $\U$.
 
 U
 
@@ -554,53 +438,53 @@ u_best_orth
 
 # The returned vector `S` gives the $M$ [singular
 # values](https://en.wikipedia.org/wiki/Singular_value) that form the
-# main diagonal of the $M$ by $N$ diagonal matrix $S$. The values in `S` give
+# main diagonal of the $M$ by $N$ diagonal matrix $\S$. The values in `S` give
 # the square root of the explained sum of squares for each component:
 
 S ** 2
 
-# The formula above is for the “full” SVD.  When the number of rows in $X$
+# The formula above is for the “full” SVD.  When the number of rows in $\X$
 # ($= M$) is less than the number of columns ($= N$) the SVD formula above
-# requires an $M$ by $N$ matrix $S$ padded on the right with $N - M$ all zero
-# columns, and an $N$ by $N$ matrix $V^T$, where the last $N - M$ rows will be
-# discarded by matrix multiplication with the all zero rows in $S$.  A variant
+# requires an $M$ by $N$ matrix $\S$ padded on the right with $N - M$ all zero
+# columns, and an $N$ by $N$ matrix $\V^T$, where the last $N - M$ rows will be
+# discarded by matrix multiplication with the all zero rows in $\S$.  A variant
 # of the full SVD is the [thin SVD](https://en.wikipedia.org/wiki/Singular_value_decomposition#Thin_SVD), where
-# we discard the useless columns and rows and return $S$ as a diagonal matrix
-# $M x M$ and $V^T$ with shape $M x N$.  This is the `full_matrices=False`
+# we discard the useless columns and rows and return $\S$ as a diagonal matrix
+# $M x M$ and $\V^T$ with shape $M x N$.  This is the `full_matrices=False`
 # variant in NumPy:
 
 U, S, VT = npl.svd(X, full_matrices=False)
 U.shape
 VT.shape
 
-# By the definition of the SVD, $U$ and $V^T$ are orthogonal matrices, so
-# $U^T$ is the inverse of $U$ and $U^T U = I$.  Therefore:
+# By the definition of the SVD, $\U$ and $\V^T$ are orthogonal matrices, so
+# $\U^T$ is the inverse of $\U$ and $\U^T \U = I$.  Therefore:
 #
 # $$
 # \X = \U \Sigma \V^T \implies
 # \U^T \X = \Sigma \V^T
 # $$
 #
-# You may recognize $U^T X$ as the matrix of scalar projections $C$ above:
+# You may recognize $\U^T \X$ as the matrix of scalar projections $\C$ above:
 
 C = U.T.dot(X)
 np.allclose(np.diag(S).dot(VT), C)
 
-# Because $V^T$ is also an orthogonal matrix, it has row lengths of 1, and we
-# can get the values in $S$ from the row lengths of $C$:
+# Because $\V^T$ is also an orthogonal matrix, it has row lengths of 1, and we
+# can get the values in $\S$ from the row lengths of $\C$:
 
 S_from_C = np.sqrt(np.sum(C ** 2, axis=1))
 np.allclose(S_from_C, S)
 
-# Now we can reconstruct $V^T$:
+# Now we can reconstruct $\V^T$:
 
 # Divide out reconstructed S values
 S_as_column = S_from_C.reshape((2, 1))
 np.allclose(C / S_as_column, VT)
 
 # The SVD is quick to compute for a small matrix like `X`, but when the larger
-# dimension of $X$ becomes large, it is more efficient in CPU time and memory
-# to calculate $U$ and $S$ by doing the SVD on the variance / covariance
+# dimension of $\X$ becomes large, it is more efficient in CPU time and memory
+# to calculate $\U$ and $\S$ by doing the SVD on the variance / covariance
 # matrix of the features.
 #
 # Here’s why that works:
@@ -616,16 +500,16 @@ np.allclose(C / S_as_column, VT)
 # \U \S \V^T \V \S^T \U^T = \X \X^T
 # $$
 #
-# $V^T$ is an orthogonal matrix, so $V^T$ and $V^T V = I$. $S$ is a
-# diagonal matrix so $S S^T = S^2$, where $S^2$ is a square diagonal matrix
-# shape $M$ by $M$ containing the squares of the singular values from $S$:
+# $\V^T$ is an orthogonal matrix, so $\V^T$ and $\V^T \V = I$. $\S$ is a
+# diagonal matrix so $\S \S^T = \S^2$, where $\S^2$ is a square diagonal matrix
+# shape $M$ by $M$ containing the squares of the singular values from $\S$:
 #
 # $$
 # \U \S^2 \U^T = \X \X^T
 # $$
 #
-# This last formula is the formula for the SVD of $X X^T$. So, we can get our
-# $U$ and $S$ from the SVD on $X X^T$.
+# This last formula is the formula for the SVD of $\X \X^T$. So, we can get our
+# $\U$ and $\S$ from the SVD on $\X \X^T$.
 
 # Finding principal components using SVD on X X^T
 unscaled_cov = X.dot(X.T)
@@ -633,11 +517,11 @@ U_vcov, S_vcov, VT_vcov = npl.svd(unscaled_cov)
 U_vcov
 
 # We know from the derivation above that `VT_vcov` is just the transpose of
-# $U$:
+# $\U$:
 
 np.allclose(U, VT_vcov.T)
 
-# The returned vector `S_vcov` from the SVD on $X X^T$ now contains the
+# The returned vector `S_vcov` from the SVD on $\X \X^T$ now contains the
 # explained sum of squares for each component:
 
 S_vcov

@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Vector projection &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Angles between vectors" href="vector_angles.html" />
@@ -56,30 +53,30 @@ page.</p>
 from <a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>.</p>
 <div class="section" id="start">
 <h2>Start<a class="headerlink" href="#start" title="Permalink to this headline">¶</a></h2>
-<p>Consider two vectors $vec{w}$ and $vec{v}$.</p>
+<p>Consider two vectors <span class="math">\(\vec{w}\)</span> and <span class="math">\(\vec{v}\)</span>.</p>
 <a class="reference internal image-reference" href="_images/vector_projection.svg"><img alt="_images/vector_projection.svg" height="500" src="_images/vector_projection.svg" width="400" /></a>
-<p>We can scale $vec{v}$ with a scalar $c$.  By choosing the correct $c$ we can
-create any vector on the infinite length dotted line in the diagram.  $c
-vec{v}$ defines this infinite line.</p>
-<p>We’re going to find the projection of $vec{w}$ onto $vec{v}$, written as:</p>
+<p>We can scale <span class="math">\(\vec{v}\)</span> with a scalar <span class="math">\(c\)</span>.  By choosing the correct <span class="math">\(c\)</span> we can
+create any vector on the infinite length dotted line in the diagram.  <span class="math">\(c
+\vec{v}\)</span> defines this infinite line.</p>
+<p>We’re going to find the projection of <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span>, written as:</p>
 <div class="math">
 \[\mathrm{proj}_\vec{v}\vec{w}\]</div>
-<p>The projection of $vec{w}$ onto $vec{v}$ is a vector on the line $c
-vec{v}$.  Specifically it is $c vec{v}$ such that the line joining $vec{w}$
-and $c vec{v}$ is perpendicular to $vec{v}$.</p>
+<p>The projection of <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span> is a vector on the line <span class="math">\(c
+\vec{v}\)</span>.  Specifically it is <span class="math">\(c \vec{v}\)</span> such that the line joining <span class="math">\(\vec{w}\)</span>
+and <span class="math">\(c \vec{v}\)</span> is perpendicular to <span class="math">\(\vec{v}\)</span>.</p>
 </div>
 <div class="section" id="why-is-it-called-projection">
 <h2>Why is it called projection?<a class="headerlink" href="#why-is-it-called-projection" title="Permalink to this headline">¶</a></h2>
-<p>Imagine a light source, parallel to $vec{v}$, above $vec{w}$.  The light
-would cast rays perpendicular to $vec{v}$.</p>
-<p>$mathrm{proj}_vec{v}vec{w}$ is the shadow cast by $vec{w}$ on the line
-defined by $vec{v}$.</p>
+<p>Imagine a light source, parallel to <span class="math">\(\vec{v}\)</span>, above <span class="math">\(\vec{w}\)</span>.  The light
+would cast rays perpendicular to <span class="math">\(\vec{v}\)</span>.</p>
+<p><span class="math">\(\mathrm{proj}_\vec{v}\vec{w}\)</span> is the shadow cast by <span class="math">\(\vec{w}\)</span> on the line
+defined by <span class="math">\(\vec{v}\)</span>.</p>
 </div>
 <div class="section" id="calculating-the-projection">
 <h2>Calculating the projection<a class="headerlink" href="#calculating-the-projection" title="Permalink to this headline">¶</a></h2>
-<p>The vector connecting $vec{w}$ and $c vec{v}$ is $vec{w} - c vec{v}$.</p>
-<p>We want to find $c$ such that $vec{w} - c vec{v}$ is perpendicular to
-$vec{v}$.</p>
+<p>The vector connecting <span class="math">\(\vec{w}\)</span> and <span class="math">\(c \vec{v}\)</span> is <span class="math">\(\vec{w} - c \vec{v}\)</span>.</p>
+<p>We want to find <span class="math">\(c\)</span> such that <span class="math">\(\vec{w} - c \vec{v}\)</span> is perpendicular to
+<span class="math">\(\vec{v}\)</span>.</p>
 <p>Two perpendicular vectors have <a class="reference internal" href="on_vectors.html#orthogonal-dot"><span class="std std-ref">vector dot product of zero</span></a>, so:</p>
 <div class="math">
 \[(\vec{w} - c \vec{v}) \cdot \vec{v} = 0\]</div>
@@ -88,20 +85,20 @@ $vec{v}$.</p>
 \[\begin{split}(\vec{w} - c \vec{v}) \cdot \vec{v} = 0 \implies \\
 \vec{w} \cdot \vec{v} - c \vec{v} \cdot \vec{v} = 0 \implies \\
 \frac{\vec{w} \cdot \vec{v}}{\vec{v} \cdot \vec{v}} = c\end{split}\]</div>
-<p>Because $VL{v} = sqrt(vec{v} cdot vec{v})$:</p>
+<p>Because <span class="math">\(\VL{v} = \sqrt(\vec{v} \cdot \vec{v})\)</span>:</p>
 <div class="math">
 \[c = \frac{\vec{w} \cdot \vec{v}}{\VL{v}^2}\]</div>
 <p>So:</p>
 <div class="math">
 \[\mathrm{proj}_\vec{v}\vec{w} =
 \frac{\vec{w} \cdot \vec{v}}{\VL{v}^2} \vec{v}\]</div>
-<p>We can also write the projection in terms of the unit vector defined by $vec{v}$:</p>
+<p>We can also write the projection in terms of the unit vector defined by <span class="math">\(\vec{v}\)</span>:</p>
 <div class="math">
 \[\begin{split}\hat{u} \triangleq \frac{\vec{v}}{\VL{v}} \implies \\
 \mathrm{proj}_\vec{v}\vec{w} =
 \frac{\vec{w} \cdot \vec{v}}{\VL{v}} \vec{u}\end{split}\]</div>
-<p>$frac{vec{w} cdot vec{v}}{VL{v}}$ is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Scalar_projection">scalar projection</a> of
-$vec{w}$ onto $vec{v}$.</p>
+<p><span class="math">\(\frac{\vec{w} \cdot \vec{v}}{\VL{v}}\)</span> is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Scalar_projection">scalar projection</a> of
+<span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span>.</p>
 </div>
 <div class="section" id="also-see">
 <h2>Also see<a class="headerlink" href="#also-see" title="Permalink to this headline">¶</a></h2>
@@ -163,8 +160,8 @@ $vec{w}$ onto $vec{v}$.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/vector_projection.rst.txt"

@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>An introduction to smoothing &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Smoothing as convolution" href="smoothing_as_convolution.html" />
@@ -91,7 +88,7 @@ image.</p>
 <p>The ‘kernel’ for smoothing, defines the shape of the function that is
 used to take the average of the neighboring points. A Gaussian kernel
 is a kernel with the shape of a Gaussian (normal distribution) curve.
-Here is a standard Gaussian, with a mean of 0 and a $sigma$ (=population
+Here is a standard Gaussian, with a mean of 0 and a <span class="math">\(\sigma\)</span> (=population
 standard deviation) of 1.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span> <span class="c1"># x from -6 to 6 in steps of 0.1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
@@ -104,7 +101,7 @@ standard deviation) of 1.</p>
 <img alt="_images/smoothing_intro-3.png" src="_images/smoothing_intro-3.png" />
 </div>
 <p>In the standard statistical way, we have defined the width of the Gaussian
-shape in terms of $sigma$. However, when the Gaussian is used for smoothing,
+shape in terms of <span class="math">\(\sigma\)</span>. However, when the Gaussian is used for smoothing,
 it is common for imagers to describe the width of the Gaussian with another
 related measure, the Full Width at Half Maximum (FWHM).</p>
 <p>The FWHM is the width of the kernel, at half of the maximum of the
@@ -379,8 +376,8 @@ images. Human Brain Mapping
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/smoothing_intro.rst.txt"

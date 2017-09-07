@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Slice timing correction &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="An introduction to smoothing" href="smoothing_intro.html" />
@@ -223,13 +220,13 @@ values (values for the first 10 volumes):</p>
 we collected them at the beginning of the TR — at the same times as the
 values for slice 0.</p>
 <p>One easy way to do this, might be to do the following for each of our desired
-samples at times $t in 0, 2, 4, … 198$:</p>
+samples at times <span class="math">\(t \in 0, 2, 4, ... 198\)</span>:</p>
 <ul class="simple">
-<li>draw a vertical line at $x = t$;</li>
+<li>draw a vertical line at <span class="math">\(x = t\)</span>;</li>
 <li>at the point where the line crosses the slice 1 time course, draw a
 horizontal line across to the y axis;</li>
 <li>take this new y value as our <em>interpolation</em> of the slice 1 course, at time
-$t$.</li>
+<span class="math">\(t\)</span>.</li>
 </ul>
 <p>Here are the vertical lines at the times of slice 0:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
@@ -258,10 +255,10 @@ between two points that we have values for (inter == between).  It is <em>linear
 interpolation because we are getting our estimate by assuming a straight line
 between to the two known points in order to estimate our new value.</p>
 <p>In the general case of linear interpolation (see <a class="reference internal" href="linear_interpolation.html"><span class="doc">Linear interpolation</span></a>),
-we have two points, $x_1, y_1$ and $x_2, y_2$.  In our case we have time on
+we have two points, <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span>.  In our case we have time on
 the x axis and voxel values on the y axis.</p>
-<p>The formula for the linear interpolation $y$ value between two points $x_1,
-y_1$ and $x_2, y_2$ is:</p>
+<p>The formula for the linear interpolation <span class="math">\(y\)</span> value between two points <span class="math">\(x_1,
+y_1\)</span> and <span class="math">\(x_2, y_2\)</span> is:</p>
 <div class="math">
 \[y = y_1 + (x-x_1)\frac{y_2-y_1}{x_2-x_1}\]</div>
 <p>Now we know the formula for the interpolation, we can apply this to find the
@@ -415,8 +412,8 @@ the other slices.  This new 4D image has been <em>slice time corrected</em>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/slice_timing.rst.txt"

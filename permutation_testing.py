@@ -156,7 +156,6 @@ import random
 # a small example list and shuffle it a few times to show you that the order of
 # the list changes:
 
-random.seed(42)
 # A small example list
 a_list = [1, 2, 3, 4, 5]
 # Shuffle it

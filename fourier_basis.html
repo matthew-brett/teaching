@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>The Fourier basis &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Fourier without the ei" href="fourier_no_ei.html" />
@@ -61,7 +58,7 @@ k 2 \pi \frac{N-1}{N}] \\
 \cos(r^k_{N-1} \right] \\
 \vec{s^k} \triangleq \left[ \sin(r^k_0), \sin(r^k_1), \ldots
 \sin(r^k_{N-1} \right]\end{split}\]</div>
-<p>$vec{c_k}, vec{s_k}$ are <em>Fourier basis vectors</em>.</p>
+<p><span class="math">\(\vec{c_k}, \vec{s_k}\)</span> are <em>Fourier basis vectors</em>.</p>
 <p>We can compile all these vectors into matrices to form <em>Fourier basis
 matrices</em>.</p>
 <div class="section" id="rewriting-the-dft-with-cosine-and-sine-basis-matrices">
@@ -255,7 +252,7 @@ at horizontal axis values for <span class="math">\(n = 1\)</span>:</p>
 t_{1,1} = (1) 2 \pi \frac{1}{N} \\
 ... \\
 t_{N-1,1} = (N-1) 2 \pi \frac{1}{N} \\\end{split}\]</div>
-<p>In general, because the sequence $k 0,1,,N-1 $ is equal to the sequence
+<p>In general, because the sequence <span class="math">\(k 0,1,,N-1 \)</span> is equal to the sequence
 <span class="math">\(n \in 0,1,\ldots,N-1\)</span>, this means that the column sampling
 positions for row <span class="math">\(n \in t_{0, n}, t_{1, n}, ... , t_{N-1, n}\)</span> are
 equal to the row sampling positions for corresponding (<span class="math">\(k = n\)</span>)
@@ -501,8 +498,8 @@ including 0. When the denominator is zero, the sum will be equal to
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/fourier_basis.rst.txt"

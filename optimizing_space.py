@@ -140,12 +140,12 @@ plt.imshow(shifted_mid_vol1)
 # \hat{t} = \mathrm{argmin}_t M(\mathbf{X}, \mathbf{Y_t})
 # $$
 #
-# Read this as “the desired translation value $hat{t}$ is the value of $t$ such
-# that $M(mathbf{X}, mathbf{Y_t})$ is minimized”.
+# Read this as “the desired translation value $\hat{t}$ is the value of $t$ such
+# that $M(\mathbf{X}, \mathbf{Y_t})$ is minimized”.
 #
 # Practically, we are going to need the following things:
 #
-# * a function to generate $\mathbf{Y_t}$ given $mathbf{Y}$ and $t$.
+# * a function to generate $\mathbf{Y_t}$ given $\mathbf{Y}$ and $t$.
 #   Call this the *transformation function*;
 #
 # * a function $M$ to give the mismatch between two images.  Call this the

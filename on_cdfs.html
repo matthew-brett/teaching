@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>p values from cumulative distribution functions &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Functions are objects" href="functions_are_objects.html" />
@@ -100,14 +97,14 @@ PDF at and to the left of the given t value:</p>
 <div class="figure">
 <img alt="_images/on_cdfs-3.png" src="_images/on_cdfs-3.png" />
 </div>
-<p>Say I have a t value $x$ drawn from a t distribution with 20 degrees of
-freedom.  The PDF gives the probability for given values of $x$.  Because it
+<p>Say I have a t value <span class="math">\(x\)</span> drawn from a t distribution with 20 degrees of
+freedom.  The PDF gives the probability for given values of <span class="math">\(x\)</span>.  Because it
 is a probability density, the sum of the probabilities of all possible
-values for $x$: $infty &lt; x &lt; infty$ must be 1.  Therefore the total area
+values for <span class="math">\(x\)</span>: <span class="math">\(\infty &lt; x &lt; \infty\)</span> must be 1.  Therefore the total area
 under the PDF curve is 1, and the maximum value of the CDF is 1.</p>
 <p>The CDF gives us the area under the PDF curve at and to the left of a given t
-value $x$.  Therefore it is the probability that we will observe a value $x &lt;=
-t$ if we sample a value $x$ from a t distribution of (here) 20 degrees of
+value <span class="math">\(x\)</span>.  Therefore it is the probability that we will observe a value <span class="math">\(x &lt;=
+t\)</span> if we sample a value <span class="math">\(x\)</span> from a t distribution of (here) 20 degrees of
 freedom.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Show relationship of PDF and CDF for three example t values.</span>
 <span class="n">example_values</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
@@ -146,8 +143,8 @@ freedom.</p>
 <div class="figure">
 <img alt="_images/on_cdfs-4.png" src="_images/on_cdfs-4.png" />
 </div>
-<p>For example, say I have drawn a t value $x$ at random from a t distribution
-with 20 degrees of freedom.  The probability that $x &lt;= 1.5$ is:</p>
+<p>For example, say I have drawn a t value <span class="math">\(x\)</span> at random from a t distribution
+with 20 degrees of freedom.  The probability that <span class="math">\(x &lt;= 1.5\)</span> is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Area of PDF at and to the left of 1.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="go">0.9253...</span>
@@ -160,13 +157,13 @@ Therefore the area of the PDF to the <em>right</em> of 1.5 must be:</p>
 <span class="go">0.0746...</span>
 </pre></div>
 </div>
-<p>This is the probability that our t value $x$ will be $&gt; 1.5$.  In general,
-when we sample a value $x$ at random from a t distribution with $d$ degrees of
-freedom, the probability that $x &gt; q$ is given by:</p>
+<p>This is the probability that our t value <span class="math">\(x\)</span> will be <span class="math">\(&gt; 1.5\)</span>.  In general,
+when we sample a value <span class="math">\(x\)</span> at random from a t distribution with <span class="math">\(d\)</span> degrees of
+freedom, the probability that <span class="math">\(x &gt; q\)</span> is given by:</p>
 <div class="math">
 \[\mathbb{P}(x &gt; q) = 1 - \mathrm{CDF}_d(q)\]</div>
-<p>where $mathrm{CDF}_d$ is the cumulative distribution function for a t value
-with $d$ degrees of freedom.</p>
+<p>where <span class="math">\(\mathrm{CDF}_d\)</span> is the cumulative distribution function for a t value
+with <span class="math">\(d\)</span> degrees of freedom.</p>
 <ul class="simple">
 <li><a class="reference download internal" href="on_cdfs.py">Download this page as a Python code file</a>;</li>
 <li><a class="reference download internal" href="on_cdfs.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
@@ -212,8 +209,8 @@ with $d$ degrees of freedom.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/on_cdfs.rst.txt"

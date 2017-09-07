@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Sums of sinusoids &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Thresholding with random field theory" href="random_fields.html" />
@@ -53,23 +50,23 @@ thanks.</p>
 <div class="section" id="sinusoids">
 <h2>Sinusoids<a class="headerlink" href="#sinusoids" title="Permalink to this headline">¶</a></h2>
 <p>Paraphrasing <a class="reference external" href="http://mathworld.wolfram.com/Sinusoid.html">Wolfwram mathworld</a> - a <em>sinusoid</em> is a function of
-some variable, say $t$, that is similar to the sine function but may be
+some variable, say <span class="math">\(t\)</span>, that is similar to the sine function but may be
 shifted in phase, frequency, amplitude, or any combination of the three.</p>
 <p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Sine_wave">general formula for a sinusoid function</a> is:</p>
 <div class="math" id="equation-sin_sinusoid">
 <span class="eqno">(1)<a class="headerlink" href="#equation-sin_sinusoid" title="Permalink to this equation">¶</a></span>\[f(t) = A \sin(2 \pi f t + \theta) = A \sin(\omega t + \theta)\]</div>
 <p>where:</p>
 <ul class="simple">
-<li>$A$ is the <em>amplitude</em> — the maximum value of the function;</li>
-<li>$f$ is the <em>ordinary frequency</em> — the number of cycles per unit of $t$;</li>
-<li>$omega = 2 pi f$ is the <em>angular frequency</em> — the number of radians per
-unit of $t$;</li>
-<li>$theta$ is the <em>phase offset</em> (in radians).</li>
+<li><span class="math">\(A\)</span> is the <em>amplitude</em> — the maximum value of the function;</li>
+<li><span class="math">\(f\)</span> is the <em>ordinary frequency</em> — the number of cycles per unit of <span class="math">\(t\)</span>;</li>
+<li><span class="math">\(\omega = 2 \pi f\)</span> is the <em>angular frequency</em> — the number of radians per
+unit of <span class="math">\(t\)</span>;</li>
+<li><span class="math">\(\theta\)</span> is the <em>phase offset</em> (in radians).</li>
 </ul>
-<p>The standard sine function $f(t) = sin(t)$ is a special case of a sinusoid,
-with $A = 1$, $f = 1 / 2 pi$, $theta = 0$.</p>
-<p>The standard cosine function $f(t) = cos(t)$ is a special case of a sinusoid,
-with $A = 1$, $f = 1 / 2 pi$, $theta = -pi / 2$.</p>
+<p>The standard sine function <span class="math">\(f(t) = \sin(t)\)</span> is a special case of a sinusoid,
+with <span class="math">\(A = 1\)</span>, <span class="math">\(f = 1 / 2 \pi\)</span>, <span class="math">\(\theta = 0\)</span>.</p>
+<p>The standard cosine function <span class="math">\(f(t) = \cos(t)\)</span> is a special case of a sinusoid,
+with <span class="math">\(A = 1\)</span>, <span class="math">\(f = 1 / 2 \pi\)</span>, <span class="math">\(\theta = -pi / 2\)</span>.</p>
 </div>
 <div class="section" id="the-sum-of-sinusoids-with-the-same-frequency-is-also-a-sinusoid">
 <h2>The sum of sinusoids with the same frequency is also a sinusoid<a class="headerlink" href="#the-sum-of-sinusoids-with-the-same-frequency-is-also-a-sinusoid" title="Permalink to this headline">¶</a></h2>
@@ -84,13 +81,13 @@ A' \sin(\omega t) + A'' \cos(\omega t)\end{split}\]</div>
 <span class="eqno">(3)<a class="headerlink" href="#equation-a_dash_dash" title="Permalink to this equation">¶</a></span>\[\begin{split}A' = A \cos(\theta) \\
 A'' = A \sin(\theta)\end{split}\]</div>
 <p>Equation <a class="reference internal" href="#equation-sinusoid_as_sum">(2)</a> also points us to the fact that any weighted
-sum of a sine and cosine can be written as a single sinusoid.  For any $A’,
-A”$, we can solve equations <a class="reference internal" href="#equation-a_dash_dash">(3)</a> for $A, theta$:</p>
+sum of a sine and cosine can be written as a single sinusoid.  For any <span class="math">\(A',
+A''\)</span>, we can solve equations <a class="reference internal" href="#equation-a_dash_dash">(3)</a> for <span class="math">\(A, \theta\)</span>:</p>
 <div class="math">
 \[\begin{split}A = \sqrt{A'^2 + A''^2} \\
 \tan(\theta) = \frac{A''}{A'}\end{split}\]</div>
 <p>Thus, any sum of sinusoids, <em>of the same frequency</em> and therefore the same
-input $omega t$, is also a sinusoid:</p>
+input <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
 <div class="math">
 \[A \sin(\omega t + \theta) + B \sin(\omega t + \phi) =
 (A' + B') \sin(\omega t) + (A'' + B'') \cos(\omega t)\]</div>
@@ -145,8 +142,8 @@ input $omega t$, is also a sinusoid:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/sums_of_sinusoids.rst.txt"

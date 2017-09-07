@@ -146,7 +146,7 @@ plt.xlabel('time (seconds)')  # doctest: +SKIP
 # values for slice 0.
 #
 # One easy way to do this, might be to do the following for each of our desired
-# samples at times $t in 0, 2, 4, … 198$:
+# samples at times $t \in 0, 2, 4, ... 198$:
 #
 # * draw a vertical line at $x = t$;
 #

@@ -5,12 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Fourier without the ei &#8212; Tutorials on imaging, computing and mathematics</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Fourier without the ei" href="fourier_no_ei_orig.html" />
@@ -257,9 +254,9 @@ i \sum_{n=0}^{N-1} x_n \sin(k n D)\]</div>
 <p>where:</p>
 <div class="math">
 \[\vec{r^k} \triangleq \left[ k 0 D, k 1 D, \ldots, k (N - 1) D \right]\]</div>
-<p>Call $vec{r^k}$ the <em>angle vector</em> for $k$.  This vector depend only on $k$
-and $N$.</p>
-<p>Substituting the value of $D$ (equation <a class="reference internal" href="#equation-D">(3)</a>):</p>
+<p>Call <span class="math">\(\vec{r^k}\)</span> the <em>angle vector</em> for <span class="math">\(k\)</span>.  This vector depend only on <span class="math">\(k\)</span>
+and <span class="math">\(N\)</span>.</p>
+<p>Substituting the value of <span class="math">\(D\)</span> (equation <a class="reference internal" href="#equation-D">(3)</a>):</p>
 <div class="math">
 \[\vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N}, \ldots,
 k 2 \pi \frac{N-1}{N}]\]</div>
@@ -280,11 +277,11 @@ forward DFT as:</p>
 </div>
 <div class="section" id="frequency-as-cycles-across-the-sample-vector">
 <h3>Frequency as cycles across the sample vector<a class="headerlink" href="#frequency-as-cycles-across-the-sample-vector" title="Permalink to this headline">¶</a></h3>
-<p>The key to the frequencies in the DFT is in the $n k D = k 2 pi frac{n}{N}$
-values that we have put into the angle vector $vec{r^k}$.</p>
-<p>The $k$ in $vec{r^k}$ gives the number of cycles across all $N$ values of
-$vec{x}$.</p>
-<p>For example, consider the case of $k = 1$:</p>
+<p>The key to the frequencies in the DFT is in the <span class="math">\(n k D = k 2 \pi \frac{n}{N}\)</span>
+values that we have put into the angle vector <span class="math">\(\vec{r^k}\)</span>.</p>
+<p>The <span class="math">\(k\)</span> in <span class="math">\(\vec{r^k}\)</span> gives the number of cycles across all <span class="math">\(N\)</span> values of
+<span class="math">\(\vec{x}\)</span>.</p>
+<p>For example, consider the case of <span class="math">\(k = 1\)</span>:</p>
 <div class="math">
 \[\vec{r^1} = \left[ 2 \pi \frac{0}{N}, 2 \pi \frac{1}{N},
 \ldots 2 \pi \frac{N-1}{N} \right]\]</div>
@@ -299,11 +296,11 @@ $vec{x}$.</p>
 <span class="go">        5.4978,  5.6941,  5.8905,  6.0868])</span>
 </pre></div>
 </div>
-<p>The values $frac{0}{N}, frac{1}{N}, ldots frac{N-1}{N}$ are fractions of
-the number of samples $N$, running from 0 to close to 1.  Now multiplied by $2
-pi$, the values run from 0 to close to $2 pi$ and therefore give angles
+<p>The values <span class="math">\(\frac{0}{N}, \frac{1}{N}, \ldots \frac{N-1}{N}\)</span> are fractions of
+the number of samples <span class="math">\(N\)</span>, running from 0 to close to 1.  Now multiplied by <span class="math">\(2
+\pi\)</span>, the values run from 0 to close to <span class="math">\(2 \pi\)</span> and therefore give angles
 around a circle.</p>
-<p>The vector $vec{r^1}$ gives $vec{c^1}, vec{s^1}$ with a single cycle:</p>
+<p>The vector <span class="math">\(\vec{r^1}\)</span> gives <span class="math">\(\vec{c^1}, \vec{s^1}\)</span> with a single cycle:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_c_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_s_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vec_r_1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vec_n</span><span class="p">,</span> <span class="n">vec_c_1</span><span class="p">,</span> <span class="s1">&#39;o:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\vec{c^1}$&#39;</span><span class="p">)</span>
@@ -322,7 +319,7 @@ around a circle.</p>
 <div class="figure">
 <img alt="_images/fourier_no_ei-9.png" src="_images/fourier_no_ei-9.png" />
 </div>
-<p>$k = 2$ gives 2 cycles across the N values:</p>
+<p><span class="math">\(k = 2\)</span> gives 2 cycles across the N values:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec_r_2</span> <span class="o">=</span> <span class="n">vec_r_1</span> <span class="o">*</span> <span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_c_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vec_r_2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vec_s_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vec_r_2</span><span class="p">)</span>
@@ -348,7 +345,7 @@ around a circle.</p>
 <h2>Calculating the DFT with vectors<a class="headerlink" href="#calculating-the-dft-with-vectors" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="first-dft-output-value-is-the-vector-sum">
 <h3>First DFT output value is the vector sum<a class="headerlink" href="#first-dft-output-value-is-the-vector-sum" title="Permalink to this headline">¶</a></h3>
-<p>Consider $vec{r^0}, vec{c^0}, vec{s^0}$:</p>
+<p>Consider <span class="math">\(\vec{r^0}, \vec{c^0}, \vec{s^0}\)</span>:</p>
 <div class="math">
 \[\begin{split}\vec{r^0} = \left[
 0 2 \pi \frac{0}{N}, 0 2 \pi \frac{1}{N}, \ldots
@@ -361,7 +358,7 @@ around a circle.</p>
 \[\begin{split}X_0 = \vec{x} \cdot \vec{1} - i \vec{x} \cdot \vec{0} \\
 = \Sigma x_n\end{split}\]</div>
 <p>The first value in the DFT output vector is the sum of the values in
-$vec{x}$. If $vec{x}$ has real and not complex values, as here, then $X_0$
+<span class="math">\(\vec{x}\)</span>. If <span class="math">\(\vec{x}\)</span> has real and not complex values, as here, then <span class="math">\(X_0\)</span>
 has zero imaginary part:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 <span class="go">-4.3939</span>
@@ -382,16 +379,16 @@ What is the DFT?</p>
 </pre></div>
 </div>
 <p>We were expecting the first value of 32, because it is the sum of 32 values of
-one.  All the other values are 0.  This is because all of $vec{c^1},
-vec{c^2}, ldots, vec{c^{N-1}}$ and all of $vec{s^1}, vec{s^2}, ldots,
-vec{s^{N-1}}$ sum to zero, and therefore the dot product of all these vectors
+one.  All the other values are 0.  This is because all of <span class="math">\(\vec{c^1},
+\vec{c^2}, \ldots, \vec{c^{N-1}}\)</span> and all of <span class="math">\(\vec{s^1}, \vec{s^2}, \ldots,
+\vec{s^{N-1}}\)</span> sum to zero, and therefore the dot product of all these vectors
 with a constant vector is also zero.</p>
 </div>
 <div class="section" id="second-dft-output-corresponds-to-a-sinusoid-at-frequency">
 <h3>Second DFT output corresponds to a sinusoid at frequency <span class="math">\(1 / N\)</span>.<a class="headerlink" href="#second-dft-output-corresponds-to-a-sinusoid-at-frequency" title="Permalink to this headline">¶</a></h3>
-<p>We have already seen $vec{r^1}, vec{c^1}, vec{s^1}$.</p>
-<p>$vec{c^1}, vec{s^1}$ are the cosine, sine at frequency 1 / N where one unit
-is the distance between two consecutive samples in $vec{x}$.</p>
+<p>We have already seen <span class="math">\(\vec{r^1}, \vec{c^1}, \vec{s^1}\)</span>.</p>
+<p><span class="math">\(\vec{c^1}, \vec{s^1}\)</span> are the cosine, sine at frequency 1 / N where one unit
+is the distance between two consecutive samples in <span class="math">\(\vec{x}\)</span>.</p>
 <div class="math">
 \[X_1 = \vec{x} \cdot \vec{c^1} - i \vec{x} \cdot \vec{s^1}\]</div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_c_1</span><span class="p">),</span> <span class="n">x</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vec_s_1</span><span class="p">))</span>
@@ -402,23 +399,23 @@ is the distance between two consecutive samples in $vec{x}$.</p>
 </div>
 <p>This confirms our calculation gives the same result as numpy’s DFT, but isn’t
 very revealing.</p>
-<p>Let’s make another input vector $vec{v}$ that is a cosine at the same
-frequency as $vec{c^1}$.  Start with $vec{v} = vec{c^1}$.</p>
-<p>Our prediction for the DFT of $vec{v}$ is:</p>
+<p>Let’s make another input vector <span class="math">\(\vec{v}\)</span> that is a cosine at the same
+frequency as <span class="math">\(\vec{c^1}\)</span>.  Start with <span class="math">\(\vec{v} = \vec{c^1}\)</span>.</p>
+<p>Our prediction for the DFT of <span class="math">\(\vec{v}\)</span> is:</p>
 <div class="math">
 \[\begin{split}V_1 = \vec{v} \cdot \vec{c^1} - i \vec{v} \cdot \vec{s^1} \\
 = \vec{c^1} \cdot \vec{c^1} - i \vec{c^1} \cdot \vec{s^1}\end{split}\]</div>
 <p>In fact, as you can see in <a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a>, it is a property of the
-$vec{c^k}, vec{s^k}$ vectors that, for all $k, N$:</p>
+<span class="math">\(\vec{c^k}, \vec{s^k}\)</span> vectors that, for all <span class="math">\(k, N\)</span>:</p>
 <div class="math">
 \[\vec{c^k} \cdot \vec{s^k} = 0\]</div>
-<p>Remember from <a class="reference internal" href="on_vectors.html#vector-length"><span class="std std-ref">Vector length</span></a> that, for any vector $vec{w}$, we can
-write $vec{w} cdot vec{w}$ as $VL{w}^2$</p>
+<p>Remember from <a class="reference internal" href="on_vectors.html#vector-length"><span class="std std-ref">Vector length</span></a> that, for any vector <span class="math">\(\vec{w}\)</span>, we can
+write <span class="math">\(\vec{w} \cdot \vec{w}\)</span> as <span class="math">\(\VL{w}^2\)</span></p>
 <p>So:</p>
 <div class="math">
 \[V_1 = \VL{c^1}^2\]</div>
-<p><a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a> also shows that $VL{c_1}^2 = N / 2$ for all N.  More
-generally $VL{c_p}^2 = VL{s_p}^2 = N / 2$ for all $p notin {0, N/2}$.</p>
+<p><a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a> also shows that <span class="math">\(\VL{c_1}^2 = N / 2\)</span> for all N.  More
+generally <span class="math">\(\VL{c_p}^2 = \VL{s_p}^2 = N / 2\)</span> for all <span class="math">\(p \notin {0, N/2}\)</span>.</p>
 <p>So:</p>
 <div class="math">
 \[V_1 = N / 2\]</div>
@@ -433,13 +430,13 @@ generally $VL{c_p}^2 = VL{s_p}^2 = N / 2$ for all $p notin {0, N/2}$.</p>
 <span class="go">         0.-0.j,  16.-0.j])</span>
 </pre></div>
 </div>
-<p>Notice that $V_{N-1} = N/2 = V_1$.  This is the property of <em>conjugate
-symmetry</em>.   It is so because of the properties of the vectors $vec{c^k}$.
-As you see in <a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a> $vec{c_1} = vec{c_{N-1}}$, and, more
-generally $vec{c_p} = vec{c_{N-p}}$ for $p in 1, 2 ldots, N / 2$.</p>
+<p>Notice that <span class="math">\(V_{N-1} = N/2 = V_1\)</span>.  This is the property of <em>conjugate
+symmetry</em>.   It is so because of the properties of the vectors <span class="math">\(\vec{c^k}\)</span>.
+As you see in <a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a> <span class="math">\(\vec{c_1} = \vec{c_{N-1}}\)</span>, and, more
+generally <span class="math">\(\vec{c_p} = \vec{c_{N-p}}\)</span> for <span class="math">\(p \in 1, 2 \ldots, N / 2\)</span>.</p>
 <div class="section" id="adding-a-scaling-factor-to-the-cosine">
 <h4>Adding a scaling factor to the cosine<a class="headerlink" href="#adding-a-scaling-factor-to-the-cosine" title="Permalink to this headline">¶</a></h4>
-<p>Now set $vec{v} = a vec{c^1}$ where $a$ is a constant:</p>
+<p>Now set <span class="math">\(\vec{v} = a \vec{c^1}\)</span> where <span class="math">\(a\)</span> is a constant:</p>
 <div class="math">
 \[V_1 = \vec{c^1} \cdot a \vec{c^1} - i \vec{c^1} \cdot a \vec{s^1}\]</div>
 <p>By the <a class="reference internal" href="on_vectors.html#dot-product-properties"><span class="std std-ref">properties of the dot product</span></a>:</p>
@@ -460,7 +457,7 @@ generally $vec{c_p} = vec{c_{N-p}}$ for $p in 1, 2 ldots, N / 2$.</p>
 </div>
 <div class="section" id="adding-a-phase-shift-brings-the-sine-into-play">
 <h4>Adding a phase shift brings the sine into play<a class="headerlink" href="#adding-a-phase-shift-brings-the-sine-into-play" title="Permalink to this headline">¶</a></h4>
-<p>What happens if we add a phase shift of $beta$ radians to the input cosine?</p>
+<p>What happens if we add a phase shift of <span class="math">\(\beta\)</span> radians to the input cosine?</p>
 <div class="math">
 \[\vec{v} = \left [\cos(r^1_0 + \beta), \cos(r^1_1 + \beta), \ldots,
 \cos(r^1_{N-1} + \beta) \right]\]</div>
@@ -492,7 +489,7 @@ generally $vec{c_p} = vec{c_{N-p}}$ for $p in 1, 2 ldots, N / 2$.</p>
 \cos(r^1_{N-1}) \cos(\beta) - \sin(r^1_{N-1}) \sin(\beta)
 \right] \\
 = \cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}\end{split}\]</div>
-<p>Now apply the vector dot products to get $V_1$:</p>
+<p>Now apply the vector dot products to get <span class="math">\(V_1\)</span>:</p>
 <div class="math">
 \[\begin{split}V_1 = (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{c^1} -
 i (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
@@ -514,15 +511,15 @@ i (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 <span class="go">        0.0000 -0.j    ,  7.2575-14.2593j])</span>
 </pre></div>
 </div>
-<p>Notice that $V_{N-1}$ has the same value as $V_{1}$, but with the imaginary
+<p>Notice that <span class="math">\(V_{N-1}\)</span> has the same value as <span class="math">\(V_{1}\)</span>, but with the imaginary
 part flipped in sign.  This is the <em>conjugate</em> in <em>conjugate symmetry</em>.  It
-comes about because of the construction of the vectors $vec{s^k}$.  As you
-see in <a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a> $vec{s_1} = -vec{s_{N-1}}$, and, more generally
-$vec{s_p} = -vec{s_{N-p}}$ for $p in 1, 2 ldots, N / 2$.</p>
+comes about because of the construction of the vectors <span class="math">\(\vec{s^k}\)</span>.  As you
+see in <a class="reference internal" href="fourier_basis.html"><span class="doc">The Fourier basis</span></a> <span class="math">\(\vec{s_1} = -\vec{s_{N-1}}\)</span>, and, more generally
+<span class="math">\(\vec{s_p} = -\vec{s_{N-p}}\)</span> for <span class="math">\(p \in 1, 2 \ldots, N / 2\)</span>.</p>
 </div>
 <div class="section" id="reconstructing-amplitude-and-phase-from-the-dft">
 <h4>Reconstructing amplitude and phase from the DFT<a class="headerlink" href="#reconstructing-amplitude-and-phase-from-the-dft" title="Permalink to this headline">¶</a></h4>
-<p>To complete our journey into $X_1$, let us add a scaling $a$ to the
+<p>To complete our journey into <span class="math">\(X_1\)</span>, let us add a scaling <span class="math">\(a\)</span> to the
 phase-shifted cosine:</p>
 <div class="math">
 \[\begin{split}\vec{v} = \left [a \cos(r^1_0 + \beta), a \cos(r^1_1 + \beta), \ldots,
@@ -556,7 +553,7 @@ i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 <span class="go">         0.0000 -0.j   ,  21.7726-42.778j])</span>
 </pre></div>
 </div>
-<p>What if I want to reconstruct $a$ and $beta$ from the DFT coefficients?</p>
+<p>What if I want to reconstruct <span class="math">\(a\)</span> and <span class="math">\(\beta\)</span> from the DFT coefficients?</p>
 <p>From <a class="reference internal" href="#equation-scale-and-offset">(4)</a>:</p>
 <div class="math">
 \[\begin{split}\R{X_1} = a \cos(\beta) N / 2 \\
@@ -575,7 +572,7 @@ i a (\cos(\beta) \vec{c^1} - \sin(\beta) \vec{s^1}) \cdot \vec{s^1} \\
 <span class="go">48.0</span>
 </pre></div>
 </div>
-<p>We can get the angle $beta$ in a similar way:</p>
+<p>We can get the angle <span class="math">\(\beta\)</span> in a similar way:</p>
 <div class="math">
 \[\begin{split}\R{X_1} = a \cos(\beta) N / 2 \implies \\
 \cos(\beta) = \R{X_1} / (a N / 2)\end{split}\]</div>
@@ -678,8 +675,8 @@ functions:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
       <a href="_sources/fourier_no_ei.rst.txt"
