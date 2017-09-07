@@ -500,9 +500,10 @@ np.allclose(C / S_as_column, VT)
 # \U \S \V^T \V \S^T \U^T = \X \X^T
 # $$
 #
-# $\V^T$ is an orthogonal matrix, so $\V^T$ and $\V^T \V = I$. $\S$ is a
-# diagonal matrix so $\S \S^T = \S^2$, where $\S^2$ is a square diagonal matrix
-# shape $M$ by $M$ containing the squares of the singular values from $\S$:
+# $\V^T$ is an orthogonal matrix, so $\V^T = \V^{-1}$ and $\V^T \V = I$. $\S$ is
+# a diagonal matrix so $\S \S^T = \S^2$, where $\S^2$ is a square diagonal
+# matrix shape $M$ by $M$ containing the squares of the singular values from
+# $\S$:
 #
 # $$
 # \U \S^2 \U^T = \X \X^T

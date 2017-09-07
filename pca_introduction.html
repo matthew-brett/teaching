@@ -598,9 +598,10 @@ matrix of the features.</p>
 <p>By the matrix transpose rule and associativity of matrix multiplication:</p>
 <div class="math">
 \[\U \S \V^T \V \S^T \U^T = \X \X^T\]</div>
-<p><span class="math">\(\V^T\)</span> is an orthogonal matrix, so <span class="math">\(\V^T\)</span> and <span class="math">\(\V^T \V = I\)</span>. <span class="math">\(\S\)</span> is a
-diagonal matrix so <span class="math">\(\S \S^T = \S^2\)</span>, where <span class="math">\(\S^2\)</span> is a square diagonal matrix
-shape <span class="math">\(M\)</span> by <span class="math">\(M\)</span> containing the squares of the singular values from <span class="math">\(\S\)</span>:</p>
+<p><span class="math">\(\V^T\)</span> is an orthogonal matrix, so <span class="math">\(\V^T = \V^{-1}\)</span> and <span class="math">\(\V^T \V = I\)</span>. <span class="math">\(\S\)</span> is
+a diagonal matrix so <span class="math">\(\S \S^T = \S^2\)</span>, where <span class="math">\(\S^2\)</span> is a square diagonal
+matrix shape <span class="math">\(M\)</span> by <span class="math">\(M\)</span> containing the squares of the singular values from
+<span class="math">\(\S\)</span>:</p>
 <div class="math">
 \[\U \S^2 \U^T = \X \X^T\]</div>
 <p>This last formula is the formula for the SVD of <span class="math">\(\X \X^T\)</span>. So, we can get our
