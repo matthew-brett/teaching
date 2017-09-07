@@ -2,6 +2,16 @@
 Comparing two groups with permutation testing
 #############################################
 
+.. note::
+
+    This page uses Python 3 - the most recent version of Python.  If you've
+    got Python 2, start by running this line, to make Python 2 work more like
+    Python 3.
+
+    .. nbplot::
+
+        >>> from __future__ import division
+
 In a moment we are going to compare some measures we collected from two
 different groups.
 
@@ -189,12 +199,14 @@ Python's ``random.shuffle`` function can do the shuffle for us:
     >>> import random
 
 .. nbplot::
-    :hidden:
+    :hide-from: all
+    :show-to: doctest
 
-    # By setting the "seed" we make sure that the random permutations below are
-    # the same each time this code is run.  Comment this guy out to see what
-    # happens when you get a different set of random permutations below.
-    >>> random.seed(42)
+    By setting the "seed" we make sure that the random permutations below are
+    the same each time this code is run.  Comment this guy out to see what
+    happens when you get a different set of random permutations below.
+
+    >>> random.seed(7)
 
 ``random.shuffle`` takes a list and shuffles it to a random order. Here I make
 a small example list and shuffle it a few times to show you that the order of
@@ -202,27 +214,26 @@ the list changes:
 
 .. nbplot::
 
-    >>> random.seed(42)
     >>> # A small example list
     >>> a_list = [1, 2, 3, 4, 5]
     >>> # Shuffle it
     >>> random.shuffle(a_list)
     >>> # The shuffled list has a different (random) order
     >>> a_list
-    [4, 2, 3, 5, 1]
+    [5, 1, 4, 2, 3]
 
 .. nbplot::
 
     >>> # Shuffling again gives a different order
     >>> random.shuffle(a_list)
     >>> a_list
-    [5, 3, 4, 1, 2]
+    [4, 2, 1, 3, 5]
 
 .. nbplot::
 
     >>> random.shuffle(a_list)
     >>> a_list
-    [1, 3, 4, 5, 2]
+    [3, 1, 4, 2, 5]
 
 Here's a random shuffle of the combined ``no_supplement`` and
 ``with_supplement`` list:
@@ -231,7 +242,7 @@ Here's a random shuffle of the combined ``no_supplement`` and
 
     >>> random.shuffle(all_chicks)
     >>> all_chicks
-    [140, 181, 168, 271, 203, 257, 217, 169, 141, 213, 260, 309, 229, 227, 143, 244, 148, 124, 108, 136, 179, 160]
+    [217, 169, 229, 168, 213, 181, 143, 108, 179, 260, 309, 227, 203, 140, 148, 160, 244, 257, 124, 136, 271, 141]
 
 Now for our permutation test.  We've assumed the null hypothesis.  We have
 randomly shuffled the combined group.  We'll call the first 10 values
@@ -260,7 +271,7 @@ shuffle:
 .. nbplot::
 
     >>> difference_in_means(all_chicks)
-    -7.083333333333343
+    9.966666666666669
 
 That difference from the shuffled groups looks a lot less than the difference
 we originally found:
@@ -346,7 +357,7 @@ difference is:
 .. nbplot::
 
     >>> index
-    4977
+    4981
 
 We calculate how many values in ``sorted_differences`` are greater than or
 equal to ``observed_difference``:
@@ -355,7 +366,7 @@ equal to ``observed_difference``:
 
     >>> n_greater_than_equal = n_repeats - index
     >>> n_greater_than_equal
-    23
+    19
 
 Therefore, the *proportion* of the null-hypothesis differences that are
 greater than or equal to the observed difference is:
@@ -364,7 +375,7 @@ greater than or equal to the observed difference is:
 
     >>> prop_greater = n_greater_than_equal / n_repeats
     >>> prop_greater
-    0.0046
+    0.0038
 
 This proportion is very small.  Therefore, our observed difference is very
 unlikely on the null hypothesis that observations in the two groups are
