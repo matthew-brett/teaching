@@ -9,6 +9,7 @@ dependencies:
   - matplotlib
   - sympy
   - pip
+  - rpy2
   - pip:
     - ghp-import
     - nibabel
