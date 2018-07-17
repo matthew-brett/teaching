@@ -6,10 +6,12 @@ dependencies:
   - numpy
   - pandas
   - sphinx
-  - ghp-import
   - matplotlib
-  - nibabel
-  - scipy
   - sympy
-  - texext
-  - nb2plots
+  - pip
+  - pip:
+   - ghp-import
+   - nibabel
+   - scipy
+   - texext
+   - nb2plots
