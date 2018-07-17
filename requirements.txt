@@ -7,3 +7,4 @@ scipy
 sympy>=0.7.3
 texext>=0.3.4
 nb2plots>=0.5.1
+rpy2
