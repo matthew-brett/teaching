@@ -10,8 +10,8 @@ dependencies:
   - sympy
   - pip
   - pip:
-   - ghp-import
-   - nibabel
-   - scipy
-   - texext
-   - nb2plots
+    - ghp-import
+    - nibabel
+    - scipy
+    - texext
+    - nb2plots
