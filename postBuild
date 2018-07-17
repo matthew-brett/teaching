@@ -1,0 +1,6 @@
+#!/bin/bash
+# mybinder, after docker container is built
+make html
+cp _build/html/*.ipynb .
+rm -rf _build
+rm -rf *.rst
