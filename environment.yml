@@ -1,0 +1,15 @@
+name: teaching-env
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - pandas
+  - sphinx
+  - ghp-import
+  - matplotlib
+  - nibabel
+  - scipy
+  - sympy
+  - texext
+  - nb2plots
