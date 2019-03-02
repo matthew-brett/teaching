@@ -223,7 +223,7 @@ x_back
 # Call $\vec{r^k}$ the *angle vector* for $k$.  This vector depend only on $k$
 # and $N$.
 #
-# Substituting the value of $D$ (equation [(3)](https://matthew-brett.github.io/teaching/fourier_no_ei.html#equation-D)):
+# Substituting the value of $D$ (equation [(3)](https://matthew-brett.github.io/teaching/fourier_no_ei.html#equation-d)):
 #
 # $$
 # \vec{r^k} = [ k 2 \pi \frac{0}{N}, k 2 \pi \frac{1}{N}, \ldots,

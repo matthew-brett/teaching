@@ -4,25 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The argument in “Why most published research findings are false” &#8212; Tutorials on imaging, computing and mathematics</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Mutual information as an image matching metric" href="mutual_information.html" />
@@ -33,16 +26,17 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+  <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="the-argument-in-why-most-published-research-findings-are-false">
 <h1>The argument in “Why most published research findings are false”<a class="headerlink" href="#the-argument-in-why-most-published-research-findings-are-false" title="Permalink to this headline">¶</a></h1>
 <p>I spent some time trying to understand the argument in this paper:</p>
@@ -92,27 +86,27 @@ terms of probabilities.</p>
 <h1>Some terms<a class="headerlink" href="#some-terms" title="Permalink to this headline">¶</a></h1>
 <p>We’ve done an experiment, and we have conducted a statistical test:</p>
 <ul class="simple">
-<li><span class="math">\(H_A\)</span> - alternative hypothesis</li>
-<li><span class="math">\(H_0\)</span> - null hypothesis</li>
-<li><span class="math">\(\alpha\)</span> : false positive rate - probability for test to reject
-<span class="math">\(H_0\)</span> when <span class="math">\(H_0\)</span> is true (<span class="math">\(H_A\)</span> is false)</li>
-<li><span class="math">\(\beta\)</span> : false negative rate - probability for test to accept
-<span class="math">\(H_0\)</span> when <span class="math">\(H_A\)</span> is true (<span class="math">\(H_0\)</span> is false)</li>
-<li><span class="math">\(1 - \beta\)</span> : power - probability we will reject <span class="math">\(H_0\)</span> if
-<span class="math">\(H_A\)</span> is true (<span class="math">\(H_0\)</span> is false)</li>
+<li><span class="math notranslate nohighlight">\(H_A\)</span> - alternative hypothesis</li>
+<li><span class="math notranslate nohighlight">\(H_0\)</span> - null hypothesis</li>
+<li><span class="math notranslate nohighlight">\(\alpha\)</span> : false positive rate - probability for test to reject
+<span class="math notranslate nohighlight">\(H_0\)</span> when <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false)</li>
+<li><span class="math notranslate nohighlight">\(\beta\)</span> : false negative rate - probability for test to accept
+<span class="math notranslate nohighlight">\(H_0\)</span> when <span class="math notranslate nohighlight">\(H_A\)</span> is true (<span class="math notranslate nohighlight">\(H_0\)</span> is false)</li>
+<li><span class="math notranslate nohighlight">\(1 - \beta\)</span> : power - probability we will reject <span class="math notranslate nohighlight">\(H_0\)</span> if
+<span class="math notranslate nohighlight">\(H_A\)</span> is true (<span class="math notranslate nohighlight">\(H_0\)</span> is false)</li>
 </ul>
 <p>Let’s say that the test can either be “significant” (test gives
-<span class="math">\(p \le \alpha\)</span>) or “not significant” (<span class="math">\(p &gt; \alpha\)</span>). Denote
-“test is significant” by <span class="math">\(T_S\)</span>, “test not significant” by
-<span class="math">\(T_N\)</span>.</p>
-<p>Before we did the experiment there were two possibilities - <span class="math">\(H_A\)</span>
-is true, or <span class="math">\(H_0\)</span> is true. After we have four possibilities:</p>
+<span class="math notranslate nohighlight">\(p \le \alpha\)</span>) or “not significant” (<span class="math notranslate nohighlight">\(p &gt; \alpha\)</span>). Denote
+“test is significant” by <span class="math notranslate nohighlight">\(T_S\)</span>, “test not significant” by
+<span class="math notranslate nohighlight">\(T_N\)</span>.</p>
+<p>Before we did the experiment there were two possibilities - <span class="math notranslate nohighlight">\(H_A\)</span>
+is true, or <span class="math notranslate nohighlight">\(H_0\)</span> is true. After we have four possibilities:</p>
 <ul class="simple">
-<li><span class="math">\(H_A \land T_S\)</span> : <span class="math">\(H_A\)</span> is true, test is significant;</li>
-<li><span class="math">\(H_A \land T_N\)</span> : <span class="math">\(H_A\)</span> is true, test is not significant;</li>
-<li><span class="math">\(H_0 \land T_S\)</span> : <span class="math">\(H_0\)</span> is true (<span class="math">\(H_A\)</span> is false) -
+<li><span class="math notranslate nohighlight">\(H_A \land T_S\)</span> : <span class="math notranslate nohighlight">\(H_A\)</span> is true, test is significant;</li>
+<li><span class="math notranslate nohighlight">\(H_A \land T_N\)</span> : <span class="math notranslate nohighlight">\(H_A\)</span> is true, test is not significant;</li>
+<li><span class="math notranslate nohighlight">\(H_0 \land T_S\)</span> : <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false) -
 test is significant;</li>
-<li><span class="math">\(H_0 \land T_N\)</span> : <span class="math">\(H_0\)</span> is true (<span class="math">\(H_A\)</span> is false) -
+<li><span class="math notranslate nohighlight">\(H_0 \land T_N\)</span> : <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false) -
 test is not significant.</li>
 </ul>
 </div>
@@ -121,8 +115,8 @@ test is not significant.</li>
 <p>In this section we work up slowly to Ioannidis table 1.</p>
 <p>First we need to load functions for symbolic mathematics from the Sympy
 library:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">init_printing</span><span class="p">,</span> <span class="n">latex</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;old&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">init_printing</span><span class="p">,</span> <span class="n">latex</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;old&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If we do not take any prior probabilities into account, then we have the
@@ -136,64 +130,64 @@ following probabilities:</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>&#160;</td>
-<td><span class="math">\(T_S\)</span></td>
-<td><span class="math">\(T_N\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
 </tr>
-<tr class="row-even"><td><span class="math">\(H_A\)</span></td>
-<td><span class="math">\(1 - \beta\)</span></td>
-<td><span class="math">\(\beta\)</span></td>
+<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \beta + 1\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta\)</span></td>
 </tr>
-<tr class="row-odd"><td><span class="math">\(H_0\)</span></td>
-<td><span class="math">\(\alpha\)</span></td>
-<td><span class="math">\(1 - \alpha\)</span></td>
+<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
+<td><span class="math notranslate nohighlight">\(\alpha\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \alpha + 1\)</span></td>
 </tr>
 <tr class="row-even"><td><em>Total</em></td>
-<td><span class="math">\(1 + \alpha - \beta\)</span></td>
-<td><span class="math">\(1 + \beta - \alpha\)</span></td>
+<td><span class="math notranslate nohighlight">\(\alpha - \beta + 1\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \alpha + \beta + 1\)</span></td>
 </tr>
 </tbody>
 </table>
-<p><span class="math">\(\newcommand{Frac}[2]{\frac{\displaystyle #1}{\displaystyle #2}}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\newcommand{Frac}[2]{\frac{\displaystyle #1}{\displaystyle #2}}\)</span></p>
 <p>Some new terms:</p>
 <ul class="simple">
-<li><span class="math">\(Pr(H_A)\)</span> - prior probability of <span class="math">\(H_A\)</span> - probability of
-<span class="math">\(H_A\)</span> before the experiment was conducted.</li>
-<li><span class="math">\(Pr(H_0)\)</span> - prior probability of <span class="math">\(H_0\)</span> =
-<span class="math">\(1 - Pr(H_A)\)</span> - probability of null hypothesis before
+<li><span class="math notranslate nohighlight">\(Pr(H_A)\)</span> - prior probability of <span class="math notranslate nohighlight">\(H_A\)</span> - probability of
+<span class="math notranslate nohighlight">\(H_A\)</span> before the experiment was conducted.</li>
+<li><span class="math notranslate nohighlight">\(Pr(H_0)\)</span> - prior probability of <span class="math notranslate nohighlight">\(H_0\)</span> =
+<span class="math notranslate nohighlight">\(1 - Pr(H_A)\)</span> - probability of null hypothesis before
 experiment conducted</li>
 </ul>
-<p>We are interested in updating the probability of <span class="math">\(H_A\)</span> and
-<span class="math">\(H_0\)</span> as a result of a test on some collected data. This updated
-probability is <span class="math">\(Pr(H_A | T)\)</span> - the probability of <span class="math">\(H_A\)</span>
-given the test result <span class="math">\(T\)</span>. <span class="math">\(Pr(H_A | T)\)</span> is called the
+<p>We are interested in updating the probability of <span class="math notranslate nohighlight">\(H_A\)</span> and
+<span class="math notranslate nohighlight">\(H_0\)</span> as a result of a test on some collected data. This updated
+probability is <span class="math notranslate nohighlight">\(Pr(H_A | T)\)</span> - the probability of <span class="math notranslate nohighlight">\(H_A\)</span>
+given the test result <span class="math notranslate nohighlight">\(T\)</span>. <span class="math notranslate nohighlight">\(Pr(H_A | T)\)</span> is called the
 <em>posterior</em> probability because it is the probability after the test
 result.</p>
-<p>The test result <span class="math">\(T\)</span> is assumed to have arisen under either
-<span class="math">\(H_A\)</span> or <span class="math">\(H_0\)</span>.</p>
-<p><span class="math">\(Pr(T) = Pr(T | H_A) Pr(H_A) + Pr(T | H_0) Pr(H_0)\)</span></p>
-<p>Also the probability of a <em>signficant</em> result of the test <span class="math">\(T_S\)</span> is
+<p>The test result <span class="math notranslate nohighlight">\(T\)</span> is assumed to have arisen under either
+<span class="math notranslate nohighlight">\(H_A\)</span> or <span class="math notranslate nohighlight">\(H_0\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(Pr(T) = Pr(T | H_A) Pr(H_A) + Pr(T | H_0) Pr(H_0)\)</span></p>
+<p>Also the probability of a <em>signficant</em> result of the test <span class="math notranslate nohighlight">\(T_S\)</span> is
 from the same formula:</p>
-<p><span class="math">\(Pr(T_S) = Pr(T_S | H_A) Pr(H_A) + Pr(T_S | H_0) Pr(H_0)\)</span></p>
+<p><span class="math notranslate nohighlight">\(Pr(T_S) = Pr(T_S | H_A) Pr(H_A) + Pr(T_S | H_0) Pr(H_0)\)</span></p>
 <p>(From Kass &amp; Rafferty 1995)</p>
 <p>Remembering <a class="reference external" href="http://en.wikipedia.org/wiki/Bayes'_theorem#Derivation">Bayes
 theorem</a>:</p>
-<p><span class="math">\(P(A | B) = \Frac{P(B | A) P(A)}{P(B)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(P(A | B) = \Frac{P(B | A) P(A)}{P(B)}\)</span></p>
 <p>Bayes theorem gives:</p>
-<p><span class="math">\(P(H_A | T) = \Frac{Pr(T | H_A) Pr(H_A)}{Pr(T)} = \Frac{Pr(T | H_A) Pr(H_A)}{Pr(T | H_A) Pr(H_A) + Pr(T | H_0) Pr(H_0)}\)</span></p>
-<p>Consider only the test result <span class="math">\(T_S\)</span> (the test is significant). What is
-the posterior probability of <span class="math">\(H_A\)</span> given that the test is significant?</p>
-<p><span class="math">\(P(H_A | T_S) = \Frac{Pr(T_S | H_A) Pr(H_A)}{Pr(T_S | H_A) Pr(H_A) + Pr(T_S | H_0) Pr(H_0)}\)</span></p>
-<p>We have <span class="math">\(Pr(T_S | H_A)\)</span>, <span class="math">\(Pr(T_S | H_0)\)</span> from the first
+<p><span class="math notranslate nohighlight">\(P(H_A | T) = \Frac{Pr(T | H_A) Pr(H_A)}{Pr(T)} = \Frac{Pr(T | H_A) Pr(H_A)}{Pr(T | H_A) Pr(H_A) + Pr(T | H_0) Pr(H_0)}\)</span></p>
+<p>Consider only the test result <span class="math notranslate nohighlight">\(T_S\)</span> (the test is significant). What is
+the posterior probability of <span class="math notranslate nohighlight">\(H_A\)</span> given that the test is significant?</p>
+<p><span class="math notranslate nohighlight">\(P(H_A | T_S) = \Frac{Pr(T_S | H_A) Pr(H_A)}{Pr(T_S | H_A) Pr(H_A) + Pr(T_S | H_0) Pr(H_0)}\)</span></p>
+<p>We have <span class="math notranslate nohighlight">\(Pr(T_S | H_A)\)</span>, <span class="math notranslate nohighlight">\(Pr(T_S | H_0)\)</span> from the first
 column of the table above. Substituting into the equation:</p>
-<p><span class="math">\(P(H_A | T_S) = \Frac{(1 - \beta) Pr(H_A)}{(1 - \beta) Pr(H_A) + \alpha Pr(H_0)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(P(H_A | T_S) = \Frac{(1 - \beta) Pr(H_A)}{(1 - \beta) Pr(H_A) + \alpha Pr(H_0)}\)</span></p>
 <p>To make this a little less cluttered, define:</p>
-<p><span class="math">\(\pi := Pr(H_A)\)</span></p>
+<p><span class="math notranslate nohighlight">\(\pi := Pr(H_A)\)</span></p>
 <p>So</p>
-<p><span class="math">\(1 - \pi = Pr(H_0)\)</span></p>
+<p><span class="math notranslate nohighlight">\(1 - \pi = Pr(H_0)\)</span></p>
 <p>and:</p>
-<p><span class="math">\(P(H_A | T_S) = \Frac{(1 - \beta) \pi}{(1 - \beta) \pi + \alpha (1 - \pi)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(P(H_A | T_S) = \Frac{(1 - \beta) \pi}{(1 - \beta) \pi + \alpha (1 - \pi)}\)</span></p>
 <p>Let’s put that formula into Sympy for later:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span> <span class="c1"># get symbolic variables</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="k">import</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span> <span class="c1"># get symbolic variables</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob</span>
 <span class="go">pi*(-beta + 1)/(alpha*(-pi + 1) + pi*(-beta + 1))</span>
@@ -209,60 +203,60 @@ column of the table above. Substituting into the equation:</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>&#160;</td>
-<td><span class="math">\(T_S\)</span></td>
-<td><span class="math">\(T_N\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
 </tr>
-<tr class="row-even"><td><span class="math">\(H_A\)</span></td>
-<td><span class="math">\(\pi \left(1 - \beta\right)\)</span></td>
-<td><span class="math">\(\beta \pi\)</span></td>
+<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(- \beta + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta \pi\)</span></td>
 </tr>
-<tr class="row-odd"><td><span class="math">\(H_0\)</span></td>
-<td><span class="math">\(\alpha \left(1 - \pi\right)\)</span></td>
-<td><span class="math">\(\left(1 - \alpha\right) \left(1 - \pi\right)\)</span></td>
+<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
+<td><span class="math notranslate nohighlight">\(\alpha \left(- \pi + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\left(- \alpha + 1\right) \left(- \pi + 1\right)\)</span></td>
 </tr>
 <tr class="row-even"><td><em>Total</em></td>
-<td><span class="math">\(\alpha \left(1 - \pi\right) + \pi \left(1 - \beta\right)\)</span></td>
-<td><span class="math">\(\beta \pi + \left(1 - \alpha\right) \left(1 - \pi\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\alpha \left(- \pi + 1\right) + \pi \left(- \beta + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta \pi + \left(- \alpha + 1\right) \left(- \pi + 1\right)\)</span></td>
 </tr>
 </tbody>
 </table>
 <p>This table is equivalent to Ioannidis table 1. The first column of the
 table gives the probabilities in the case we’re interested in, of
-<span class="math">\(T_S\)</span>. The posterior probability is the first row, first column -
-<span class="math">\(Pr(T_S | H_A)\)</span>, divided by the total row, first column -
-<span class="math">\(Pr(T_S)\)</span>.</p>
+<span class="math notranslate nohighlight">\(T_S\)</span>. The posterior probability is the first row, first column -
+<span class="math notranslate nohighlight">\(Pr(T_S | H_A)\)</span>, divided by the total row, first column -
+<span class="math notranslate nohighlight">\(Pr(T_S)\)</span>.</p>
 <p>Ioannidis uses “positive predictive value” (PPV) for the posterior
-probability <span class="math">\(P(H_A | T_S)\)</span>. Goodman and Greenland complain,
+probability <span class="math notranslate nohighlight">\(P(H_A | T_S)\)</span>. Goodman and Greenland complain,
 reasonably enough, that “positive predictive value” is a confusing new
 term for a standard concept.</p>
-<p>Ioannidis also prefers his equations in terms of <span class="math">\(R\)</span> - the <em>prior
-odds ratio</em>. <span class="math">\(R := \Frac{Pr(H_A)}{Pr(H_0)}\)</span>. Also (from
-<span class="math">\(\pi := Pr(H_A)\)</span> and <span class="math">\(Pr(H_0) = 1 - Pr(H_A)\)</span>):
-<span class="math">\(R = \Frac{\pi}{1 - \pi}\)</span>.</p>
+<p>Ioannidis also prefers his equations in terms of <span class="math notranslate nohighlight">\(R\)</span> - the <em>prior
+odds ratio</em>. <span class="math notranslate nohighlight">\(R := \Frac{Pr(H_A)}{Pr(H_0)}\)</span>. Also (from
+<span class="math notranslate nohighlight">\(\pi := Pr(H_A)\)</span> and <span class="math notranslate nohighlight">\(Pr(H_0) = 1 - Pr(H_A)\)</span>):
+<span class="math notranslate nohighlight">\(R = \Frac{\pi}{1 - \pi}\)</span>.</p>
 <p>Ioannidis’ formula for PPV is
-<span class="math">\(\Frac{(1 - \beta) R}{R - \beta R + \alpha}\)</span>. This is the same as
-our formula above, only rephrased in terms of <span class="math">\(R\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">R</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
+<span class="math notranslate nohighlight">\(\Frac{(1 - \beta) R}{R - \beta R + \alpha}\)</span>. This is the same as
+our formula above, only rephrased in terms of <span class="math notranslate nohighlight">\(R\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">R</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">R</span> <span class="o">/</span> <span class="p">(</span><span class="n">R</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Is this the same as our formula above?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">ppv</span> <span class="o">-</span> <span class="n">post_prob</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>The posterior probability is our estimate of whether <span class="math">\(H_A\)</span> is
-true, given our prior knowledge <span class="math">\(Pr(H_A) = \pi\)</span> combined with the
+<p>The posterior probability is our estimate of whether <span class="math notranslate nohighlight">\(H_A\)</span> is
+true, given our prior knowledge <span class="math notranslate nohighlight">\(Pr(H_A) = \pi\)</span> combined with the
 new information from the test result.</p>
 </div>
 <div class="section" id="what-is-a-finding-that-is-likely-to-be-true">
 <h1>What is a finding that is likely to be true?<a class="headerlink" href="#what-is-a-finding-that-is-likely-to-be-true" title="Permalink to this headline">¶</a></h1>
 <p>A finding that is likely to be true is one for which the posterior
-probability <span class="math">\(Pr(H_A | T_S) &gt; 0.5\)</span>. That is, the likelihood of the
+probability <span class="math notranslate nohighlight">\(Pr(H_A | T_S) &gt; 0.5\)</span>. That is, the likelihood of the
 tested hypothesis, given the reported significant test result, is
-greater than <span class="math">\(0.5\)</span></p>
+greater than <span class="math notranslate nohighlight">\(0.5\)</span></p>
 </div>
 <div class="section" id="whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">
 <h1>Whether a finding is likely to be true depends on the power of the experiment<a class="headerlink" href="#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment" title="Permalink to this headline">¶</a></h1>
-<p>Assume that <span class="math">\(\alpha = 0.05\)</span> (standard significance threshold for
+<p>Assume that <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> (standard significance threshold for
 null hypothesis test).</p>
 <p>Let’s have a look at the posterior probability as a function of power
 and prior probability:</p>
@@ -271,20 +265,20 @@ and prior probability:</p>
 <img alt="_images/ioannidis_2005-4.png" src="_images/ioannidis_2005-4.png" />
 </div>
 <p>The posterior probability depends on the power. If the power is low and
-<span class="math">\(H_A\)</span> is true, the likelihood of getting a significant test result
-is small. Assuming <span class="math">\(\pi = Pr(H_A) = 0.5\)</span>, our posterior
+<span class="math notranslate nohighlight">\(H_A\)</span> is true, the likelihood of getting a significant test result
+is small. Assuming <span class="math notranslate nohighlight">\(\pi = Pr(H_A) = 0.5\)</span>, our posterior
 probability is given by
-<span class="math">\(\Frac{(1 - \beta)}{(1 - \beta) + \alpha}\)</span>. As the chance of
-finding a true positive <span class="math">\(= 1-\beta\)</span> drops towards the chance of
-finding a false negative <span class="math">\(= \alpha\)</span>, our confidence in the truth
+<span class="math notranslate nohighlight">\(\Frac{(1 - \beta)}{(1 - \beta) + \alpha}\)</span>. As the chance of
+finding a true positive <span class="math notranslate nohighlight">\(= 1-\beta\)</span> drops towards the chance of
+finding a false negative <span class="math notranslate nohighlight">\(= \alpha\)</span>, our confidence in the truth
 of the significant result must drop too.</p>
 <p>The posterior likelihood also depends on the prior. When the prior
-<span class="math">\(Pr(H_A)\)</span> drops then we become more wary of the (apriori more
+<span class="math notranslate nohighlight">\(Pr(H_A)\)</span> drops then we become more wary of the (apriori more
 unlikely) true positive compared to the (apriori more likely) false
 positive.</p>
 <p>As you can see from the figure. When power is 0.2, and the prior
 probability is less than around 0.2, then even if there is a significant
-test result, the null is still more likely than the <span class="math">\(H_A\)</span>
+test result, the null is still more likely than the <span class="math notranslate nohighlight">\(H_A\)</span>
 (posterior &lt; 0.5).</p>
 </div>
 <div class="section" id="quantifying-the-effect-of-bias">
@@ -293,15 +287,15 @@ test result, the null is still more likely than the <span class="math">\(H_A\)</
 bias in data collection and analysis.</p>
 <p>We tend to assume that the effect of this bias is relatively minor. Is
 this true?</p>
-<p>Ioannidis quantifies bias with a parameter <span class="math">\(u\)</span>. <span class="math">\(u\)</span> is the
+<p>Ioannidis quantifies bias with a parameter <span class="math notranslate nohighlight">\(u\)</span>. <span class="math notranslate nohighlight">\(u\)</span> is the
 proportion of not-significant findings that become significant as a
 result of bias. Put another way, the effect of bias is the result of
 taking the second column in the probability table above (the
-not-significant findings) and multiplying by <span class="math">\(u\)</span>. We add this
+not-significant findings) and multiplying by <span class="math notranslate nohighlight">\(u\)</span>. We add this
 effect to the first column (significant findings) and subtract from the
 second column (not-significant findings). Before applying the priors,
 this looks like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">f_s</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span>
@@ -317,25 +311,25 @@ this looks like:</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>&#160;</td>
-<td><span class="math">\(T_S\)</span></td>
-<td><span class="math">\(T_N\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
 </tr>
-<tr class="row-even"><td><span class="math">\(H_A\)</span></td>
-<td><span class="math">\(1 - \beta + \beta u\)</span></td>
-<td><span class="math">\(\beta - \beta u\)</span></td>
+<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta u - \beta + 1\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \beta u + \beta\)</span></td>
 </tr>
-<tr class="row-odd"><td><span class="math">\(H_0\)</span></td>
-<td><span class="math">\(\alpha + u \left(1 - \alpha\right)\)</span></td>
-<td><span class="math">\(1 - \alpha - u \left(1 - \alpha\right)\)</span></td>
+<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
+<td><span class="math notranslate nohighlight">\(\alpha + u \left(- \alpha + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \alpha - u \left(- \alpha + 1\right) + 1\)</span></td>
 </tr>
 <tr class="row-even"><td><em>Total</em></td>
-<td><span class="math">\(1 + \alpha - \beta + \beta u + u \left(1 - \alpha\right)\)</span></td>
-<td><span class="math">\(1 + \beta - \alpha - \beta u - u \left(1 - \alpha\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\alpha + \beta u - \beta + u \left(- \alpha + 1\right) + 1\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \alpha - \beta u + \beta - u \left(- \alpha + 1\right) + 1\)</span></td>
 </tr>
 </tbody>
 </table>
 <p>After applying the prior:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span> <span class="o">=</span> <span class="n">bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span> <span class="o">=</span> <span class="n">bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
@@ -351,33 +345,33 @@ this looks like:</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>&#160;</td>
-<td><span class="math">\(T_S\)</span></td>
-<td><span class="math">\(T_N\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
 </tr>
-<tr class="row-even"><td><span class="math">\(H_A\)</span></td>
-<td><span class="math">\(\pi \left(1 - \beta + \beta u\right)\)</span></td>
-<td><span class="math">\(\pi \left(\beta - \beta u\right)\)</span></td>
+<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(\beta u - \beta + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(- \beta u + \beta\right)\)</span></td>
 </tr>
-<tr class="row-odd"><td><span class="math">\(H_0\)</span></td>
-<td><span class="math">\(\left(1 - \pi\right) \left(\alpha + u \left(1 - \alpha\right)\right)\)</span></td>
-<td><span class="math">\(\left(1 - \pi\right) \left(1 - \alpha - u \left(1 - \alpha\right)\right)\)</span></td>
+<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
+<td><span class="math notranslate nohighlight">\(\left(\alpha + u \left(- \alpha + 1\right)\right) \left(- \pi + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\left(- \pi + 1\right) \left(- \alpha - u \left(- \alpha + 1\right) + 1\right)\)</span></td>
 </tr>
 <tr class="row-even"><td><em>Total</em></td>
-<td><span class="math">\(\pi \left(1 - \beta + \beta u\right) + \left(1 - \pi\right) \left(\alpha + u \left(1 - \alpha\right)\right)\)</span></td>
-<td><span class="math">\(\pi \left(\beta - \beta u\right) + \left(1 - \pi\right) \left(1 - \alpha - u \left(1 - \alpha\right)\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(\beta u - \beta + 1\right) + \left(\alpha + u \left(- \alpha + 1\right)\right) \left(- \pi + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(- \beta u + \beta\right) + \left(- \pi + 1\right) \left(- \alpha - u \left(- \alpha + 1\right) + 1\right)\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>The first cell in the table is <span class="math">\(Pr(T_S | H_A) Pr(H_A)\)</span>. The total
-for the first column gives <span class="math">\(Pr(T_S)\)</span>. Therefore the posterior
-probability <span class="math">\(Pr(H_A | T_S)\)</span> is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span> <span class="o">=</span> <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span>
+<p>The first cell in the table is <span class="math notranslate nohighlight">\(Pr(T_S | H_A) Pr(H_A)\)</span>. The total
+for the first column gives <span class="math notranslate nohighlight">\(Pr(T_S)\)</span>. Therefore the posterior
+probability <span class="math notranslate nohighlight">\(Pr(H_A | T_S)\)</span> is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span> <span class="o">=</span> <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span>
 <span class="gp">... </span>                                      <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span>
 <span class="go">pi*(beta*u - beta + 1)/(pi*(beta*u - beta + 1) + (alpha + u*(-alpha + 1))*(-pi + 1))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Same as Ioannidis formulation?</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Same as Ioannidis formulation?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># This from Ioannidis 2005:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv_bias</span> <span class="o">=</span> <span class="p">(</span>
 <span class="gp">... </span>    <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">R</span><span class="p">)</span> <span class="o">/</span>
@@ -403,17 +397,17 @@ entirely biased, then our posterior estimate is unchanged from the prior
 <p>Ioannidis makes the point that when a field is particularly fashionable,
 there may be many research groups working on the same question.</p>
 <p>Given publication bias for positive findings, it is possible that only
-positive research findings will be published. If <span class="math">\(n\)</span> research
+positive research findings will be published. If <span class="math notranslate nohighlight">\(n\)</span> research
 groups have done the same experiment, then the probability that <em>all</em>
-the <span class="math">\(n\)</span> studies will be not significant, given <span class="math">\(H_A\)</span> is
-true, is <span class="math">\(\beta^n\)</span>. Conversely the probability that there is at
-least one positive finding in the <span class="math">\(n\)</span> tests is
-<span class="math">\(1 - \beta^n\)</span>. Similarly the probability that all <span class="math">\(n\)</span>
-studies will be not significant, given <span class="math">\(H_0\)</span>, is
-<span class="math">\((1 - \alpha)^n\)</span>. The probability of at least one false positive
-is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
+the <span class="math notranslate nohighlight">\(n\)</span> studies will be not significant, given <span class="math notranslate nohighlight">\(H_A\)</span> is
+true, is <span class="math notranslate nohighlight">\(\beta^n\)</span>. Conversely the probability that there is at
+least one positive finding in the <span class="math notranslate nohighlight">\(n\)</span> tests is
+<span class="math notranslate nohighlight">\(1 - \beta^n\)</span>. Similarly the probability that all <span class="math notranslate nohighlight">\(n\)</span>
+studies will be not significant, given <span class="math notranslate nohighlight">\(H_0\)</span>, is
+<span class="math notranslate nohighlight">\((1 - \alpha)^n\)</span>. The probability of at least one false positive
+is <span class="math notranslate nohighlight">\(1 - (1 - \alpha)^n\)</span>.</p>
 <p>The probability table (without the priors) is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">),</span>
 <span class="gp">... </span>                          <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">f_s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
@@ -429,25 +423,25 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>&#160;</td>
-<td><span class="math">\(T_S\)</span></td>
-<td><span class="math">\(T_N\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
 </tr>
-<tr class="row-even"><td><span class="math">\(H_A\)</span></td>
-<td><span class="math">\(1 - \beta^{n}\)</span></td>
-<td><span class="math">\(\beta^{n}\)</span></td>
+<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \beta^{n} + 1\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta^{n}\)</span></td>
 </tr>
-<tr class="row-odd"><td><span class="math">\(H_0\)</span></td>
-<td><span class="math">\(1 - \left(1 - \alpha\right)^{n}\)</span></td>
-<td><span class="math">\(\left(1 - \alpha\right)^{n}\)</span></td>
+<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \left(- \alpha + 1\right)^{n} + 1\)</span></td>
+<td><span class="math notranslate nohighlight">\(\left(- \alpha + 1\right)^{n}\)</span></td>
 </tr>
 <tr class="row-even"><td><em>Total</em></td>
-<td><span class="math">\(2 - \beta^{n} - \left(1 - \alpha\right)^{n}\)</span></td>
-<td><span class="math">\(\beta^{n} + \left(1 - \alpha\right)^{n}\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \beta^{n} - \left(- \alpha + 1\right)^{n} + 2\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta^{n} + \left(- \alpha + 1\right)^{n}\)</span></td>
 </tr>
 </tbody>
 </table>
 <p>Considering the prior:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span> <span class="o">=</span> <span class="n">multi_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span> <span class="o">=</span> <span class="n">multi_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
@@ -463,30 +457,30 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>&#160;</td>
-<td><span class="math">\(T_S\)</span></td>
-<td><span class="math">\(T_N\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
 </tr>
-<tr class="row-even"><td><span class="math">\(H_A\)</span></td>
-<td><span class="math">\(\pi \left(1 - \beta^{n}\right)\)</span></td>
-<td><span class="math">\(\pi \beta^{n}\)</span></td>
+<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(- \beta^{n} + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta^{n} \pi\)</span></td>
 </tr>
-<tr class="row-odd"><td><span class="math">\(H_0\)</span></td>
-<td><span class="math">\(\left(1 - \pi\right) \left(1 - \left(1 - \alpha\right)^{n}\right)\)</span></td>
-<td><span class="math">\(\left(1 - \alpha\right)^{n} \left(1 - \pi\right)\)</span></td>
+<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
+<td><span class="math notranslate nohighlight">\(\left(- \pi + 1\right) \left(- \left(- \alpha + 1\right)^{n} + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\left(- \alpha + 1\right)^{n} \left(- \pi + 1\right)\)</span></td>
 </tr>
 <tr class="row-even"><td><em>Total</em></td>
-<td><span class="math">\(\pi \left(1 - \beta^{n}\right) + \left(1 - \pi\right) \left(1 - \left(1 - \alpha\right)^{n}\right)\)</span></td>
-<td><span class="math">\(\pi \beta^{n} + \left(1 - \alpha\right)^{n} \left(1 - \pi\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(- \beta^{n} + 1\right) + \left(- \pi + 1\right) \left(- \left(- \alpha + 1\right)^{n} + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta^{n} \pi + \left(- \alpha + 1\right)^{n} \left(- \pi + 1\right)\)</span></td>
 </tr>
 </tbody>
 </table>
 <p>Giving posterior probability of:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span> <span class="o">=</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span> <span class="o">=</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span>
 <span class="go">pi*(-beta**n + 1)/(pi*(-beta**n + 1) + (-pi + 1)*(-(-alpha + 1)**n + 1))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Formula from Ioannidis 2005:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Formula from Ioannidis 2005:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv_multi</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="o">-</span> <span class="n">R</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Is this the same as our formula above?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">ppv_multi</span> <span class="o">-</span> <span class="n">post_prob_multi</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
@@ -501,7 +495,7 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 <div class="section" id="putting-it-together">
 <h1>Putting it together<a class="headerlink" href="#putting-it-together" title="Permalink to this headline">¶</a></h1>
 <p>Considering analysis bias and positive publication bias together:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
 <span class="gp">... </span>   <span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>   <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>   <span class="n">f_s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
@@ -517,24 +511,24 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>&#160;</td>
-<td><span class="math">\(T_S\)</span></td>
-<td><span class="math">\(T_N\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
 </tr>
-<tr class="row-even"><td><span class="math">\(H_A\)</span></td>
-<td><span class="math">\(1 - \beta^{n} + u \beta^{n}\)</span></td>
-<td><span class="math">\(\beta^{n} - u \beta^{n}\)</span></td>
+<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta^{n} u - \beta^{n} + 1\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \beta^{n} u + \beta^{n}\)</span></td>
 </tr>
-<tr class="row-odd"><td><span class="math">\(H_0\)</span></td>
-<td><span class="math">\(1 - \left(1 - \alpha\right)^{n} + u \left(1 - \alpha\right)^{n}\)</span></td>
-<td><span class="math">\(\left(1 - \alpha\right)^{n} - u \left(1 - \alpha\right)^{n}\)</span></td>
+<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
+<td><span class="math notranslate nohighlight">\(u \left(- \alpha + 1\right)^{n} - \left(- \alpha + 1\right)^{n} + 1\)</span></td>
+<td><span class="math notranslate nohighlight">\(- u \left(- \alpha + 1\right)^{n} + \left(- \alpha + 1\right)^{n}\)</span></td>
 </tr>
 <tr class="row-even"><td><em>Total</em></td>
-<td><span class="math">\(2 - \beta^{n} - \left(1 - \alpha\right)^{n} + u \beta^{n} + u \left(1 - \alpha\right)^{n}\)</span></td>
-<td><span class="math">\(\beta^{n} + \left(1 - \alpha\right)^{n} - u \beta^{n} - u \left(1 - \alpha\right)^{n}\)</span></td>
+<td><span class="math notranslate nohighlight">\(\beta^{n} u - \beta^{n} + u \left(- \alpha + 1\right)^{n} - \left(- \alpha + 1\right)^{n} + 2\)</span></td>
+<td><span class="math notranslate nohighlight">\(- \beta^{n} u + \beta^{n} - u \left(- \alpha + 1\right)^{n} + \left(- \alpha + 1\right)^{n}\)</span></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span> <span class="o">=</span> <span class="n">multi_bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span> <span class="o">=</span> <span class="n">multi_bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
@@ -550,24 +544,24 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>&#160;</td>
-<td><span class="math">\(T_S\)</span></td>
-<td><span class="math">\(T_N\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
+<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
 </tr>
-<tr class="row-even"><td><span class="math">\(H_A\)</span></td>
-<td><span class="math">\(\pi \left(1 - \beta^{n} + u \beta^{n}\right)\)</span></td>
-<td><span class="math">\(\pi \left(\beta^{n} - u \beta^{n}\right)\)</span></td>
+<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(\beta^{n} u - \beta^{n} + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(- \beta^{n} u + \beta^{n}\right)\)</span></td>
 </tr>
-<tr class="row-odd"><td><span class="math">\(H_0\)</span></td>
-<td><span class="math">\(\left(1 - \pi\right) \left(1 - \left(1 - \alpha\right)^{n} + u \left(1 - \alpha\right)^{n}\right)\)</span></td>
-<td><span class="math">\(\left(1 - \pi\right) \left(\left(1 - \alpha\right)^{n} - u \left(1 - \alpha\right)^{n}\right)\)</span></td>
+<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
+<td><span class="math notranslate nohighlight">\(\left(- \pi + 1\right) \left(u \left(- \alpha + 1\right)^{n} - \left(- \alpha + 1\right)^{n} + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\left(- \pi + 1\right) \left(- u \left(- \alpha + 1\right)^{n} + \left(- \alpha + 1\right)^{n}\right)\)</span></td>
 </tr>
 <tr class="row-even"><td><em>Total</em></td>
-<td><span class="math">\(\pi \left(1 - \beta^{n} + u \beta^{n}\right) + \left(1 - \pi\right) \left(1 - \left(1 - \alpha\right)^{n} + u \left(1 - \alpha\right)^{n}\right)\)</span></td>
-<td><span class="math">\(\pi \left(\beta^{n} - u \beta^{n}\right) + \left(1 - \pi\right) \left(\left(1 - \alpha\right)^{n} - u \left(1 - \alpha\right)^{n}\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(\beta^{n} u - \beta^{n} + 1\right) + \left(- \pi + 1\right) \left(u \left(- \alpha + 1\right)^{n} - \left(- \alpha + 1\right)^{n} + 1\right)\)</span></td>
+<td><span class="math notranslate nohighlight">\(\pi \left(- \beta^{n} u + \beta^{n}\right) + \left(- \pi + 1\right) \left(- u \left(- \alpha + 1\right)^{n} + \left(- \alpha + 1\right)^{n}\right)\)</span></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi_bias</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi_bias</span> <span class="o">=</span> <span class="p">(</span>
 <span class="gp">... </span>   <span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span>
 <span class="gp">... </span>   <span class="p">(</span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">... </span>   <span class="p">)</span>
@@ -576,16 +570,16 @@ is <span class="math">\(1 - (1 - \alpha)^n\)</span>.</p>
 </pre></div>
 </div>
 <p>Now we make a numerical version of this symbolic expression, so we can
-evaluate it for different values of <span class="math">\(\alpha, \beta, \pi, u, n\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numerical version of symbolic expression</span>
+evaluate it for different values of <span class="math notranslate nohighlight">\(\alpha, \beta, \pi, u, n\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numerical version of symbolic expression</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pp_mb_func</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">post_prob_multi_bias</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Let’s assume that two groups are doing more or less the same study, and
-only the positive study publishes (<span class="math">\(n = 2\)</span>). There is an analysis
-bias of 10% (<span class="math">\(u= 0.1\)</span>). We take the power from the Button et al
+only the positive study publishes (<span class="math notranslate nohighlight">\(n = 2\)</span>). There is an analysis
+bias of 10% (<span class="math notranslate nohighlight">\(u= 0.1\)</span>). We take the power from the Button et al
 estimate for neuroimaging studies = 0.08. Therefore
-<span class="math">\(\beta = 1 - 0.08 = 0.92\)</span>:</p>
+<span class="math notranslate nohighlight">\(\beta = 1 - 0.08 = 0.92\)</span>:</p>
 <ul class="simple">
 <li>Button, Katherine S., John PA Ioannidis, Claire Mokrysz, Brian A.
 Nosek, Jonathan Flint, Emma SJ Robinson, and Marcus R. Munafò. 2013.
@@ -598,21 +592,21 @@ neuroscience.” <em>Nature Reviews Neuroscience</em>.</li>
 </div>
 <p>This graph tells us that, for a study with average power in
 neuroimaging, with some mild analysis bias and positive publication
-bias, the significant finding <span class="math">\(T_S\)</span> does not change our posterior
+bias, the significant finding <span class="math notranslate nohighlight">\(T_S\)</span> does not change our posterior
 very much from our prior.</p>
 <p>If we do some study with an hypothesis that is suitably unlikely apriori
-- say <span class="math">\(Pr(H_A) = 0.25\)</span> - then our posterior probability is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+- say <span class="math notranslate nohighlight">\(Pr(H_A) = 0.25\)</span> - then our posterior probability is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">0.2972463786...</span>
 </pre></div>
 </div>
-<p>What if the result was significant at <span class="math">\(p &lt; 0.01\)</span>?:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<p>What if the result was significant at <span class="math notranslate nohighlight">\(p &lt; 0.01\)</span>?:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">0.40245282700...</span>
 </pre></div>
 </div>
-<p>So, even if our result is significant at <span class="math">\(p &lt; 0.01\)</span>, the
-probability that <span class="math">\(H_A\)</span> is correct is still less than <span class="math">\(0.5\)</span>.</p>
+<p>So, even if our result is significant at <span class="math notranslate nohighlight">\(p &lt; 0.01\)</span>, the
+probability that <span class="math notranslate nohighlight">\(H_A\)</span> is correct is still less than <span class="math notranslate nohighlight">\(0.5\)</span>.</p>
 <ul class="simple">
 <li><a class="reference download internal" href="ioannidis_2005.py">Download this page as a Python code file</a>;</li>
 <li><a class="reference download internal" href="ioannidis_2005.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
@@ -621,22 +615,79 @@ probability that <span class="math">\(H_A\)</span> is correct is still less than
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">The argument in “Why most published research findings are false”</a></li>
-<li><a class="reference internal" href="#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
-<li><a class="reference internal" href="#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
-<li><a class="reference internal" href="#some-terms">Some terms</a></li>
-<li><a class="reference internal" href="#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
-<li><a class="reference internal" href="#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
-<li><a class="reference internal" href="#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
-<li><a class="reference internal" href="#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
-<li><a class="reference internal" href="#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
-<li><a class="reference internal" href="#putting-it-together">Putting it together</a></li>
+<h1 class="logo"><a href="index.html">Teaching</a></h1>
+
+
+
+<p class="blurb">Teaching</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlated_regressors.html">Correlated regressors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdr.html">Thresholding with false discovery rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_point.html">Points on floats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_error.html">Floating point error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_basis.html">The Fourier basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei_orig.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glm_intro.html">Introduction to the general linear model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The argument in “Why most published research findings are false”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#some-terms">Some terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#putting-it-together">Putting it together</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutual_information.html">Mutual information as an image matching metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation.html">Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimizing_space.html">Calculating transformations between images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_vectors.html">Vectors and dot products</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pca_introduction.html">Introducing principal component analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_complex.html">Refresher on complex numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slice_timing.html">Slice timing correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_intro.html">An introduction to smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_as_convolution.html">Smoothing as convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some_sums.html">Some algebra with summation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_cosines.html">Sum of sines and cosines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_sinusoids.html">Sums of sinusoids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random_fields.html">Thresholding with random field theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Teaching repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation_2d.html">Formula for rotating a vector in 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_projection.html">Vector projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_angles.html">Angles between vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlation_projection.html">Correlation and projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix_rank.html">Matrix rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_interpolation.html">Linear interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_cdfs.html">p values from cumulative distribution functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_are_objects.html">Functions are objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_scope.html">Global and local scope of Python variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brisk_python.html">Brisk introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_formatting.html">Inserting values into strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_loops.html">“for” and “while”, “break” and “else:”</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://matthew.dynevor.org">Home page</a></li>
+    
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -647,23 +698,26 @@ probability that <span class="math">\(H_A\)</span> is correct is still less than
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/ioannidis_2005.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -672,8 +726,8 @@ probability that <span class="math">\(H_A\)</span> is correct is still less than
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/ioannidis_2005.rst.txt"

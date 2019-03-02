@@ -1,0 +1,301 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Finding the least-squares line &#8212; Tutorials on imaging, computing and mathematics</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+<div class="section" id="finding-the-least-squares-line">
+<h1>Finding the least-squares line<a class="headerlink" href="#finding-the-least-squares-line" title="Permalink to this headline">¶</a></h1>
+<p>Here I am using the matrix formulation of the linear model. See
+<a class="reference internal" href="glm_intro.html"><span class="doc">Introduction to the general linear model</span></a>.</p>
+<p>In general, if we have a design matrix <span class="math notranslate nohighlight">\(X\)</span> with columns of
+predictors, and a data vector <span class="math notranslate nohighlight">\(\vec{y}\)</span>, then the least-squares
+fit of parameters for the columns of <span class="math notranslate nohighlight">\(X\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[B = X^+ \vec{y}\]</div>
+<p><span class="math notranslate nohighlight">\(X^+\)</span> is called the <em>pseudo-inverse</em> of the design matrix
+<span class="math notranslate nohighlight">\(X\)</span>.</p>
+<p>When <span class="math notranslate nohighlight">\(X^T X\)</span> is invertible:</p>
+<div class="math notranslate nohighlight">
+\[X^+ = (X^T X)^{-1} X^T\]</div>
+<p>Here we are thinking about simple regression, where the design matrix
+has two columns. The first (say) is a column of 1s, modeling the
+intercept of the fitted line. The second contains an explanatory
+covariate, <span class="math notranslate nohighlight">\(\vec{x}\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(X\)</span> is dimension <span class="math notranslate nohighlight">\(n\)</span> rows, 2 columns.</p>
+<p>As long as <span class="math notranslate nohighlight">\(\vec{x}\)</span> is not a constant, and therefore has more
+than one unique value, <span class="math notranslate nohighlight">\(\vec{x}\)</span> is not dependent on the column of
+1s, and <span class="math notranslate nohighlight">\(X^T X\)</span> is invertible.</p>
+<p>When the first column is the column of 1s, modeling the intercept, then
+the first row of <span class="math notranslate nohighlight">\(B\)</span> is the least-squares intercept, and the
+second row of <span class="math notranslate nohighlight">\(B\)</span> is the least-squares slope. Call that value
+<span class="math notranslate nohighlight">\(B_2\)</span>.</p>
+<p>Our desire is to be able to calculate <span class="math notranslate nohighlight">\(B_2\)</span> without doing anything
+nasty like not-trivial matrix inversion.</p>
+<p>This requires that <span class="math notranslate nohighlight">\(X^T X\)</span> is a diagonal matrix, so we can invert
+it by <span class="xref std std-doc">dividing its diagonal elements into 1</span>.</p>
+<p>In order for this to work, the columns of <span class="math notranslate nohighlight">\(X\)</span> must be orthgonal.
+Therefore the covariate <span class="math notranslate nohighlight">\(\vec{x}\)</span>, and therefore the second column
+of <span class="math notranslate nohighlight">\(X\)</span>, must have zero mean. In that case:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}X^T X =
+\begin{bmatrix}
+ n  &amp; 0 \\
+ 0 &amp; \sum{x_i^2}
+\end{bmatrix}\end{split}\]</div>
+<p>From the <a class="reference internal" href="diag_inverse.html"><span class="doc">inverse of a diagonal matrix</span></a>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(X^T X)^{-1} =
+\begin{bmatrix}
+ \frac{1}{n}  &amp; 0 \\
+ 0 &amp; \frac{1}{\sum{x_i^2}}
+\end{bmatrix}\end{split}\]</div>
+<p>For neatness, let:</p>
+<div class="math notranslate nohighlight">
+\[d = \frac{1}{\sum{x_i^2}}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}(X^T X)^{-1} X^T =
+\begin{bmatrix}
+ \frac{1}{n}  &amp; \frac{1}{n} &amp; \dots &amp; \frac{1}{n} \\
+ d x_1 &amp; d x_2 &amp; \dots &amp; d x_n
+\end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}(X^T X)^{-1} X^T \vec{y} =
+\begin{bmatrix}
+ \frac{1}{n} \sum{y_i} \\
+ d \sum{x_i y_i}
+\end{bmatrix}\end{split}\]</div>
+<p>This implies, for any not-constant covariate <span class="math notranslate nohighlight">\(\vec{x}\)</span> of mean 0,
+the intercept is at the mean of <span class="math notranslate nohighlight">\(\vec{y}\)</span>, and the slope is:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\sum{x_i y_i}}{\sum{x_i^2}}\]</div>
+<p>Now consider a covariate <span class="math notranslate nohighlight">\(\vec{x}\)</span> that does not have zero mean.</p>
+<p>Adding or subtracting a constant to <span class="math notranslate nohighlight">\(\vec{x}\)</span> moves the data to
+the left and right on the x axis, and therefore changes the intercept of
+a best fit line, but it does not change the slope of this line.</p>
+<p>For any covariate <span class="math notranslate nohighlight">\(\vec{x}\)</span>, first calculate the mean; call this <span class="math notranslate nohighlight">\(\bar{x}\)</span>.
+Call the mean of <span class="math notranslate nohighlight">\(\vec{y}\)</span>: <span class="math notranslate nohighlight">\(\bar{y}\)</span>. Subtract <span class="math notranslate nohighlight">\(\bar{x}\)</span> from every value in
+<span class="math notranslate nohighlight">\(\vec{x}\)</span> to give <span class="math notranslate nohighlight">\(\vec{x_m}\)</span>. Find the slope and intercept for the best fit
+line of <span class="math notranslate nohighlight">\(\vec{x_m}\)</span> to <span class="math notranslate nohighlight">\(\vec{y}\)</span> as above. Adding back the mean will translate
+the line on the x axis such that <span class="math notranslate nohighlight">\(x=0\)</span> becomes <span class="math notranslate nohighlight">\(x=\bar{x}\)</span>. The <span class="math notranslate nohighlight">\(\vec{x_m}\)</span>
+intercept is <span class="math notranslate nohighlight">\(x=0, y=\bar{y}\)</span>. After translation, this point is at
+<span class="math notranslate nohighlight">\(x=\bar{x}\)</span>, <span class="math notranslate nohighlight">\(y=\bar{y}\)</span>. Given this point, and the slope, <span class="math notranslate nohighlight">\(s\)</span>, the new
+intercept is <span class="math notranslate nohighlight">\(\bar{y} - s \bar{x}\)</span>.</p>
+<div class="section" id="in-action">
+<h2>In action<a class="headerlink" href="#in-action" title="Permalink to this headline">¶</a></h2>
+<p>Here we try the technique above with some simulated data.</p>
+<p>Start with our usual imports:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># To get predictable random numbers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">If running in the IPython console, consider running <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> to enable
+interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal notranslate"><span class="pre">%matplotlib</span>
+<span class="pre">inline</span></code>.</p>
+</div>
+<p>Here are random numbers to simulate <span class="math notranslate nohighlight">\(\vec{x}\)</span> and <span class="math notranslate nohighlight">\(\vec{y}\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Values from normal distribution with mean 18, SD 2.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Values from normal distribution with mean 10, SD 1.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add half of x, to give linear relationship.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Plot simulated <cite>x</cite> and <cite>y</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">)</span>
+<span class="go">[...]</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//finding_ls_line-3.png">png</a>, <a class="reference external" href=".//finding_ls_line-3.hires.png">hires.png</a>, <a class="reference external" href=".//finding_ls_line-3.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/finding_ls_line-3.png" src="_images/finding_ls_line-3.png" />
+</div>
+<p>Make the design matrix for the full linear model estimation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p>Do full linear model least-squares estimation.  The first value in <cite>B</cite> is the
+intercept, the second is the slope.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">@</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span>
+<span class="go">array([-7.70,  5.47])</span>
+</pre></div>
+</div>
+<p>Now apply the algorithm above, to find the least-squares intercept and slope.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">get_line</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">x_bar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">x_m</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x_bar</span>
+<span class="gp">... </span>    <span class="n">slope</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x_m</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x_m</span> <span class="o">*</span> <span class="n">x_m</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">inter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_bar</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">inter</span><span class="p">,</span> <span class="n">slope</span>
+</pre></div>
+</div>
+<p>We get the same values as for the full estimation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_line</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">(-7.70217142823428, 5.467095969771854)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Teaching</a></h1>
+
+
+
+<p class="blurb">Teaching</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlated_regressors.html">Correlated regressors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdr.html">Thresholding with false discovery rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_point.html">Points on floats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_error.html">Floating point error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_basis.html">The Fourier basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei_orig.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glm_intro.html">Introduction to the general linear model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html">The argument in “Why most published research findings are false”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#some-terms">Some terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#putting-it-together">Putting it together</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutual_information.html">Mutual information as an image matching metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation.html">Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimizing_space.html">Calculating transformations between images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_vectors.html">Vectors and dot products</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pca_introduction.html">Introducing principal component analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_complex.html">Refresher on complex numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slice_timing.html">Slice timing correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_intro.html">An introduction to smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_as_convolution.html">Smoothing as convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some_sums.html">Some algebra with summation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_cosines.html">Sum of sines and cosines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_sinusoids.html">Sums of sinusoids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random_fields.html">Thresholding with random field theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Teaching repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation_2d.html">Formula for rotating a vector in 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_projection.html">Vector projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_angles.html">Angles between vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlation_projection.html">Correlation and projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix_rank.html">Matrix rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_interpolation.html">Linear interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_cdfs.html">p values from cumulative distribution functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_are_objects.html">Functions are objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_scope.html">Global and local scope of Python variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brisk_python.html">Brisk introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_formatting.html">Inserting values into strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_loops.html">“for” and “while”, “break” and “else:”</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://matthew.dynevor.org">Home page</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Matthew Brett.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/finding_ls_line.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -21,6 +21,7 @@ Mathematics
 * :doc:`vector_angles`;
 * :doc:`correlation_projection`;
 * :doc:`matrix_rank`;
+* :doc:`diag_inverse`;
 * :doc:`simple_complex`;
 * :doc:`fourier_no_ei`;
 * :doc:`pca_introduction`;
@@ -33,7 +34,8 @@ Statistics
 * :doc:`on_cdfs`;
 * :doc:`ioannidis_2005`;
 * `Exploring the R formula
-  <http://nbviewer.jupyter.org/github/matthew-brett/teaching/blob/master/exploring_r_formula.ipynb>`_.
+  <http://nbviewer.jupyter.org/github/matthew-brett/teaching/blob/master/exploring_r_formula.ipynb>`_;
+* :doc:`finding_ls_line`.
 
 Imaging
 =======

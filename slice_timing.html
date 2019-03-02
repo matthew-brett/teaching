@@ -4,25 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Slice timing correction &#8212; Tutorials on imaging, computing and mathematics</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="An introduction to smoothing" href="smoothing_intro.html" />
@@ -33,65 +26,66 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+  <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="slice-timing-correction">
 <h1>Slice timing correction<a class="headerlink" href="#slice-timing-correction" title="Permalink to this headline">¶</a></h1>
 <p>We load and configure libraries to start:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
-<p class="last">If running in the IPython console, consider running <code class="docutils literal"><span class="pre">%matplotlib</span></code> to enable
-interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal"><span class="pre">%matplotlib</span>
+<p class="last">If running in the IPython console, consider running <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> to enable
+interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal notranslate"><span class="pre">%matplotlib</span>
 <span class="pre">inline</span></code>.</p>
 </div>
 <p>The scanner collected each volume slice by slice. That means that each
 slice corresponds to a different time.</p>
 <p>For example, here is a 4D FMRI image:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="kn">as</span> <span class="nn">nib</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nibabel</span> <span class="k">as</span> <span class="nn">nib</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">nib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;an_example_4d.nii&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>You can get the 4D image from <a class="reference download internal" href="_downloads/an_example_4d.nii" download=""><code class="xref download docutils literal"><span class="pre">an_example_4d.nii</span></code></a>.</p>
+<p>You can get the 4D image from <a class="reference download internal" download="" href="_downloads/213a1d2593327d0630ee5009ba4534f1/an_example_4d.nii"><code class="xref download docutils literal notranslate"><span class="pre">an_example_4d.nii</span></code></a>.</p>
 <p>This 4D FMRI image has 16 slices on the third axis (slices in z) and 100
 volumes:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(64, 64, 16, 100)</span>
 </pre></div>
 </div>
 <p>The scanner acquired each of these 16 z slices at a different time, relative
 to the start of the TR.</p>
 <p>For the moment, let’s consider the first volume only.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vol0</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vol0</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Here is a sagittal section showing the z slice positions:</p>
 <p>Configure matplotlib</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;image.cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span>  <span class="c1"># default gray colormap</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;image.cmap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span>  <span class="c1"># default gray colormap</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;image.interpolation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;nearest&#39;</span>
 </pre></div>
 </div>
 <p>Show sagittal section:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">vol0</span><span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;bottom left&#39;</span><span class="p">)</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">vol0</span><span class="p">[</span><span class="mi">31</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;bottom left&#39;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sagittal section through first volume&#39;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sagittal section through first volume&#39;</span><span class="p">)</span> <span class="c1"># doctest: +SKIP</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x axis&#39;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x axis&#39;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;z axis&#39;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;z axis&#39;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
@@ -110,7 +104,7 @@ index 0, 2, 4, … 14 (where 0 is the bottom slice) then acquiring slices 1, 3,
 of the TR, but it collected the next slice in space, at slice index 1, half
 way through the TR.  Let’s say the TR == 2.0.  The time that the scanner takes
 to acquire a single slice will be:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TR</span> <span class="o">=</span> <span class="mf">2.0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TR</span> <span class="o">=</span> <span class="mf">2.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_z_slices</span> <span class="o">=</span> <span class="mi">16</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">time_for_single_slice</span> <span class="o">=</span> <span class="n">TR</span> <span class="o">/</span> <span class="n">n_z_slices</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">time_for_single_slice</span>
@@ -119,7 +113,7 @@ to acquire a single slice will be:</p>
 </div>
 <p>The times of acquisition of first and second slices (slice 0 and slice 1) will
 be:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">time_for_slice_0</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">time_for_slice_0</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">time_for_slice_1</span> <span class="o">=</span> <span class="n">time_for_single_slice</span> <span class="o">*</span> <span class="mi">8</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">time_for_slice_1</span>
 <span class="go">1.0</span>
@@ -140,8 +134,8 @@ we had acquired them all at the same time?</p>
 <h2>Slice timing is interpolation in time<a class="headerlink" href="#slice-timing-is-interpolation-in-time" title="Permalink to this headline">¶</a></h2>
 <p>Let’s first get a time series from the bottom slice.  Here’s what the bottom
 slice looks like, for the first volume:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">vol0</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">])</span>  
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Vol 0, z slice 0&#39;</span><span class="p">)</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">vol0</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Vol 0, z slice 0&#39;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//slice_timing-9.png">png</a>, <a class="reference external" href=".//slice_timing-9.hires.png">hires.png</a>, <a class="reference external" href=".//slice_timing-9.pdf">pdf</a>)</p>
@@ -151,7 +145,7 @@ slice looks like, for the first volume:</p>
 <p>We are going to collect a time series from a sample voxel from this slice, and
 the slice above it (slice 1):</p>
 <p>Our sample voxel coordinates</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vox_x</span> <span class="o">=</span> <span class="mi">14</span>  <span class="c1"># voxel coordinate in first dimension</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vox_x</span> <span class="o">=</span> <span class="mi">14</span>  <span class="c1"># voxel coordinate in first dimension</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vox_y</span> <span class="o">=</span> <span class="mi">22</span>  <span class="c1"># voxel coordinate in second dimension</span>
 </pre></div>
 </div>
@@ -161,24 +155,24 @@ the slice above it (slice 1):</p>
 <img alt="_images/slice_timing-11.png" src="_images/slice_timing-11.png" />
 </div>
 <p>We get the time courses from slice 0 and slice 1:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">time_course_slice_0</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">vox_x</span><span class="p">,</span> <span class="n">vox_y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">time_course_slice_0</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">vox_x</span><span class="p">,</span> <span class="n">vox_y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">time_course_slice_1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">vox_x</span><span class="p">,</span> <span class="n">vox_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
 </pre></div>
 </div>
 <p>The times of acquisition of the voxels for slice 0 are at the beginning of
 each TR:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vol_nos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vol_nos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vol_onset_times</span> <span class="o">=</span> <span class="n">vol_nos</span> <span class="o">*</span> <span class="n">TR</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">times_slice_0</span> <span class="o">=</span> <span class="n">vol_onset_times</span>
 </pre></div>
 </div>
 <p>The times of acquisition of the voxels in slice 1 are half a TR later:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">times_slice_1</span> <span class="o">=</span> <span class="n">vol_onset_times</span> <span class="o">+</span> <span class="n">TR</span> <span class="o">/</span> <span class="mf">2.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">times_slice_1</span> <span class="o">=</span> <span class="n">vol_onset_times</span> <span class="o">+</span> <span class="n">TR</span> <span class="o">/</span> <span class="mf">2.</span>
 </pre></div>
 </div>
 <p>We can plot the slice 0 time course against slice 0 acquisition time, along
 with the slice 1 time course against slice 1 acquisition time:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">,</span> <span class="n">time_course_slice_0</span><span class="p">,</span> <span class="s1">&#39;b:+&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">,</span> <span class="n">time_course_slice_0</span><span class="p">,</span> <span class="s1">&#39;b:+&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;slice 0 time course&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_1</span><span class="p">,</span> <span class="n">time_course_slice_1</span><span class="p">,</span> <span class="s1">&#39;r:+&#39;</span><span class="p">,</span>
@@ -188,7 +182,7 @@ with the slice 1 time course against slice 1 acquisition time:</p>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Time courses for slice 0, slice 1&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (seconds)&#39;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (seconds)&#39;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
@@ -198,7 +192,7 @@ with the slice 1 time course against slice 1 acquisition time:</p>
 </div>
 <p>We can’t see the time offset very well here, so let’s plot only the first 10
 values (values for the first 10 volumes):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;slice 0 time course&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_1</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_1</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;r:+&#39;</span><span class="p">,</span>
@@ -208,7 +202,7 @@ values (values for the first 10 volumes):</p>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;First 10 values for slice 0, slice 1&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (seconds)&#39;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (seconds)&#39;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
@@ -220,22 +214,22 @@ values (values for the first 10 volumes):</p>
 we collected them at the beginning of the TR — at the same times as the
 values for slice 0.</p>
 <p>One easy way to do this, might be to do the following for each of our desired
-samples at times <span class="math">\(t \in 0, 2, 4, ... 198\)</span>:</p>
+samples at times <span class="math notranslate nohighlight">\(t \in 0, 2, 4, ... 198\)</span>:</p>
 <ul class="simple">
-<li>draw a vertical line at <span class="math">\(x = t\)</span>;</li>
+<li>draw a vertical line at <span class="math notranslate nohighlight">\(x = t\)</span>;</li>
 <li>at the point where the line crosses the slice 1 time course, draw a
 horizontal line across to the y axis;</li>
 <li>take this new y value as our <em>interpolation</em> of the slice 1 course, at time
-<span class="math">\(t\)</span>.</li>
+<span class="math notranslate nohighlight">\(t\)</span>.</li>
 </ul>
 <p>Here are the vertical lines at the times of slice 0:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_1</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_1</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;r:+&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;First 10 values for slice 0, slice 1&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (seconds)&#39;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (seconds)&#39;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">min_y</span><span class="p">,</span> <span class="n">max_y</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
@@ -255,15 +249,15 @@ between two points that we have values for (inter == between).  It is <em>linear
 interpolation because we are getting our estimate by assuming a straight line
 between to the two known points in order to estimate our new value.</p>
 <p>In the general case of linear interpolation (see <a class="reference internal" href="linear_interpolation.html"><span class="doc">Linear interpolation</span></a>),
-we have two points, <span class="math">\(x_1, y_1\)</span> and <span class="math">\(x_2, y_2\)</span>.  In our case we have time on
+we have two points, <span class="math notranslate nohighlight">\(x_1, y_1\)</span> and <span class="math notranslate nohighlight">\(x_2, y_2\)</span>.  In our case we have time on
 the x axis and voxel values on the y axis.</p>
-<p>The formula for the linear interpolation <span class="math">\(y\)</span> value between two points <span class="math">\(x_1,
-y_1\)</span> and <span class="math">\(x_2, y_2\)</span> is:</p>
-<div class="math">
+<p>The formula for the linear interpolation <span class="math notranslate nohighlight">\(y\)</span> value between two points <span class="math notranslate nohighlight">\(x_1,
+y_1\)</span> and <span class="math notranslate nohighlight">\(x_2, y_2\)</span> is:</p>
+<div class="math notranslate nohighlight">
 \[y = y_1 + (x-x_1)\frac{y_2-y_1}{x_2-x_1}\]</div>
 <p>Now we know the formula for the interpolation, we can apply this to find the
 interpolated values from the slice 1 time course:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_1</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_1</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;r:+&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
@@ -293,16 +287,16 @@ interpolated values from the slice 1 time course:</p>
 <p>It is inconvenient to have to do this calculation for every point. We also
 need a good way of deciding what to do about values at the beginning and the
 end.</p>
-<p>Luckily <code class="docutils literal"><span class="pre">scipy</span></code> has a sub-package called <code class="docutils literal"><span class="pre">scipy.interpolate</span></code> that takes
+<p>Luckily <code class="docutils literal notranslate"><span class="pre">scipy</span></code> has a sub-package called <code class="docutils literal notranslate"><span class="pre">scipy.interpolate</span></code> that takes
 care of this for us.</p>
 <p>We use it by first creating an interpolation object, that will do the
 interpolation:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">InterpolatedUnivariateSpline</span> <span class="k">as</span> <span class="n">Interp</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">InterpolatedUnivariateSpline</span> <span class="k">as</span> <span class="n">Interp</span>
 </pre></div>
 </div>
-<p>This <code class="docutils literal"><span class="pre">Interp</span></code> class can do more fancy interpolation, but we will use it
-for linear interpolation (<code class="docutils literal"><span class="pre">k=1</span></code> argument below):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lin_interper</span> <span class="o">=</span> <span class="n">Interp</span><span class="p">(</span><span class="n">times_slice_1</span><span class="p">,</span> <span class="n">time_course_slice_1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<p>This <code class="docutils literal notranslate"><span class="pre">Interp</span></code> class can do more fancy interpolation, but we will use it
+for linear interpolation (<code class="docutils literal notranslate"><span class="pre">k=1</span></code> argument below):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lin_interper</span> <span class="o">=</span> <span class="n">Interp</span><span class="p">(</span><span class="n">times_slice_1</span><span class="p">,</span> <span class="n">time_course_slice_1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">lin_interper</span><span class="p">)</span>
 <span class="go">&lt;class ...InterpolatedUnivariateSpline&#39;&gt;</span>
 </pre></div>
@@ -311,10 +305,10 @@ for linear interpolation (<code class="docutils literal"><span class="pre">k=1</
 we passed in, given new x values.  Here it is in action replicating our manual
 calculation above.</p>
 <p>We use the interpolator to get the values for slice 0 times:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interped_vals</span> <span class="o">=</span> <span class="n">lin_interper</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interped_vals</span> <span class="o">=</span> <span class="n">lin_interper</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_0</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b:+&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_1</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">time_course_slice_1</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;r:+&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
@@ -330,10 +324,10 @@ calculation above.</p>
 </div>
 <p>So now we can just replace the original values from the red line (values for
 slice 1) with our best guess values if the slice had been taken at the same
-times as slice 0 (black <code class="docutils literal"><span class="pre">x</span></code> on the plot).  This gives us a whole new time
+times as slice 0 (black <code class="docutils literal notranslate"><span class="pre">x</span></code> on the plot).  This gives us a whole new time
 series, that has been <em>interpolated</em> from the original:</p>
 <p>We plot the interpolated time course against the slice 0 times:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">,</span> <span class="n">interped_vals</span><span class="p">,</span> <span class="s1">&#39;r:+&#39;</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">,</span> <span class="n">interped_vals</span><span class="p">,</span> <span class="s1">&#39;r:+&#39;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;interpolated slice 1 time course&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times_slice_0</span><span class="p">,</span> <span class="n">time_course_slice_0</span><span class="p">,</span> <span class="s1">&#39;b:+&#39;</span><span class="p">,</span>
@@ -343,7 +337,7 @@ series, that has been <em>interpolated</em> from the original:</p>
 <span class="go">&lt;...&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Slice 1 time course interpolated to slice 0 times&#39;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (seconds)&#39;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;time (seconds)&#39;</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
@@ -366,17 +360,83 @@ the other slices.  This new 4D image has been <em>slice time corrected</em>.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Slice timing correction</a><ul>
-<li><a class="reference internal" href="#slice-timing-is-interpolation-in-time">Slice timing is interpolation in time</a></li>
-<li><a class="reference internal" href="#slice-time-correction">Slice time correction</a></li>
+<h1 class="logo"><a href="index.html">Teaching</a></h1>
+
+
+
+<p class="blurb">Teaching</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlated_regressors.html">Correlated regressors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdr.html">Thresholding with false discovery rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_point.html">Points on floats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_error.html">Floating point error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_basis.html">The Fourier basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei_orig.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glm_intro.html">Introduction to the general linear model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html">The argument in “Why most published research findings are false”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#some-terms">Some terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#putting-it-together">Putting it together</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutual_information.html">Mutual information as an image matching metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation.html">Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimizing_space.html">Calculating transformations between images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_vectors.html">Vectors and dot products</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pca_introduction.html">Introducing principal component analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_complex.html">Refresher on complex numbers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Slice timing correction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#slice-timing-is-interpolation-in-time">Slice timing is interpolation in time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slice-time-correction">Slice time correction</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_intro.html">An introduction to smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_as_convolution.html">Smoothing as convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some_sums.html">Some algebra with summation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_cosines.html">Sum of sines and cosines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_sinusoids.html">Sums of sinusoids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random_fields.html">Thresholding with random field theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Teaching repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation_2d.html">Formula for rotating a vector in 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_projection.html">Vector projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_angles.html">Angles between vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlation_projection.html">Correlation and projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix_rank.html">Matrix rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_interpolation.html">Linear interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_cdfs.html">p values from cumulative distribution functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_are_objects.html">Functions are objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_scope.html">Global and local scope of Python variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brisk_python.html">Brisk introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_formatting.html">Inserting values into strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_loops.html">“for” and “while”, “break” and “else:”</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://matthew.dynevor.org">Home page</a></li>
+    
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -387,23 +447,26 @@ the other slices.  This new 4D image has been <em>slice time corrected</em>.</p>
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/slice_timing.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -412,8 +475,8 @@ the other slices.  This new 4D image has been <em>slice time corrected</em>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/slice_timing.rst.txt"

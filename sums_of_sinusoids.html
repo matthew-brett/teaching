@@ -4,25 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Sums of sinusoids &#8212; Tutorials on imaging, computing and mathematics</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Thresholding with random field theory" href="random_fields.html" />
@@ -33,16 +26,17 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+  <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="sums-of-sinusoids">
 <h1>Sums of sinusoids<a class="headerlink" href="#sums-of-sinusoids" title="Permalink to this headline">¶</a></h1>
 <p>This page largely based on <a class="reference external" href="http://math.stackexchange.com/a/1239123">http://math.stackexchange.com/a/1239123</a> with
@@ -50,45 +44,45 @@ thanks.</p>
 <div class="section" id="sinusoids">
 <h2>Sinusoids<a class="headerlink" href="#sinusoids" title="Permalink to this headline">¶</a></h2>
 <p>Paraphrasing <a class="reference external" href="http://mathworld.wolfram.com/Sinusoid.html">Wolfwram mathworld</a> - a <em>sinusoid</em> is a function of
-some variable, say <span class="math">\(t\)</span>, that is similar to the sine function but may be
+some variable, say <span class="math notranslate nohighlight">\(t\)</span>, that is similar to the sine function but may be
 shifted in phase, frequency, amplitude, or any combination of the three.</p>
 <p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Sine_wave">general formula for a sinusoid function</a> is:</p>
-<div class="math" id="equation-sin_sinusoid">
-<span class="eqno">(1)<a class="headerlink" href="#equation-sin_sinusoid" title="Permalink to this equation">¶</a></span>\[f(t) = A \sin(2 \pi f t + \theta) = A \sin(\omega t + \theta)\]</div>
+<div class="math notranslate nohighlight" id="equation-sin-sinusoid">
+<span class="eqno">(1)<a class="headerlink" href="#equation-sin-sinusoid" title="Permalink to this equation">¶</a></span>\[f(t) = A \sin(2 \pi f t + \theta) = A \sin(\omega t + \theta)\]</div>
 <p>where:</p>
 <ul class="simple">
-<li><span class="math">\(A\)</span> is the <em>amplitude</em> — the maximum value of the function;</li>
-<li><span class="math">\(f\)</span> is the <em>ordinary frequency</em> — the number of cycles per unit of <span class="math">\(t\)</span>;</li>
-<li><span class="math">\(\omega = 2 \pi f\)</span> is the <em>angular frequency</em> — the number of radians per
-unit of <span class="math">\(t\)</span>;</li>
-<li><span class="math">\(\theta\)</span> is the <em>phase offset</em> (in radians).</li>
+<li><span class="math notranslate nohighlight">\(A\)</span> is the <em>amplitude</em> — the maximum value of the function;</li>
+<li><span class="math notranslate nohighlight">\(f\)</span> is the <em>ordinary frequency</em> — the number of cycles per unit of <span class="math notranslate nohighlight">\(t\)</span>;</li>
+<li><span class="math notranslate nohighlight">\(\omega = 2 \pi f\)</span> is the <em>angular frequency</em> — the number of radians per
+unit of <span class="math notranslate nohighlight">\(t\)</span>;</li>
+<li><span class="math notranslate nohighlight">\(\theta\)</span> is the <em>phase offset</em> (in radians).</li>
 </ul>
-<p>The standard sine function <span class="math">\(f(t) = \sin(t)\)</span> is a special case of a sinusoid,
-with <span class="math">\(A = 1\)</span>, <span class="math">\(f = 1 / 2 \pi\)</span>, <span class="math">\(\theta = 0\)</span>.</p>
-<p>The standard cosine function <span class="math">\(f(t) = \cos(t)\)</span> is a special case of a sinusoid,
-with <span class="math">\(A = 1\)</span>, <span class="math">\(f = 1 / 2 \pi\)</span>, <span class="math">\(\theta = -pi / 2\)</span>.</p>
+<p>The standard sine function <span class="math notranslate nohighlight">\(f(t) = \sin(t)\)</span> is a special case of a sinusoid,
+with <span class="math notranslate nohighlight">\(A = 1\)</span>, <span class="math notranslate nohighlight">\(f = 1 / 2 \pi\)</span>, <span class="math notranslate nohighlight">\(\theta = 0\)</span>.</p>
+<p>The standard cosine function <span class="math notranslate nohighlight">\(f(t) = \cos(t)\)</span> is a special case of a sinusoid,
+with <span class="math notranslate nohighlight">\(A = 1\)</span>, <span class="math notranslate nohighlight">\(f = 1 / 2 \pi\)</span>, <span class="math notranslate nohighlight">\(\theta = -pi / 2\)</span>.</p>
 </div>
 <div class="section" id="the-sum-of-sinusoids-with-the-same-frequency-is-also-a-sinusoid">
 <h2>The sum of sinusoids with the same frequency is also a sinusoid<a class="headerlink" href="#the-sum-of-sinusoids-with-the-same-frequency-is-also-a-sinusoid" title="Permalink to this headline">¶</a></h2>
 <p>Remembering <a class="reference internal" href="angle_sum.html"><span class="doc">The angle sum rule</span></a>, we can write any sinusoid as a weighted sum of a
 sine and a cosine:</p>
-<div class="math" id="equation-sinusoid_as_sum">
-<span class="eqno">(2)<a class="headerlink" href="#equation-sinusoid_as_sum" title="Permalink to this equation">¶</a></span>\[\begin{split}A \sin(\omega t + \theta) = \\
+<div class="math notranslate nohighlight" id="equation-sinusoid-as-sum">
+<span class="eqno">(2)<a class="headerlink" href="#equation-sinusoid-as-sum" title="Permalink to this equation">¶</a></span>\[\begin{split}A \sin(\omega t + \theta) = \\
 A \sin(\omega t) \cos(\theta) + A \cos(\omega t) \sin(\theta) = \\
 A' \sin(\omega t) + A'' \cos(\omega t)\end{split}\]</div>
 <p>where:</p>
-<div class="math" id="equation-a_dash_dash">
-<span class="eqno">(3)<a class="headerlink" href="#equation-a_dash_dash" title="Permalink to this equation">¶</a></span>\[\begin{split}A' = A \cos(\theta) \\
+<div class="math notranslate nohighlight" id="equation-a-dash-dash">
+<span class="eqno">(3)<a class="headerlink" href="#equation-a-dash-dash" title="Permalink to this equation">¶</a></span>\[\begin{split}A' = A \cos(\theta) \\
 A'' = A \sin(\theta)\end{split}\]</div>
-<p>Equation <a class="reference internal" href="#equation-sinusoid_as_sum">(2)</a> also points us to the fact that any weighted
-sum of a sine and cosine can be written as a single sinusoid.  For any <span class="math">\(A',
-A''\)</span>, we can solve equations <a class="reference internal" href="#equation-a_dash_dash">(3)</a> for <span class="math">\(A, \theta\)</span>:</p>
-<div class="math">
+<p>Equation <a class="reference internal" href="#equation-sinusoid-as-sum">(2)</a> also points us to the fact that any weighted
+sum of a sine and cosine can be written as a single sinusoid.  For any <span class="math notranslate nohighlight">\(A',
+A''\)</span>, we can solve equations <a class="reference internal" href="#equation-a-dash-dash">(3)</a> for <span class="math notranslate nohighlight">\(A, \theta\)</span>:</p>
+<div class="math notranslate nohighlight">
 \[\begin{split}A = \sqrt{A'^2 + A''^2} \\
 \tan(\theta) = \frac{A''}{A'}\end{split}\]</div>
 <p>Thus, any sum of sinusoids, <em>of the same frequency</em> and therefore the same
-input <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
-<div class="math">
+input <span class="math notranslate nohighlight">\(\omega t\)</span>, is also a sinusoid:</p>
+<div class="math notranslate nohighlight">
 \[A \sin(\omega t + \theta) + B \sin(\omega t + \phi) =
 (A' + B') \sin(\omega t) + (A'' + B'') \cos(\omega t)\]</div>
 </div>
@@ -96,17 +90,83 @@ input <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Sums of sinusoids</a><ul>
-<li><a class="reference internal" href="#sinusoids">Sinusoids</a></li>
-<li><a class="reference internal" href="#the-sum-of-sinusoids-with-the-same-frequency-is-also-a-sinusoid">The sum of sinusoids with the same frequency is also a sinusoid</a></li>
+<h1 class="logo"><a href="index.html">Teaching</a></h1>
+
+
+
+<p class="blurb">Teaching</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlated_regressors.html">Correlated regressors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdr.html">Thresholding with false discovery rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_point.html">Points on floats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_error.html">Floating point error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_basis.html">The Fourier basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei_orig.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glm_intro.html">Introduction to the general linear model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html">The argument in “Why most published research findings are false”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#some-terms">Some terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#putting-it-together">Putting it together</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutual_information.html">Mutual information as an image matching metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation.html">Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimizing_space.html">Calculating transformations between images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_vectors.html">Vectors and dot products</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pca_introduction.html">Introducing principal component analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_complex.html">Refresher on complex numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slice_timing.html">Slice timing correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_intro.html">An introduction to smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_as_convolution.html">Smoothing as convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some_sums.html">Some algebra with summation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_cosines.html">Sum of sines and cosines</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sums of sinusoids</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sinusoids">Sinusoids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-sum-of-sinusoids-with-the-same-frequency-is-also-a-sinusoid">The sum of sinusoids with the same frequency is also a sinusoid</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="random_fields.html">Thresholding with random field theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Teaching repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation_2d.html">Formula for rotating a vector in 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_projection.html">Vector projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_angles.html">Angles between vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlation_projection.html">Correlation and projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix_rank.html">Matrix rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_interpolation.html">Linear interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_cdfs.html">p values from cumulative distribution functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_are_objects.html">Functions are objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_scope.html">Global and local scope of Python variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brisk_python.html">Brisk introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_formatting.html">Inserting values into strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_loops.html">“for” and “while”, “break” and “else:”</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://matthew.dynevor.org">Home page</a></li>
+    
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -117,23 +177,26 @@ input <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/sums_of_sinusoids.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -142,8 +205,8 @@ input <span class="math">\(\omega t\)</span>, is also a sinusoid:</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/sums_of_sinusoids.rst.txt"

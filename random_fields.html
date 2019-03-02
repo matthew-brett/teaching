@@ -4,25 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Thresholding with random field theory &#8212; Tutorials on imaging, computing and mathematics</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Teaching repo" href="README.html" />
@@ -33,16 +26,17 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+  <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="thresholding-with-random-field-theory">
 <h1>Thresholding with random field theory<a class="headerlink" href="#thresholding-with-random-field-theory" title="Permalink to this headline">¶</a></h1>
 <p>You can read this page without knowing any Python programming, by skipping
@@ -58,12 +52,12 @@ the book <a class="reference external" href="http://www.fil.ion.ucl.ac.uk/spm/do
 <p>Most statistics packages for functional imaging data create statistical
 parametric maps. These maps have a value for a certain statistic at each
 voxel in the brain, which is the result of the statistical test done on
-the scan data for that voxel, across scans. <span class="math">\(t\)</span> values and
-<span class="math">\(F\)</span> values are the most common.</p>
-<p>For the sake of simplicity, I’ll assume that we have <span class="math">\(Z\)</span> values
-instead of <span class="math">\(t\)</span> or <span class="math">\(F\)</span> values. <span class="math">\(Z\)</span> values are values
+the scan data for that voxel, across scans. <span class="math notranslate nohighlight">\(t\)</span> values and
+<span class="math notranslate nohighlight">\(F\)</span> values are the most common.</p>
+<p>For the sake of simplicity, I’ll assume that we have <span class="math notranslate nohighlight">\(Z\)</span> values
+instead of <span class="math notranslate nohighlight">\(t\)</span> or <span class="math notranslate nohighlight">\(F\)</span> values. <span class="math notranslate nohighlight">\(Z\)</span> values are values
 from the standard normal distribution. The same sort of arguments apply
-to <span class="math">\(t\)</span> and <span class="math">\(F\)</span> values, just with slightly different
+to <span class="math notranslate nohighlight">\(t\)</span> and <span class="math notranslate nohighlight">\(F\)</span> values, just with slightly different
 formulae.</p>
 <p>The null hypothesis for a particular statistical comparison probably
 will be that there is no change anywhere in the brain. For example, in a
@@ -75,29 +69,29 @@ be similar to a equivalent set of values from a random distribution.</p>
 </div>
 <div class="section" id="the-multiple-comparison-problem">
 <h2>The multiple comparison problem<a class="headerlink" href="#the-multiple-comparison-problem" title="Permalink to this headline">¶</a></h2>
-<p>Given we have a brain full of <span class="math">\(Z\)</span> values, how do we decide whether
-some of the <span class="math">\(Z\)</span> values are larger (more positive) than we would
+<p>Given we have a brain full of <span class="math notranslate nohighlight">\(Z\)</span> values, how do we decide whether
+some of the <span class="math notranslate nohighlight">\(Z\)</span> values are larger (more positive) than we would
 expect in a similar volume of random numbers? So, in a typical brain
-volume, we have, say, 200000 voxels and therefore 200000 <span class="math">\(Z\)</span>
-scores. Because we have so many <span class="math">\(Z\)</span> scores, even if the null
-hypothesis is true, we can be confident that some of these <span class="math">\(Z\)</span>
+volume, we have, say, 200000 voxels and therefore 200000 <span class="math notranslate nohighlight">\(Z\)</span>
+scores. Because we have so many <span class="math notranslate nohighlight">\(Z\)</span> scores, even if the null
+hypothesis is true, we can be confident that some of these <span class="math notranslate nohighlight">\(Z\)</span>
 scores will appear to be significant at standard statistical thresholds
-for the the individual <span class="math">\(Z\)</span> scores. For example, <span class="math">\(p\)</span> value
-thresholds such as <span class="math">\(p&lt;0.05 \)</span> or <span class="math">\(p&lt;0.01 \)</span> correspond to <span class="math">\(Z = 1.64 \)</span> and
-<span class="math">\(Z = 2.33 \)</span> respectively.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+for the the individual <span class="math notranslate nohighlight">\(Z\)</span> scores. For example, <span class="math notranslate nohighlight">\(p\)</span> value
+thresholds such as <span class="math notranslate nohighlight">\(p&lt;0.05 \)</span> or <span class="math notranslate nohighlight">\(p&lt;0.01 \)</span> correspond to <span class="math notranslate nohighlight">\(Z = 1.64 \)</span> and
+<span class="math notranslate nohighlight">\(Z = 2.33 \)</span> respectively.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Tell numpy to print numbers to 4 decimal places only</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
-<p class="last">If running in the IPython console, consider running <code class="docutils literal"><span class="pre">%matplotlib</span></code> to enable
-interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal"><span class="pre">%matplotlib</span>
+<p class="last">If running in the IPython console, consider running <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> to enable
+interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal notranslate"><span class="pre">%matplotlib</span>
 <span class="pre">inline</span></code>.</p>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.stats</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">normal_distribution</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The inverse normal CDF</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inv_n_cdf</span> <span class="o">=</span> <span class="n">normal_distribution</span><span class="o">.</span><span class="n">ppf</span>
@@ -105,12 +99,12 @@ interactive plots.  If running in the Jupyter Notebook, use <code class="docutil
 <span class="go">array([ 1.6449,  2.3263])</span>
 </pre></div>
 </div>
-<p>So, if we threshold our brain <span class="math">\(Z\)</span> scores at <span class="math">\(2.33 \)</span> or above, we
+<p>So, if we threshold our brain <span class="math notranslate nohighlight">\(Z\)</span> scores at <span class="math notranslate nohighlight">\(2.33 \)</span> or above, we
 would expect a number of false positives, even if the null hypothesis is
-true. So, how high should we set our <span class="math">\(Z\)</span> threshold, so that we can
-be confident that the remaining peak <span class="math">\(Z\)</span> scores are indeed too
+true. So, how high should we set our <span class="math notranslate nohighlight">\(Z\)</span> threshold, so that we can
+be confident that the remaining peak <span class="math notranslate nohighlight">\(Z\)</span> scores are indeed too
 high to be expected by chance? This is the multiple comparison problem.</p>
-<p>We could call all the <span class="math">\(Z\)</span> scores in the brain a “family” of tests.
+<p>We could call all the <span class="math notranslate nohighlight">\(Z\)</span> scores in the brain a “family” of tests.
 We want to find a threshold so that we can correct for a whole “family”
 of tests. For this reason, these multiple comparison correction methods
 are often known as <em>family-wise</em> correction methods.</p>
@@ -121,8 +115,8 @@ are often known as <em>family-wise</em> correction methods.</p>
 one. One standard method for dealing with this problem is to use the
 Bonferroni correction. For the Bonferroni correction, you set your p
 value threshold for accepting a test as being significant as
-<span class="math">\(alpha\)</span> / (number of tests), where <span class="math">\(alpha\)</span> is the false
-positive rate you are prepared to accept. <span class="math">\(alpha\)</span> is often 0.05,
+<span class="math notranslate nohighlight">\(alpha\)</span> / (number of tests), where <span class="math notranslate nohighlight">\(alpha\)</span> is the false
+positive rate you are prepared to accept. <span class="math notranslate nohighlight">\(alpha\)</span> is often 0.05,
 or one false positive in 20 repeats of your experiment. Thus, for a
 statistical map with 200000 voxels, the Bonferroni corrected p value
 would be 0.05 / 200000 = [equivalent Z] 5.03. We could then threshold
@@ -155,7 +149,7 @@ voxels).</li>
 <p>The reason this spatial correlation is a problem for the Bonferroni
 correction is that the Bonferroni correction assumes that you have
 performed some number of <em>independent</em> tests. If the voxels are
-spatially correlated, then the <span class="math">\(Z\)</span> scores at each voxel are not
+spatially correlated, then the <span class="math notranslate nohighlight">\(Z\)</span> scores at each voxel are not
 independent. This will make the correction too conservative.</p>
 </div>
 <div class="section" id="spatial-correlation-and-independent-observations">
@@ -165,7 +159,7 @@ with non-independent tests. Let us first make an example image out of
 random numbers. We generate 16384 random numbers, and then put them into
 a 128 by 128 array. This results in a 2D image of spatially independent
 random numbers.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Constants for image simulations etc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Constants for image simulations etc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">]</span> <span class="c1"># No of pixels in X, Y</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_voxels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># Total pixels</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s_fwhm</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># Smoothing in number of pixels in x, y</span>
@@ -195,12 +189,12 @@ negative.</p>
 <p>The Bonferroni correction is the right one for this image, because the
 image is made up of 128*128 = 16384 random numbers from a normal
 distribution. Therefore, from the Bonferroni correction
-(<span class="math">\(\alpha / N = 0.05 / 16384\)</span> = [Z equivalent] 4.52), we would
+(<span class="math notranslate nohighlight">\(\alpha / N = 0.05 / 16384\)</span> = [Z equivalent] 4.52), we would
 expect only 5 out of 100 such images to have one or more random numbers
 in the whole image larger than 4.52.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Bonferroni threshold for this image</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Bonferroni threshold for this image</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bonf_thresh</span> <span class="o">=</span> <span class="n">inv_n_cdf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="n">n_voxels</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">bonf_thresh</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bonf_thresh</span><span class="p">)</span>
 <span class="go">4.52277137559</span>
 </pre></div>
 </div>
@@ -218,12 +212,12 @@ zero. We have therefore to multiply our mean numbers by 8 to restore a
 variance of 1. This will make the numbers correspond to the normal
 distribution again. Why 8? Because the variance of the mean of 64
 numbers with variance 1 is 1/64, and so we need to multiply the numbers
-by <span class="math">\(\sqrt{64}\)</span> to restore a variance of 1. See: <a class="reference external" href="http://en.wikipedia.org/wiki/Variance#Sum_of_uncorrelated_variables_.28Bienaym.C3.A9_formula.29">Sum of
+by <span class="math notranslate nohighlight">\(\sqrt{64}\)</span> to restore a variance of 1. See: <a class="reference external" href="http://en.wikipedia.org/wiki/Variance#Sum_of_uncorrelated_variables_.28Bienaym.C3.A9_formula.29">Sum of
 uncorrelated
 variables</a>).</p>
 <p>The following is the image that results from the procedure above applied
 to our first set of random numbers:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Divide into FWHM chunks and fill square from mean value</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Divide into FWHM chunks and fill square from mean value</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sqmean_img</span> <span class="o">=</span> <span class="n">test_img</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s_fwhm</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">i_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">s_fwhm</span><span class="p">)</span>
@@ -251,12 +245,12 @@ to our first set of random numbers:</p>
 </div>
 <p>We still have 16384 numbers in our image. However, it is clear that we
 now have only (128 / 8) * (128 / 8) = 256 independent numbers. The
-appropriate Bonferroni correction would then be (<span class="math">\(\alpha / N\)</span> =
-0.05 / 256 = [<span class="math">\(Z\)</span> equivalent] 3.55). We would expect that if we
+appropriate Bonferroni correction would then be (<span class="math notranslate nohighlight">\(\alpha / N\)</span> =
+0.05 / 256 = [<span class="math notranslate nohighlight">\(Z\)</span> equivalent] 3.55). We would expect that if we
 took 100 such mean-by-square-processed random number images, then only 5
 of the 100 would have a square of values greater than 3.55 by chance.
 However, if we took the original Bonferroni correction for the number of
-pixels rather than the number of independent pixels, then our <span class="math">\(Z\)</span>
+pixels rather than the number of independent pixels, then our <span class="math notranslate nohighlight">\(Z\)</span>
 threshold would be far too conservative.</p>
 </div>
 <div class="section" id="smoothed-images-and-independent-observations">
@@ -272,8 +266,8 @@ numbers tends to zero. In order to return the variance of the numbers in
 the image to one, to match the normal distribution, the image must be
 multiplied by a scale factor. The derivation of this scaling factor is
 rather technical, and not relevant to the discussion here).</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># smooth random number image</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="kn">as</span> <span class="nn">spn</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># smooth random number image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.ndimage</span> <span class="k">as</span> <span class="nn">spn</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sd</span> <span class="o">=</span> <span class="n">s_fwhm</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">8.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># sigma for this FWHM</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">stest_img</span> <span class="o">=</span> <span class="n">spn</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">test_img</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;wrap&#39;</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -325,8 +319,8 @@ the averaging across pixels. If we knew how many independent
 observations there were, we could use a Bonferroni correction as we did
 for the mean-by-square example. Unfortunately it is not easy to work out
 how many independent observations there are in a smoothed image. So, we
-must take a different approach to determine our <span class="math">\(Z\)</span> score
-threshold. One approach used by <code class="docutils literal"><span class="pre">SPM</span></code> and other packages is to use
+must take a different approach to determine our <span class="math notranslate nohighlight">\(Z\)</span> score
+threshold. One approach used by <code class="docutils literal notranslate"><span class="pre">SPM</span></code> and other packages is to use
 Random Field Theory (RFT).</p>
 </div>
 <div class="section" id="using-random-field-theory">
@@ -337,7 +331,7 @@ use the resel count and some sophisticated maths to work out the
 expected <em>Euler characteristic</em> (EC) of your image, when it is
 thresholded at various levels. These expected ECs can be used to give
 the correct threshold for the required control of false positives
-(<span class="math">\(\alpha\)</span>).</p>
+(<span class="math notranslate nohighlight">\(\alpha\)</span>).</p>
 </div>
 <div class="section" id="what-is-a-resel">
 <h2>What is a resel?<a class="headerlink" href="#what-is-a-resel" title="Permalink to this headline">¶</a></h2>
@@ -350,7 +344,7 @@ pixels by 8 pixels (the smoothing that we applied). A resel is therefore
 a 8 by 8 pixel block, and the number of resels in our image is (128 / 8)
 * (128 / 8) = 256. Note that the number of resels depends only on the
 number of pixels, and the FWHM.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># No of resels</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># No of resels</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">s_fwhm</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">resels</span>
 <span class="go">256.0</span>
@@ -363,11 +357,11 @@ number of pixels, and the FWHM.</p>
 has been thresholded. For our purposes, the EC can be thought of as the
 number of blobs in an image after it has been thresholded. This is best
 explained by example. Let us take our smoothed image, and threshold it
-at <span class="math">\(Z &gt; 2.75\)</span>. This means we set to zero all the pixels with
-<span class="math">\(Z\)</span> scores less than or equal to 2.75, and set to one all the
-pixels with <span class="math">\(Z\)</span> scores greater than 2.75.</p>
+at <span class="math notranslate nohighlight">\(Z &gt; 2.75\)</span>. This means we set to zero all the pixels with
+<span class="math notranslate nohighlight">\(Z\)</span> scores less than or equal to 2.75, and set to one all the
+pixels with <span class="math notranslate nohighlight">\(Z\)</span> scores greater than 2.75.</p>
 <p>We make a function to show the thresholded image:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">show_threshed</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">th</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">show_threshed</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">th</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">thimg</span> <span class="o">=</span> <span class="p">(</span><span class="n">img</span> <span class="o">&gt;</span> <span class="n">th</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">thimg</span><span class="p">)</span>
@@ -377,7 +371,7 @@ pixels with <span class="math">\(Z\)</span> scores greater than 2.75.</p>
 <span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Smoothed image thresholded at Z &gt; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">th</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># threshold at 2.75 and display</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># threshold at 2.75 and display</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">show_threshed</span><span class="p">(</span><span class="n">stest_img</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -386,12 +380,12 @@ pixels with <span class="math">\(Z\)</span> scores greater than 2.75.</p>
 <img alt="_images/random_fields-9.png" src="_images/random_fields-9.png" />
 </div>
 <p>Zero in the image displays as black and one as white. In this picture,
-there are some blobs, corresponding to areas with <span class="math">\(Z\)</span> scores
+there are some blobs, corresponding to areas with <span class="math notranslate nohighlight">\(Z\)</span> scores
 higher than 2.75. The EC of this image is just the number of blobs. If
-we increase the threshold to <span class="math">\(3.25\)</span>, we find that some of the
-blobs disappear (the highest <span class="math">\(Z\)</span> values at the blob peaks were
+we increase the threshold to <span class="math notranslate nohighlight">\(3.25\)</span>, we find that some of the
+blobs disappear (the highest <span class="math notranslate nohighlight">\(Z\)</span> values at the blob peaks were
 less than 3.25).</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># threshold at 3.25 and display</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># threshold at 3.25 and display</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">show_threshed</span><span class="p">(</span><span class="n">stest_img</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -404,12 +398,12 @@ that if we know the number of resels in our image, it is possible to
 estimate the most likely value of the EC at any given threshold. The
 formula for this estimate, for two dimensions, is on page 906 of Worsley
 1992, implemented below. The graph shows the expected EC of our smoothed
-image, of 256 resels, when thresholded at different <span class="math">\(Z\)</span> values.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># expected EC at various Z thresholds, for two dimensions</span>
+image, of 256 resels, when thresholded at different <span class="math notranslate nohighlight">\(Z\)</span> values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># expected EC at various Z thresholds, for two dimensions</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">expected_ec_2d</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">resel_count</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">expected_ec_2d</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">resel_count</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="c1"># From Worsley 1992</span>
 <span class="gp">... </span>    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">resel_count</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">3.</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">))</span>
@@ -430,38 +424,38 @@ image, of 256 resels, when thresholded at different <span class="math">\(Z\)</sp
 <img alt="_images/random_fields-11.png" src="_images/random_fields-11.png" />
 </div>
 <p>Note that the graph does a reasonable job of predicting the EC in our
-image; at <span class="math">\(Z = 2.75\)</span> threshold it predicted an EC of 2.8, and at a
-<span class="math">\(Z = 3.25 \)</span> it predicted an EC of 0.74</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expected_ec_2d</span><span class="p">([</span><span class="mf">2.75</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">],</span> <span class="n">resels</span><span class="p">)</span>
+image; at <span class="math notranslate nohighlight">\(Z = 2.75\)</span> threshold it predicted an EC of 2.8, and at a
+<span class="math notranslate nohighlight">\(Z = 3.25 \)</span> it predicted an EC of 0.74</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expected_ec_2d</span><span class="p">([</span><span class="mf">2.75</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">],</span> <span class="n">resels</span><span class="p">)</span>
 <span class="go">array([ 2.825 ,  0.7449])</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="how-does-the-euler-characteristic-give-a-z-threshold">
 <h2>How does the Euler characteristic give a Z threshold?<a class="headerlink" href="#how-does-the-euler-characteristic-give-a-z-threshold" title="Permalink to this headline">¶</a></h2>
-<p>The useful feature of the expected EC is this: when the <span class="math">\(Z\)</span>
+<p>The useful feature of the expected EC is this: when the <span class="math notranslate nohighlight">\(Z\)</span>
 thresholds become high and the predicted EC drops towards zero, the
 expected EC is a good approximation of the probability of observing one
 or more blobs at that threshold. So, in the graph above, when the
-<span class="math">\(Z\)</span> threshold is set to 4, the expected EC is 0.06. This can be
+<span class="math notranslate nohighlight">\(Z\)</span> threshold is set to 4, the expected EC is 0.06. This can be
 rephrased thus: the probability of getting one or more regions where
-<span class="math">\(Z\)</span> is greater than 4, in a 2D image with 256 resels, is 0.06. So,
-we can use this for thresholding. If <span class="math">\(x\)</span> is the <span class="math">\(Z\)</span> score
+<span class="math notranslate nohighlight">\(Z\)</span> is greater than 4, in a 2D image with 256 resels, is 0.06. So,
+we can use this for thresholding. If <span class="math notranslate nohighlight">\(x\)</span> is the <span class="math notranslate nohighlight">\(Z\)</span> score
 threshold that gives an expected EC of 0.05, then, if we threshold our
-image at <span class="math">\(x\)</span>, we can expect that any blobs that remain have a
+image at <span class="math notranslate nohighlight">\(x\)</span>, we can expect that any blobs that remain have a
 probability of less than or equal to 0.05 that they have occurred by
-chance. The threshold <span class="math">\(x\)</span> depends only on the number of resels in
+chance. The threshold <span class="math notranslate nohighlight">\(x\)</span> depends only on the number of resels in
 our image.</p>
 </div>
 <div class="section" id="is-the-threshold-accurate-show-me">
 <h2>Is the threshold accurate? Show me!<a class="headerlink" href="#is-the-threshold-accurate-show-me" title="Permalink to this headline">¶</a></h2>
 <p>We can test the treshold with a simulation:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simulation to test the RFT threshold.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simulation to test the RFT threshold.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find approx threshold from the vector above.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># We&#39;re trying to find the Z value for which the expected EC is 0.05</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="n">Z</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">expEC</span><span class="o">&lt;=</span><span class="n">alpha</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">alphaTH</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">tmp</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Using Z threshold of </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">alphaTH</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using Z threshold of </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">alphaTH</span><span class="p">)</span>
 <span class="go">Using Z threshold of 4.054054</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make lots of smoothed images and find how many have one or more</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># blobs above threshold</span>
@@ -483,7 +477,7 @@ our image.</p>
 <span class="gp">... </span>    <span class="n">stimg</span> <span class="o">*=</span> <span class="n">scf</span>
 <span class="gp">... </span>    <span class="n">falsepos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">stimg</span> <span class="o">&gt;=</span> <span class="n">alphaTH</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">maxes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stimg</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;False positive rate in simulation was </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1"> expected)&#39;</span> <span class="o">%</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;False positive rate in simulation was </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1"> expected)&#39;</span> <span class="o">%</span>
 <span class="gp">... </span>      <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">falsepos</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">repeats</span><span class="p">),</span> <span class="n">alpha</span><span class="p">))</span>
 <span class="go">False positive rate in simulation was 0.049 (0.05 expected)</span>
 </pre></div>
@@ -495,10 +489,10 @@ our image.</p>
 as the number of independent observations. If it was the same, then
 instead of using RFT for the expected EC, we could use a Bonferroni
 correction for the number of resels. However, these two corrections give
-different answers. Thus, for an alpha of 0.05, the <span class="math">\(Z\)</span> threshold
-according to RFT, for our 256 resel image, is <span class="math">\(Z=4.05\)</span>. However,
+different answers. Thus, for an alpha of 0.05, the <span class="math notranslate nohighlight">\(Z\)</span> threshold
+according to RFT, for our 256 resel image, is <span class="math notranslate nohighlight">\(Z=4.05\)</span>. However,
 the Bonferroni threshold, for 256 independent tests, is 0.05/256 =
-[<span class="math">\(Z\)</span> equivalent] 3.55. So, although the RFT maths gives us a
+[<span class="math notranslate nohighlight">\(Z\)</span> equivalent] 3.55. So, although the RFT maths gives us a
 Bonferroni-like correction, it is not the same as a Bonferroni
 correction. As you can see from the simulation above, the random field
 correction gives a threshold very close the the observed value for a
@@ -510,15 +504,15 @@ correct threshold for 0.05 false positive rate.</p>
 <h2>To three dimensions<a class="headerlink" href="#to-three-dimensions" title="Permalink to this headline">¶</a></h2>
 <p>Exactly the same principles apply to a smoothed random number image in
 three dimensions. In this case, the EC is the number of 3D blobs -
-perhaps “globules” - of <span class="math">\(Z\)</span> scores above a certain threshold.
+perhaps “globules” - of <span class="math notranslate nohighlight">\(Z\)</span> scores above a certain threshold.
 Pixels might better be described as voxels (pixels with volume). The
 resels are now in 3D, and one resel is a cube of voxels that is of size
 (FWHM in x) by (FWHM in y) by (FWHM in z). The formula for the expected
 EC is different in the 3D case, but still depends only on the resels in
 the image. If we find the threshold giving an expected EC of 0.05, in
 3D, we have a threshold above which we can expect that any remaining
-<span class="math">\(Z\)</span> scores are unlikely to have occurred by chance, with a
-<span class="math">\(p&lt;0.05\)</span>.</p>
+<span class="math notranslate nohighlight">\(Z\)</span> scores are unlikely to have occurred by chance, with a
+<span class="math notranslate nohighlight">\(p&lt;0.05\)</span>.</p>
 </div>
 <div class="section" id="more-sophisticated-random-fielding">
 <h2>More sophisticated random fielding<a class="headerlink" href="#more-sophisticated-random-fielding" title="Permalink to this headline">¶</a></h2>
@@ -543,16 +537,16 @@ require a threshold for a small volume, such as a region of interest.</p>
 </div>
 <div class="section" id="t-and-f-statistic-volumes">
 <h3>t and F statistic volumes<a class="headerlink" href="#t-and-f-statistic-volumes" title="Permalink to this headline">¶</a></h3>
-<p>Keith Worsley’s 1996 paper gives the random field formulae for <span class="math">\(t\)</span>
-and <span class="math">\(F\)</span> statistics. <code class="docutils literal"><span class="pre">SPM</span></code> and other imaging packages generate
-<span class="math">\(t\)</span> and <span class="math">\(F\)</span> statistics maps. They use the random fields
-formulae for <span class="math">\(t\)</span>, <span class="math">\(F\)</span> to work out the corrected
-(family-wise) error rate at each <span class="math">\(t\)</span>, <span class="math">\(F\)</span> value.</p>
+<p>Keith Worsley’s 1996 paper gives the random field formulae for <span class="math notranslate nohighlight">\(t\)</span>
+and <span class="math notranslate nohighlight">\(F\)</span> statistics. <code class="docutils literal notranslate"><span class="pre">SPM</span></code> and other imaging packages generate
+<span class="math notranslate nohighlight">\(t\)</span> and <span class="math notranslate nohighlight">\(F\)</span> statistics maps. They use the random fields
+formulae for <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(F\)</span> to work out the corrected
+(family-wise) error rate at each <span class="math notranslate nohighlight">\(t\)</span>, <span class="math notranslate nohighlight">\(F\)</span> value.</p>
 </div>
 <div class="section" id="estimated-instead-of-assumed-smoothness">
 <h3>Estimated instead of assumed smoothness<a class="headerlink" href="#estimated-instead-of-assumed-smoothness" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal"><span class="pre">SPM</span></code> and other packages also <em>estimate</em> how smooth the images are,
-rather than assuming the smoothness as we have done here. <code class="docutils literal"><span class="pre">SPM</span></code> in
+<p><code class="docutils literal notranslate"><span class="pre">SPM</span></code> and other packages also <em>estimate</em> how smooth the images are,
+rather than assuming the smoothness as we have done here. <code class="docutils literal notranslate"><span class="pre">SPM</span></code> in
 particular looks at the the residuals from the statistical analysis to
 calculate the smoothness of the image, in terms of FWHM. From these
 calculations it derives estimates for the FWHM in x, y and z. Other than
@@ -561,27 +555,27 @@ this, the corrected statistics are calculated just as described above.</p>
 </div>
 <div class="section" id="a-brain-activation-example-in-spm">
 <h2>A brain activation example in SPM<a class="headerlink" href="#a-brain-activation-example-in-spm" title="Permalink to this headline">¶</a></h2>
-<p>Here is an <code class="docutils literal"><span class="pre">SPM8</span></code> results printout for a first level FMRI analysis.</p>
+<p>Here is an <code class="docutils literal notranslate"><span class="pre">SPM8</span></code> results printout for a first level FMRI analysis.</p>
 <img alt="_images/spm_t_results.svg" src="_images/spm_t_results.svg" /><p>You will see the FWHM values at the bottom of the page - here they are
 4.1 voxels in x, 4.0 voxels in y, and 4.1 voxels in z. These values are
 rounded; I can get the exact values from MATLAB by looking at
-<code class="docutils literal"><span class="pre">xSPM.FWHM</span></code>. These are:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0528</span><span class="p">,</span> <span class="mf">4.0172</span><span class="p">,</span> <span class="mf">4.1192</span><span class="p">]</span>
+<code class="docutils literal notranslate"><span class="pre">xSPM.FWHM</span></code>. These are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0528</span><span class="p">,</span> <span class="mf">4.0172</span><span class="p">,</span> <span class="mf">4.1192</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>A resel is therefore a block of volume approx:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resel_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">FWHM</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">resel_volume</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resel_volume</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">FWHM</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">resel_volume</span><span class="p">)</span>
 <span class="go">67.0643168927</span>
 </pre></div>
 </div>
 <p>That’s the value you see at the bottom the SPM printout after
-<code class="docutils literal"><span class="pre">resel</span> <span class="pre">=</span></code>. The resel count of 592.9 in the printout comes from a
+<code class="docutils literal notranslate"><span class="pre">resel</span> <span class="pre">=</span></code>. The resel count of 592.9 in the printout comes from a
 calculation based on this estimated FWHM smoothness and the shape of the
 brain. In other words it applies the search volume correction I
 mentioned above. If it did not apply this correction then the resel
 count would simply be the number of voxels divided by the resel volume:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="mi">44532</span> <span class="o">/</span> <span class="n">resel_volume</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="mi">44532</span> <span class="o">/</span> <span class="n">resel_volume</span><span class="p">)</span>
 <span class="go">664.019288697</span>
 </pre></div>
 </div>
@@ -595,12 +589,12 @@ left-hand side of the table, you see the values for the “peak-level”
 statistics. The extreme left gives the voxel location in millimeters.
 Our voxel of interest is at location x=-42, y=18, z=3.</p>
 <p>The value in the “T” column for this voxel is 4.89. This is the raw
-<span class="math">\(t\)</span> statistic. The column <span class="math">\(P_{FWE-corr}\)</span> gives the random
-field corrected <span class="math">\(p\)</span> value. In this case the value is 0.037. 0.037
+<span class="math notranslate nohighlight">\(t\)</span> statistic. The column <span class="math notranslate nohighlight">\(P_{FWE-corr}\)</span> gives the random
+field corrected <span class="math notranslate nohighlight">\(p\)</span> value. In this case the value is 0.037. 0.037
 is the expected EC, in a 3D image of 592.9 resels when thresholded at
-<span class="math">\(t = 4.89\)</span>. This is equivalent to saying that the probability of
-getting one or more blobs of <span class="math">\(t\)</span> value 4.89 or greater, is 0.037.</p>
-<p>There are other corrected <span class="math">\(p\)</span> values here, based on cluster size,
+<span class="math notranslate nohighlight">\(t = 4.89\)</span>. This is equivalent to saying that the probability of
+getting one or more blobs of <span class="math notranslate nohighlight">\(t\)</span> value 4.89 or greater, is 0.037.</p>
+<p>There are other corrected <span class="math notranslate nohighlight">\(p\)</span> values here, based on cluster size,
 and based on the false discovery rate, but I didn’t cover those
 corrections here.</p>
 </div>
@@ -626,36 +620,102 @@ Human Brain Mapping, 4:58-73.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Thresholding with random field theory</a><ul>
-<li><a class="reference internal" href="#the-problem">The problem</a></li>
-<li><a class="reference internal" href="#the-multiple-comparison-problem">The multiple comparison problem</a></li>
-<li><a class="reference internal" href="#why-not-a-bonferroni-correction">Why not a Bonferroni correction?</a></li>
-<li><a class="reference internal" href="#spatial-correlation">Spatial correlation</a></li>
-<li><a class="reference internal" href="#spatial-correlation-and-independent-observations">Spatial correlation and independent observations</a></li>
-<li><a class="reference internal" href="#smoothed-images-and-independent-observations">Smoothed images and independent observations</a></li>
-<li><a class="reference internal" href="#using-random-field-theory">Using random field theory</a></li>
-<li><a class="reference internal" href="#what-is-a-resel">What is a resel?</a></li>
-<li><a class="reference internal" href="#what-is-the-euler-characteristic">What is the Euler characteristic?</a></li>
-<li><a class="reference internal" href="#how-does-the-euler-characteristic-give-a-z-threshold">How does the Euler characteristic give a Z threshold?</a></li>
-<li><a class="reference internal" href="#is-the-threshold-accurate-show-me">Is the threshold accurate? Show me!</a></li>
-<li><a class="reference internal" href="#how-does-the-random-field-correction-compare-to-the-bonferroni-correction">How does the random field correction compare to the Bonferroni correction?</a></li>
-<li><a class="reference internal" href="#to-three-dimensions">To three dimensions</a></li>
-<li><a class="reference internal" href="#more-sophisticated-random-fielding">More sophisticated random fielding</a><ul>
-<li><a class="reference internal" href="#random-fields-and-search-volumes">Random fields and search volumes</a></li>
-<li><a class="reference internal" href="#t-and-f-statistic-volumes">t and F statistic volumes</a></li>
-<li><a class="reference internal" href="#estimated-instead-of-assumed-smoothness">Estimated instead of assumed smoothness</a></li>
+<h1 class="logo"><a href="index.html">Teaching</a></h1>
+
+
+
+<p class="blurb">Teaching</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlated_regressors.html">Correlated regressors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdr.html">Thresholding with false discovery rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_point.html">Points on floats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_error.html">Floating point error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_basis.html">The Fourier basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei_orig.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glm_intro.html">Introduction to the general linear model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html">The argument in “Why most published research findings are false”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#some-terms">Some terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#putting-it-together">Putting it together</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutual_information.html">Mutual information as an image matching metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation.html">Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimizing_space.html">Calculating transformations between images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_vectors.html">Vectors and dot products</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pca_introduction.html">Introducing principal component analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_complex.html">Refresher on complex numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slice_timing.html">Slice timing correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_intro.html">An introduction to smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_as_convolution.html">Smoothing as convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some_sums.html">Some algebra with summation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_cosines.html">Sum of sines and cosines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_sinusoids.html">Sums of sinusoids</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Thresholding with random field theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-problem">The problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-multiple-comparison-problem">The multiple comparison problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-not-a-bonferroni-correction">Why not a Bonferroni correction?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spatial-correlation">Spatial correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spatial-correlation-and-independent-observations">Spatial correlation and independent observations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smoothed-images-and-independent-observations">Smoothed images and independent observations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-random-field-theory">Using random field theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-resel">What is a resel?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-the-euler-characteristic">What is the Euler characteristic?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-the-euler-characteristic-give-a-z-threshold">How does the Euler characteristic give a Z threshold?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#is-the-threshold-accurate-show-me">Is the threshold accurate? Show me!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-the-random-field-correction-compare-to-the-bonferroni-correction">How does the random field correction compare to the Bonferroni correction?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#to-three-dimensions">To three dimensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-sophisticated-random-fielding">More sophisticated random fielding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#random-fields-and-search-volumes">Random fields and search volumes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#t-and-f-statistic-volumes">t and F statistic volumes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estimated-instead-of-assumed-smoothness">Estimated instead of assumed smoothness</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#a-brain-activation-example-in-spm">A brain activation example in SPM</a></li>
-<li><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-brain-activation-example-in-spm">A brain activation example in SPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Teaching repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation_2d.html">Formula for rotating a vector in 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_projection.html">Vector projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_angles.html">Angles between vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlation_projection.html">Correlation and projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix_rank.html">Matrix rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_interpolation.html">Linear interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_cdfs.html">p values from cumulative distribution functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_are_objects.html">Functions are objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_scope.html">Global and local scope of Python variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brisk_python.html">Brisk introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_formatting.html">Inserting values into strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_loops.html">“for” and “while”, “break” and “else:”</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://matthew.dynevor.org">Home page</a></li>
+    
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -666,23 +726,26 @@ Human Brain Mapping, 4:58-73.</p>
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/random_fields.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -691,8 +754,8 @@ Human Brain Mapping, 4:58-73.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/random_fields.rst.txt"

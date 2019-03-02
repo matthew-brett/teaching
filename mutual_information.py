@@ -43,7 +43,7 @@ plt.rcParams['image.interpolation'] = 'nearest'
 # First let us look at a T1 and T2 image. In fact these images are from the
 # Montreal Neurological Institute (MNI) standard brain atlas :
 # [http://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009](http://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009). See the
-# [LICENSE](https://matthew-brett.github.io/teaching/_downloads/LICENSE) file for copyright and usage of these images.
+# [LICENSE](https://matthew-brett.github.io/teaching/_downloads/ce5335955bfd64da0bf84341c541d399/LICENSE) file for copyright and usage of these images.
 
 import nibabel as nib
 t1_img = nib.load('mni_icbm152_t1_tal_nlin_asym_09a.nii')

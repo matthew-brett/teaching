@@ -380,7 +380,7 @@ assert np.allclose(x, x_again)  # as for np.fft.ifft, we get x back
 #
 # We can show the matrix calculation of the DFT as images. To do this we
 # will use some specialized code. If you are running this tutorial yourself,
-# download [dft_plots.py](https://matthew-brett.github.io/teaching/_downloads/dft_plots.py) to the directory containing this page.
+# download [dft_plots.py](https://matthew-brett.github.io/teaching/_downloads/6e4e895180fc1cacc59707bb8a3697dd/dft_plots.py) to the directory containing this page.
 
 # Import the custom DFT plotting code
 import dft_plots as dftp

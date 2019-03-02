@@ -216,7 +216,6 @@ age = [22.5,  25.3,  24.6,  21.4,
 # $$
 # y_i = c + b_1 x_{1, i} + b_2 x_{2, i} + e_i
 #
-#
 # $$
 #
 # In this model $\Xmat$ has three columns (ones, $\xvec_1$, and
@@ -232,7 +231,6 @@ age = [22.5,  25.3,  24.6,  21.4,
 # $$
 # y_i = b_1 x_{1, i} + b_2 x_{2, i} + ... b_p x_{p, i} + e_i
 #
-#
 # $$
 #
 # In the case of the models above, the first predictor $\xvec_1$
@@ -242,7 +240,6 @@ age = [22.5,  25.3,  24.6,  21.4,
 #
 # $$
 # \yvec = \Xmat \bvec + \evec
-#
 #
 # $$
 #

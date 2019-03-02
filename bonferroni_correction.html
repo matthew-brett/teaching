@@ -4,25 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Notes on the Bonferroni threshold &#8212; Tutorials on imaging, computing and mathematics</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Correlated regressors" href="correlated_regressors.html" />
@@ -33,16 +26,17 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+  <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="notes-on-the-bonferroni-threshold">
 <h1>Notes on the Bonferroni threshold<a class="headerlink" href="#notes-on-the-bonferroni-threshold" title="Permalink to this headline">¶</a></h1>
 <p>The Bonferroni threshold is a family-wise error threshold. That is, it
@@ -53,108 +47,108 @@ control the probability of detecting <em>any</em> positive tests in the family
 <h2>Family-wise error<a class="headerlink" href="#family-wise-error" title="Permalink to this headline">¶</a></h2>
 <p>The Bonferroni correction uses a result from probability theory to
 estimate the probability of finding <em>any</em> p value below a threshold
-<span class="math">\(\theta\)</span>, given a set (family) of <span class="math">\(n\)</span> p values.</p>
-<p>When we have found a threshold <span class="math">\(\theta\)</span> that gives a probability
-<span class="math">\(\le \alpha\)</span> that <em>any</em> p value will be <span class="math">\(\lt \theta\)</span>, then
-the threshold <span class="math">\(\theta\)</span> can be said to control the <em>family-wise
-error rate</em> at level <span class="math">\(\alpha\)</span>.</p>
+<span class="math notranslate nohighlight">\(\theta\)</span>, given a set (family) of <span class="math notranslate nohighlight">\(n\)</span> p values.</p>
+<p>When we have found a threshold <span class="math notranslate nohighlight">\(\theta\)</span> that gives a probability
+<span class="math notranslate nohighlight">\(\le \alpha\)</span> that <em>any</em> p value will be <span class="math notranslate nohighlight">\(\lt \theta\)</span>, then
+the threshold <span class="math notranslate nohighlight">\(\theta\)</span> can be said to control the <em>family-wise
+error rate</em> at level <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
 </div>
 <div class="section" id="not-the-bonferroni-correction">
 <h2>Not the Bonferroni correction<a class="headerlink" href="#not-the-bonferroni-correction" title="Permalink to this headline">¶</a></h2>
 <p>The inequality used for the Bonferroni is harder to explain than a
 simpler but related correction, called the Šidák correction.</p>
 <p>We will start with that, and then move on to the Bonferroni correction.</p>
-<p>The probability that all <span class="math">\(n\)</span> tests are <em>above</em> p value threshold
-<span class="math">\(\theta\)</span>, <em>assuming tests are independent</em>:</p>
-<div class="math">
+<p>The probability that all <span class="math notranslate nohighlight">\(n\)</span> tests are <em>above</em> p value threshold
+<span class="math notranslate nohighlight">\(\theta\)</span>, <em>assuming tests are independent</em>:</p>
+<div class="math notranslate nohighlight">
 \[(1 - \theta)^n\]</div>
-<p>Chance that one or more p values are <span class="math">\(\le \theta\)</span>:</p>
-<div class="math">
+<p>Chance that one or more p values are <span class="math notranslate nohighlight">\(\le \theta\)</span>:</p>
+<div class="math notranslate nohighlight">
 \[1 - (1 - \theta)^n\]</div>
-<p>We want a uncorrected p value threshold <span class="math">\(\theta\)</span> such that the
+<p>We want a uncorrected p value threshold <span class="math notranslate nohighlight">\(\theta\)</span> such that the
 expression above equals some desired family-wise error (FWE) rate
-<span class="math">\(\alpha_{fwe}\)</span>. For example we might want a p value threshold
-<span class="math">\(\theta\)</span> such that there is probability (<span class="math">\(\alpha_{fwe}\)</span>) of
-0.05 that there is one or more test with <span class="math">\(p \le \theta\)</span> in a
-family of <span class="math">\(n\)</span> tests, on the null hypothesis:</p>
-<div class="math">
+<span class="math notranslate nohighlight">\(\alpha_{fwe}\)</span>. For example we might want a p value threshold
+<span class="math notranslate nohighlight">\(\theta\)</span> such that there is probability (<span class="math notranslate nohighlight">\(\alpha_{fwe}\)</span>) of
+0.05 that there is one or more test with <span class="math notranslate nohighlight">\(p \le \theta\)</span> in a
+family of <span class="math notranslate nohighlight">\(n\)</span> tests, on the null hypothesis:</p>
+<div class="math notranslate nohighlight">
 \[\alpha_{fwe} = 1 - (1 - \theta)^n\]</div>
-<p>Solve for <span class="math">\(\theta\)</span>:</p>
-<div class="math">
+<p>Solve for <span class="math notranslate nohighlight">\(\theta\)</span>:</p>
+<div class="math notranslate nohighlight">
 \[\theta = 1 - (1 - \alpha_{fwe})^{1 / n}\]</div>
-<p>So, if we have 10 tests, and we want the threshold <span class="math">\(\theta\)</span> to
-control <span class="math">\(\alpha_{fwe}\)</span> at <span class="math">\(0.05\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">sidak_thresh</span><span class="p">(</span><span class="n">alpha_fwe</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<p>So, if we have 10 tests, and we want the threshold <span class="math notranslate nohighlight">\(\theta\)</span> to
+control <span class="math notranslate nohighlight">\(\alpha_{fwe}\)</span> at <span class="math notranslate nohighlight">\(0.05\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">sidak_thresh</span><span class="p">(</span><span class="n">alpha_fwe</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha_fwe</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">sidak_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sidak_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="go">0.0051161968918...</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="the-bonferroni-correction">
 <h2>The Bonferroni correction<a class="headerlink" href="#the-bonferroni-correction" title="Permalink to this headline">¶</a></h2>
-<p><span class="math">\(\newcommand{\P}{\mathbb P}\)</span> The Bonferroni correction uses a
+<p><span class="math notranslate nohighlight">\(\newcommand{\P}{\mathbb P}\)</span> The Bonferroni correction uses a
 result from probability theory, called Boole’s inequality. The result is
 by George Boole, of <em>boolean</em> fame. Boole’s inequality applies to the
-situation where we have a set of events <span class="math">\(A_1, A_2, A_3, \ldots \)</span>, each
-with some probability of occurring <span class="math">\({P}(A_1), {P}(A_2), {P}(A_3) \ldots
+situation where we have a set of events <span class="math notranslate nohighlight">\(A_1, A_2, A_3, \ldots \)</span>, each
+with some probability of occurring <span class="math notranslate nohighlight">\({P}(A_1), {P}(A_2), {P}(A_3) \ldots
 \)</span>. The inequality states that the probability of one or more of these
 events occurring is no greater than the sum of the probabilities of the
 individual events:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\P\biggl(\bigcup_{i} A_i\biggr) \le \sum_i {\mathbb P}(A_i).\]</div>
-<p>You can read the <span class="math">\(\cup\)</span> symbol here as “or” or “union”.
-<span class="math">\(\P\biggl(\bigcup_{i} A_i\biggr)\)</span> is the probability of the
+<p>You can read the <span class="math notranslate nohighlight">\(\cup\)</span> symbol here as “or” or “union”.
+<span class="math notranslate nohighlight">\(\P\biggl(\bigcup_{i} A_i\biggr)\)</span> is the probability of the
 <em>union</em> of all events, and therefore the probability of one or more
 event occurring.</p>
 <p>Boole’s inequality is true because:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</div>
-<p>where you can read <span class="math">\(\cap\)</span> as “and” or “intersection”. Because
-<span class="math">\(P(A \cap B) \ge 0\)</span>:</p>
-<div class="math">
+<p>where you can read <span class="math notranslate nohighlight">\(\cap\)</span> as “and” or “intersection”. Because
+<span class="math notranslate nohighlight">\(P(A \cap B) \ge 0\)</span>:</p>
+<div class="math notranslate nohighlight">
 \[\P(A \cup B) \le P(A) + P(B)\]</div>
-<p>In our case we have <span class="math">\(n\)</span> tests (the family of tests). Each test
+<p>In our case we have <span class="math notranslate nohighlight">\(n\)</span> tests (the family of tests). Each test
 that we label as significant is an event. Therefore the sum of the
-probabilities of all possible events is <span class="math">\(n\theta\)</span>.
-<span class="math">\({\mathbb P}\biggl(\bigcup_{i} A_i\biggr)\)</span> is our probability of
-family-wise error <span class="math">\(\alpha_{fwe}\)</span>. To get a threshold
-<span class="math">\(\theta\)</span> that controls family-wise error at <span class="math">\(\alpha\)</span>, we
+probabilities of all possible events is <span class="math notranslate nohighlight">\(n\theta\)</span>.
+<span class="math notranslate nohighlight">\({\mathbb P}\biggl(\bigcup_{i} A_i\biggr)\)</span> is our probability of
+family-wise error <span class="math notranslate nohighlight">\(\alpha_{fwe}\)</span>. To get a threshold
+<span class="math notranslate nohighlight">\(\theta\)</span> that controls family-wise error at <span class="math notranslate nohighlight">\(\alpha\)</span>, we
 need:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\frac{\alpha_{fwe}}{n} \le \theta\]</div>
-<p>For <span class="math">\(n=10\)</span> tests and an <span class="math">\(\alpha_{fwe}\)</span> of 0.05:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">bonferroni_thresh</span><span class="p">(</span><span class="n">alpha_fwe</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<p>For <span class="math notranslate nohighlight">\(n=10\)</span> tests and an <span class="math notranslate nohighlight">\(\alpha_{fwe}\)</span> of 0.05:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">bonferroni_thresh</span><span class="p">(</span><span class="n">alpha_fwe</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">alpha_fwe</span> <span class="o">/</span> <span class="n">n</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">bonferroni_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bonferroni_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="go">0.005</span>
 </pre></div>
 </div>
 <p>The Bonferroni correction does not assume the tests are independent.</p>
 <p>As we have seen, Boole’s inequality relies on:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\begin{split}\P(A \cup B) = P(A) + P(B) - P(A \cap B) \implies \\
 \P(A \cup B) \le P(A) + P(B)\end{split}\]</div>
 <p>This means that the Bonferroni correction will be conservative (the
 threshold will be too low) when the tests are positively dependent
-(<span class="math">\(P(A \cap B) \gg 0\)</span>).</p>
+(<span class="math notranslate nohighlight">\(P(A \cap B) \gg 0\)</span>).</p>
 <p>The Bonferroni
-<span class="math">\(\theta_{Bonferroni} = \alpha_{fwe} \space / \space n\)</span> is always
+<span class="math notranslate nohighlight">\(\theta_{Bonferroni} = \alpha_{fwe} \space / \space n\)</span> is always
 smaller (more conservative) than the Šidák correction
-<span class="math">\(\theta_{Šidák}\)</span> for <span class="math">\(n \ge 1\)</span>, but it is close:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="math notranslate nohighlight">\(\theta_{Šidák}\)</span> for <span class="math notranslate nohighlight">\(n \ge 1\)</span>, but it is close:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># print to 4 decimal places</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n_tests</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>  <span class="c1"># n = 1 through 10</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The exact threshold for independent p values</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">sidak_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_tests</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sidak_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_tests</span><span class="p">))</span>
 <span class="go">[ 0.05    0.0253  0.017   0.0127  0.0102  0.0085  0.0073  0.0064  0.0057</span>
 <span class="go">  0.0051]</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># The Bonferroni threshold for the same alpha, n</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">bonferroni_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_tests</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># The Bonferroni threshold for the same alpha, n</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bonferroni_thresh</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_tests</span><span class="p">))</span>
 <span class="go">[ 0.05    0.025   0.0167  0.0125  0.01    0.0083  0.0071  0.0063  0.0056</span>
 <span class="go">  0.005 ]</span>
 </pre></div>
@@ -168,18 +162,84 @@ smaller (more conservative) than the Šidák correction
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Notes on the Bonferroni threshold</a><ul>
-<li><a class="reference internal" href="#family-wise-error">Family-wise error</a></li>
-<li><a class="reference internal" href="#not-the-bonferroni-correction">Not the Bonferroni correction</a></li>
-<li><a class="reference internal" href="#the-bonferroni-correction">The Bonferroni correction</a></li>
+<h1 class="logo"><a href="index.html">Teaching</a></h1>
+
+
+
+<p class="blurb">Teaching</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notes on the Bonferroni threshold</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#family-wise-error">Family-wise error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#not-the-bonferroni-correction">Not the Bonferroni correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-bonferroni-correction">The Bonferroni correction</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="correlated_regressors.html">Correlated regressors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdr.html">Thresholding with false discovery rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_point.html">Points on floats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_error.html">Floating point error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_basis.html">The Fourier basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei_orig.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glm_intro.html">Introduction to the general linear model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html">The argument in “Why most published research findings are false”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#some-terms">Some terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#putting-it-together">Putting it together</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutual_information.html">Mutual information as an image matching metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation.html">Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimizing_space.html">Calculating transformations between images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_vectors.html">Vectors and dot products</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pca_introduction.html">Introducing principal component analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_complex.html">Refresher on complex numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slice_timing.html">Slice timing correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_intro.html">An introduction to smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_as_convolution.html">Smoothing as convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some_sums.html">Some algebra with summation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_cosines.html">Sum of sines and cosines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_sinusoids.html">Sums of sinusoids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random_fields.html">Thresholding with random field theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Teaching repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation_2d.html">Formula for rotating a vector in 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_projection.html">Vector projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_angles.html">Angles between vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlation_projection.html">Correlation and projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix_rank.html">Matrix rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_interpolation.html">Linear interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_cdfs.html">p values from cumulative distribution functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_are_objects.html">Functions are objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_scope.html">Global and local scope of Python variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brisk_python.html">Brisk introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_formatting.html">Inserting values into strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_loops.html">“for” and “while”, “break” and “else:”</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://matthew.dynevor.org">Home page</a></li>
+    
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -190,23 +250,26 @@ smaller (more conservative) than the Šidák correction
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/bonferroni_correction.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -215,8 +278,8 @@ smaller (more conservative) than the Šidák correction
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/bonferroni_correction.rst.txt"

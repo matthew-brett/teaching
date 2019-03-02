@@ -4,25 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Vector projection &#8212; Tutorials on imaging, computing and mathematics</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Angles between vectors" href="vector_angles.html" />
@@ -33,16 +26,17 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+  <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="vector-projection">
 <h1>Vector projection<a class="headerlink" href="#vector-projection" title="Permalink to this headline">¶</a></h1>
 <p>This here page follows the discussion in <a class="reference external" href="https://www.khanacademy.org/math/linear-algebra/matrix_transformations/lin_trans_examples/v/introduction-to-projections">this Khan academy video on
@@ -53,52 +47,52 @@ page.</p>
 from <a class="reference internal" href="on_vectors.html"><span class="doc">Vectors and dot products</span></a>.</p>
 <div class="section" id="start">
 <h2>Start<a class="headerlink" href="#start" title="Permalink to this headline">¶</a></h2>
-<p>Consider two vectors <span class="math">\(\vec{w}\)</span> and <span class="math">\(\vec{v}\)</span>.</p>
+<p>Consider two vectors <span class="math notranslate nohighlight">\(\vec{w}\)</span> and <span class="math notranslate nohighlight">\(\vec{v}\)</span>.</p>
 <a class="reference internal image-reference" href="_images/vector_projection.svg"><img alt="_images/vector_projection.svg" height="500" src="_images/vector_projection.svg" width="400" /></a>
-<p>We can scale <span class="math">\(\vec{v}\)</span> with a scalar <span class="math">\(c\)</span>.  By choosing the correct <span class="math">\(c\)</span> we can
-create any vector on the infinite length dotted line in the diagram.  <span class="math">\(c
+<p>We can scale <span class="math notranslate nohighlight">\(\vec{v}\)</span> with a scalar <span class="math notranslate nohighlight">\(c\)</span>.  By choosing the correct <span class="math notranslate nohighlight">\(c\)</span> we can
+create any vector on the infinite length dotted line in the diagram.  <span class="math notranslate nohighlight">\(c
 \vec{v}\)</span> defines this infinite line.</p>
-<p>We’re going to find the projection of <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span>, written as:</p>
-<div class="math">
+<p>We’re going to find the projection of <span class="math notranslate nohighlight">\(\vec{w}\)</span> onto <span class="math notranslate nohighlight">\(\vec{v}\)</span>, written as:</p>
+<div class="math notranslate nohighlight">
 \[\mathrm{proj}_\vec{v}\vec{w}\]</div>
-<p>The projection of <span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span> is a vector on the line <span class="math">\(c
-\vec{v}\)</span>.  Specifically it is <span class="math">\(c \vec{v}\)</span> such that the line joining <span class="math">\(\vec{w}\)</span>
-and <span class="math">\(c \vec{v}\)</span> is perpendicular to <span class="math">\(\vec{v}\)</span>.</p>
+<p>The projection of <span class="math notranslate nohighlight">\(\vec{w}\)</span> onto <span class="math notranslate nohighlight">\(\vec{v}\)</span> is a vector on the line <span class="math notranslate nohighlight">\(c
+\vec{v}\)</span>.  Specifically it is <span class="math notranslate nohighlight">\(c \vec{v}\)</span> such that the line joining <span class="math notranslate nohighlight">\(\vec{w}\)</span>
+and <span class="math notranslate nohighlight">\(c \vec{v}\)</span> is perpendicular to <span class="math notranslate nohighlight">\(\vec{v}\)</span>.</p>
 </div>
 <div class="section" id="why-is-it-called-projection">
 <h2>Why is it called projection?<a class="headerlink" href="#why-is-it-called-projection" title="Permalink to this headline">¶</a></h2>
-<p>Imagine a light source, parallel to <span class="math">\(\vec{v}\)</span>, above <span class="math">\(\vec{w}\)</span>.  The light
-would cast rays perpendicular to <span class="math">\(\vec{v}\)</span>.</p>
-<p><span class="math">\(\mathrm{proj}_\vec{v}\vec{w}\)</span> is the shadow cast by <span class="math">\(\vec{w}\)</span> on the line
-defined by <span class="math">\(\vec{v}\)</span>.</p>
+<p>Imagine a light source, parallel to <span class="math notranslate nohighlight">\(\vec{v}\)</span>, above <span class="math notranslate nohighlight">\(\vec{w}\)</span>.  The light
+would cast rays perpendicular to <span class="math notranslate nohighlight">\(\vec{v}\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\mathrm{proj}_\vec{v}\vec{w}\)</span> is the shadow cast by <span class="math notranslate nohighlight">\(\vec{w}\)</span> on the line
+defined by <span class="math notranslate nohighlight">\(\vec{v}\)</span>.</p>
 </div>
 <div class="section" id="calculating-the-projection">
 <h2>Calculating the projection<a class="headerlink" href="#calculating-the-projection" title="Permalink to this headline">¶</a></h2>
-<p>The vector connecting <span class="math">\(\vec{w}\)</span> and <span class="math">\(c \vec{v}\)</span> is <span class="math">\(\vec{w} - c \vec{v}\)</span>.</p>
-<p>We want to find <span class="math">\(c\)</span> such that <span class="math">\(\vec{w} - c \vec{v}\)</span> is perpendicular to
-<span class="math">\(\vec{v}\)</span>.</p>
+<p>The vector connecting <span class="math notranslate nohighlight">\(\vec{w}\)</span> and <span class="math notranslate nohighlight">\(c \vec{v}\)</span> is <span class="math notranslate nohighlight">\(\vec{w} - c \vec{v}\)</span>.</p>
+<p>We want to find <span class="math notranslate nohighlight">\(c\)</span> such that <span class="math notranslate nohighlight">\(\vec{w} - c \vec{v}\)</span> is perpendicular to
+<span class="math notranslate nohighlight">\(\vec{v}\)</span>.</p>
 <p>Two perpendicular vectors have <a class="reference internal" href="on_vectors.html#orthogonal-dot"><span class="std std-ref">vector dot product of zero</span></a>, so:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[(\vec{w} - c \vec{v}) \cdot \vec{v} = 0\]</div>
 <p>By distribution over addition of dot products:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\begin{split}(\vec{w} - c \vec{v}) \cdot \vec{v} = 0 \implies \\
 \vec{w} \cdot \vec{v} - c \vec{v} \cdot \vec{v} = 0 \implies \\
 \frac{\vec{w} \cdot \vec{v}}{\vec{v} \cdot \vec{v}} = c\end{split}\]</div>
-<p>Because <span class="math">\(\VL{v} = \sqrt(\vec{v} \cdot \vec{v})\)</span>:</p>
-<div class="math">
+<p>Because <span class="math notranslate nohighlight">\(\VL{v} = \sqrt(\vec{v} \cdot \vec{v})\)</span>:</p>
+<div class="math notranslate nohighlight">
 \[c = \frac{\vec{w} \cdot \vec{v}}{\VL{v}^2}\]</div>
 <p>So:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\mathrm{proj}_\vec{v}\vec{w} =
 \frac{\vec{w} \cdot \vec{v}}{\VL{v}^2} \vec{v}\]</div>
-<p>We can also write the projection in terms of the unit vector defined by <span class="math">\(\vec{v}\)</span>:</p>
-<div class="math">
+<p>We can also write the projection in terms of the unit vector defined by <span class="math notranslate nohighlight">\(\vec{v}\)</span>:</p>
+<div class="math notranslate nohighlight">
 \[\begin{split}\hat{u} \triangleq \frac{\vec{v}}{\VL{v}} \implies \\
 \mathrm{proj}_\vec{v}\vec{w} =
 \frac{\vec{w} \cdot \vec{v}}{\VL{v}} \vec{u}\end{split}\]</div>
-<p><span class="math">\(\frac{\vec{w} \cdot \vec{v}}{\VL{v}}\)</span> is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Scalar_projection">scalar projection</a> of
-<span class="math">\(\vec{w}\)</span> onto <span class="math">\(\vec{v}\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\frac{\vec{w} \cdot \vec{v}}{\VL{v}}\)</span> is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Scalar_projection">scalar projection</a> of
+<span class="math notranslate nohighlight">\(\vec{w}\)</span> onto <span class="math notranslate nohighlight">\(\vec{v}\)</span>.</p>
 </div>
 <div class="section" id="also-see">
 <h2>Also see<a class="headerlink" href="#also-see" title="Permalink to this headline">¶</a></h2>
@@ -112,19 +106,85 @@ defined by <span class="math">\(\vec{v}\)</span>.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Vector projection</a><ul>
-<li><a class="reference internal" href="#start">Start</a></li>
-<li><a class="reference internal" href="#why-is-it-called-projection">Why is it called projection?</a></li>
-<li><a class="reference internal" href="#calculating-the-projection">Calculating the projection</a></li>
-<li><a class="reference internal" href="#also-see">Also see</a></li>
+<h1 class="logo"><a href="index.html">Teaching</a></h1>
+
+
+
+<p class="blurb">Teaching</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlated_regressors.html">Correlated regressors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdr.html">Thresholding with false discovery rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_point.html">Points on floats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_error.html">Floating point error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_basis.html">The Fourier basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei_orig.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glm_intro.html">Introduction to the general linear model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html">The argument in “Why most published research findings are false”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#some-terms">Some terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#putting-it-together">Putting it together</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutual_information.html">Mutual information as an image matching metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation.html">Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimizing_space.html">Calculating transformations between images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_vectors.html">Vectors and dot products</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pca_introduction.html">Introducing principal component analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simple_complex.html">Refresher on complex numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slice_timing.html">Slice timing correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_intro.html">An introduction to smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_as_convolution.html">Smoothing as convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some_sums.html">Some algebra with summation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_cosines.html">Sum of sines and cosines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_sinusoids.html">Sums of sinusoids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random_fields.html">Thresholding with random field theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Teaching repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation_2d.html">Formula for rotating a vector in 2D</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Vector projection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#start">Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-is-it-called-projection">Why is it called projection?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calculating-the-projection">Calculating the projection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#also-see">Also see</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="vector_angles.html">Angles between vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlation_projection.html">Correlation and projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix_rank.html">Matrix rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_interpolation.html">Linear interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_cdfs.html">p values from cumulative distribution functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_are_objects.html">Functions are objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_scope.html">Global and local scope of Python variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brisk_python.html">Brisk introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_formatting.html">Inserting values into strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_loops.html">“for” and “while”, “break” and “else:”</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://matthew.dynevor.org">Home page</a></li>
+    
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -135,23 +195,26 @@ defined by <span class="math">\(\vec{v}\)</span>.</p>
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/vector_projection.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -160,8 +223,8 @@ defined by <span class="math">\(\vec{v}\)</span>.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/vector_projection.rst.txt"

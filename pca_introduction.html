@@ -4,25 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Introducing principal component analysis &#8212; Tutorials on imaging, computing and mathematics</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Refresher on complex numbers" href="simple_complex.html" />
@@ -33,16 +26,17 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <p><span class="math">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
+  <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
 <div class="section" id="introducing-principal-component-analysis">
 <h1>Introducing principal component analysis<a class="headerlink" href="#introducing-principal-component-analysis" title="Permalink to this headline">¶</a></h1>
 <p>This page was much inspired by these two excellent tutorials:</p>
@@ -62,27 +56,27 @@ I highly recommend <a class="reference external" href="https://ocw.mit.edu/cours
 </div>
 <div class="section" id="setting-the-scene">
 <h2>Setting the scene<a class="headerlink" href="#setting-the-scene" title="Permalink to this headline">¶</a></h2>
-<p>Let’s say I have some data in a 2D array <span class="math">\(\mathbf{X}\)</span>.</p>
+<p>Let’s say I have some data in a 2D array <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 <p>I have taken two different measures for each sample, and 50 samples.  We can
 also call the measures <em>variables</em> or <em>features</em>.  So, I have two <em>features</em>
 and 50 <em>samples</em>.</p>
 <p>I arrange the data so each column is one sample (I have 50 columns). Each row
 is one feature (or measure or variable) (I have two rows).</p>
 <p>Start by loading the libraries we need, and doing some configuration:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="kn">as</span> <span class="nn">npl</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">npl</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Display array values to 6 digits of precision</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
-<p class="last">If running in the IPython console, consider running <code class="docutils literal"><span class="pre">%matplotlib</span></code> to enable
-interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal"><span class="pre">%matplotlib</span>
+<p class="last">If running in the IPython console, consider running <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> to enable
+interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal notranslate"><span class="pre">%matplotlib</span>
 <span class="pre">inline</span></code>.</p>
 </div>
 <p>Make the data:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make some random, but predictable data</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make some random, but predictable data</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1966</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>
@@ -92,13 +86,13 @@ interactive plots.  If running in the Jupyter Notebook, use <code class="docutil
 <p>To make things simpler, I will subtract the mean across samples from each
 feature.  As each feature is one row, I need to subtract the mean of each row,
 from each value in the row:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Subtract mean across samples (mean of each feature)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Subtract mean across samples (mean of each feature)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_mean</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>The values for the two features (rows) in <span class="math">\(\mathbf{X}\)</span> are somewhat
+<p>The values for the two features (rows) in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> are somewhat
 correlated:</p>
 <p>(<a class="reference external" href=".//pca_introduction-4.png">png</a>, <a class="reference external" href=".//pca_introduction-4.hires.png">hires.png</a>, <a class="reference external" href=".//pca_introduction-4.pdf">pdf</a>)</p>
 <div class="figure">
@@ -107,25 +101,25 @@ correlated:</p>
 <p>We want to explain the variation in these data.</p>
 <p>The variation we want to explain is given by the sum of squares of the data
 values.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">squares</span> <span class="o">=</span> <span class="n">X</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">squares</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">squares</span> <span class="o">=</span> <span class="n">X</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">squares</span><span class="p">))</span>
 <span class="go">155.669289858</span>
 </pre></div>
 </div>
 <p>The sums of squares of the data can be thought of as the squared lengths of
-the 50 2D vectors in the columns of <span class="math">\(\mathbf{X}\)</span>.</p>
+the 50 2D vectors in the columns of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 <p>We can think of each sample as being a point on a 2D coordinate system, where
 the first feature is the position on the x axis, and the second is the
 position on the y axis. In fact, this is how we just plotted the values in the
 scatter plot. We can also think of each column as a 2D <em>vector</em>. Call
-<span class="math">\(\vec{v_j}\)</span> the vector contained in column <span class="math">\(j\)</span> of matrix
-<span class="math">\(\mathbf{X}\)</span>, where <span class="math">\(j \in 1..50\)</span>.</p>
+<span class="math notranslate nohighlight">\(\vec{v_j}\)</span> the vector contained in column <span class="math notranslate nohighlight">\(j\)</span> of matrix
+<span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, where <span class="math notranslate nohighlight">\(j \in 1..50\)</span>.</p>
 <p>The sum of squares across the features, is also the squared distance of the
 point (column) from the origin (0, 0). That is the same as saying that the sum
-of squares is the squared <em>length</em> of <span class="math">\(\vec{v_j}\)</span>.  This can be written
-as <span class="math">\(\|\vec{v_j}\|^2\)</span></p>
-<p>Take the first column / point / vector as an example (<span class="math">\(\vec{v_1}\)</span>):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v1</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+of squares is the squared <em>length</em> of <span class="math notranslate nohighlight">\(\vec{v_j}\)</span>.  This can be written
+as <span class="math notranslate nohighlight">\(\|\vec{v_j}\|^2\)</span></p>
+<p>Take the first column / point / vector as an example (<span class="math notranslate nohighlight">\(\vec{v_1}\)</span>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v1</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v1</span>
 <span class="go">array([ 3.378322,  2.068158])</span>
 </pre></div>
@@ -136,7 +130,7 @@ as <span class="math">\(\|\vec{v_j}\|^2\)</span></p>
 </div>
 <p>So, the sums of squares we are trying to explain can be expressed as the sum
 of the squared distance of each point from the origin, where the points
-(vectors) are the columns of <span class="math">\(\mathbf{X}\)</span>:</p>
+(vectors) are the columns of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>:</p>
 <p>(<a class="reference external" href=".//pca_introduction-8.png">png</a>, <a class="reference external" href=".//pca_introduction-8.hires.png">hires.png</a>, <a class="reference external" href=".//pca_introduction-8.pdf">pdf</a>)</p>
 <div class="figure">
 <img alt="_images/pca_introduction-8.png" src="_images/pca_introduction-8.png" />
@@ -145,7 +139,7 @@ of the squared distance of each point from the origin, where the points
 dotted red lines on the plot.</p>
 <p>At the moment, we have not explained anything, so our current unexplained sum
 of squares is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">155.669289858</span>
 </pre></div>
 </div>
@@ -156,28 +150,28 @@ try the excellent Khan academy videos linked from those pages if you are new to
 vector dot products or are feeling rusty.</p>
 <p>Let us now say that we want to try and find a line that will explain the
 maximum sum of squares in the data.</p>
-<p>We define our line with a unit vector <span class="math">\(\hat{u}\)</span>. All points on the line
-can be expressed with <span class="math">\(c\hat{u}\)</span> where <span class="math">\(c\)</span> is a scalar.</p>
-<p>Our best fitting line <span class="math">\(c\hat{u}\)</span> is the line that comes closest to the
+<p>We define our line with a unit vector <span class="math notranslate nohighlight">\(\hat{u}\)</span>. All points on the line
+can be expressed with <span class="math notranslate nohighlight">\(c\hat{u}\)</span> where <span class="math notranslate nohighlight">\(c\)</span> is a scalar.</p>
+<p>Our best fitting line <span class="math notranslate nohighlight">\(c\hat{u}\)</span> is the line that comes closest to the
 points, in the sense of minimizing the squared distance between the line and
 points.</p>
-<p id="distance-formula">Put a little more formally, for each point <span class="math">\(\vec{v_j}\)</span> we will find the
-distance <span class="math">\(d_j\)</span> between <span class="math">\(\vec{v_j}\)</span> and the line. We want the line
-with the smallest <span class="math">\(\sum_j{d_j^2}\)</span>.</p>
-<p>What do we mean by the <em>distance</em> in this case? The distance <span class="math">\(d_i\)</span> is
-the distance between the point <span class="math">\(\vec{v_i}\)</span> and the projection of that
-point onto the line <span class="math">\(c\hat{u}\)</span>. The projection of <span class="math">\(\vec{v_i}\)</span> onto
-the line defined by <span class="math">\(\hat{u}\)</span> is, <a class="reference internal" href="vector_projection.html"><span class="doc">as we remember</span></a>, given by <span class="math">\(c\hat{u}\)</span> where <span class="math">\(c =
+<p id="distance-formula">Put a little more formally, for each point <span class="math notranslate nohighlight">\(\vec{v_j}\)</span> we will find the
+distance <span class="math notranslate nohighlight">\(d_j\)</span> between <span class="math notranslate nohighlight">\(\vec{v_j}\)</span> and the line. We want the line
+with the smallest <span class="math notranslate nohighlight">\(\sum_j{d_j^2}\)</span>.</p>
+<p>What do we mean by the <em>distance</em> in this case? The distance <span class="math notranslate nohighlight">\(d_i\)</span> is
+the distance between the point <span class="math notranslate nohighlight">\(\vec{v_i}\)</span> and the projection of that
+point onto the line <span class="math notranslate nohighlight">\(c\hat{u}\)</span>. The projection of <span class="math notranslate nohighlight">\(\vec{v_i}\)</span> onto
+the line defined by <span class="math notranslate nohighlight">\(\hat{u}\)</span> is, <a class="reference internal" href="vector_projection.html"><span class="doc">as we remember</span></a>, given by <span class="math notranslate nohighlight">\(c\hat{u}\)</span> where <span class="math notranslate nohighlight">\(c =
 \vec{v_i}\cdot\hat{u}\)</span>.</p>
 <p>Looking at the scatter plot, we might consider trying a unit vector at 45
 degrees angle to the x axis:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_guessed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_guessed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">u_guessed</span>
 <span class="go">array([ 0.707107,  0.707107])</span>
 </pre></div>
 </div>
 <p>This is a unit vector:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">u_guessed</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">u_guessed</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 <span class="go">1.0</span>
 </pre></div>
 </div>
@@ -186,7 +180,7 @@ degrees angle to the x axis:</p>
 <img alt="_images/pca_introduction-12.png" src="_images/pca_introduction-12.png" />
 </div>
 <p>Let’s project all the points onto that line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_guessed_row</span> <span class="o">=</span> <span class="n">u_guessed</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># A row vector</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_guessed_row</span> <span class="o">=</span> <span class="n">u_guessed</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># A row vector</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c_values</span> <span class="o">=</span> <span class="n">u_guessed_row</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># c values for scaling u</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># scale u by values to get projection</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">projected</span> <span class="o">=</span> <span class="n">u_guessed_row</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c_values</span><span class="p">)</span>
@@ -197,26 +191,26 @@ degrees angle to the x axis:</p>
 <img alt="_images/pca_introduction-14.png" src="_images/pca_introduction-14.png" />
 </div>
 <p>The projected points (in red), are the positions of the points that can be
-explained by projection onto the guessed line defined by <span class="math">\(\hat{u}\)</span>. The
+explained by projection onto the guessed line defined by <span class="math notranslate nohighlight">\(\hat{u}\)</span>. The
 red projected points also have their own sum of squares:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">projected</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">projected</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">133.381320743</span>
 </pre></div>
 </div>
-<p>Because we are projecting onto a unit vector, <span class="math">\(\|c\hat{u}\|^2 = c\hat{u}
+<p>Because we are projecting onto a unit vector, <span class="math notranslate nohighlight">\(\|c\hat{u}\|^2 = c\hat{u}
 \cdot c\hat{u} = c^2(\hat{u} \cdot \hat{u}) = c^2\)</span>.  Therefore the
-<code class="docutils literal"><span class="pre">c_values</span></code> are also the lengths of the projected vectors, so the sum of
-squares of the <code class="docutils literal"><span class="pre">c_values</span></code> also gives us the sum of squares of the projected
+<code class="docutils literal notranslate"><span class="pre">c_values</span></code> are also the lengths of the projected vectors, so the sum of
+squares of the <code class="docutils literal notranslate"><span class="pre">c_values</span></code> also gives us the sum of squares of the projected
 points:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">c_values</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">c_values</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">133.381320743</span>
 </pre></div>
 </div>
 <p>As we will see later, this is the sum of squares from the original points that
-have been explained by projection onto <span class="math">\(\hat{u}\)</span>.</p>
+have been explained by projection onto <span class="math notranslate nohighlight">\(\hat{u}\)</span>.</p>
 <p>Once I have the projected points, I can calculate the remaining distance of
 the actual points from the projected points:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">remaining</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">projected</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">remaining</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">projected</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">remaining</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">distances</span>
 <span class="go">array([ 0.926426,  0.714267,  0.293125,  0.415278,  0.062126,  0.793188,</span>
@@ -231,16 +225,16 @@ the actual points from the projected points:</p>
 </pre></div>
 </div>
 <p>I can also express the overall (squared) remaining distance as the sum of
-squares.  The following is the code version of the formula <span class="math">\(\sum_j{d_j^2}\)</span>
+squares.  The following is the code version of the formula <span class="math notranslate nohighlight">\(\sum_j{d_j^2}\)</span>
 that you saw <a class="reference internal" href="#distance-formula"><span class="std std-ref">above</span></a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">remaining</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">remaining</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">22.2879691152</span>
 </pre></div>
 </div>
-<p>I’m going to try a whole lot of different values for <span class="math">\(\hat{u}\)</span>, so
+<p>I’m going to try a whole lot of different values for <span class="math notranslate nohighlight">\(\hat{u}\)</span>, so
 I will make a function to calculate the result of projecting the data
-onto a line defined by a unit vector <span class="math">\(\hat{u}\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">line_projection</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+onto a line defined by a unit vector <span class="math notranslate nohighlight">\(\hat{u}\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">line_projection</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Return columns of X projected onto line defined by u</span>
 <span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
 <span class="gp">... </span>    <span class="n">u</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># A row vector</span>
@@ -251,7 +245,7 @@ onto a line defined by a unit vector <span class="math">\(\hat{u}\)</span>:</p>
 </div>
 <p>Next a small function to return the vectors remaining after removing the
 projections:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">line_remaining</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">line_remaining</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="sd">&quot;&quot;&quot; Return vectors remaining after removing cols of X projected onto u</span>
 <span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
 <span class="gp">... </span>    <span class="n">projected</span> <span class="o">=</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
@@ -260,12 +254,12 @@ projections:</p>
 </pre></div>
 </div>
 <p>Using these little functions, I get the same answer as before:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">line_remaining</span><span class="p">(</span><span class="n">u_guessed</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">line_remaining</span><span class="p">(</span><span class="n">u_guessed</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">22.2879691152</span>
 </pre></div>
 </div>
-<p>Now I will make lots of <span class="math">\(\hat{u}\)</span> vectors spanning half the circle:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<p>Now I will make lots of <span class="math notranslate nohighlight">\(\hat{u}\)</span> vectors spanning half the circle:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">u_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
@@ -273,7 +267,7 @@ projections:</p>
 <span class="go">(2, 10000)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u_vectors</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;+&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u_vectors</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;+&#39;</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
 <span class="go">(...)</span>
@@ -286,7 +280,7 @@ projections:</p>
 </div>
 <p>I then get the remaining sum of squares after projecting onto each of these
 unit vectors:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">remaining_ss</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">remaining_ss</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">u_vectors</span><span class="o">.</span><span class="n">T</span><span class="p">:</span> <span class="c1"># iterate over columns</span>
 <span class="gp">... </span>    <span class="n">remaining</span> <span class="o">=</span> <span class="n">line_remaining</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">remaining_ss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">remaining</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
@@ -304,13 +298,13 @@ unit vectors:</p>
 </div>
 <p>It looks like the minimum value is for a unit vector at around angle 0.5
 radians:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">min_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">remaining_ss</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">min_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">remaining_ss</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">angle_best</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[</span><span class="n">min_i</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">angle_best</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">angle_best</span><span class="p">)</span>
 <span class="go">0.498620616186</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best</span> <span class="o">=</span> <span class="n">u_vectors</span><span class="p">[:,</span> <span class="n">min_i</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best</span> <span class="o">=</span> <span class="n">u_vectors</span><span class="p">[:,</span> <span class="n">min_i</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">u_best</span>
 <span class="go">array([ 0.878243,  0.478215])</span>
 </pre></div>
@@ -321,7 +315,7 @@ radians:</p>
 <img alt="_images/pca_introduction-27.png" src="_images/pca_introduction-27.png" />
 </div>
 <p>Do the projections for this best line look better than before?</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">projected</span> <span class="o">=</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u_best</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">projected</span> <span class="o">=</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u_best</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//pca_introduction-29.png">png</a>, <a class="reference external" href=".//pca_introduction-29.hires.png">hires.png</a>, <a class="reference external" href=".//pca_introduction-29.pdf">pdf</a>)</p>
@@ -331,7 +325,7 @@ radians:</p>
 <p>Now we have found a reasonable choice for our first best fitting line, we have
 a set of remaining vectors that we have not explained. These are the vectors
 between the projected and actual points.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">remaining</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">projected</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">remaining</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">projected</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//pca_introduction-31.png">png</a>, <a class="reference external" href=".//pca_introduction-31.hires.png">hires.png</a>, <a class="reference external" href=".//pca_introduction-31.pdf">pdf</a>)</p>
@@ -341,16 +335,16 @@ between the projected and actual points.</p>
 <p>What is the next line we need to best explain the remaining sum of squares? We
 want another unit vector orthogonal to the first.  This is because we have
 already explained everything that can be explained along the direction of
-<span class="math">\(\hat{u_{best}}\)</span>, and we only have two dimensions, so there is only one
+<span class="math notranslate nohighlight">\(\hat{u_{best}}\)</span>, and we only have two dimensions, so there is only one
 remaining direction along which the variation can occur.</p>
-<p>I get the new <span class="math">\(\hat{u_{orth}}\)</span> vector with a rotation by 90 degrees (<span class="math">\(\pi /
+<p>I get the new <span class="math notranslate nohighlight">\(\hat{u_{orth}}\)</span> vector with a rotation by 90 degrees (<span class="math notranslate nohighlight">\(\pi /
 2\)</span>):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best_orth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle_best</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle_best</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best_orth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle_best</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle_best</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)])</span>
 </pre></div>
 </div>
-<p>Within error due to the floating point calculations, <span class="math">\(\hat{u_{orth}}\)</span> is
-orthogonal to <span class="math">\(\hat{u_{best}}\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">u_best</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u_best_orth</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+<p>Within error due to the floating point calculations, <span class="math notranslate nohighlight">\(\hat{u_{orth}}\)</span> is
+orthogonal to <span class="math notranslate nohighlight">\(\hat{u_{best}}\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">u_best</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u_best_orth</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
@@ -358,57 +352,57 @@ orthogonal to <span class="math">\(\hat{u_{best}}\)</span>:</p>
 <div class="figure">
 <img alt="_images/pca_introduction-34.png" src="_images/pca_introduction-34.png" />
 </div>
-<p>The projections onto <span class="math">\(\hat{u_{orth}}\)</span> are the same as the remaining
+<p>The projections onto <span class="math notranslate nohighlight">\(\hat{u_{orth}}\)</span> are the same as the remaining
 points, because the remaining points already lie along the line defined by
-<span class="math">\(\hat{u_{orth}}\)</span>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_orth</span> <span class="o">=</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u_best_orth</span><span class="p">,</span> <span class="n">remaining</span><span class="p">)</span>
+<span class="math notranslate nohighlight">\(\hat{u_{orth}}\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_orth</span> <span class="o">=</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u_best_orth</span><span class="p">,</span> <span class="n">remaining</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">projected_onto_orth</span><span class="p">,</span> <span class="n">remaining</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>If we have really found the line <span class="math">\(\hat{u_{best}}\)</span> that removes the most
+<p>If we have really found the line <span class="math notranslate nohighlight">\(\hat{u_{best}}\)</span> that removes the most
 sum of squares from the remaining points, then this is the <em>first principal
-component</em> of <span class="math">\(\mathbf{X}\)</span>. <span class="math">\(\hat{u_{orth}}\)</span> will be the second
-principal component of <span class="math">\(\mathbf{X}\)</span>.</p>
+component</em> of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>. <span class="math notranslate nohighlight">\(\hat{u_{orth}}\)</span> will be the second
+principal component of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 <p>Now for a trick. Remember that the two principal components are orthogonal to
 one another. That means, that if I project the data onto the second principal
-component <span class="math">\(\hat{u_{orth}}\)</span>, I will (by the definition of orthogonal)
-pick up no component of the columns of <span class="math">\(\mathbf{X}\)</span> that is colinear
-(predictable via projection) with <span class="math">\(\hat{u_{best}}\)</span>.</p>
+component <span class="math notranslate nohighlight">\(\hat{u_{orth}}\)</span>, I will (by the definition of orthogonal)
+pick up no component of the columns of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> that is colinear
+(predictable via projection) with <span class="math notranslate nohighlight">\(\hat{u_{best}}\)</span>.</p>
 <p>This means that I can go straight to the projection onto the second component,
-from the original array <span class="math">\(\mathbf{X}\)</span>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># project onto second component direct from data</span>
+from the original array <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># project onto second component direct from data</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_orth_again</span> <span class="o">=</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u_best_orth</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Gives same answer as projecting remainder from first component</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">projected_onto_orth_again</span><span class="p">,</span> <span class="n">projected_onto_orth</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p><span class="math">\(\newcommand{\X}{\mathbf{X}}\newcommand{\U}{\mathbf{U}}\newcommand{\S}{\mathbf{\Sigma}}\newcommand{\V}{\mathbf{V}}\newcommand{\C}{\mathbf{C}}\)</span>
-For the same reason, I can calculate the scalar projections <span class="math">\(c\)</span> for both
+<p><span class="math notranslate nohighlight">\(\newcommand{\X}{\mathbf{X}}\newcommand{\U}{\mathbf{U}}\newcommand{\S}{\mathbf{\Sigma}}\newcommand{\V}{\mathbf{V}}\newcommand{\C}{\mathbf{C}}\)</span>
+For the same reason, I can calculate the scalar projections <span class="math notranslate nohighlight">\(c\)</span> for both
 components at the same time, by doing matrix multiplication. First assemble
-the components into the columns of a 2 by 2 array <span class="math">\(\U\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Components as columns in a 2 by 2 array</span>
+the components into the columns of a 2 by 2 array <span class="math notranslate nohighlight">\(\U\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Components as columns in a 2 by 2 array</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">u_best</span><span class="p">,</span> <span class="n">u_best_orth</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U</span>
 <span class="go">array([[ 0.878243, -0.478215],</span>
 <span class="go">       [ 0.478215,  0.878243]])</span>
 </pre></div>
 </div>
-<p>Call the 2 by 50 scalar projection values matrix <span class="math">\(\C\)</span>. I can calculate <span class="math">\(\C\)</span> in
+<p>Call the 2 by 50 scalar projection values matrix <span class="math notranslate nohighlight">\(\C\)</span>. I can calculate <span class="math notranslate nohighlight">\(\C\)</span> in
 one shot by matrix multiplication:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\C = \U^T \X\]</div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The first row of <span class="math">\(\C\)</span> has the scalar projections for the first component (the
-first component is the first column of <span class="math">\(\U\)</span>).  The second row has the scalar
+<p>The first row of <span class="math notranslate nohighlight">\(\C\)</span> has the scalar projections for the first component (the
+first component is the first column of <span class="math notranslate nohighlight">\(\U\)</span>).  The second row has the scalar
 projections for the second component.</p>
-<p>Finally, we can get the projections of the vectors in <span class="math">\(\X\)</span> onto the components
-in <span class="math">\(\U\)</span> by taking the dot products of the columns in <span class="math">\(\U\)</span> with the scalar
-projections in <span class="math">\(\C\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result of projecting on first component, via array dot</span>
+<p>Finally, we can get the projections of the vectors in <span class="math notranslate nohighlight">\(\X\)</span> onto the components
+in <span class="math notranslate nohighlight">\(\U\)</span> by taking the dot products of the columns in <span class="math notranslate nohighlight">\(\U\)</span> with the scalar
+projections in <span class="math notranslate nohighlight">\(\C\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result of projecting on first component, via array dot</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># np.outer does the equivalent of a matrix multiply of a column vector</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># with a row vector, to give a matrix.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
@@ -417,7 +411,7 @@ projections in <span class="math">\(\C\)</span>:</p>
 <span class="go">True</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result of projecting on second component, via np.outer</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result of projecting on second component, via np.outer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">projected_onto_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The same as doing the original calculation</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">projected_onto_2</span><span class="p">,</span> <span class="n">line_projection</span><span class="p">(</span><span class="n">u_best_orth</span><span class="p">,</span> <span class="n">X</span><span class="p">))</span>
@@ -430,30 +424,30 @@ projections in <span class="math">\(\C\)</span>:</p>
 <p>My original points were expressed in the orthogonal, standard x and y axes. My
 principal components give new orthogonal axes. When I project, I have just
 re-expressed my original points on these new orthogonal axes. Let’s call the
-projections of <span class="math">\(\vec{v_1}\)</span> onto the first and second components:
-<span class="math">\(proj_1\vec{v_1}\)</span>, <span class="math">\(proj_2\vec{v_1}\)</span>.</p>
-<p>For example, here is my original first point <span class="math">\(\vec{v_1}\)</span> expressed using
+projections of <span class="math notranslate nohighlight">\(\vec{v_1}\)</span> onto the first and second components:
+<span class="math notranslate nohighlight">\(proj_1\vec{v_1}\)</span>, <span class="math notranslate nohighlight">\(proj_2\vec{v_1}\)</span>.</p>
+<p>For example, here is my original first point <span class="math notranslate nohighlight">\(\vec{v_1}\)</span> expressed using
 the projections onto the principal component axes:</p>
 <p>(<a class="reference external" href=".//pca_introduction-40.png">png</a>, <a class="reference external" href=".//pca_introduction-40.hires.png">hires.png</a>, <a class="reference external" href=".//pca_introduction-40.pdf">pdf</a>)</p>
 <div class="figure">
 <img alt="_images/pca_introduction-40.png" src="_images/pca_introduction-40.png" />
 </div>
-<p>We have re-expressed <span class="math">\(\vec{v_1}\)</span> by two new orthogonal vectors
-<span class="math">\(proj_1\vec{v_1}\)</span> plus <span class="math">\(proj_2\vec{v_1}\)</span>. In symbols:
-<span class="math">\(\vec{v_1} = proj_1\vec{v_1} + proj_2\vec{v_1}\)</span>.</p>
+<p>We have re-expressed <span class="math notranslate nohighlight">\(\vec{v_1}\)</span> by two new orthogonal vectors
+<span class="math notranslate nohighlight">\(proj_1\vec{v_1}\)</span> plus <span class="math notranslate nohighlight">\(proj_2\vec{v_1}\)</span>. In symbols:
+<span class="math notranslate nohighlight">\(\vec{v_1} = proj_1\vec{v_1} + proj_2\vec{v_1}\)</span>.</p>
 <p>The sum of component 1 projections and the component 2 projections add up to
 the original vectors (points).</p>
 <p>Sure enough, if I sum up the data projected onto the first component and the
 data projected onto the second, I get back the original data:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">projected_onto_1</span> <span class="o">+</span> <span class="n">projected_onto_2</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">projected_onto_1</span> <span class="o">+</span> <span class="n">projected_onto_2</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
 <p>Doing the sum above is the same operation as matrix multiplication of the
-components <span class="math">\(\U\)</span> with the scalar projections <span class="math">\(\C\)</span>.  Seeing that this is so
+components <span class="math notranslate nohighlight">\(\U\)</span> with the scalar projections <span class="math notranslate nohighlight">\(\C\)</span>.  Seeing that this is so
 involves writing out a few cells of the matrix multiplication in symbols and
 staring at it for a while.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_again</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_again</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">data_again</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
@@ -464,35 +458,35 @@ staring at it for a while.</p>
 <p>Notice also that I have partitioned the sums of squares of the data into a
 part that can be explained by the first component, and a part that can be
 explained by the second:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Total sum of squares</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Total sum of squares</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">155.669289858</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sum of squares in the projection onto the first</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sum of squares in the projection onto the first</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ss_in_first</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">projected_onto_1</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sum of squares in the projection onto the second</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ss_in_second</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">projected_onto_2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># They add up to the total sum of squares</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">((</span><span class="n">ss_in_first</span><span class="p">,</span> <span class="n">ss_in_second</span><span class="p">,</span> <span class="n">ss_in_first</span> <span class="o">+</span> <span class="n">ss_in_second</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">((</span><span class="n">ss_in_first</span><span class="p">,</span> <span class="n">ss_in_second</span><span class="p">,</span> <span class="n">ss_in_first</span> <span class="o">+</span> <span class="n">ss_in_second</span><span class="p">))</span>
 <span class="go">(143.97317154347922, 11.696118314873956, 155.66928985835318)</span>
 </pre></div>
 </div>
 <p>Why is this?</p>
-<p>Consider the first vector in <span class="math">\(\mathbf{X}\)</span> : <span class="math">\(\vec{v_1}\)</span>. We have
-re-expressed the squared length of <span class="math">\(\vec{v_1}\)</span> with the squared length
-of <span class="math">\(proj_1\vec{v_1}\)</span> plus the squared length of <span class="math">\(proj_2\vec{v_1}\)</span>.
-The length of <span class="math">\(\vec{v_1}\)</span> is unchanged, but we now have two new
+<p>Consider the first vector in <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> : <span class="math notranslate nohighlight">\(\vec{v_1}\)</span>. We have
+re-expressed the squared length of <span class="math notranslate nohighlight">\(\vec{v_1}\)</span> with the squared length
+of <span class="math notranslate nohighlight">\(proj_1\vec{v_1}\)</span> plus the squared length of <span class="math notranslate nohighlight">\(proj_2\vec{v_1}\)</span>.
+The length of <span class="math notranslate nohighlight">\(\vec{v_1}\)</span> is unchanged, but we now have two new
 orthogonal vectors making up the sides of the right angled triangle of which
-<span class="math">\(\vec{v_1}\)</span> is the hypotenuse. The total sum of squares in the data is
+<span class="math notranslate nohighlight">\(\vec{v_1}\)</span> is the hypotenuse. The total sum of squares in the data is
 given by:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\begin{split}\sum_j x^2 + \sum_j y^2 = \\
 \sum_j \left( x^2 + y^2 \right) = \\
 \sum_j \|\vec{v_1}\|^2 = \\
 \sum_j \left( \|proj_1\vec{v_1}\|^2 + \|proj_2\vec{v_1}\|^2 \right) = \\
 \sum_j \|proj_1\vec{v_1}\|^2 + \sum_j \|proj_2\vec{v_1}\|^2 \\\end{split}\]</div>
-<p>where <span class="math">\(j\)</span> indexes samples - <span class="math">\(j \in 1..50\)</span> in our case.</p>
+<p>where <span class="math notranslate nohighlight">\(j\)</span> indexes samples - <span class="math notranslate nohighlight">\(j \in 1..50\)</span> in our case.</p>
 <p>The first line shows the partition of the sum of squares into standard x and y
 coordinates, and the last line shows the partition into the first and second
 principal components.</p>
@@ -504,109 +498,109 @@ principal components.</p>
 and dumb search that I did above.</p>
 <p>For reasons that we don’t have space to go into, we can get the components
 using <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value_decomposition">Singular Value Decomposition</a> (SVD) of
-<span class="math">\(\mathbf{X}\)</span>.</p>
+<span class="math notranslate nohighlight">\(\mathbf{X}\)</span>.</p>
 <p>See <a class="reference external" href="http://arxiv.org/abs/1404.1100">http://arxiv.org/abs/1404.1100</a> for more detail.</p>
 <p>The SVD on an array containing only real (not complex) values such as
-<span class="math">\(\mathbf{X}\)</span> is defined as:</p>
-<div class="math">
+<span class="math notranslate nohighlight">\(\mathbf{X}\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
 \[\X = \U \Sigma \V^T\]</div>
-<p>If <span class="math">\(\X\)</span> is shape <span class="math">\(M\)</span> by <span class="math">\(N\)</span> then <span class="math">\(\U\)</span> is an <span class="math">\(M\)</span> by <span class="math">\(M\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Orthogonal_matrix">orthogonal
-matrix</a>, <span class="math">\(\S\)</span> is a
-<a class="reference external" href="https://en.wikipedia.org/wiki/Diagonal_matrix">diagonal matrix</a> shape <span class="math">\(M\)</span>
-by <span class="math">\(N\)</span>, and <span class="math">\(\V^T\)</span> is an <span class="math">\(N\)</span> by <span class="math">\(N\)</span> orthogonal matrix.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<p>If <span class="math notranslate nohighlight">\(\X\)</span> is shape <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> then <span class="math notranslate nohighlight">\(\U\)</span> is an <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(M\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Orthogonal_matrix">orthogonal
+matrix</a>, <span class="math notranslate nohighlight">\(\S\)</span> is a
+<a class="reference external" href="https://en.wikipedia.org/wiki/Diagonal_matrix">diagonal matrix</a> shape <span class="math notranslate nohighlight">\(M\)</span>
+by <span class="math notranslate nohighlight">\(N\)</span>, and <span class="math notranslate nohighlight">\(\V^T\)</span> is an <span class="math notranslate nohighlight">\(N\)</span> by <span class="math notranslate nohighlight">\(N\)</span> orthogonal matrix.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(2, 2)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">VT</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(50, 50)</span>
 </pre></div>
 </div>
-<p>The components are in the columns of the returned matrix <span class="math">\(\U\)</span>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span>
+<p>The components are in the columns of the returned matrix <span class="math notranslate nohighlight">\(\U\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span>
 <span class="go">array([[-0.878298, -0.478114],</span>
 <span class="go">       [-0.478114,  0.878298]])</span>
 </pre></div>
 </div>
-<p>Remember that a vector <span class="math">\(\vec{r}\)</span> defines the same line as the
-vector <span class="math">\(-\vec{r}\)</span>, so we do not care about a flip in the sign of
+<p>Remember that a vector <span class="math notranslate nohighlight">\(\vec{r}\)</span> defines the same line as the
+vector <span class="math notranslate nohighlight">\(-\vec{r}\)</span>, so we do not care about a flip in the sign of
 the principal components:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best</span>
 <span class="go">array([ 0.878243,  0.478215])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best_orth</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u_best_orth</span>
 <span class="go">array([-0.478215,  0.878243])</span>
 </pre></div>
 </div>
-<p>The returned vector <code class="docutils literal"><span class="pre">S</span></code> gives the <span class="math">\(M\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value">singular
+<p>The returned vector <code class="docutils literal notranslate"><span class="pre">S</span></code> gives the <span class="math notranslate nohighlight">\(M\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value">singular
 values</a> that form the
-main diagonal of the <span class="math">\(M\)</span> by <span class="math">\(N\)</span> diagonal matrix <span class="math">\(\S\)</span>. The values in <code class="docutils literal"><span class="pre">S</span></code> give
+main diagonal of the <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> diagonal matrix <span class="math notranslate nohighlight">\(\S\)</span>. The values in <code class="docutils literal notranslate"><span class="pre">S</span></code> give
 the square root of the explained sum of squares for each component:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">**</span> <span class="mi">2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="go">array([ 143.973173,   11.696117])</span>
 </pre></div>
 </div>
-<p>The formula above is for the “full” SVD.  When the number of rows in <span class="math">\(\X\)</span>
-(<span class="math">\(= M\)</span>) is less than the number of columns (<span class="math">\(= N\)</span>) the SVD formula above
-requires an <span class="math">\(M\)</span> by <span class="math">\(N\)</span> matrix <span class="math">\(\S\)</span> padded on the right with <span class="math">\(N - M\)</span> all zero
-columns, and an <span class="math">\(N\)</span> by <span class="math">\(N\)</span> matrix <span class="math">\(\V^T\)</span>, where the last <span class="math">\(N - M\)</span> rows will be
-discarded by matrix multiplication with the all zero rows in <span class="math">\(\S\)</span>.  A variant
+<p>The formula above is for the “full” SVD.  When the number of rows in <span class="math notranslate nohighlight">\(\X\)</span>
+(<span class="math notranslate nohighlight">\(= M\)</span>) is less than the number of columns (<span class="math notranslate nohighlight">\(= N\)</span>) the SVD formula above
+requires an <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix <span class="math notranslate nohighlight">\(\S\)</span> padded on the right with <span class="math notranslate nohighlight">\(N - M\)</span> all zero
+columns, and an <span class="math notranslate nohighlight">\(N\)</span> by <span class="math notranslate nohighlight">\(N\)</span> matrix <span class="math notranslate nohighlight">\(\V^T\)</span>, where the last <span class="math notranslate nohighlight">\(N - M\)</span> rows will be
+discarded by matrix multiplication with the all zero rows in <span class="math notranslate nohighlight">\(\S\)</span>.  A variant
 of the full SVD is the <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value_decomposition#Thin_SVD">thin SVD</a>, where
-we discard the useless columns and rows and return <span class="math">\(\S\)</span> as a diagonal matrix
-<span class="math">\(M x M\)</span> and <span class="math">\(\V^T\)</span> with shape <span class="math">\(M x N\)</span>.  This is the <code class="docutils literal"><span class="pre">full_matrices=False</span></code>
+we discard the useless columns and rows and return <span class="math notranslate nohighlight">\(\S\)</span> as a diagonal matrix
+<span class="math notranslate nohighlight">\(M x M\)</span> and <span class="math notranslate nohighlight">\(\V^T\)</span> with shape <span class="math notranslate nohighlight">\(M x N\)</span>.  This is the <code class="docutils literal notranslate"><span class="pre">full_matrices=False</span></code>
 variant in NumPy:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(2, 2)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">VT</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(2, 50)</span>
 </pre></div>
 </div>
-<p>By the definition of the SVD, <span class="math">\(\U\)</span> and <span class="math">\(\V^T\)</span> are orthogonal matrices, so
-<span class="math">\(\U^T\)</span> is the inverse of <span class="math">\(\U\)</span> and <span class="math">\(\U^T \U = I\)</span>.  Therefore:</p>
-<div class="math">
+<p>By the definition of the SVD, <span class="math notranslate nohighlight">\(\U\)</span> and <span class="math notranslate nohighlight">\(\V^T\)</span> are orthogonal matrices, so
+<span class="math notranslate nohighlight">\(\U^T\)</span> is the inverse of <span class="math notranslate nohighlight">\(\U\)</span> and <span class="math notranslate nohighlight">\(\U^T \U = I\)</span>.  Therefore:</p>
+<div class="math notranslate nohighlight">
 \[\X = \U \Sigma \V^T \implies
 \U^T \X = \Sigma \V^T\]</div>
-<p>You may recognize <span class="math">\(\U^T \X\)</span> as the matrix of scalar projections <span class="math">\(\C\)</span> above:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<p>You may recognize <span class="math notranslate nohighlight">\(\U^T \X\)</span> as the matrix of scalar projections <span class="math notranslate nohighlight">\(\C\)</span> above:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">VT</span><span class="p">),</span> <span class="n">C</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>Because <span class="math">\(\V^T\)</span> is also an orthogonal matrix, it has row lengths of 1, and we
-can get the values in <span class="math">\(\S\)</span> from the row lengths of <span class="math">\(\C\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_from_C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">C</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<p>Because <span class="math notranslate nohighlight">\(\V^T\)</span> is also an orthogonal matrix, it has row lengths of 1, and we
+can get the values in <span class="math notranslate nohighlight">\(\S\)</span> from the row lengths of <span class="math notranslate nohighlight">\(\C\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_from_C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">C</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">S_from_C</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>Now we can reconstruct <span class="math">\(\V^T\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Divide out reconstructed S values</span>
+<p>Now we can reconstruct <span class="math notranslate nohighlight">\(\V^T\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Divide out reconstructed S values</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">S_as_column</span> <span class="o">=</span> <span class="n">S_from_C</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span> <span class="o">/</span> <span class="n">S_as_column</span><span class="p">,</span> <span class="n">VT</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>The SVD is quick to compute for a small matrix like <code class="docutils literal"><span class="pre">X</span></code>, but when the larger
-dimension of <span class="math">\(\X\)</span> becomes large, it is more efficient in CPU time and memory
-to calculate <span class="math">\(\U\)</span> and <span class="math">\(\S\)</span> by doing the SVD on the variance / covariance
+<p>The SVD is quick to compute for a small matrix like <code class="docutils literal notranslate"><span class="pre">X</span></code>, but when the larger
+dimension of <span class="math notranslate nohighlight">\(\X\)</span> becomes large, it is more efficient in CPU time and memory
+to calculate <span class="math notranslate nohighlight">\(\U\)</span> and <span class="math notranslate nohighlight">\(\S\)</span> by doing the SVD on the variance / covariance
 matrix of the features.</p>
 <p>Here’s why that works:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\begin{split}\U \S \V^T = \X \\
 (\U \S \V^T)(\U \S \V^T)^T = \X \X^T\end{split}\]</div>
 <p>By the matrix transpose rule and associativity of matrix multiplication:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\U \S \V^T \V \S^T \U^T = \X \X^T\]</div>
-<p><span class="math">\(\V^T\)</span> is an orthogonal matrix, so <span class="math">\(\V^T = \V^{-1}\)</span> and <span class="math">\(\V^T \V = I\)</span>. <span class="math">\(\S\)</span> is
-a diagonal matrix so <span class="math">\(\S \S^T = \S^2\)</span>, where <span class="math">\(\S^2\)</span> is a square diagonal
-matrix shape <span class="math">\(M\)</span> by <span class="math">\(M\)</span> containing the squares of the singular values from
-<span class="math">\(\S\)</span>:</p>
-<div class="math">
+<p><span class="math notranslate nohighlight">\(\V^T\)</span> is an orthogonal matrix, so <span class="math notranslate nohighlight">\(\V^T = \V^{-1}\)</span> and <span class="math notranslate nohighlight">\(\V^T \V = I\)</span>. <span class="math notranslate nohighlight">\(\S\)</span> is
+a diagonal matrix so <span class="math notranslate nohighlight">\(\S \S^T = \S^2\)</span>, where <span class="math notranslate nohighlight">\(\S^2\)</span> is a square diagonal
+matrix shape <span class="math notranslate nohighlight">\(M\)</span> by <span class="math notranslate nohighlight">\(M\)</span> containing the squares of the singular values from
+<span class="math notranslate nohighlight">\(\S\)</span>:</p>
+<div class="math notranslate nohighlight">
 \[\U \S^2 \U^T = \X \X^T\]</div>
-<p>This last formula is the formula for the SVD of <span class="math">\(\X \X^T\)</span>. So, we can get our
-<span class="math">\(\U\)</span> and <span class="math">\(\S\)</span> from the SVD on <span class="math">\(\X \X^T\)</span>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Finding principal components using SVD on X X^T</span>
+<p>This last formula is the formula for the SVD of <span class="math notranslate nohighlight">\(\X \X^T\)</span>. So, we can get our
+<span class="math notranslate nohighlight">\(\U\)</span> and <span class="math notranslate nohighlight">\(\S\)</span> from the SVD on <span class="math notranslate nohighlight">\(\X \X^T\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Finding principal components using SVD on X X^T</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">unscaled_cov</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U_vcov</span><span class="p">,</span> <span class="n">S_vcov</span><span class="p">,</span> <span class="n">VT_vcov</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">unscaled_cov</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">U_vcov</span>
@@ -614,15 +608,15 @@ matrix shape <span class="math">\(M\)</span> by <span class="math">\(M\)</span> 
 <span class="go">       [-0.478114,  0.878298]])</span>
 </pre></div>
 </div>
-<p>We know from the derivation above that <code class="docutils literal"><span class="pre">VT_vcov</span></code> is just the transpose of
-<span class="math">\(\U\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">VT_vcov</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<p>We know from the derivation above that <code class="docutils literal notranslate"><span class="pre">VT_vcov</span></code> is just the transpose of
+<span class="math notranslate nohighlight">\(\U\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">VT_vcov</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>The returned vector <code class="docutils literal"><span class="pre">S_vcov</span></code> from the SVD on <span class="math">\(\X \X^T\)</span> now contains the
+<p>The returned vector <code class="docutils literal notranslate"><span class="pre">S_vcov</span></code> from the SVD on <span class="math notranslate nohighlight">\(\X \X^T\)</span> now contains the
 explained sum of squares for each component:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_vcov</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_vcov</span>
 <span class="go">array([ 143.973173,   11.696117])</span>
 </pre></div>
 </div>
@@ -630,29 +624,29 @@ explained sum of squares for each component:</p>
 <h3>Sums of squares and variance from PCA<a class="headerlink" href="#sums-of-squares-and-variance-from-pca" title="Permalink to this headline">¶</a></h3>
 <p>We have done the SVD on the <em>unscaled</em> variance / covariance matrix.
 <em>Unscaled</em> means that the values in the matrix have not been divided by
-<span class="math">\(N\)</span>, or <span class="math">\(N-1\)</span>, where <span class="math">\(N\)</span> is the number of samples.  This
+<span class="math notranslate nohighlight">\(N\)</span>, or <span class="math notranslate nohighlight">\(N-1\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the number of samples.  This
 matters little for our case, but sometimes it is useful to think in terms of
 the variance explained by the components, rather than the sums of squares.</p>
-<p>The standard <em>variance</em> of a vector <span class="math">\(\vec{x}\)</span> with <span class="math">\(N\)</span>
-elements <span class="math">\(x_1, x_2, ... x_N\)</span> indexed by <span class="math">\(i\)</span> is given by
-<span class="math">\(\frac{1}{N-1} \sum_i \left( x_i - \bar{x} \right)^2\)</span>.
-<span class="math">\(\bar{x}\)</span> is the mean of <span class="math">\(\vec{x}\)</span>:
-<span class="math">\(\bar{x} = \frac{1}{N} \sum_i x_i\)</span>. If <span class="math">\(\vec{q}\)</span> already has
-zero mean, then the variance of <span class="math">\(\vec{q}\)</span> is also given by
-<span class="math">\(\frac{1}{N-1} \vec{q} \cdot \vec{q}\)</span>.</p>
-<p>The <span class="math">\(N-1\)</span> divisor for the variance comes from <a class="reference external" href="http://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s
+<p>The standard <em>variance</em> of a vector <span class="math notranslate nohighlight">\(\vec{x}\)</span> with <span class="math notranslate nohighlight">\(N\)</span>
+elements <span class="math notranslate nohighlight">\(x_1, x_2, ... x_N\)</span> indexed by <span class="math notranslate nohighlight">\(i\)</span> is given by
+<span class="math notranslate nohighlight">\(\frac{1}{N-1} \sum_i \left( x_i - \bar{x} \right)^2\)</span>.
+<span class="math notranslate nohighlight">\(\bar{x}\)</span> is the mean of <span class="math notranslate nohighlight">\(\vec{x}\)</span>:
+<span class="math notranslate nohighlight">\(\bar{x} = \frac{1}{N} \sum_i x_i\)</span>. If <span class="math notranslate nohighlight">\(\vec{q}\)</span> already has
+zero mean, then the variance of <span class="math notranslate nohighlight">\(\vec{q}\)</span> is also given by
+<span class="math notranslate nohighlight">\(\frac{1}{N-1} \vec{q} \cdot \vec{q}\)</span>.</p>
+<p>The <span class="math notranslate nohighlight">\(N-1\)</span> divisor for the variance comes from <a class="reference external" href="http://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s
 correction</a> for
 bias.</p>
-<p>The covariance between two vectors <span class="math">\(\vec{x}, \vec{y}\)</span> is
-<span class="math">\(\frac{1}{N-1} \sum_i \left( x_i - \bar{x} \right) \left( y_i - \bar{y} \right)\)</span>.
-If vectors <span class="math">\(\vec{q}, \vec{p}\)</span> already both have zero mean, then
-the covariance is given by <span class="math">\(\frac{1}{N-1} \vec{q} \cdot \vec{p}\)</span>.</p>
+<p>The covariance between two vectors <span class="math notranslate nohighlight">\(\vec{x}, \vec{y}\)</span> is
+<span class="math notranslate nohighlight">\(\frac{1}{N-1} \sum_i \left( x_i - \bar{x} \right) \left( y_i - \bar{y} \right)\)</span>.
+If vectors <span class="math notranslate nohighlight">\(\vec{q}, \vec{p}\)</span> already both have zero mean, then
+the covariance is given by <span class="math notranslate nohighlight">\(\frac{1}{N-1} \vec{q} \cdot \vec{p}\)</span>.</p>
 <p>Our unscaled variance covariance has removed the mean and done the dot
-products above, but it has not applied the <span class="math">\(\frac{1}{N-1}\)</span>
+products above, but it has not applied the <span class="math notranslate nohighlight">\(\frac{1}{N-1}\)</span>
 scaling, to get the true variance / covariance.</p>
-<p>For example, the standard numpy covariance function <code class="docutils literal"><span class="pre">np.cov</span></code> completes
-the calculation of true covariance by dividing by <span class="math">\(N-1\)</span>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Calculate unscaled variance covariance again</span>
+<p>For example, the standard numpy covariance function <code class="docutils literal notranslate"><span class="pre">np.cov</span></code> completes
+the calculation of true covariance by dividing by <span class="math notranslate nohighlight">\(N-1\)</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Calculate unscaled variance covariance again</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">unscaled_cov</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># When divided by N-1, same as result of &#39;np.cov&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">N</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -664,17 +658,17 @@ the calculation of true covariance by dividing by <span class="math">\(N-1\)</sp
 result would give us exactly the same components. This might make sense
 from the fact that the lengths of the components are always scaled to 1
 (unit vectors):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scaled_U</span><span class="p">,</span> <span class="n">scaled_S</span><span class="p">,</span> <span class="n">scaled_VT</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scaled_U</span><span class="p">,</span> <span class="n">scaled_S</span><span class="p">,</span> <span class="n">scaled_VT</span> <span class="o">=</span> <span class="n">npl</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">scaled_U</span><span class="p">,</span> <span class="n">U</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">scaled_VT</span><span class="p">,</span> <span class="n">VT_vcov</span><span class="p">)</span>
 <span class="go">(True, True)</span>
 </pre></div>
 </div>
-<p>The difference is only in the <em>singular values</em> in the vector <code class="docutils literal"><span class="pre">S</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_vcov</span>
+<p>The difference is only in the <em>singular values</em> in the vector <code class="docutils literal notranslate"><span class="pre">S</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_vcov</span>
 <span class="go">array([ 143.973173,   11.696117])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scaled_S</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scaled_S</span>
 <span class="go">array([ 2.938228,  0.238696])</span>
 </pre></div>
 </div>
@@ -682,8 +676,8 @@ from the fact that the lengths of the components are always scaled to 1
 the sum of squares explained by each component. The singular values from the
 true covariance matrix are the <em>variances</em> explained by each component. The
 variances are just the sum of squares divided by the correction in the
-denominator, in our case, <span class="math">\(N-1\)</span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_vcov</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+denominator, in our case, <span class="math notranslate nohighlight">\(N-1\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">S_vcov</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="go">array([ 2.938228,  0.238696])</span>
 </pre></div>
 </div>
@@ -691,7 +685,7 @@ denominator, in our case, <span class="math">\(N-1\)</span>:</p>
 explained by the components. If we do the SVD on the true covariance matrix,
 then we can describe the PCA as breaking up the <em>variance</em> of the data (across
 samples) into parts explained by the components. The only difference between
-these two is the scaling of the <code class="docutils literal"><span class="pre">S</span></code> vector.</p>
+these two is the scaling of the <code class="docutils literal notranslate"><span class="pre">S</span></code> vector.</p>
 <ul class="simple">
 <li><a class="reference download internal" href="pca_introduction.py">Download this page as a Python code file</a>;</li>
 <li><a class="reference download internal" href="pca_introduction.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
@@ -702,23 +696,89 @@ these two is the scaling of the <code class="docutils literal"><span class="pre"
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Introducing principal component analysis</a><ul>
-<li><a class="reference internal" href="#background">Background</a></li>
-<li><a class="reference internal" href="#setting-the-scene">Setting the scene</a></li>
-<li><a class="reference internal" href="#the-principal-component-lines-are-new-axes-to-express-the-data">The principal component lines are new axes to express the data</a></li>
-<li><a class="reference internal" href="#the-components-partition-the-sums-of-squares">The components partition the sums of squares</a></li>
-<li><a class="reference internal" href="#finding-the-principal-components-with-svd">Finding the principal components with SVD</a><ul>
-<li><a class="reference internal" href="#sums-of-squares-and-variance-from-pca">Sums of squares and variance from PCA</a></li>
+<h1 class="logo"><a href="index.html">Teaching</a></h1>
+
+
+
+<p class="blurb">Teaching</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlated_regressors.html">Correlated regressors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdr.html">Thresholding with false discovery rate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_point.html">Points on floats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="floating_error.html">Floating point error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_basis.html">The Fourier basis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fourier_no_ei_orig.html">Fourier without the ei</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glm_intro.html">Introduction to the general linear model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html">The argument in “Why most published research findings are false”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">“The practice of science is profoundly broken”. Discuss? - no - model and test!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#different-ways-of-phrasing-the-argument">Different ways of phrasing the argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#some-terms">Some terms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-does-a-significant-statistical-test-result-tell-us">What does a “significant” statistical test result tell us?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#what-is-a-finding-that-is-likely-to-be-true">What is a finding that is likely to be true?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">Whether a finding is likely to be true depends on the power of the experiment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#quantifying-the-effect-of-bias">Quantifying the effect of bias</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#the-effect-of-multiple-studies">The effect of multiple studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioannidis_2005.html#putting-it-together">Putting it together</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutual_information.html">Mutual information as an image matching metric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notation.html">Notation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimizing_space.html">Calculating transformations between images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_vectors.html">Vectors and dot products</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introducing principal component analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-the-scene">Setting the scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-principal-component-lines-are-new-axes-to-express-the-data">The principal component lines are new axes to express the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-components-partition-the-sums-of-squares">The components partition the sums of squares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#finding-the-principal-components-with-svd">Finding the principal components with SVD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sums-of-squares-and-variance-from-pca">Sums of squares and variance from PCA</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="simple_complex.html">Refresher on complex numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slice_timing.html">Slice timing correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_intro.html">An introduction to smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smoothing_as_convolution.html">Smoothing as convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some_sums.html">Some algebra with summation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_cosines.html">Sum of sines and cosines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sums_of_sinusoids.html">Sums of sinusoids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random_fields.html">Thresholding with random field theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Teaching repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation_2d.html">Formula for rotating a vector in 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_projection.html">Vector projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_angles.html">Angles between vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="correlation_projection.html">Correlation and projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix_rank.html">Matrix rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_interpolation.html">Linear interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_cdfs.html">p values from cumulative distribution functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions_are_objects.html">Functions are objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global_scope.html">Global and local scope of Python variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brisk_python.html">Brisk introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string_formatting.html">Inserting values into strings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on_loops.html">“for” and “while”, “break” and “else:”</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="http://matthew.dynevor.org">Home page</a></li>
+    
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
@@ -729,23 +789,26 @@ these two is the scaling of the <code class="docutils literal"><span class="pre"
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/pca_introduction.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -754,8 +817,8 @@ these two is the scaling of the <code class="docutils literal"><span class="pre"
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/pca_introduction.rst.txt"
