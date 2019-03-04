@@ -38,8 +38,10 @@ $$
 
 We are therefore looking for the values of $c$ and $b$ that minimize $SSE$.
 
+
+In what follows, you can do all the symbolic manipulations on paper, but we are using Sympy to do this for us.  Sympy is a Python library for doing symbolic mathematics.
+
 ```{python}
-# Sympy is Python's symbolic mathematics library.
 from sympy import (symbols, summation, diff, IndexedBase, Add, Eq,
                    simplify, expand, solve)
 # Render Sympy equations nicely in the notebook
@@ -77,7 +79,7 @@ SSE = summation(error ** 2, (i, 1, n))
 SSE
 ```
 
-We use the [algebra of sums](http://matthew-brett.github.io/teaching/some_sums.html) to expand out this sums, to several sums:
+We use the [algebra of sums](http://matthew-brett.github.io/teaching/some_sums.html) to expand out this sum, to several sums:
 
 ```{python}
 SSE = expand(SSE)
