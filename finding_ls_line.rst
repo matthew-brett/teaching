@@ -31,21 +31,20 @@ covariate, $\vec{x}$.
 $X$ is dimension $n$ rows, 2 columns.
 
 As long as $\vec{x}$ is not a constant, and therefore has more
-than one unique value, $\vec{x}$ is not dependent on the column of
-1s, and $X^T X$ is invertible.
+than one unique value, $\vec{x}$ is not *dependent* on the column of 1s, and
+$X^T X$ is invertible.
 
-When the first column is the column of 1s, modeling the intercept, then
-the first row of $B$ is the least-squares intercept, and the
-second row of $B$ is the least-squares slope. Call that value
-$B_2$.
+When the first column is the column of 1s, modeling the intercept, then the
+first row of $B$ is the least-squares intercept, and the second row of $B$ is
+the least-squares slope. Call that value $B_2$.
 
 Our desire is to be able to calculate $B_2$ without doing anything
 nasty like not-trivial matrix inversion.
 
 This requires that $X^T X$ is a diagonal matrix, so we can invert
-it by :doc:`dividing its diagonal elements into 1 <diag_invers>`.
+it by :doc:`dividing its diagonal elements into 1 <diag_inverse>`.
 
-In order for this to work, the columns of $X$ must be orthgonal.
+In order for this to work, the columns of $X$ must be orthogonal.
 Therefore the covariate $\vec{x}$, and therefore the second column
 of $X$, must have zero mean. In that case:
 
