@@ -39,7 +39,7 @@ np.set_printoptions(precision=4, suppress=True)
 # We start with a single slice from the each of the first two volumes in
 # the EPI (BOLD) data.
 #
-# We load the 4D EPI image [ds107_sub012_t1r2.nii](https://matthew-brett.github.io/teaching/_downloads/0cde3d58a7307c3b4f422654209c93b3/ds107_sub012_t1r2.nii), and get the data:
+# We load the 4D EPI image [ds107_sub012_t1r2.nii](https://matthew-brett.github.io/teaching/_downloads/597d1bb4985c1c807b8425ba30abb317/ds107_sub012_t1r2.nii), and get the data:
 
 import nibabel as nib
 img = nib.load('ds107_sub012_t1r2.nii')

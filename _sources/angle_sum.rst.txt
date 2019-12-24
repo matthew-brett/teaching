@@ -54,7 +54,7 @@ Thus:
 
     r = (\cos \alpha) p = \cos \alpha \cos \beta
 
-    s = (\sin \alpha) q = \sin \alpha \cos \beta
+    s = (\sin \alpha) p = \sin \alpha \cos \beta
 
     t = (\cos \alpha) q = \cos \alpha \sin \beta
 
