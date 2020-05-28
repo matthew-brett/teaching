@@ -8,6 +8,9 @@ programming language
 MATLAB and the R language are `examples of dynamic programming languages
 <https://en.wikipedia.org/wiki/Dynamic_programming_language#Examples_of_Dynamic_Programming_Languages>`_.
 
+`Kiyotaka Nemoto <http://www.nemotos.net>`_ kindly made a `Japanese translation
+of this page <http://www.nemotos.net/resources/Brisk_Intro_Python_ja.html>`_.
+
 .. testsetup::
 
     import os
