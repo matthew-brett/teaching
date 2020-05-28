@@ -21,7 +21,7 @@ import nibabel as nib
 img = nib.load('an_example_4d.nii')
 data = img.get_data()
 
-# You can get the 4D image from [an_example_4d.nii](https://matthew-brett.github.io/teaching/_downloads/f8599b034210fac438d46a11d30c6766/an_example_4d.nii).
+# You can get the 4D image from [an_example_4d.nii](https://matthew-brett.github.io/teaching/_downloads/213a1d2593327d0630ee5009ba4534f1/an_example_4d.nii).
 #
 # This 4D FMRI image has 16 slices on the third axis (slices in z) and 100
 # volumes:

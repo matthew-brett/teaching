@@ -13,8 +13,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Inserting values into strings" href="string_formatting.html" />
@@ -41,6 +42,8 @@
 <p>This is an introduction designed for those of us who already know a <a class="reference external" href="https://en.wikipedia.org/wiki/Dynamic_programming_language">dynamic
 programming language</a> fairly well.
 MATLAB and the R language are <a class="reference external" href="https://en.wikipedia.org/wiki/Dynamic_programming_language#Examples_of_Dynamic_Programming_Languages">examples of dynamic programming languages</a>.</p>
+<p><a class="reference external" href="http://www.nemotos.net">Kiyotaka Nemoto</a> kindly made a <a class="reference external" href="http://www.nemotos.net/resources/Brisk_Intro_Python_ja.html">Japanese translation
+of this page</a>.</p>
 <div class="section" id="how-to-read-this-page">
 <h2>How to read this page<a class="headerlink" href="#how-to-read-this-page" title="Permalink to this headline">¶</a></h2>
 <p>Read this page in one shot from beginning to end.  We go through all the basic
@@ -1288,8 +1291,8 @@ files, to make sure you get the Python 3 behavior when dividing integers.</td></
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Python</span>
 <span class="n">my_var</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">if</span> <span class="n">my_var</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The conditional is True!&quot;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;my_var does equal 10&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The conditional is True!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;my_var does equal 10&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The equivalent in R is:</p>
@@ -1303,11 +1306,11 @@ files, to make sure you get the Python 3 behavior when dividing integers.</td></
 </div>
 <p>For MATLAB:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% MATLAB</span>
-<span class="n">my_var</span> <span class="p">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="k">if</span> <span class="n">my_var</span> <span class="o">==</span> <span class="mi">10</span>
+<span class="n">my_var</span> <span class="p">=</span> <span class="mi">10</span><span class="p">;</span><span class="n"></span>
+<span class="n">if </span><span class="s">my_var == 10</span><span class="p"></span>
     <span class="nb">disp</span><span class="p">(</span><span class="s">&#39;The conditional is True!&#39;</span><span class="p">);</span>
-    <span class="nb">disp</span><span class="p">(</span><span class="s">&#39;my_var does equal 10&#39;</span><span class="p">);</span>
-<span class="k">end</span>
+    <span class="nb">disp</span><span class="p">(</span><span class="s">&#39;my_var does equal 10&#39;</span><span class="p">);</span><span class="n"></span>
+<span class="n">end</span>
 </pre></div>
 </div>
 <p>For Python, the indentation defines the block.  For R and MATLAB,
@@ -1324,12 +1327,12 @@ well, but most people find the code harder to read:</p>
 </pre></div>
 </div>
 <div class="last highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% MATLAB</span>
-<span class="n">my_var</span> <span class="p">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="k">if</span> <span class="n">my_var</span> <span class="o">==</span> <span class="mi">10</span>
+<span class="n">my_var</span> <span class="p">=</span> <span class="mi">10</span><span class="p">;</span><span class="n"></span>
+<span class="n">if </span><span class="s">my_var == 10</span><span class="p"></span>
 <span class="c">% Indentation is optional</span>
 <span class="nb">disp</span><span class="p">(</span><span class="s">&#39;The conditional is True!&#39;</span><span class="p">);</span>
-<span class="nb">disp</span><span class="p">(</span><span class="s">&#39;my_var does equal 10&#39;</span><span class="p">);</span>
-<span class="k">end</span>
+<span class="nb">disp</span><span class="p">(</span><span class="s">&#39;my_var does equal 10&#39;</span><span class="p">);</span><span class="n"></span>
+<span class="n">end</span>
 </pre></div>
 </div>
 </td></tr>
@@ -1341,7 +1344,7 @@ well, but most people find the code harder to read:</p>
 <tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><p class="first">Here is a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop in Python:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Python</span>
 <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">]:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The equivalents in R and MATLAB are:</p>
@@ -1353,8 +1356,8 @@ well, but most people find the code harder to read:</p>
 </div>
 <div class="last highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% MATLAB</span>
 <span class="k">for</span> <span class="n">element</span> <span class="p">=</span> <span class="p">{</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">}</span>
-    <span class="nb">disp</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
-<span class="k">end</span>
+    <span class="nb">disp</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="n"></span>
+<span class="n">end</span>
 </pre></div>
 </div>
 </td></tr>
@@ -1533,7 +1536,7 @@ objects).</td></tr>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

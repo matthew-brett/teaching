@@ -13,8 +13,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -54,17 +55,16 @@ intercept of the fitted line. The second contains an explanatory
 covariate, <span class="math notranslate nohighlight">\(\vec{x}\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(X\)</span> is dimension <span class="math notranslate nohighlight">\(n\)</span> rows, 2 columns.</p>
 <p>As long as <span class="math notranslate nohighlight">\(\vec{x}\)</span> is not a constant, and therefore has more
-than one unique value, <span class="math notranslate nohighlight">\(\vec{x}\)</span> is not dependent on the column of
-1s, and <span class="math notranslate nohighlight">\(X^T X\)</span> is invertible.</p>
-<p>When the first column is the column of 1s, modeling the intercept, then
-the first row of <span class="math notranslate nohighlight">\(B\)</span> is the least-squares intercept, and the
-second row of <span class="math notranslate nohighlight">\(B\)</span> is the least-squares slope. Call that value
-<span class="math notranslate nohighlight">\(B_2\)</span>.</p>
+than one unique value, <span class="math notranslate nohighlight">\(\vec{x}\)</span> is not <em>dependent</em> on the column of 1s, and
+<span class="math notranslate nohighlight">\(X^T X\)</span> is invertible.</p>
+<p>When the first column is the column of 1s, modeling the intercept, then the
+first row of <span class="math notranslate nohighlight">\(B\)</span> is the least-squares intercept, and the second row of <span class="math notranslate nohighlight">\(B\)</span> is
+the least-squares slope. Call that value <span class="math notranslate nohighlight">\(B_2\)</span>.</p>
 <p>Our desire is to be able to calculate <span class="math notranslate nohighlight">\(B_2\)</span> without doing anything
 nasty like not-trivial matrix inversion.</p>
 <p>This requires that <span class="math notranslate nohighlight">\(X^T X\)</span> is a diagonal matrix, so we can invert
-it by <span class="xref std std-doc">dividing its diagonal elements into 1</span>.</p>
-<p>In order for this to work, the columns of <span class="math notranslate nohighlight">\(X\)</span> must be orthgonal.
+it by <a class="reference internal" href="diag_inverse.html"><span class="doc">dividing its diagonal elements into 1</span></a>.</p>
+<p>In order for this to work, the columns of <span class="math notranslate nohighlight">\(X\)</span> must be orthogonal.
 Therefore the covariate <span class="math notranslate nohighlight">\(\vec{x}\)</span>, and therefore the second column
 of <span class="math notranslate nohighlight">\(X\)</span>, must have zero mean. In that case:</p>
 <div class="math notranslate nohighlight">
@@ -285,7 +285,7 @@ intercept, the second is the slope.</p>
       &copy;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

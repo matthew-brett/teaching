@@ -83,7 +83,7 @@ x = np.array(
 N = len(x)
 
 # In order to run the commands in this page, you will need to download the file
-# [dft_plots.py](https://matthew-brett.github.io/teaching/_downloads/efadd2d5dea00aa55284db256cf9d8e7/dft_plots.py) to the directory where you running the code.
+# [dft_plots.py](https://matthew-brett.github.io/teaching/_downloads/6e4e895180fc1cacc59707bb8a3697dd/dft_plots.py) to the directory where you running the code.
 
 import matplotlib.pyplot as plt
 import dft_plots as dftp
