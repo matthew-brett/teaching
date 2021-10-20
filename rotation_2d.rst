@@ -18,8 +18,8 @@ Theorem
 
 .. math::
 
-    x_2 = \cos \beta x_1 - \sin \beta y_1 \\
-    y_2 = \sin \beta x_1 + \cos \beta y_1
+    x_2 = x_1 \cos(\beta) - y_1 \sin(\beta) \\
+    y_2 = x_1 \sin(\beta) + y_1 \cos(\beta) 
 
 See: `wikipedia on rotation matrices`_.
 
@@ -55,16 +55,16 @@ The angle sum rule gives us:
 
 .. math::
 
-    \cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
-    \sin(\alpha + \beta) = \sin \alpha \cos \beta + \cos \alpha \sin \beta
+    \cos(\alpha + \beta) = \cos(\alpha) \cos(\beta) - \sin(\alpha) \sin(\beta) \\
+    \sin(\alpha + \beta) = \sin(\alpha) \cos(\beta) + \cos(\alpha) \sin(\beta)
 
 So, substituting from equations :eq:`x_1_y_1`, :eq:`x_2_y_2`:
 
 .. math::
 
     L \cos(\alpha + \beta) =
-    L \cos \alpha \cos \beta - L \sin \alpha \sin \beta \implies \\
-    x_2 = x_1 \cos \beta - y_1 \sin \beta \\
+    L \cos(\alpha) \cos(\beta) - L \sin(\alpha) \sin(\beta) \implies \\
+    x_2 = x_1 \cos(\beta) - y_1 \sin(\beta) \\
 
 We do the matching substitutions into $\sin(\alpha + \beta)$ to get $y_2$.
 
@@ -97,37 +97,37 @@ Remembering the definitions of $\cos$ and $\sin$:
 
 .. math::
 
-    \cos\theta = \frac{A}{H} \implies A = \cos \theta H
+    \cos\theta = \frac{A}{H} \implies A = H \cos(\theta)
 
-    \sin\theta = \frac{O}{H} \implies O = \sin \theta H
+    \sin\theta = \frac{O}{H} \implies O = H \sin(\theta)
 
 Thus:
 
 .. math::
 
-    x_1 = \cos \alpha L
+    x_1 = L \cos(\alpha)
 
-    y_1 = \sin \alpha L
+    y_1 = L \sin(\alpha)
 
-    p = \cos \beta L
+    p = L \cos(\beta)
 
-    q = \sin \beta L
+    q = L \sin(\beta)
 
-    r = \cos \alpha p = \cos \alpha \cos \beta L = \cos \beta x_1
+    r = \cos(\alpha) p = \cos(\alpha) \cos(\beta) L = \cos(\beta) x_1
 
-    s = \sin \alpha p = \sin \alpha \cos \beta L = \cos \beta y_1
+    s = \sin(\alpha) p = \sin(\alpha) \cos(\beta) L = \cos(\beta) y_1
 
-    t = \cos \alpha q = \cos \alpha \sin \beta L = \sin \beta x_1
+    t = \cos(\alpha) q = \cos(\alpha) \sin(\beta) L = \sin(\beta) x_1
 
-    u = \sin \alpha q = \sin \alpha \sin \beta L = \sin \beta y_1
+    u = \sin(\alpha) q = \sin(\alpha) \sin(\beta) L = \sin(\beta) y_1
 
 So:
 
 .. math::
 
-    x_2 = r - u = \cos \beta x_1 - \sin \beta y_1
+    x_2 = r - u = \cos(\beta) x_1 - \sin(\beta) y_1
 
-    y_2 = t + s = \sin \beta x_1 + \cos \beta y_1
+    y_2 = t + s = \sin(\beta) x_1 + \cos(\beta) y_1
 
 $\blacksquare$.
 
