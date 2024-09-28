@@ -30,7 +30,8 @@ Mathematics
 Statistics
 ==========
 
-* :doc:`glm_intro`;
+* `Introduction to the General Linear Model
+  <https://textbook.nipraxis.org/glm_intro.html>`_.
 * :doc:`on_cdfs`;
 * :doc:`ioannidis_2005`;
 * `Exploring the R formula
@@ -42,8 +43,8 @@ Imaging
 
 * `Coordinate systems and affine transforms
   <http://nipy.org/nibabel/coordinate_systems.html>`_;
-* :doc:`slice_timing`;
-* :doc:`optimizing_space`;
+* `Slice timing <https://textbook.nipraxis.org/slice_timing.html>`_.
+* `Optimizing space <https://textbook.nipraxis.org/optimizing_space.html>`_
 * :doc:`mutual_information`;
 * :doc:`smoothing_intro`;
 * :doc:`on_convolution`;
@@ -63,7 +64,8 @@ General Computing
 Python background
 =================
 
-* :doc:`brisk_python`;
+* `Brisk introduction to Python
+  <https://textbook.nipraxis.org/brisk_python.html>`_
 * :doc:`string_formatting`;
 * :doc:`on_loops`;
 * :doc:`functions_are_objects`;

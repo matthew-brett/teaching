@@ -1,21 +1,19 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>The argument in “Why most published research findings are false” &#8212; Tutorials on imaging, computing and mathematics</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/copybutton.js?v=fc45e087"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Mutual information as an image matching metric" href="mutual_information.html" />
@@ -23,8 +21,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -37,29 +36,29 @@
           <div class="body" role="main">
             
   <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
-<div class="section" id="the-argument-in-why-most-published-research-findings-are-false">
-<h1>The argument in “Why most published research findings are false”<a class="headerlink" href="#the-argument-in-why-most-published-research-findings-are-false" title="Permalink to this headline">¶</a></h1>
+<section id="the-argument-in-why-most-published-research-findings-are-false">
+<h1>The argument in “Why most published research findings are false”<a class="headerlink" href="#the-argument-in-why-most-published-research-findings-are-false" title="Link to this heading">¶</a></h1>
 <p>I spent some time trying to understand the argument in this paper:</p>
 <ul class="simple">
-<li>Ioannidis, John PA. 2005. “Why most published research findings are
-false.” <em>PLoS medicine</em> 2 (8): e124.</li>
+<li><p>Ioannidis, John PA. 2005. “Why most published research findings are
+false.” <em>PLoS medicine</em> 2 (8): e124.</p></li>
 </ul>
 <p>These papers were useful for understanding the argument:</p>
 <ul class="simple">
-<li>Goodman, Steven, and Sander Greenland. 2007. “Assessing the
+<li><p>Goodman, Steven, and Sander Greenland. 2007. “Assessing the
 unreliability of the medical literature: a response to ‘why most
 published research findings are false.’” <em>Johns Hopkins University,
-Dept. of Biostatistics Working Papers</em>.</li>
-<li>Kass, Robert E., and Adrian E. Raftery. 1995. “Bayes factors.”
-<em>Journal of the American Statistical Association</em> 90 (430): 773–795.</li>
-<li>Wacholder, Sholom, Stephen Chanock, Montserrat Garcia-Closas,
+Dept. of Biostatistics Working Papers</em>.</p></li>
+<li><p>Kass, Robert E., and Adrian E. Raftery. 1995. “Bayes factors.”
+<em>Journal of the American Statistical Association</em> 90 (430): 773–795.</p></li>
+<li><p>Wacholder, Sholom, Stephen Chanock, Montserrat Garcia-Closas,
 Nathaniel Rothman, and others. 2004. “Assessing the probability that
 a positive report is false: an approach for molecular epidemiology
-studies.” <em>Journal of the National Cancer Institute</em> 96 (6): 434–442.</li>
+studies.” <em>Journal of the National Cancer Institute</em> 96 (6): 434–442.</p></li>
 </ul>
-</div>
-<div class="section" id="the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">
-<h1>“The practice of science is profoundly broken”. Discuss? - no - model and test!<a class="headerlink" href="#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test">
+<h1>“The practice of science is profoundly broken”. Discuss? - no - model and test!<a class="headerlink" href="#the-practice-of-science-is-profoundly-broken-discuss-no-model-and-test" title="Link to this heading">¶</a></h1>
 <p>The point that Ioannidis makes is:</p>
 <p>We know that the scientific process is flawed in a variety of ways. We
 assume that these flaws do not have a large effect on the outcome. But,
@@ -70,9 +69,9 @@ findings are likely to be wrong.</p>
 rational thinking is asking, “how likely is it that we are getting the
 answers wrong”?. We have to ask this question in a rational way. This is
 what Ioannidis sets out to do in this paper.</p>
-</div>
-<div class="section" id="different-ways-of-phrasing-the-argument">
-<h1>Different ways of phrasing the argument<a class="headerlink" href="#different-ways-of-phrasing-the-argument" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="different-ways-of-phrasing-the-argument">
+<h1>Different ways of phrasing the argument<a class="headerlink" href="#different-ways-of-phrasing-the-argument" title="Link to this heading">¶</a></h1>
 <p>The basis of Ioannidis’ argument comes from <a class="reference external" href="http://jnci.oxfordjournals.org/content/96/6/434.long">Wacholder et al
 2004</a> (see
 appendix table 1). <a class="reference external" href="http://www.plosmedicine.org/article/info%3Adoi%2F10.1371%2Fjournal.pmed.0040168">Goodman and Greenland
@@ -81,19 +80,19 @@ explain Ioannidis in terms of Bayes theorem.</p>
 <p>Both Ioannidis and Goodman &amp; Greenland use odds ratios rather than
 probability values in their exposition. I found it easier to think in
 terms of probabilities.</p>
-</div>
-<div class="section" id="some-terms">
-<h1>Some terms<a class="headerlink" href="#some-terms" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="some-terms">
+<h1>Some terms<a class="headerlink" href="#some-terms" title="Link to this heading">¶</a></h1>
 <p>We’ve done an experiment, and we have conducted a statistical test:</p>
 <ul class="simple">
-<li><span class="math notranslate nohighlight">\(H_A\)</span> - alternative hypothesis</li>
-<li><span class="math notranslate nohighlight">\(H_0\)</span> - null hypothesis</li>
-<li><span class="math notranslate nohighlight">\(\alpha\)</span> : false positive rate - probability for test to reject
-<span class="math notranslate nohighlight">\(H_0\)</span> when <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false)</li>
-<li><span class="math notranslate nohighlight">\(\beta\)</span> : false negative rate - probability for test to accept
-<span class="math notranslate nohighlight">\(H_0\)</span> when <span class="math notranslate nohighlight">\(H_A\)</span> is true (<span class="math notranslate nohighlight">\(H_0\)</span> is false)</li>
-<li><span class="math notranslate nohighlight">\(1 - \beta\)</span> : power - probability we will reject <span class="math notranslate nohighlight">\(H_0\)</span> if
-<span class="math notranslate nohighlight">\(H_A\)</span> is true (<span class="math notranslate nohighlight">\(H_0\)</span> is false)</li>
+<li><p><span class="math notranslate nohighlight">\(H_A\)</span> - alternative hypothesis</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_0\)</span> - null hypothesis</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span> : false positive rate - probability for test to reject
+<span class="math notranslate nohighlight">\(H_0\)</span> when <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span> : false negative rate - probability for test to accept
+<span class="math notranslate nohighlight">\(H_0\)</span> when <span class="math notranslate nohighlight">\(H_A\)</span> is true (<span class="math notranslate nohighlight">\(H_0\)</span> is false)</p></li>
+<li><p><span class="math notranslate nohighlight">\(1 - \beta\)</span> : power - probability we will reject <span class="math notranslate nohighlight">\(H_0\)</span> if
+<span class="math notranslate nohighlight">\(H_A\)</span> is true (<span class="math notranslate nohighlight">\(H_0\)</span> is false)</p></li>
 </ul>
 <p>Let’s say that the test can either be “significant” (test gives
 <span class="math notranslate nohighlight">\(p \le \alpha\)</span>) or “not significant” (<span class="math notranslate nohighlight">\(p &gt; \alpha\)</span>). Denote
@@ -102,59 +101,54 @@ terms of probabilities.</p>
 <p>Before we did the experiment there were two possibilities - <span class="math notranslate nohighlight">\(H_A\)</span>
 is true, or <span class="math notranslate nohighlight">\(H_0\)</span> is true. After we have four possibilities:</p>
 <ul class="simple">
-<li><span class="math notranslate nohighlight">\(H_A \land T_S\)</span> : <span class="math notranslate nohighlight">\(H_A\)</span> is true, test is significant;</li>
-<li><span class="math notranslate nohighlight">\(H_A \land T_N\)</span> : <span class="math notranslate nohighlight">\(H_A\)</span> is true, test is not significant;</li>
-<li><span class="math notranslate nohighlight">\(H_0 \land T_S\)</span> : <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false) -
-test is significant;</li>
-<li><span class="math notranslate nohighlight">\(H_0 \land T_N\)</span> : <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false) -
-test is not significant.</li>
+<li><p><span class="math notranslate nohighlight">\(H_A \land T_S\)</span> : <span class="math notranslate nohighlight">\(H_A\)</span> is true, test is significant;</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_A \land T_N\)</span> : <span class="math notranslate nohighlight">\(H_A\)</span> is true, test is not significant;</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_0 \land T_S\)</span> : <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false) -
+test is significant;</p></li>
+<li><p><span class="math notranslate nohighlight">\(H_0 \land T_N\)</span> : <span class="math notranslate nohighlight">\(H_0\)</span> is true (<span class="math notranslate nohighlight">\(H_A\)</span> is false) -
+test is not significant.</p></li>
 </ul>
-</div>
-<div class="section" id="what-does-a-significant-statistical-test-result-tell-us">
-<h1>What does a “significant” statistical test result tell us?<a class="headerlink" href="#what-does-a-significant-statistical-test-result-tell-us" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="what-does-a-significant-statistical-test-result-tell-us">
+<h1>What does a “significant” statistical test result tell us?<a class="headerlink" href="#what-does-a-significant-statistical-test-result-tell-us" title="Link to this heading">¶</a></h1>
 <p>In this section we work up slowly to Ioannidis table 1.</p>
 <p>First we need to load functions for symbolic mathematics from the Sympy
 library:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">init_printing</span><span class="p">,</span> <span class="n">latex</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">simplify</span><span class="p">,</span> <span class="n">lambdify</span><span class="p">,</span> <span class="n">init_printing</span><span class="p">,</span> <span class="n">latex</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;old&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If we do not take any prior probabilities into account, then we have the
 following probabilities:</p>
-<table border="1" class="docutils" id="id1">
-<caption><span class="caption-text"><strong>Not considering prior</strong></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
-<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text"><strong>Not considering prior</strong></span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_S}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_N}}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \beta + 1\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta\)</span></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(H_A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \beta\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\beta\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
-<td><span class="math notranslate nohighlight">\(\alpha\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \alpha + 1\)</span></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \alpha\)</span></p></td>
 </tr>
-<tr class="row-even"><td><em>Total</em></td>
-<td><span class="math notranslate nohighlight">\(\alpha - \beta + 1\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \alpha + \beta + 1\)</span></td>
+<tr class="row-even"><td><p><em>Total</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 + \alpha - \beta\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 + \beta - \alpha\)</span></p></td>
 </tr>
 </tbody>
 </table>
 <p><span class="math notranslate nohighlight">\(\newcommand{Frac}[2]{\frac{\displaystyle #1}{\displaystyle #2}}\)</span></p>
 <p>Some new terms:</p>
 <ul class="simple">
-<li><span class="math notranslate nohighlight">\(Pr(H_A)\)</span> - prior probability of <span class="math notranslate nohighlight">\(H_A\)</span> - probability of
-<span class="math notranslate nohighlight">\(H_A\)</span> before the experiment was conducted.</li>
-<li><span class="math notranslate nohighlight">\(Pr(H_0)\)</span> - prior probability of <span class="math notranslate nohighlight">\(H_0\)</span> =
+<li><p><span class="math notranslate nohighlight">\(Pr(H_A)\)</span> - prior probability of <span class="math notranslate nohighlight">\(H_A\)</span> - probability of
+<span class="math notranslate nohighlight">\(H_A\)</span> before the experiment was conducted.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Pr(H_0)\)</span> - prior probability of <span class="math notranslate nohighlight">\(H_0\)</span> =
 <span class="math notranslate nohighlight">\(1 - Pr(H_A)\)</span> - probability of null hypothesis before
-experiment conducted</li>
+experiment conducted</p></li>
 </ul>
 <p>We are interested in updating the probability of <span class="math notranslate nohighlight">\(H_A\)</span> and
 <span class="math notranslate nohighlight">\(H_0\)</span> as a result of a test on some collected data. This updated
@@ -187,36 +181,31 @@ column of the table above. Substituting into the equation:</p>
 <p>and:</p>
 <p><span class="math notranslate nohighlight">\(P(H_A | T_S) = \Frac{(1 - \beta) \pi}{(1 - \beta) \pi + \alpha (1 - \pi)}\)</span></p>
 <p>Let’s put that formula into Sympy for later:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="k">import</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span> <span class="c1"># get symbolic variables</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span> <span class="c1"># get symbolic variables</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob</span>
 <span class="go">pi*(-beta + 1)/(alpha*(-pi + 1) + pi*(-beta + 1))</span>
 </pre></div>
 </div>
 <p>A table shows the new probabilities that take the prior into account:</p>
-<table border="1" class="docutils" id="id2">
-<caption><span class="caption-text"><strong>Considering prior</strong></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
-<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text"><strong>Considering prior</strong></span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_S}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_N}}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(- \beta + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta \pi\)</span></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(H_A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(1 - \beta\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\beta \pi\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
-<td><span class="math notranslate nohighlight">\(\alpha \left(- \pi + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\left(- \alpha + 1\right) \left(- \pi + 1\right)\)</span></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha \left(1 - \pi\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \alpha\right) \left(1 - \pi\right)\)</span></p></td>
 </tr>
-<tr class="row-even"><td><em>Total</em></td>
-<td><span class="math notranslate nohighlight">\(\alpha \left(- \pi + 1\right) + \pi \left(- \beta + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta \pi + \left(- \alpha + 1\right) \left(- \pi + 1\right)\)</span></td>
+<tr class="row-even"><td><p><em>Total</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha \left(1 - \pi\right) + \pi \left(1 - \beta\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\beta \pi + \left(1 - \alpha\right) \left(1 - \pi\right)\)</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -236,7 +225,7 @@ odds ratio</em>. <span class="math notranslate nohighlight">\(R := \Frac{Pr(H_A)
 <p>Ioannidis’ formula for PPV is
 <span class="math notranslate nohighlight">\(\Frac{(1 - \beta) R}{R - \beta R + \alpha}\)</span>. This is the same as
 our formula above, only rephrased in terms of <span class="math notranslate nohighlight">\(R\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">R</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">R</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">R</span> <span class="o">/</span> <span class="p">(</span><span class="n">R</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Is this the same as our formula above?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">ppv</span> <span class="o">-</span> <span class="n">post_prob</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
@@ -246,24 +235,24 @@ our formula above, only rephrased in terms of <span class="math notranslate nohi
 <p>The posterior probability is our estimate of whether <span class="math notranslate nohighlight">\(H_A\)</span> is
 true, given our prior knowledge <span class="math notranslate nohighlight">\(Pr(H_A) = \pi\)</span> combined with the
 new information from the test result.</p>
-</div>
-<div class="section" id="what-is-a-finding-that-is-likely-to-be-true">
-<h1>What is a finding that is likely to be true?<a class="headerlink" href="#what-is-a-finding-that-is-likely-to-be-true" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="what-is-a-finding-that-is-likely-to-be-true">
+<h1>What is a finding that is likely to be true?<a class="headerlink" href="#what-is-a-finding-that-is-likely-to-be-true" title="Link to this heading">¶</a></h1>
 <p>A finding that is likely to be true is one for which the posterior
 probability <span class="math notranslate nohighlight">\(Pr(H_A | T_S) &gt; 0.5\)</span>. That is, the likelihood of the
 tested hypothesis, given the reported significant test result, is
 greater than <span class="math notranslate nohighlight">\(0.5\)</span></p>
-</div>
-<div class="section" id="whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">
-<h1>Whether a finding is likely to be true depends on the power of the experiment<a class="headerlink" href="#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment">
+<h1>Whether a finding is likely to be true depends on the power of the experiment<a class="headerlink" href="#whether-a-finding-is-likely-to-be-true-depends-on-the-power-of-the-experiment" title="Link to this heading">¶</a></h1>
 <p>Assume that <span class="math notranslate nohighlight">\(\alpha = 0.05\)</span> (standard significance threshold for
 null hypothesis test).</p>
 <p>Let’s have a look at the posterior probability as a function of power
 and prior probability:</p>
 <p>(<a class="reference external" href=".//ioannidis_2005-4.png">png</a>, <a class="reference external" href=".//ioannidis_2005-4.hires.png">hires.png</a>, <a class="reference external" href=".//ioannidis_2005-4.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/ioannidis_2005-4.png" src="_images/ioannidis_2005-4.png" />
-</div>
+</figure>
 <p>The posterior probability depends on the power. If the power is low and
 <span class="math notranslate nohighlight">\(H_A\)</span> is true, the likelihood of getting a significant test result
 is small. Assuming <span class="math notranslate nohighlight">\(\pi = Pr(H_A) = 0.5\)</span>, our posterior
@@ -280,9 +269,9 @@ positive.</p>
 probability is less than around 0.2, then even if there is a significant
 test result, the null is still more likely than the <span class="math notranslate nohighlight">\(H_A\)</span>
 (posterior &lt; 0.5).</p>
-</div>
-<div class="section" id="quantifying-the-effect-of-bias">
-<h1>Quantifying the effect of bias<a class="headerlink" href="#quantifying-the-effect-of-bias" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="quantifying-the-effect-of-bias">
+<h1>Quantifying the effect of bias<a class="headerlink" href="#quantifying-the-effect-of-bias" title="Link to this heading">¶</a></h1>
 <p>Working scientists know that working scientists have many sources of
 bias in data collection and analysis.</p>
 <p>We tend to assume that the effect of this bias is relatively minor. Is
@@ -295,83 +284,73 @@ not-significant findings) and multiplying by <span class="math notranslate nohig
 effect to the first column (significant findings) and subtract from the
 second column (not-significant findings). Before applying the priors,
 this looks like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">f_s</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">),</span>
 <span class="gp">... </span>                          <span class="n">f_ns</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">))</span>
 </pre></div>
 </div>
-<table border="1" class="docutils" id="id3">
-<caption><span class="caption-text"><strong>Effect of bias without prior</strong></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
-<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text"><strong>Effect of bias without prior</strong></span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_S}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_N}}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta u - \beta + 1\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \beta u + \beta\)</span></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(H_A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \beta + \beta u\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\beta - \beta u\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
-<td><span class="math notranslate nohighlight">\(\alpha + u \left(- \alpha + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \alpha - u \left(- \alpha + 1\right) + 1\)</span></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha + u \left(1 - \alpha\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \alpha - u \left(1 - \alpha\right)\)</span></p></td>
 </tr>
-<tr class="row-even"><td><em>Total</em></td>
-<td><span class="math notranslate nohighlight">\(\alpha + \beta u - \beta + u \left(- \alpha + 1\right) + 1\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \alpha - \beta u + \beta - u \left(- \alpha + 1\right) + 1\)</span></td>
+<tr class="row-even"><td><p><em>Total</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 + \alpha - \beta + \beta u + u \left(1 - \alpha\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 + \beta - \alpha - \beta u - u \left(1 - \alpha\right)\)</span></p></td>
 </tr>
 </tbody>
 </table>
 <p>After applying the prior:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span> <span class="o">=</span> <span class="n">bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span> <span class="o">=</span> <span class="n">bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
 </pre></div>
 </div>
-<table border="1" class="docutils" id="id4">
-<caption><span class="caption-text"><strong>Effect of bias considering prior</strong></span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
-<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text"><strong>Effect of bias considering prior</strong></span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_S}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_N}}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(\beta u - \beta + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(- \beta u + \beta\right)\)</span></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(H_A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(1 - \beta + \beta u\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(\beta - \beta u\right)\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
-<td><span class="math notranslate nohighlight">\(\left(\alpha + u \left(- \alpha + 1\right)\right) \left(- \pi + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\left(- \pi + 1\right) \left(- \alpha - u \left(- \alpha + 1\right) + 1\right)\)</span></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \pi\right) \left(\alpha + u \left(1 - \alpha\right)\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \pi\right) \left(1 - \alpha - u \left(1 - \alpha\right)\right)\)</span></p></td>
 </tr>
-<tr class="row-even"><td><em>Total</em></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(\beta u - \beta + 1\right) + \left(\alpha + u \left(- \alpha + 1\right)\right) \left(- \pi + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(- \beta u + \beta\right) + \left(- \pi + 1\right) \left(- \alpha - u \left(- \alpha + 1\right) + 1\right)\)</span></td>
+<tr class="row-even"><td><p><em>Total</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(1 - \beta + \beta u\right) + \left(1 - \pi\right) \left(\alpha + u \left(1 - \alpha\right)\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(\beta - \beta u\right) + \left(1 - \pi\right) \left(1 - \alpha - u \left(1 - \alpha\right)\right)\)</span></p></td>
 </tr>
 </tbody>
 </table>
 <p>The first cell in the table is <span class="math notranslate nohighlight">\(Pr(T_S | H_A) Pr(H_A)\)</span>. The total
 for the first column gives <span class="math notranslate nohighlight">\(Pr(T_S)\)</span>. Therefore the posterior
 probability <span class="math notranslate nohighlight">\(Pr(H_A | T_S)\)</span> is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span> <span class="o">=</span> <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span> <span class="o">=</span> <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span>
 <span class="gp">... </span>                                      <span class="n">bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_bias</span>
 <span class="go">pi*(beta*u - beta + 1)/(pi*(beta*u - beta + 1) + (alpha + u*(-alpha + 1))*(-pi + 1))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Same as Ioannidis formulation?</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Same as Ioannidis formulation?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># This from Ioannidis 2005:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv_bias</span> <span class="o">=</span> <span class="p">(</span>
 <span class="gp">... </span>    <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">R</span><span class="p">)</span> <span class="o">/</span>
@@ -384,16 +363,16 @@ probability <span class="math notranslate nohighlight">\(Pr(H_A | T_S)\)</span> 
 </div>
 <p>What effect does bias have on the posterior probabilities?</p>
 <p>(<a class="reference external" href=".//ioannidis_2005-9.png">png</a>, <a class="reference external" href=".//ioannidis_2005-9.hires.png">hires.png</a>, <a class="reference external" href=".//ioannidis_2005-9.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/ioannidis_2005-9.png" src="_images/ioannidis_2005-9.png" />
-</div>
+</figure>
 <p>As we’d expect, as bias increases to 1, the result of the experiment has
 less and less effect on our posterior estimate. If the analysis was
 entirely biased, then our posterior estimate is unchanged from the prior
 (diagonal line on the graph).</p>
-</div>
-<div class="section" id="the-effect-of-multiple-studies">
-<h1>The effect of multiple studies<a class="headerlink" href="#the-effect-of-multiple-studies" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="the-effect-of-multiple-studies">
+<h1>The effect of multiple studies<a class="headerlink" href="#the-effect-of-multiple-studies" title="Link to this heading">¶</a></h1>
 <p>Ioannidis makes the point that when a field is particularly fashionable,
 there may be many research groups working on the same question.</p>
 <p>Given publication bias for positive findings, it is possible that only
@@ -407,80 +386,70 @@ studies will be not significant, given <span class="math notranslate nohighlight
 <span class="math notranslate nohighlight">\((1 - \alpha)^n\)</span>. The probability of at least one false positive
 is <span class="math notranslate nohighlight">\(1 - (1 - \alpha)^n\)</span>.</p>
 <p>The probability table (without the priors) is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">),</span>
 <span class="gp">... </span>                          <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">f_s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>                          <span class="n">f_ns</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
-<table border="1" class="docutils" id="id5">
-<caption><span class="caption-text"><strong>n replications with publication bias; no prior</strong></span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
-<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text"><strong>n replications with publication bias; no prior</strong></span><a class="headerlink" href="#id5" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_S}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_N}}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \beta^{n} + 1\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta^{n}\)</span></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(H_A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \beta^{n}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\beta^{n}\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \left(- \alpha + 1\right)^{n} + 1\)</span></td>
-<td><span class="math notranslate nohighlight">\(\left(- \alpha + 1\right)^{n}\)</span></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \left(1 - \alpha\right)^{n}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \alpha\right)^{n}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><em>Total</em></td>
-<td><span class="math notranslate nohighlight">\(- \beta^{n} - \left(- \alpha + 1\right)^{n} + 2\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta^{n} + \left(- \alpha + 1\right)^{n}\)</span></td>
+<tr class="row-even"><td><p><em>Total</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(2 - \beta^{n} - \left(1 - \alpha\right)^{n}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\beta^{n} + \left(1 - \alpha\right)^{n}\)</span></p></td>
 </tr>
 </tbody>
 </table>
 <p>Considering the prior:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span> <span class="o">=</span> <span class="n">multi_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span> <span class="o">=</span> <span class="n">multi_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
 </pre></div>
 </div>
-<table border="1" class="docutils" id="id6">
-<caption><span class="caption-text"><strong>n replications with publication bias and prior</strong></span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
-<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text"><strong>n replications with publication bias and prior</strong></span><a class="headerlink" href="#id6" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_S}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_N}}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(- \beta^{n} + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta^{n} \pi\)</span></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(H_A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(1 - \beta^{n}\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \beta^{n}\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
-<td><span class="math notranslate nohighlight">\(\left(- \pi + 1\right) \left(- \left(- \alpha + 1\right)^{n} + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\left(- \alpha + 1\right)^{n} \left(- \pi + 1\right)\)</span></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \pi\right) \left(1 - \left(1 - \alpha\right)^{n}\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \alpha\right)^{n} \left(1 - \pi\right)\)</span></p></td>
 </tr>
-<tr class="row-even"><td><em>Total</em></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(- \beta^{n} + 1\right) + \left(- \pi + 1\right) \left(- \left(- \alpha + 1\right)^{n} + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta^{n} \pi + \left(- \alpha + 1\right)^{n} \left(- \pi + 1\right)\)</span></td>
+<tr class="row-even"><td><p><em>Total</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(1 - \beta^{n}\right) + \left(1 - \pi\right) \left(1 - \left(1 - \alpha\right)^{n}\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \beta^{n} + \left(1 - \alpha\right)^{n} \left(1 - \pi\right)\)</span></p></td>
 </tr>
 </tbody>
 </table>
 <p>Giving posterior probability of:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span> <span class="o">=</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span> <span class="o">=</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi</span>
 <span class="go">pi*(-beta**n + 1)/(pi*(-beta**n + 1) + (-pi + 1)*(-(-alpha + 1)**n + 1))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Formula from Ioannidis 2005:</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Formula from Ioannidis 2005:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ppv_multi</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="o">-</span> <span class="n">R</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Is this the same as our formula above?</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">ppv_multi</span> <span class="o">-</span> <span class="n">post_prob_multi</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
@@ -488,80 +457,70 @@ is <span class="math notranslate nohighlight">\(1 - (1 - \alpha)^n\)</span>.</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//ioannidis_2005-14.png">png</a>, <a class="reference external" href=".//ioannidis_2005-14.hires.png">hires.png</a>, <a class="reference external" href=".//ioannidis_2005-14.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/ioannidis_2005-14.png" src="_images/ioannidis_2005-14.png" />
-</div>
-</div>
-<div class="section" id="putting-it-together">
-<h1>Putting it together<a class="headerlink" href="#putting-it-together" title="Permalink to this headline">¶</a></h1>
+</figure>
+</section>
+<section id="putting-it-together">
+<h1>Putting it together<a class="headerlink" href="#putting-it-together" title="Link to this heading">¶</a></h1>
 <p>Considering analysis bias and positive publication bias together:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc_noprior</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
 <span class="gp">... </span>   <span class="n">t_s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>   <span class="n">t_ns</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>   <span class="n">f_s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="o">+</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span><span class="p">,</span>
 <span class="gp">... </span>   <span class="n">f_ns</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="n">n</span> <span class="o">-</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
-<table border="1" class="docutils" id="id7">
-<caption><span class="caption-text"><strong>Analysis and publication bias, no prior</strong></span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
-<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-text"><strong>Analysis and publication bias, no prior</strong></span><a class="headerlink" href="#id7" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_S}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_N}}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
-<td><span class="math notranslate nohighlight">\(\beta^{n} u - \beta^{n} + 1\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \beta^{n} u + \beta^{n}\)</span></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(H_A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \beta^{n} + u \beta^{n}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\beta^{n} - u \beta^{n}\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
-<td><span class="math notranslate nohighlight">\(u \left(- \alpha + 1\right)^{n} - \left(- \alpha + 1\right)^{n} + 1\)</span></td>
-<td><span class="math notranslate nohighlight">\(- u \left(- \alpha + 1\right)^{n} + \left(- \alpha + 1\right)^{n}\)</span></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(1 - \left(1 - \alpha\right)^{n} + u \left(1 - \alpha\right)^{n}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \alpha\right)^{n} - u \left(1 - \alpha\right)^{n}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><em>Total</em></td>
-<td><span class="math notranslate nohighlight">\(\beta^{n} u - \beta^{n} + u \left(- \alpha + 1\right)^{n} - \left(- \alpha + 1\right)^{n} + 2\)</span></td>
-<td><span class="math notranslate nohighlight">\(- \beta^{n} u + \beta^{n} - u \left(- \alpha + 1\right)^{n} + \left(- \alpha + 1\right)^{n}\)</span></td>
+<tr class="row-even"><td><p><em>Total</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(2 - \beta^{n} - \left(1 - \alpha\right)^{n} + u \beta^{n} + u \left(1 - \alpha\right)^{n}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\beta^{n} + \left(1 - \alpha\right)^{n} - u \beta^{n} - u \left(1 - \alpha\right)^{n}\)</span></p></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span> <span class="o">=</span> <span class="n">multi_bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span> <span class="o">=</span> <span class="n">multi_bias_assoc_noprior</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_ns&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pi</span>
 </pre></div>
 </div>
-<table border="1" class="docutils" id="id8">
-<caption><span class="caption-text"><strong>Analysis and publication bias with prior</strong></span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
-<td><span class="math notranslate nohighlight">\(T_S\)</span></td>
-<td><span class="math notranslate nohighlight">\(T_N\)</span></td>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-text"><strong>Analysis and publication bias with prior</strong></span><a class="headerlink" href="#id8" title="Link to this table">¶</a></caption>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_S}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mathtt{\text{T\_N}}\)</span></p></td>
 </tr>
-<tr class="row-even"><td><span class="math notranslate nohighlight">\(H_A\)</span></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(\beta^{n} u - \beta^{n} + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(- \beta^{n} u + \beta^{n}\right)\)</span></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(H_A\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(1 - \beta^{n} + u \beta^{n}\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(\beta^{n} - u \beta^{n}\right)\)</span></p></td>
 </tr>
-<tr class="row-odd"><td><span class="math notranslate nohighlight">\(H_0\)</span></td>
-<td><span class="math notranslate nohighlight">\(\left(- \pi + 1\right) \left(u \left(- \alpha + 1\right)^{n} - \left(- \alpha + 1\right)^{n} + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\left(- \pi + 1\right) \left(- u \left(- \alpha + 1\right)^{n} + \left(- \alpha + 1\right)^{n}\right)\)</span></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(H_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \pi\right) \left(1 - \left(1 - \alpha\right)^{n} + u \left(1 - \alpha\right)^{n}\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left(1 - \pi\right) \left(\left(1 - \alpha\right)^{n} - u \left(1 - \alpha\right)^{n}\right)\)</span></p></td>
 </tr>
-<tr class="row-even"><td><em>Total</em></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(\beta^{n} u - \beta^{n} + 1\right) + \left(- \pi + 1\right) \left(u \left(- \alpha + 1\right)^{n} - \left(- \alpha + 1\right)^{n} + 1\right)\)</span></td>
-<td><span class="math notranslate nohighlight">\(\pi \left(- \beta^{n} u + \beta^{n}\right) + \left(- \pi + 1\right) \left(- u \left(- \alpha + 1\right)^{n} + \left(- \alpha + 1\right)^{n}\right)\)</span></td>
+<tr class="row-even"><td><p><em>Total</em></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(1 - \beta^{n} + u \beta^{n}\right) + \left(1 - \pi\right) \left(1 - \left(1 - \alpha\right)^{n} + u \left(1 - \alpha\right)^{n}\right)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\pi \left(\beta^{n} - u \beta^{n}\right) + \left(1 - \pi\right) \left(\left(1 - \alpha\right)^{n} - u \left(1 - \alpha\right)^{n}\right)\)</span></p></td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi_bias</span> <span class="o">=</span> <span class="p">(</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">post_prob_multi_bias</span> <span class="o">=</span> <span class="p">(</span>
 <span class="gp">... </span>   <span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">/</span>
 <span class="gp">... </span>   <span class="p">(</span><span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;t_s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">multi_bias_assoc</span><span class="p">[</span><span class="s1">&#39;f_s&#39;</span><span class="p">])</span>
 <span class="gp">... </span>   <span class="p">)</span>
@@ -571,7 +530,7 @@ is <span class="math notranslate nohighlight">\(1 - (1 - \alpha)^n\)</span>.</p>
 </div>
 <p>Now we make a numerical version of this symbolic expression, so we can
 evaluate it for different values of <span class="math notranslate nohighlight">\(\alpha, \beta, \pi, u, n\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numerical version of symbolic expression</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numerical version of symbolic expression</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pp_mb_func</span> <span class="o">=</span> <span class="n">lambdify</span><span class="p">((</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">post_prob_multi_bias</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -581,44 +540,44 @@ bias of 10% (<span class="math notranslate nohighlight">\(u= 0.1\)</span>). We t
 estimate for neuroimaging studies = 0.08. Therefore
 <span class="math notranslate nohighlight">\(\beta = 1 - 0.08 = 0.92\)</span>:</p>
 <ul class="simple">
-<li>Button, Katherine S., John PA Ioannidis, Claire Mokrysz, Brian A.
+<li><p>Button, Katherine S., John PA Ioannidis, Claire Mokrysz, Brian A.
 Nosek, Jonathan Flint, Emma SJ Robinson, and Marcus R. Munafò. 2013.
 “Power failure: why small sample size undermines the reliability of
-neuroscience.” <em>Nature Reviews Neuroscience</em>.</li>
+neuroscience.” <em>Nature Reviews Neuroscience</em>.</p></li>
 </ul>
 <p>(<a class="reference external" href=".//ioannidis_2005-19.png">png</a>, <a class="reference external" href=".//ioannidis_2005-19.hires.png">hires.png</a>, <a class="reference external" href=".//ioannidis_2005-19.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/ioannidis_2005-19.png" src="_images/ioannidis_2005-19.png" />
-</div>
+</figure>
 <p>This graph tells us that, for a study with average power in
 neuroimaging, with some mild analysis bias and positive publication
 bias, the significant finding <span class="math notranslate nohighlight">\(T_S\)</span> does not change our posterior
 very much from our prior.</p>
 <p>If we do some study with an hypothesis that is suitably unlikely apriori
 - say <span class="math notranslate nohighlight">\(Pr(H_A) = 0.25\)</span> - then our posterior probability is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">0.2972463786...</span>
 </pre></div>
 </div>
 <p>What if the result was significant at <span class="math notranslate nohighlight">\(p &lt; 0.01\)</span>?:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pp_mb_func</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">0.40245282700...</span>
 </pre></div>
 </div>
 <p>So, even if our result is significant at <span class="math notranslate nohighlight">\(p &lt; 0.01\)</span>, the
 probability that <span class="math notranslate nohighlight">\(H_A\)</span> is correct is still less than <span class="math notranslate nohighlight">\(0.5\)</span>.</p>
 <ul class="simple">
-<li><a class="reference download internal" href="ioannidis_2005.py">Download this page as a Python code file</a>;</li>
-<li><a class="reference download internal" href="ioannidis_2005.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
+<li><p><a class="reference download internal" href="ioannidis_2005.py">Download this page as a Python code file</a>;</p></li>
+<li><p><a class="reference download internal" href="ioannidis_2005.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</p></li>
 </ul>
-</div>
+</section>
 
 
           </div>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">Teaching</a></h1>
 
@@ -631,7 +590,16 @@ probability that <span class="math notranslate nohighlight">\(H_A\)</span> is co
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
@@ -698,18 +666,6 @@ probability that <span class="math notranslate nohighlight">\(H_A\)</span> is co
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
 
 
 
@@ -723,11 +679,11 @@ probability that <span class="math notranslate nohighlight">\(H_A\)</span> is co
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2016, Matthew Brett.
+      &#169;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/ioannidis_2005.rst.txt"

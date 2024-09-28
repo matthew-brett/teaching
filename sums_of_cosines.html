@@ -1,21 +1,19 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Sum of sines and cosines &#8212; Tutorials on imaging, computing and mathematics</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/copybutton.js?v=fc45e087"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Sums of sinusoids" href="sums_of_sinusoids.html" />
@@ -23,8 +21,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -37,16 +36,16 @@
           <div class="body" role="main">
             
   <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
-<div class="section" id="sum-of-sines-and-cosines">
-<h1>Sum of sines and cosines<a class="headerlink" href="#sum-of-sines-and-cosines" title="Permalink to this headline">¶</a></h1>
+<section id="sum-of-sines-and-cosines">
+<h1>Sum of sines and cosines<a class="headerlink" href="#sum-of-sines-and-cosines" title="Link to this heading">¶</a></h1>
 <ul class="simple">
-<li>Samuel Greitzer “Many cheerful Facts” Arbelos 4 (1986), no. 5, 14-17.</li>
-<li>Michael P. Knapp <a class="reference external" href="http://evergreen.loyola.edu/mpknapp/www/papers/knapp-sv.pdf">Sines and cosines of angles in arithmetic progression</a> Mathematics
-Magazine 82.5 (2009): 371-372.</li>
+<li><p>Samuel Greitzer “Many cheerful Facts” Arbelos 4 (1986), no. 5, 14-17.</p></li>
+<li><p>Michael P. Knapp <a class="reference external" href="http://evergreen.loyola.edu/mpknapp/www/papers/knapp-sv.pdf">Sines and cosines of angles in arithmetic progression</a> Mathematics
+Magazine 82.5 (2009): 371-372.</p></li>
 </ul>
 <p>The proof on this page follows Samuel Greitzner’s “Many cheerful facts”.</p>
-<div class="section" id="theorems">
-<h2>Theorems<a class="headerlink" href="#theorems" title="Permalink to this headline">¶</a></h2>
+<section id="theorems">
+<h2>Theorems<a class="headerlink" href="#theorems" title="Link to this heading">¶</a></h2>
 <p>For a positive integer <span class="math notranslate nohighlight">\(N\)</span> and real numbers <span class="math notranslate nohighlight">\(a, d\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}R \triangleq \frac{\sin(N \frac{1}{2}d)}{\sin(\frac{1}{2} d)} \\
@@ -61,16 +60,16 @@ R \cos ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
 N \sin a &amp; \text{if } \sin(\frac{1}{2}d) = 0 \\
 R \sin ( a + (N - 1) \frac{1}{2} d) &amp; \text{otherwise}
 \end{cases}\end{split}\]</div>
-</div>
-<div class="section" id="proof">
-<h2>Proof<a class="headerlink" href="#proof" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="proof">
+<h2>Proof<a class="headerlink" href="#proof" title="Link to this heading">¶</a></h2>
 <p>The basic order of play is to rearrange the sum so that the terms in the
 current iteration of the sum cancel terms in the previous iteration, and
 we can therefore get rid of the sum. This is a <a class="reference external" href="https://en.wikipedia.org/wiki/Telescoping_series">telescoping
 series</a>.</p>
 <p>We will do the cosine series first. The sine proof is almost identical.</p>
-<div class="section" id="cosine-sum">
-<h3>Cosine sum<a class="headerlink" href="#cosine-sum" title="Permalink to this headline">¶</a></h3>
+<section id="cosine-sum">
+<h3>Cosine sum<a class="headerlink" href="#cosine-sum" title="Link to this heading">¶</a></h3>
 <p>For reasons that will become clear later, we start with the case where
 <span class="math notranslate nohighlight">\(\sin(\frac{1}{2} d) = 0\)</span>.</p>
 <p>If <span class="math notranslate nohighlight">\(\sin(\frac{1}{2} d) = 0\)</span> then <span class="math notranslate nohighlight">\(d\)</span> is a multiple of
@@ -125,9 +124,9 @@ and <span class="math notranslate nohighlight">\(\beta\)</span> we get:</p>
 2 \cos( a + (N - 1) \frac{1}{2} d ) \sin( N \frac{1}{2} d )\]</div>
 <p>We solve for <span class="math notranslate nohighlight">\(C\)</span> to finish the proof.</p>
 <p><span class="math notranslate nohighlight">\(\blacksquare\)</span></p>
-</div>
-<div class="section" id="sine-sum">
-<h3>Sine sum<a class="headerlink" href="#sine-sum" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="sine-sum">
+<h3>Sine sum<a class="headerlink" href="#sine-sum" title="Link to this heading">¶</a></h3>
 <p>This is almost identical, but applying:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\cos(\alpha + \beta) = \cos \alpha \cos \beta - \sin \alpha \sin \beta \\
@@ -149,18 +148,15 @@ as for the cosine:</p>
 = -2 \sin (a + (N - 1)\frac{1}{2} d ) \sin ( N \frac{1}{2} d )\end{split}\]</div>
 <p>Then solve for <span class="math notranslate nohighlight">\(S\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(\blacksquare\)</span></p>
-</div>
-</div>
-<div class="section" id="numerical-check">
-<h2>Numerical check<a class="headerlink" href="#numerical-check" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="numerical-check">
+<h2>Numerical check<a class="headerlink" href="#numerical-check" title="Link to this heading">¶</a></h2>
 <p>We check that the formulae give the right answers from numerical sums.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">predicted_cos_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">d2</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mf">2.</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">d2</span><span class="p">),</span> <span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -182,7 +178,7 @@ as for the cosine:</p>
 </pre></div>
 </div>
 <p>When <span class="math notranslate nohighlight">\(\sin(\frac{1}{2}d) \ne 0\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cos&#39;</span><span class="p">,</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cos&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">cos 7.7038472261 7.7038472261</span>
@@ -193,7 +189,7 @@ as for the cosine:</p>
 </pre></div>
 </div>
 <p>When <span class="math notranslate nohighlight">\(\sin(\frac{1}{2}d) \approx 0\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cos : sin(d/2) ~ 0;&#39;</span><span class="p">,</span>
 <span class="gp">... </span>      <span class="n">predicted_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
 <span class="gp">... </span>      <span class="n">actual_cos_sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
 <span class="go">cos : sin(d/2) ~ 0; -11.1119415547 -11.1119415547</span>
@@ -203,15 +199,15 @@ as for the cosine:</p>
 <span class="go">sin : sin(d/2) ~ 0; -12.8656424202 -12.8656424202</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">Teaching</a></h1>
 
@@ -224,7 +220,16 @@ as for the cosine:</p>
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
@@ -300,18 +305,6 @@ as for the cosine:</p>
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
 
 
 
@@ -325,11 +318,11 @@ as for the cosine:</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2016, Matthew Brett.
+      &#169;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/sums_of_cosines.rst.txt"

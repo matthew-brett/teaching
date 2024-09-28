@@ -1,21 +1,19 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>The Fourier basis &#8212; Tutorials on imaging, computing and mathematics</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/copybutton.js?v=fc45e087"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Fourier without the ei" href="fourier_no_ei.html" />
@@ -23,8 +21,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -37,8 +36,8 @@
           <div class="body" role="main">
             
   <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
-<div class="section" id="the-fourier-basis">
-<h1>The Fourier basis<a class="headerlink" href="#the-fourier-basis" title="Permalink to this headline">¶</a></h1>
+<section id="the-fourier-basis">
+<h1>The Fourier basis<a class="headerlink" href="#the-fourier-basis" title="Link to this heading">¶</a></h1>
 <p><a class="reference internal" href="fourier_no_ei.html"><span class="doc">Fourier without the ei</span></a> shows that we can write the discrete Fourier transform
 DFT as vector dot products.  In <a class="reference internal" href="fourier_no_ei.html#rewriting-dft-with-vectors"><span class="std std-ref">Rewriting the DFT with vectors</span></a> we found
 that:</p>
@@ -55,8 +54,8 @@ k 2 \pi \frac{N-1}{N}] \\
 <p><span class="math notranslate nohighlight">\(\vec{c_k}, \vec{s_k}\)</span> are <em>Fourier basis vectors</em>.</p>
 <p>We can compile all these vectors into matrices to form <em>Fourier basis
 matrices</em>.</p>
-<div class="section" id="rewriting-the-dft-with-cosine-and-sine-basis-matrices">
-<h2>Rewriting the DFT with cosine and sine basis matrices<a class="headerlink" href="#rewriting-the-dft-with-cosine-and-sine-basis-matrices" title="Permalink to this headline">¶</a></h2>
+<section id="rewriting-the-dft-with-cosine-and-sine-basis-matrices">
+<h2>Rewriting the DFT with cosine and sine basis matrices<a class="headerlink" href="#rewriting-the-dft-with-cosine-and-sine-basis-matrices" title="Link to this heading">¶</a></h2>
 <p>Instead of writing the formulae for the individual elements <span class="math notranslate nohighlight">\(X_k\)</span> and
 <span class="math notranslate nohighlight">\(x_n\)</span>, we can use matrices to express our formulae in terms of the
 vectors <span class="math notranslate nohighlight">\(\vec{X}, \vec{x}\)</span>.</p>
@@ -87,10 +86,10 @@ matrix <span class="math notranslate nohighlight">\(\C\)</span> that has rows
 <div class="math notranslate nohighlight">
 \[\begin{split}\vec{X} = \C \cdot \vec{x} - i \S \cdot \vec{x} \\
 \vec{x} = \frac{1}{N} \C \cdot \vec{X} + i \frac{1}{N} \S \cdot \vec{X}\end{split}\]</div>
-</div>
-<div class="section" id="loading-display-libraries-and-data">
-<h2>Loading display libraries and data<a class="headerlink" href="#loading-display-libraries-and-data" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</section>
+<section id="loading-display-libraries-and-data">
+<h2>Loading display libraries and data<a class="headerlink" href="#loading-display-libraries-and-data" title="Link to this heading">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="p">[</span> <span class="mf">0.4967</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1383</span><span class="p">,</span>  <span class="mf">0.6477</span><span class="p">,</span>  <span class="mf">1.523</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.2342</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2341</span><span class="p">,</span>  <span class="mf">1.5792</span><span class="p">,</span>
@@ -102,25 +101,25 @@ matrix <span class="math notranslate nohighlight">\(\C\)</span> that has rows
 </pre></div>
 </div>
 <p>In order to run the commands in this page, you will need to download the file
-<a class="reference download internal" download="" href="_downloads/6e4e895180fc1cacc59707bb8a3697dd/dft_plots.py"><code class="xref download docutils literal notranslate"><span class="pre">dft_plots.py</span></code></a> to the directory where you running the code.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a class="reference download internal" download="" href="_downloads/ed7419a00057af7563a6e3e6732f1019/dft_plots.py"><code class="xref download docutils literal notranslate"><span class="pre">dft_plots.py</span></code></a> to the directory where you running the code.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">dft_plots</span> <span class="k">as</span> <span class="nn">dftp</span>
 </pre></div>
 </div>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">If running in the IPython console, consider running <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> to enable
+<p class="admonition-title">Hint</p>
+<p>If running in the IPython console, consider running <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> to enable
 interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal notranslate"><span class="pre">%matplotlib</span>
 <span class="pre">inline</span></code>.</p>
 </div>
-</div>
-<div class="section" id="some-properties-of-the-cosine-and-sine-basis-matrices">
-<h2>Some properties of the cosine and sine basis matrices<a class="headerlink" href="#some-properties-of-the-cosine-and-sine-basis-matrices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="some-properties-of-the-cosine-and-sine-basis-matrices">
+<h2>Some properties of the cosine and sine basis matrices<a class="headerlink" href="#some-properties-of-the-cosine-and-sine-basis-matrices" title="Link to this heading">¶</a></h2>
 <p>First we note that <span class="math notranslate nohighlight">\(\C\)</span> and <span class="math notranslate nohighlight">\(\S\)</span> are always real matrices,
 regardless of the input <span class="math notranslate nohighlight">\(\vec{x}\)</span> or <span class="math notranslate nohighlight">\(\vec{X}\)</span>.</p>
 <p>Let’s show <span class="math notranslate nohighlight">\(\C\)</span> and <span class="math notranslate nohighlight">\(\S\)</span> as grayscale images.</p>
 <p>First we build <span class="math notranslate nohighlight">\(\C\)</span> and <span class="math notranslate nohighlight">\(\S\)</span> for our case with <span class="math notranslate nohighlight">\(N=32\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">one_cycle</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ns</span> <span class="o">/</span> <span class="n">N</span>
@@ -130,7 +129,7 @@ regardless of the input <span class="math notranslate nohighlight">\(\vec{x}\)</
 <span class="gp">... </span>    <span class="n">S</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t_k</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;$\mathbf</span><span class="si">{C}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
@@ -140,11 +139,11 @@ regardless of the input <span class="math notranslate nohighlight">\(\vec{x}\)</
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_basis-4.png">png</a>, <a class="reference external" href=".//fourier_basis-4.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-4.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/fourier_basis-4.png" src="_images/fourier_basis-4.png" />
-</div>
-<div class="section" id="mirror-symmetry">
-<h3>Mirror symmetry<a class="headerlink" href="#mirror-symmetry" title="Permalink to this headline">¶</a></h3>
+</figure>
+<section id="mirror-symmetry">
+<h3>Mirror symmetry<a class="headerlink" href="#mirror-symmetry" title="Link to this heading">¶</a></h3>
 <p>From the images we see that the bottom half of <span class="math notranslate nohighlight">\(\C\)</span> looks like a
 mirror image of the top half of <span class="math notranslate nohighlight">\(\C\)</span>. The bottom half of
 <span class="math notranslate nohighlight">\(\S\)</span> looks like a sign flipped (black <span class="math notranslate nohighlight">\(\Leftrightarrow\)</span>
@@ -157,7 +156,7 @@ S_{p,:} = -S_{N-p,:} \; \mathrm{for} \; p &gt; 0\end{split}\]</div>
 are plotting the continuous cosine function with dotted lines, with
 filled circles to represent the discrete samples we took to fill the row
 of <span class="math notranslate nohighlight">\(\C\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">center_rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">center_rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">N</span> <span class="o">/</span> <span class="mf">2.</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">center_rows</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf</span><span class="si">{C}</span><span class="s1">$&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
@@ -165,9 +164,9 @@ of <span class="math notranslate nohighlight">\(\C\)</span>:</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_basis-5.png">png</a>, <a class="reference external" href=".//fourier_basis-5.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-5.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/fourier_basis-5.png" src="_images/fourier_basis-5.png" />
-</div>
+</figure>
 <p>The first plot in this grid is for row <span class="math notranslate nohighlight">\(k = N / 2 - 1\)</span>. This row
 starts sampling just before the peak and trough of the cosine. In the
 center is row <span class="math notranslate nohighlight">\(k = N / 2\)</span> of <span class="math notranslate nohighlight">\(\C\)</span>. This is sampling the
@@ -180,37 +179,37 @@ is sampling at the Nyquist sampling frequency, and row
 therefore it is being <em>aliased</em> to the same apparent frequency as row
 <span class="math notranslate nohighlight">\(k = N / 2 - 1\)</span>.</p>
 <p>This might be more obvious plotting rows 1 and N-1 of <span class="math notranslate nohighlight">\(\C\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $1$ and $N - 1$ of $\mathbf</span><span class="si">{C}</span><span class="s1">$&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_basis-6.png">png</a>, <a class="reference external" href=".//fourier_basis-6.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-6.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/fourier_basis-6.png" src="_images/fourier_basis-6.png" />
-</div>
+</figure>
 <p>Of course we get the same kind of effect for <span class="math notranslate nohighlight">\(\S\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">center_rows</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">center_rows</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf</span><span class="si">{S}</span><span class="s1">$&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_basis-7.png">png</a>, <a class="reference external" href=".//fourier_basis-7.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-7.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/fourier_basis-7.png" src="_images/fourier_basis-7.png" />
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</figure>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">dftp</span><span class="o">.</span><span class="n">plot_cs_rows</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Rows $1$ and $N - 1$ of $\mathbf</span><span class="si">{S}</span><span class="s1">$&#39;</span><span class="p">,</span>
 <span class="gp">... </span>             <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_basis-8.png">png</a>, <a class="reference external" href=".//fourier_basis-8.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-8.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/fourier_basis-8.png" src="_images/fourier_basis-8.png" />
-</div>
+</figure>
 <p>Notice that for <span class="math notranslate nohighlight">\(\S\)</span>, the sine waves after <span class="math notranslate nohighlight">\(k = N / 2\)</span> are
 sign-flipped relative to their matching rows before <span class="math notranslate nohighlight">\(k = N / 2\)</span>.
 Thus row <span class="math notranslate nohighlight">\(k = N / 2 + 1\)</span> will be aliased to the same frequency as
@@ -218,15 +217,15 @@ for row <span class="math notranslate nohighlight">\(k = N / 2 - 1\)</span>, but
 <p>It is this sign-flip that leads to the concept of <em>negative frequency</em>
 in the DFT, and to the property of <em>conjugate symmetry</em> from the DFT on
 a vector of real numbers. We will hear more about these later.</p>
-</div>
-<div class="section" id="matrix-symmetry">
-<h3>Matrix symmetry<a class="headerlink" href="#matrix-symmetry" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="matrix-symmetry">
+<h3>Matrix symmetry<a class="headerlink" href="#matrix-symmetry" title="Link to this heading">¶</a></h3>
 <p>The next thing we notice about <span class="math notranslate nohighlight">\(\C\)</span> and <span class="math notranslate nohighlight">\(\S\)</span> is that they
 are transpose <em>symmetric</em> matrices:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\C = \C^T \\
 \S = \S^T \\\end{split}\]</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -254,9 +253,9 @@ row <span class="math notranslate nohighlight">\(k \in t_{k, 0}, t_{k, 1}, ... ,
 <span class="math notranslate nohighlight">\(z\)</span> of <span class="math notranslate nohighlight">\(\C\)</span> as <span class="math notranslate nohighlight">\(C_{:,z}\)</span>; column <span class="math notranslate nohighlight">\(z\)</span> of
 <span class="math notranslate nohighlight">\(\S\)</span> is <span class="math notranslate nohighlight">\(S_{:, z}\)</span>. Therefore
 <span class="math notranslate nohighlight">\(C_{z, :} = C_{:, z}, S_{z, :} = S_{:, z}\)</span>.</p>
-</div>
-<div class="section" id="row-dot-products-and-lengths">
-<h3>Row dot products and lengths<a class="headerlink" href="#row-dot-products-and-lengths" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="row-dot-products-and-lengths">
+<h3>Row dot products and lengths<a class="headerlink" href="#row-dot-products-and-lengths" title="Link to this heading">¶</a></h3>
 <p>It is useful to look at the dot products of the rows of <span class="math notranslate nohighlight">\(\C\)</span> and
 <span class="math notranslate nohighlight">\(\S\)</span>. The dot product of each row with itself gives the squared
 <em>length</em> of the vector in that row.</p>
@@ -269,27 +268,27 @@ written as <span class="math notranslate nohighlight">\(\| \vec{v} \|\)</span>, 
 index of the strength of the relationship between the rows. We can look
 at the dot products of all the rows of <span class="math notranslate nohighlight">\(\C\)</span> with all other rows
 with the matrix multiplication <span class="math notranslate nohighlight">\(\C^T \C\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$\mathbf{C^TC}$&quot;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_basis-10.png">png</a>, <a class="reference external" href=".//fourier_basis-10.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-10.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/fourier_basis-10.png" src="_images/fourier_basis-10.png" />
-</div>
+</figure>
 <p>The image shows us that the dot product between the rows of <span class="math notranslate nohighlight">\(\C\)</span>
 is 0 everywhere except:</p>
 <ul class="simple">
-<li>the dot products of the rows with themselves (the squared vector
-lengths);</li>
-<li>the dot products of the mirror image vectors such as
+<li><p>the dot products of the rows with themselves (the squared vector
+lengths);</p></li>
+<li><p>the dot products of the mirror image vectors such as
 <span class="math notranslate nohighlight">\(\vec{c_1}\)</span> and <span class="math notranslate nohighlight">\(\vec{c_{N-1}}\)</span>. Because
 <span class="math notranslate nohighlight">\(\vec{c_n} = \vec{c_{N-n}}\)</span>, these dot products are the same as
-the <span class="math notranslate nohighlight">\(\| \vec{c_n} \|^2\)</span>.</li>
+the <span class="math notranslate nohighlight">\(\| \vec{c_n} \|^2\)</span>.</p></li>
 </ul>
 <p>The squared row lengths are:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">))</span>
 <span class="go">array([ 32.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,</span>
 <span class="go">        16.,  16.,  16.,  16.,  16.,  32.,  16.,  16.,  16.,  16.,  16.,</span>
 <span class="go">        16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.])</span>
@@ -299,29 +298,29 @@ the <span class="math notranslate nohighlight">\(\| \vec{c_n} \|^2\)</span>.</li
 squared length <span class="math notranslate nohighlight">\(N\)</span>, and the other rows have squared length
 <span class="math notranslate nohighlight">\(N / 2\)</span>.</p>
 <p>We can do the same for <span class="math notranslate nohighlight">\(\S\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">)))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dftp</span><span class="o">.</span><span class="n">show_array</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">dftp</span><span class="o">.</span><span class="n">scale_array</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">)))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$\mathbf{S^TS}$&quot;</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//fourier_basis-12.png">png</a>, <a class="reference external" href=".//fourier_basis-12.hires.png">hires.png</a>, <a class="reference external" href=".//fourier_basis-12.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/fourier_basis-12.png" src="_images/fourier_basis-12.png" />
-</div>
+</figure>
 <p>Remember that <span class="math notranslate nohighlight">\(\vec{s_0}\)</span> and <span class="math notranslate nohighlight">\(\vec{s_{n/2}}\)</span> are all 0
 vectors. The dot product of these rows with any other row, including
 themselves, is 0. All other entries in this <span class="math notranslate nohighlight">\(\S^T \S\)</span> matrix are
 zero except:</p>
 <ul class="simple">
-<li>the dot products of rows with themselves (other than
-<span class="math notranslate nohighlight">\(\vec{s_0}\)</span> and <span class="math notranslate nohighlight">\(\vec{s_{n/2}}\)</span>);</li>
-<li>the dot products of the flipped mirror image vectors such as
+<li><p>the dot products of rows with themselves (other than
+<span class="math notranslate nohighlight">\(\vec{s_0}\)</span> and <span class="math notranslate nohighlight">\(\vec{s_{n/2}}\)</span>);</p></li>
+<li><p>the dot products of the flipped mirror image vectors such as
 <span class="math notranslate nohighlight">\(\vec{s_1}\)</span> and <span class="math notranslate nohighlight">\(\vec{s_{N-1}}\)</span>. Because
 <span class="math notranslate nohighlight">\(\vec{s_n} = -\vec{s_{N-n}}\)</span>, these dot products are the same
-as <span class="math notranslate nohighlight">\(-\| \vec{s_n} \|^2\)</span>.</li>
+as <span class="math notranslate nohighlight">\(-\| \vec{s_n} \|^2\)</span>.</p></li>
 </ul>
 <p>The squared row lengths are:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
 <span class="go">array([  0.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,</span>
 <span class="go">        16.,  16.,  16.,  16.,  16.,   0.,  16.,  16.,  16.,  16.,  16.,</span>
 <span class="go">        16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.,  16.])</span>
@@ -331,15 +330,15 @@ as <span class="math notranslate nohighlight">\(-\| \vec{s_n} \|^2\)</span>.</li
 length <span class="math notranslate nohighlight">\(0\)</span>, and the other rows have squared length <span class="math notranslate nohighlight">\(N / 2\)</span>.</p>
 <p>Finally, let’s look at the relationship between the rows of <span class="math notranslate nohighlight">\(\C\)</span>
 and the rows of <span class="math notranslate nohighlight">\(\S\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
 <p>The rows of <span class="math notranslate nohighlight">\(\C\)</span> and <span class="math notranslate nohighlight">\(\S\)</span> are completely orthogonal.</p>
 <p>In fact these relationships hold for <span class="math notranslate nohighlight">\(\C\)</span> and <span class="math notranslate nohighlight">\(\S\)</span> for any
 <span class="math notranslate nohighlight">\(N\)</span>.</p>
-<div class="section" id="proof-for-c-s-dot-products">
-<h4>Proof for <span class="math notranslate nohighlight">\(\C, \S\)</span> dot products<a class="headerlink" href="#proof-for-c-s-dot-products" title="Permalink to this headline">¶</a></h4>
+<section id="proof-for-c-s-dot-products">
+<h4>Proof for <span class="math notranslate nohighlight">\(\C, \S\)</span> dot products<a class="headerlink" href="#proof-for-c-s-dot-products" title="Link to this heading">¶</a></h4>
 <p>We can show these relationships with some more or less basic
 trigonometry.</p>
 <p>Let’s start by looking at the dot product of two rows from <span class="math notranslate nohighlight">\(\C\)</span>.
@@ -427,20 +426,20 @@ including 0. When the denominator is zero, the sum will be equal to
 0 &amp; \text{otherwise}
 \end{cases}\end{split}\]</div>
 <ul class="simple">
-<li><a class="reference download internal" href="fourier_basis.py">Download this page as a Python code file</a>;</li>
-<li><a class="reference download internal" href="fourier_basis.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
+<li><p><a class="reference download internal" href="fourier_basis.py">Download this page as a Python code file</a>;</p></li>
+<li><p><a class="reference download internal" href="fourier_basis.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</p></li>
 </ul>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
           </div>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">Teaching</a></h1>
 
@@ -453,7 +452,16 @@ including 0. When the denominator is zero, the sum will be equal to
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
@@ -533,18 +541,6 @@ including 0. When the denominator is zero, the sum will be equal to
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
 
 
 
@@ -558,11 +554,11 @@ including 0. When the denominator is zero, the sum will be equal to
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2016, Matthew Brett.
+      &#169;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/fourier_basis.rst.txt"

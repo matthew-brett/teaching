@@ -32,9 +32,6 @@
 #
 # Load and configure the Python libraries we will use:
 
-# Compatibility with Python 3
-from __future__ import print_function, division
-
 import numpy as np  # the Python array package
 import matplotlib.pyplot as plt  # the Python plotting package
 

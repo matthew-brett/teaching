@@ -35,10 +35,6 @@
 #
 # Load and configure the Python libraries we will use:
 
-# - compatibility with Python 3
-from __future__ import print_function  # print('me') instead of print 'me'
-from __future__ import division  # 1/2 == 0.5, not 0
-
 # - import common modules
 import numpy as np  # the Python array package
 import matplotlib.pyplot as plt  # the Python plotting package
@@ -380,7 +376,7 @@ assert np.allclose(x, x_again)  # as for np.fft.ifft, we get x back
 #
 # We can show the matrix calculation of the DFT as images. To do this we
 # will use some specialized code. If you are running this tutorial yourself,
-# download [dft_plots.py](https://matthew-brett.github.io/teaching/_downloads/6e4e895180fc1cacc59707bb8a3697dd/dft_plots.py) to the directory containing this page.
+# download [dft_plots.py](https://matthew-brett.github.io/teaching/_downloads/ed7419a00057af7563a6e3e6732f1019/dft_plots.py) to the directory containing this page.
 
 # Import the custom DFT plotting code
 import dft_plots as dftp
@@ -1045,7 +1041,7 @@ sketch.highlight('x_c', [':'])
 # w_{N-1} = \frac{1}{N} \vec{1} \cdot \vec{W}
 # $$
 
-w_again = np.zeros(w.shape, dtype=np.complex)
+w_again = np.zeros(w.shape, dtype=complex)
 c_0 = np.ones(N)
 for n in np.arange(N):
     w_again[n] = 1. / N * c_0.dot(W)

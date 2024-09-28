@@ -6,12 +6,6 @@ In which we look at the mutual information measure for comparing images.
 
 .. nbplot::
 
-    >>> # - compatibility with Python 2
-    >>> from __future__ import print_function  # print('me') instead of print 'me'
-    >>> from __future__ import division  # 1/2 == 0.5, not 0
-
-.. nbplot::
-
     >>> # - import common modules
     >>> import numpy as np  # the Python array package
     >>> import matplotlib.pyplot as plt  # the Python plotting package
@@ -53,9 +47,9 @@ http://www.bic.mni.mcgill.ca/ServicesAtlases/ICBM152NLin2009. See the
 
     >>> import nibabel as nib
     >>> t1_img = nib.load('mni_icbm152_t1_tal_nlin_asym_09a.nii')
-    >>> t1_data = t1_img.get_data()
+    >>> t1_data = t1_img.get_fdata()
     >>> t2_img = nib.load('mni_icbm152_t2_tal_nlin_asym_09a.nii')
-    >>> t2_data = t2_img.get_data()
+    >>> t2_data = t2_img.get_fdata()
 
 .. nbplot::
 

@@ -1,21 +1,19 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Floating point error &#8212; Tutorials on imaging, computing and mathematics</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/copybutton.js?v=fc45e087"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The Fourier basis" href="fourier_basis.html" />
@@ -23,8 +21,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -37,15 +36,15 @@
           <div class="body" role="main">
             
   <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
-<div class="section" id="floating-point-error">
-<span id="floating-error"></span><h1>Floating point error<a class="headerlink" href="#floating-point-error" title="Permalink to this headline">¶</a></h1>
+<section id="floating-point-error">
+<span id="floating-error"></span><h1>Floating point error<a class="headerlink" href="#floating-point-error" title="Link to this heading">¶</a></h1>
 <p>This page maybe follows from <a class="reference internal" href="floating_point.html#floating-point"><span class="std std-ref">Points on floats</span></a></p>
 <p>I ran into trouble trying to understand floating point error. After reading
 <a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">Wikipedia floating point</a>, <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_epsilon">Wikipedia machine epsilon</a> and <a class="reference external" href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What every
 computer scientist should know about floating point</a>, I felt the need of some
 more explanation, and so here it is.</p>
-<div class="section" id="units-at-the-last-place">
-<h2>Units at the last place<a class="headerlink" href="#units-at-the-last-place" title="Permalink to this headline">¶</a></h2>
+<section id="units-at-the-last-place">
+<h2>Units at the last place<a class="headerlink" href="#units-at-the-last-place" title="Link to this heading">¶</a></h2>
 <p>Taking the notation from <a class="reference external" href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">Every computer scientist</a>; let’s imagine we have a
 floating point number that has base 10 and 3 digits in the significand, say
 <span class="math notranslate nohighlight">\(3.14 \times 10^1\)</span>.  Because we only have 3 digits, the nearest larger number
@@ -69,11 +68,11 @@ in our example), and <span class="math notranslate nohighlight">\(e\)</span> is 
 \[0.00...1 \times \beta^e\]</div>
 <p>where there are <span class="math notranslate nohighlight">\(p-1\)</span> zeros in the significand. This is also:</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Normalized representation in floating point</p>
 <p>Short version: The floating point representation of a number is <em>normalized</em>
 if <span class="math notranslate nohighlight">\(d_1\)</span> is not zero.</p>
-<p class="last">Long version: consider the number 1.00 represented in the <span class="math notranslate nohighlight">\(p = 3, \beta=10\)</span>
+<p>Long version: consider the number 1.00 represented in the <span class="math notranslate nohighlight">\(p = 3, \beta=10\)</span>
 system that we started with.  We can represent this number as <span class="math notranslate nohighlight">\(1.00 \times
 10^0\)</span> or <span class="math notranslate nohighlight">\(0.10 \times 10^1\)</span> or <span class="math notranslate nohighlight">\(0.01 \times 10^2\)</span>.  The <em>normalized</em>
 representation is the representation with a non-zero first digit - <span class="math notranslate nohighlight">\(1.00
@@ -94,9 +93,9 @@ using an infinite significand:</p>
 <p>Again, <em>normalized</em> means that <span class="math notranslate nohighlight">\(d_1 \ne 0\)</span>.  The ULP value for a real value <span class="math notranslate nohighlight">\(x\)</span>
 in some some finite floating point format is still <span class="math notranslate nohighlight">\(ulp(e, p)\)</span> where <span class="math notranslate nohighlight">\(p\)</span> is the
 number of digits in the significand as above.</p>
-</div>
-<div class="section" id="absolute-error">
-<h2>Absolute error<a class="headerlink" href="#absolute-error" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="absolute-error">
+<h2>Absolute error<a class="headerlink" href="#absolute-error" title="Link to this heading">¶</a></h2>
 <p>The IEEE standard for floating point specifies that the result of any floating
 point operation should be correct to within the rounding error of the resulting
 number.  That is, it specifies that the maximum rounding error for an individual
@@ -113,7 +112,7 @@ finite precision number returned from this calculation <span class="math notrans
 standard specifies that <span class="math notranslate nohighlight">\(fl(x)\)</span> should be the closest number to <span class="math notranslate nohighlight">\(x\)</span> that can be
 represented in the finite precision format.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>What is the floating point exponent for any given real number?</p>
 <p>So far we’ve assumed that we know the representation of our floating point
 number in terms of significand and exponent.</p>
@@ -127,7 +126,7 @@ know how to represent it in floating point?</p>
 </div>
 <p>Where <span class="math notranslate nohighlight">\(abs(y)\)</span> gives the absolute value of <span class="math notranslate nohighlight">\(y\)</span>, <span class="math notranslate nohighlight">\(logB(y)\)</span> is the log to base
 <span class="math notranslate nohighlight">\(\beta\)</span>, and <span class="math notranslate nohighlight">\(floor(y)\)</span> gives the most positive integer <span class="math notranslate nohighlight">\(i\)</span>, such that <span class="math notranslate nohighlight">\(i &lt;=
-y\)</span> <a class="footnote-reference" href="#floor" id="id1">[1]</a>.</p>
+y\)</span> <a class="footnote-reference brackets" href="#floor" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <p>We can then get the mantissa part with <span class="math notranslate nohighlight">\(round(x / \beta^{e2}, p-1)\)</span>, where
 <span class="math notranslate nohighlight">\(round(y, z)\)</span> rounds the number <span class="math notranslate nohighlight">\(y\)</span> to <span class="math notranslate nohighlight">\(z\)</span> digits after the decimal point.</p>
 <p>Worked example in Python with our original system of <span class="math notranslate nohighlight">\(p = 3, \beta = 10\)</span>:</p>
@@ -142,16 +141,16 @@ y\)</span> <a class="footnote-reference" href="#floor" id="id1">[1]</a>.</p>
 </pre></div>
 </div>
 <p>giving <span class="math notranslate nohighlight">\(-1.23 \times 10^{-1}\)</span> as the floating point representation.</p>
-<p class="last">For full accuracy, the algorithm has to be a little more sophisticated than
-this, but this is a reasonable first pass <a class="footnote-reference" href="#fancy-rounding" id="id2">[2]</a>.</p>
+<p>For full accuracy, the algorithm has to be a little more sophisticated than
+this, but this is a reasonable first pass <a class="footnote-reference brackets" href="#fancy-rounding" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 </div>
 <p>We remember that <span class="math notranslate nohighlight">\(p\)</span> is the number of digits in the significand in our finite
 floating point format. The IEEE rule then becomes:</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\left| fl(x) - x \right| \le 0.5 \times ulp(e, p)\\\left| fl(x) - x \right| \le 0.5 \times \beta^{e-(p-1)}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="relative-error">
-<h2>Relative error<a class="headerlink" href="#relative-error" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="relative-error">
+<h2>Relative error<a class="headerlink" href="#relative-error" title="Link to this heading">¶</a></h2>
 <p>The <em>relative error</em> is the rounding error divided by the infinite precision
 real number <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -186,9 +185,9 @@ between <span class="math notranslate nohighlight">\(\approx 0.5 \times \beta^{-
 the larger of these two maxima:</p>
 <div class="math notranslate nohighlight">
 \[\epsilon \le 0.5 \times \beta^{1-p}\]</div>
-</div>
-<div class="section" id="machine-epsilon">
-<h2>Machine epsilon<a class="headerlink" href="#machine-epsilon" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="machine-epsilon">
+<h2>Machine epsilon<a class="headerlink" href="#machine-epsilon" title="Link to this heading">¶</a></h2>
 <p>Now note that <span class="math notranslate nohighlight">\(\beta^{1-p}\)</span> is the ULP for 1; that is <span class="math notranslate nohighlight">\(1.0 \times
 \beta^{e-(p-1)}\)</span> where <span class="math notranslate nohighlight">\(e\)</span> is 0.  Some people refer to this value as <em>machine
 epsilon</em>, others use that term for <span class="math notranslate nohighlight">\(0.5 \times \beta^{1-p}\)</span> - see <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_epsilon#Variant_definitions">variant
@@ -196,44 +195,42 @@ definitions</a>.  MATLAB and Octave return <span class="math notranslate nohighl
 function. <a class="reference external" href="http://www.numpy.org">numpy</a> uses the same convention in its <code class="docutils literal notranslate"><span class="pre">np.finfo</span></code> function.  For
 example, the standard <code class="docutils literal notranslate"><span class="pre">float64</span></code> double precision type in numpy has <span class="math notranslate nohighlight">\(\beta = 2;
 p=53\)</span>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">==</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">53</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="thanks-to">
-<h2>Thanks to<a class="headerlink" href="#thanks-to" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="thanks-to">
+<h2>Thanks to<a class="headerlink" href="#thanks-to" title="Link to this heading">¶</a></h2>
 <p>Stefan van der Walt for several useful suggestions and corrections.</p>
 <p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="floor" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>See <a class="reference external" href="http://en.wikipedia.org/wiki/Floor_and_ceiling_functions">Wikipedia floor / ceiling functions</a>. The floor function here
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="floor" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>See <a class="reference external" href="http://en.wikipedia.org/wiki/Floor_and_ceiling_functions">Wikipedia floor / ceiling functions</a>. The floor function here
 (and in C and Python and the Wikipedia page) returns the integer closest to
 negative infinity.  For example, <code class="docutils literal notranslate"><span class="pre">floor(1.9)</span> <span class="pre">==</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">floor(-1.1)</span> <span class="pre">==</span>
-<span class="pre">-2</span></code>.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="fancy-rounding" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>To find the exact closest floating point representation of
+<span class="pre">-2</span></code>.</p>
+</aside>
+<aside class="footnote brackets" id="fancy-rounding" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>To find the exact closest floating point representation of
 a given number, we have to take into account that large values with exponent <span class="math notranslate nohighlight">\(e\)</span>
 may in fact be closer to <span class="math notranslate nohighlight">\(1 \times \beta^{e+1}\)</span>. For example, with <span class="math notranslate nohighlight">\(p=3,
 \beta=10\)</span>, the infinite precision value <span class="math notranslate nohighlight">\(9.996\)</span> is closer to <span class="math notranslate nohighlight">\(1.00 \times 10^1\)</span>
-than <span class="math notranslate nohighlight">\(9.99 \times 10^0\)</span>, even though <code class="docutils literal notranslate"><span class="pre">floor(log10(9.996))</span> <span class="pre">==</span> <span class="pre">0</span></code>.</td></tr>
-</tbody>
-</table>
-</div>
-</div>
+than <span class="math notranslate nohighlight">\(9.99 \times 10^0\)</span>, even though <code class="docutils literal notranslate"><span class="pre">floor(log10(9.996))</span> <span class="pre">==</span> <span class="pre">0</span></code>.</p>
+</aside>
+</aside>
+</section>
+</section>
 
 
           </div>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">Teaching</a></h1>
 
@@ -246,7 +243,16 @@ than <span class="math notranslate nohighlight">\(9.99 \times 10^0\)</span>, eve
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
@@ -320,18 +326,6 @@ than <span class="math notranslate nohighlight">\(9.99 \times 10^0\)</span>, eve
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
 
 
 
@@ -345,11 +339,11 @@ than <span class="math notranslate nohighlight">\(9.99 \times 10^0\)</span>, eve
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2016, Matthew Brett.
+      &#169;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/floating_error.rst.txt"

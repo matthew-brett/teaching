@@ -1,21 +1,19 @@
+<!DOCTYPE html>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" data-content_root="./">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>An introduction to smoothing &#8212; Tutorials on imaging, computing and mathematics</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/copybutton.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/copybutton.js?v=fc45e087"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Smoothing as convolution" href="smoothing_as_convolution.html" />
@@ -23,8 +21,9 @@
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -37,8 +36,8 @@
           <div class="body" role="main">
             
   <p><span class="math notranslate nohighlight">\(\newcommand{L}[1]{\| #1 \|}\newcommand{VL}[1]{\L{ \vec{#1} }}\newcommand{R}[1]{\operatorname{Re}\,(#1)}\newcommand{I}[1]{\operatorname{Im}\, (#1)}\)</span></p>
-<div class="section" id="an-introduction-to-smoothing">
-<h1>An introduction to smoothing<a class="headerlink" href="#an-introduction-to-smoothing" title="Permalink to this headline">¶</a></h1>
+<section id="an-introduction-to-smoothing">
+<h1>An introduction to smoothing<a class="headerlink" href="#an-introduction-to-smoothing" title="Link to this heading">¶</a></h1>
 <p>Smoothing is a process by which data points are averaged with their neighbors
 in a series, such as a time series, or image. This (usually) has the effect of
 blurring the sharp edges in the smoothed data.  Smoothing is sometimes
@@ -46,10 +45,10 @@ referred to as filtering, because smoothing has the effect of suppressing high
 frequency signal and enhancing low frequency signal. There are many different
 methods of smoothing, but here we discuss smoothing with a Gaussian kernel. We
 hope we will succeed in explaining this phrase in the explanation below.</p>
-<div class="section" id="some-example-data-for-smoothing">
-<h2>Some example data for smoothing<a class="headerlink" href="#some-example-data-for-smoothing" title="Permalink to this headline">¶</a></h2>
+<section id="some-example-data-for-smoothing">
+<h2>Some example data for smoothing<a class="headerlink" href="#some-example-data-for-smoothing" title="Link to this heading">¶</a></h2>
 <p>First we load and configure the libraries we need:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make numpy print 4 significant digits for prettiness</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -57,15 +56,15 @@ hope we will succeed in explaining this phrase in the explanation below.</p>
 </pre></div>
 </div>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">If running in the IPython console, consider running <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> to enable
+<p class="admonition-title">Hint</p>
+<p>If running in the IPython console, consider running <code class="docutils literal notranslate"><span class="pre">%matplotlib</span></code> to enable
 interactive plots.  If running in the Jupyter Notebook, use <code class="docutils literal notranslate"><span class="pre">%matplotlib</span>
 <span class="pre">inline</span></code>.</p>
 </div>
 <p>Here is a set of data, made out of random numbers, that we will use as a
 pretend time series, or a single line of data from one plane of an
 image.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n_points</span> <span class="o">=</span> <span class="mi">40</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n_points</span> <span class="o">=</span> <span class="mi">40</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_points</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_points</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">)</span>
@@ -73,27 +72,27 @@ image.</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//smoothing_intro-2.png">png</a>, <a class="reference external" href=".//smoothing_intro-2.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-2.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-2.png" src="_images/smoothing_intro-2.png" />
-</div>
-</div>
-<div class="section" id="the-gaussian-kernel">
-<h2>The Gaussian kernel<a class="headerlink" href="#the-gaussian-kernel" title="Permalink to this headline">¶</a></h2>
+</figure>
+</section>
+<section id="the-gaussian-kernel">
+<h2>The Gaussian kernel<a class="headerlink" href="#the-gaussian-kernel" title="Link to this heading">¶</a></h2>
 <p>The ‘kernel’ for smoothing, defines the shape of the function that is
 used to take the average of the neighboring points. A Gaussian kernel
 is a kernel with the shape of a Gaussian (normal distribution) curve.
 Here is a standard Gaussian, with a mean of 0 and a <span class="math notranslate nohighlight">\(\sigma\)</span> (=population
 standard deviation) of 1.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span> <span class="c1"># x from -6 to 6 in steps of 0.1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span> <span class="c1"># x from -6 to 6 in steps of 0.1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="go">[...]</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//smoothing_intro-3.png">png</a>, <a class="reference external" href=".//smoothing_intro-3.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-3.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-3.png" src="_images/smoothing_intro-3.png" />
-</div>
+</figure>
 <p>In the standard statistical way, we have defined the width of the Gaussian
 shape in terms of <span class="math notranslate nohighlight">\(\sigma\)</span>. However, when the Gaussian is used for smoothing,
 it is common for imagers to describe the width of the Gaussian with another
@@ -103,22 +102,22 @@ height of the Gaussian. Thus, for the standard Gaussian above, the
 maximum height is ~0.4.  The width of the kernel at 0.2 (on the Y axis) is the
 FWHM. As x = -1.175 and 1.175 when y = 0.2, the FWHM is roughly 2.35.</p>
 <p>The FWHM is related to sigma by the following formulae (in Python):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">sigma2fwhm</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">sigma2fwhm</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fwhm2sigma</span><span class="p">(</span><span class="n">fwhm</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fwhm2sigma</span><span class="p">(</span><span class="n">fwhm</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">fwhm</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>In our case:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigma2fwhm</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sigma2fwhm</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="go">2.3548200450309493</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="smoothing-with-the-kernel">
-<h2>Smoothing with the kernel<a class="headerlink" href="#smoothing-with-the-kernel" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="smoothing-with-the-kernel">
+<h2>Smoothing with the kernel<a class="headerlink" href="#smoothing-with-the-kernel" title="Link to this heading">¶</a></h2>
 <p>The basic process of smoothing is very simple. We proceed through the
 data point by point. For each data point we generate a new value that is
 some function of the original value at that point and the surrounding
@@ -132,7 +131,7 @@ Gaussian curve..</p>
 to make sure that we don’t do an overall scaling of the values after
 smoothing, we divide the values in the Gaussian curve by the total area under
 the curve, so that the values add up to one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="mi">4</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sigma</span> <span class="o">=</span> <span class="n">fwhm2sigma</span><span class="p">(</span><span class="n">FWHM</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_position</span> <span class="o">=</span> <span class="mi">13</span> <span class="c1"># 14th point</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_at_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x_vals</span> <span class="o">-</span> <span class="n">x_position</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
@@ -142,22 +141,22 @@ the curve, so that the values add up to one:</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//smoothing_intro-6.png">png</a>, <a class="reference external" href=".//smoothing_intro-6.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-6.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-6.png" src="_images/smoothing_intro-6.png" />
-</div>
+</figure>
 <p>In fact the Gaussian values for the 12th through 16th data points are:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_at_pos</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">kernel_at_pos</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
 <span class="go">array([ 0.1174,  0.1975,  0.2349,  0.1975,  0.1174])</span>
 </pre></div>
 </div>
 <p>and the data values for the same points are:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_vals</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_vals</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
 <span class="go">array([-0.2049, -0.3588,  0.6035, -1.6648, -0.7002])</span>
 </pre></div>
 </div>
 <p>We then multiply the Gaussian kernel (weight) values by the values of our
 data, and sum the results to get the new smoothed value for point 13:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_by_weight</span> <span class="o">=</span> <span class="n">y_vals</span> <span class="o">*</span> <span class="n">kernel_at_pos</span> <span class="c1"># element-wise multiplication</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_by_weight</span> <span class="o">=</span> <span class="n">y_vals</span> <span class="o">*</span> <span class="n">kernel_at_pos</span> <span class="c1"># element-wise multiplication</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">new_val</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y_by_weight</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">new_val</span>
 <span class="go">-0.34796859011845732</span>
@@ -167,7 +166,7 @@ data, and sum the results to get the new smoothed value for point 13:</p>
 and repeat the process, with the Gaussian kernel now centered over 14.  If we
 do this for each point, we eventually get the smoothed version of our original
 data. Here is a very inefficient but simple way of doing this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">y_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">y_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x_position</span> <span class="ow">in</span> <span class="n">x_vals</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x_vals</span> <span class="o">-</span> <span class="n">x_position</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="gp">... </span>    <span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
@@ -177,27 +176,27 @@ data. Here is a very inefficient but simple way of doing this:</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//smoothing_intro-10.png">png</a>, <a class="reference external" href=".//smoothing_intro-10.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-10.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-10.png" src="_images/smoothing_intro-10.png" />
-</div>
-</div>
-<div class="section" id="other-kernels">
-<h2>Other kernels<a class="headerlink" href="#other-kernels" title="Permalink to this headline">¶</a></h2>
+</figure>
+</section>
+<section id="other-kernels">
+<h2>Other kernels<a class="headerlink" href="#other-kernels" title="Link to this heading">¶</a></h2>
 <p>Of course, we could have used any shape for the kernel - such as a
 square wave. A square wave kernel with sum set to one would would have the
 effect of replacing each data point with the mean of itself and the
 neighboring points.</p>
-</div>
-<div class="section" id="smoothing-as-convolution">
-<h2>Smoothing as convolution<a class="headerlink" href="#smoothing-as-convolution" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="smoothing-as-convolution">
+<h2>Smoothing as convolution<a class="headerlink" href="#smoothing-as-convolution" title="Link to this heading">¶</a></h2>
 <p>Smoothing can also be implemented and understood as <em>convolution</em> - see
 <a class="reference internal" href="smoothing_as_convolution.html"><span class="doc">Smoothing as convolution</span></a> for an explanation.</p>
-</div>
-<div class="section" id="smoothing-in-2d">
-<h2>Smoothing in 2D<a class="headerlink" href="#smoothing-in-2d" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="smoothing-in-2d">
+<h2>Smoothing in 2D<a class="headerlink" href="#smoothing-in-2d" title="Link to this heading">¶</a></h2>
 <p>Smoothing in two dimensions follows simply from smoothing in one
 dimension. This time the Gaussian kernel is not a curve, but a cone:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dx</span> <span class="o">=</span> <span class="mf">0.1</span>
@@ -212,17 +211,17 @@ dimension. This time the Gaussian kernel is not a curve, but a cone:</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//smoothing_intro-11.png">png</a>, <a class="reference external" href=".//smoothing_intro-11.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-11.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-11.png" src="_images/smoothing_intro-11.png" />
-</div>
+</figure>
 <p>As for the 1D case, we can center this kernel to any point in a 2D plane, and
 get the equivalent kernel values for each point on the plane.  Here is a 2D
 Gaussian kernel centered at point (10, 10) on a size (20, 20) plane.  See the
 page source for the code to make the figure:</p>
 <p>(<a class="reference external" href=".//smoothing_intro-13.png">png</a>, <a class="reference external" href=".//smoothing_intro-13.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-13.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-13.png" src="_images/smoothing_intro-13.png" />
-</div>
+</figure>
 <p>We then proceed as before, multiplying the values of the kernel (as shown in
 the figure above) by the data in the image, to get the smoothed value for that
 point, and doing the same for every point on the image.</p>
@@ -235,9 +234,9 @@ applying a one dimensional smooth sequentially in the 2 or 3 dimensions. Thus,
 for 2 dimensions, we could first smooth in the x direction, and then smooth
 the x-smoothed data, in the y direction, This gives the same output as
 applying the 2D kernel.</p>
-</div>
-<div class="section" id="why-smooth">
-<h2>Why smooth?<a class="headerlink" href="#why-smooth" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="why-smooth">
+<h2>Why smooth?<a class="headerlink" href="#why-smooth" title="Link to this heading">¶</a></h2>
 <p>The primary reason for smoothing is to increase signal to noise.  Smoothing
 increases signal to noise by the matched filter theorem. This theorem states
 that the filter that will give optimum resolution of signal from noise is a
@@ -248,7 +247,7 @@ detected after we have smoothed our images with a 10mm FWHM Gaussian
 filter.The next few images show the matched filter theorem in action. First we
 can generate a simulated signal in a one dimensional set of data, by creating
 a Gaussian with FWHM 8 pixels, centered over the 14th data point:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="mi">8</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FWHM</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sigma</span> <span class="o">=</span> <span class="n">fwhm2sigma</span><span class="p">(</span><span class="n">FWHM</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_position</span> <span class="o">=</span> <span class="mi">13</span> <span class="c1"># 14th point</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sim_signal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x_vals</span> <span class="o">-</span> <span class="n">x_position</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
@@ -257,22 +256,22 @@ a Gaussian with FWHM 8 pixels, centered over the 14th data point:</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//smoothing_intro-15.png">png</a>, <a class="reference external" href=".//smoothing_intro-15.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-15.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-15.png" src="_images/smoothing_intro-15.png" />
-</div>
+</figure>
 <p>Next, we add some random noise to this signal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_points</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_points</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sim_data</span> <span class="o">=</span> <span class="n">sim_signal</span> <span class="o">+</span> <span class="n">noise</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">sim_data</span><span class="p">)</span>
 <span class="go">&lt;...&gt;</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//smoothing_intro-16.png">png</a>, <a class="reference external" href=".//smoothing_intro-16.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-16.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-16.png" src="_images/smoothing_intro-16.png" />
-</div>
+</figure>
 <p>We then smooth with a matching 8 pixel FWHM filter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed_sim_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">y_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed_sim_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">y_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x_position</span> <span class="ow">in</span> <span class="n">x_vals</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x_vals</span> <span class="o">-</span> <span class="n">x_position</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 <span class="gp">... </span>    <span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
@@ -282,9 +281,9 @@ a Gaussian with FWHM 8 pixels, centered over the 14th data point:</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//smoothing_intro-17.png">png</a>, <a class="reference external" href=".//smoothing_intro-17.hires.png">hires.png</a>, <a class="reference external" href=".//smoothing_intro-17.pdf">pdf</a>)</p>
-<div class="figure">
+<figure class="align-default">
 <img alt="_images/smoothing_intro-17.png" src="_images/smoothing_intro-17.png" />
-</div>
+</figure>
 <p>and recover our signal well from the noisy data.</p>
 <p>Thus, we smooth with a filter that is of matched size to the activation we
 wish to detect. This is of particular relevance when comparing activation
@@ -295,9 +294,9 @@ wide smoothing to detect this signal. In contrast, for a single subject
 experiment, where you want to detect (for example) a thalamic signal, which
 may be in the order of a few mm across, it would be wiser to use a very narrow
 smoothing, or even no smoothing.</p>
-</div>
-<div class="section" id="finding-the-signal-for-any-smoothing-level">
-<h2>Finding the signal for any smoothing level<a class="headerlink" href="#finding-the-signal-for-any-smoothing-level" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="finding-the-signal-for-any-smoothing-level">
+<h2>Finding the signal for any smoothing level<a class="headerlink" href="#finding-the-signal-for-any-smoothing-level" title="Link to this heading">¶</a></h2>
 <p>Sometimes you do not know the size or the shape of the signal change
 that you are expecting. In these cases, it is difficult to choose a
 smoothing level, because the smoothing may reduce signal that is not of
@@ -310,18 +309,18 @@ images. Human Brain Mapping
 4:74-90</a></p>
 <p>Matthew Brett (FB) 19/8/99, updated 26 October 2014</p>
 <ul class="simple">
-<li><a class="reference download internal" href="smoothing_intro.py">Download this page as a Python code file</a>;</li>
-<li><a class="reference download internal" href="smoothing_intro.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</li>
+<li><p><a class="reference download internal" href="smoothing_intro.py">Download this page as a Python code file</a>;</p></li>
+<li><p><a class="reference download internal" href="smoothing_intro.ipynb">Download this page as a Jupyter notebook (no outputs)</a>.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
 <h1 class="logo"><a href="index.html">Teaching</a></h1>
 
@@ -334,7 +333,16 @@ images. Human Brain Mapping
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angle_sum.html">The angle sum rule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bonferroni_correction.html">Notes on the Bonferroni threshold</a></li>
@@ -411,18 +419,6 @@ images. Human Brain Mapping
   </ul></li>
 </ul>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
 
 
 
@@ -436,11 +432,11 @@ images. Human Brain Mapping
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2016, Matthew Brett.
+      &#169;2016, Matthew Brett.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |
       <a href="_sources/smoothing_intro.rst.txt"

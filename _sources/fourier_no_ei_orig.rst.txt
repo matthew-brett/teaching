@@ -37,12 +37,6 @@ Load and configure the Python libraries we will use:
 
 .. nbplot::
 
-    >>> # - compatibility with Python 3
-    >>> from __future__ import print_function  # print('me') instead of print 'me'
-    >>> from __future__ import division  # 1/2 == 0.5, not 0
-
-.. nbplot::
-
     >>> # - import common modules
     >>> import numpy as np  # the Python array package
     >>> import matplotlib.pyplot as plt  # the Python plotting package
@@ -1198,7 +1192,7 @@ and this is precisely what the inverse DFT will do:
 
 .. nbplot::
 
-    >>> w_again = np.zeros(w.shape, dtype=np.complex)
+    >>> w_again = np.zeros(w.shape, dtype=complex)
     >>> c_0 = np.ones(N)
     >>> for n in np.arange(N):
     ...     w_again[n] = 1. / N * c_0.dot(W)

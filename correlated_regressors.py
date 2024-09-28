@@ -6,7 +6,6 @@
 #
 # Load and configure libraries:
 
-from __future__ import print_function
 import numpy as np
 import numpy.linalg as npl
 import matplotlib.pyplot as plt

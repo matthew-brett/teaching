@@ -35,11 +35,6 @@ Load and configure the Python libraries we will use:
 
 .. nbplot::
 
-    >>> # Compatibility with Python 3
-    >>> from __future__ import print_function, division
-
-.. nbplot::
-
     >>> import numpy as np  # the Python array package
     >>> import matplotlib.pyplot as plt  # the Python plotting package
 
