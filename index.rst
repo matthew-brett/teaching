@@ -34,7 +34,7 @@ Statistics
 * :doc:`on_cdfs`;
 * :doc:`ioannidis_2005`;
 * `Exploring the R formula
-  <http://nbviewer.jupyter.org/github/matthew-brett/teaching/blob/master/exploring_r_formula.ipynb>`_;
+  <http://nbviewer.jupyter.org/github/matthew-brett/teaching/blob/main/exploring_r_formula.ipynb>`_;
 * :doc:`finding_ls_line`.
 
 Imaging
