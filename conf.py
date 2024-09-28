@@ -71,7 +71,7 @@ release = '1.0'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -322,7 +322,7 @@ highlight_language = "python"
 # Add the 'copybutton' javascript, to hide/show the prompt in code
 # examples
 def setup(app):
-    app.add_javascript('copybutton.js')
+    app.add_js_file('copybutton.js')
 
 # Use local mathjax when environment variable IN_CUBA is set
 if os.environ.get('IN_CUBA'):
