@@ -2,16 +2,6 @@
 Comparing two groups with permutation testing
 #############################################
 
-.. note::
-
-    This page uses Python 3 - the most recent version of Python.  If you've
-    got Python 2, start by running this line, to make Python 2 work more like
-    Python 3.
-
-    .. nbplot::
-
-        >>> from __future__ import division
-
 In a moment we are going to compare some measures we collected from two
 different groups.
 

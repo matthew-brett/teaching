@@ -43,8 +43,8 @@ Imaging
 
 * `Coordinate systems and affine transforms
   <http://nipy.org/nibabel/coordinate_systems.html>`_;
-* :doc:`slice_timing`;
-* :doc:`optimizing_space`;
+* `Slice timing <https://textbook.nipraxis.org/slice_timing.html>`_.
+* `Optimizing space <https://textbook.nipraxis.org/optimizing_space.html>`_
 * :doc:`mutual_information`;
 * :doc:`smoothing_intro`;
 * :doc:`on_convolution`;

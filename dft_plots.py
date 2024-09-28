@@ -1,8 +1,5 @@
 """ Class for plotting a sketch of the forward / inverse Fourier transform
-
 """
-
-from __future__ import division
 
 import numpy as np
 
@@ -131,7 +128,7 @@ class DFTSketch(object):
         N = self.N
         x = self.x
         if inverse:
-            x = x.astype(np.complex)
+            x = x.astype(complex)
         X = self.X
         pad = self.IMAGE_PAD * 2
         C, S = cosine_sine_basis(N)

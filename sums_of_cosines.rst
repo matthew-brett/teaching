@@ -173,8 +173,6 @@ We check that the formulae give the right answers from numerical sums.
 
 .. nbplot::
 
-    >>> from __future__ import print_function, division
-
     >>> import numpy as np
 
     >>> def predicted_cos_sum(a, d, N):
