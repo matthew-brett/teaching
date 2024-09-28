@@ -30,7 +30,8 @@ Mathematics
 Statistics
 ==========
 
-* :doc:`glm_intro`;
+* `Introduction to the General Linear Model
+  <https://textbook.nipraxis.org/glm_intro.html>`_.
 * :doc:`on_cdfs`;
 * :doc:`ioannidis_2005`;
 * `Exploring the R formula
@@ -63,7 +64,8 @@ General Computing
 Python background
 =================
 
-* :doc:`brisk_python`;
+* `Brisk introduction to Python
+  <https://textbook.nipraxis.org/brisk_python.html>`_
 * :doc:`string_formatting`;
 * :doc:`on_loops`;
 * :doc:`functions_are_objects`;
