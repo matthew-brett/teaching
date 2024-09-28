@@ -82,14 +82,17 @@ show_x(random_X, 'My design')
 
 ## Exploring simple regression
 
+We start with a simple linear regression of one variable against another:
 
-We start with a simple linear regression of one variable against another
-: $\vec{y} \approx \beta_1 \vec{x_1} + C$.  $\vec{y}$ is the vector of data we
-want to predict using the covariate vector $\vec{x_1}$ times some slope
-$\beta_1$ plus an intercept $C$.  Let's imagine that our data $\vec{y} = y_1
-... y_N$ are a vector of citation scores for $N$ authors.  Maybe the values in
-our covariate vector $\vec{x_{1}} = x_{1_1} .. x_{1_N}$ are the ages of author
-$i$.
+$$
+\vec{y} \approx \beta_1 \vec{x_1} + C
+$$
+
+$\vec{y}$ is the vector of data we want to predict using the covariate vector
+$\vec{x_1}$ times some slope $\beta_1$ plus an intercept $C$.  Let's imagine
+that our data $\vec{y} = y_1 ... y_N$ are a vector of citation scores for $N$
+authors.  Maybe the values in our covariate vector $\vec{x_{1}} = x_{1_1} ..
+x_{1_N}$ are the ages of author $i$.
 
 ```{python}
 N = 15
