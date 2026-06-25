@@ -124,24 +124,25 @@ represented in the finite precision format.
     $\beta$, and $floor(y)$ gives the most positive integer $i$, such that $i <=
     y$ [#floor]_.
 
-    We can then get the mantissa part with $round(x / \beta^{e2}, p-1)$, where
+    We can then get the mantissa part with $round(x / \beta^{e1}, p-1)$, where
     $round(y, z)$ rounds the number $y$ to $z$ digits after the decimal point.
 
     Worked example in Python with our original system of $p = 3, \beta = 10$::
 
-        from math import abs, log10, floor, round
-        x = -0.1234 # a number with greater precision than format allows
+        from math import log, floor
         p = 3 # number of digits in mantissa
+        beta = 10 # base of exponent
+        x = -0.1234 # a number with greater precision than format allows
         x1 = abs(x) # 0.1234
-        e1 = log10(x1) # -0.9086848403027772
+        e1 = log(x1, beta) # log to base beta: -0.9086848403027772
         exponent = floor(e1) # -1
-        m1 = x / (10 ** e2) # -1.234
+        m1 = x / (beta ** exponent) # -1.234
         mantissa = round(m1, p-1) # -1.23
 
     giving $-1.23 \times 10^{-1}$ as the floating point representation.
 
-    For full accuracy, the algorithm has to be a little more sophisticated than
-    this, but this is a reasonable first pass [#fancy-rounding]_.
+    For full accuracy, the algorithm has to be a little more sophisticated,
+    but this is a reasonable first pass [#fancy-rounding]_.
 
 We remember that $p$ is the number of digits in the significand in our finite
 floating point format. The IEEE rule then becomes:
