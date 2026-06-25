@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Comparing two groups with permutation testing &#8212; Tutorials on imaging, computing and mathematics</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
     <script src="_static/documentation_options.js?v=f2a433a1"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/copybutton.js?v=fc45e087"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -72,7 +72,7 @@ the number of items. For example, here is the mean of the weights in the
 </pre></div>
 </div>
 <p>We can define a “function” that calculates the mean, like this:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="n">some_list</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">some_list</span><span class="p">):</span>
 <span class="gp">... </span><span class="w">    </span><span class="sd">&quot;&quot;&quot; Calculates the mean of the values in `some_list`</span>
 <span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">some_list</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">some_list</span><span class="p">)</span>
@@ -182,7 +182,7 @@ difference between the two groups.  We can see where <code class="docutils liter
 lies in this generated distribution, and this gives us a measure of whether
 the <code class="docutils literal notranslate"><span class="pre">observed_difference</span></code> is likely on the null hypothesis.</p>
 <p>Python’s <code class="docutils literal notranslate"><span class="pre">random.shuffle</span></code> function can do the shuffle for us:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">random</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">random.shuffle</span></code> takes a list and shuffles it to a random order. Here I make
@@ -223,7 +223,7 @@ randomly shuffled the combined group.  We’ll call the first 10 values
 <code class="docutils literal notranslate"><span class="pre">group_B</span></code> group.</p>
 <p>Here is a function that takes the combined list and returns the difference in
 means:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">difference_in_means</span><span class="p">(</span><span class="n">combined_list</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">difference_in_means</span><span class="p">(</span><span class="n">combined_list</span><span class="p">):</span>
 <span class="gp">... </span><span class="w">    </span><span class="sd">&quot;&quot;&quot; Split suffled combind group into two, return mean difference</span>
 <span class="gp">... </span><span class="sd">    &quot;&quot;&quot;</span>
 <span class="gp">... </span>    <span class="n">group_A</span> <span class="o">=</span> <span class="n">combined_list</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
@@ -269,7 +269,7 @@ interactive plots.  If running in the Jupyter Notebook, use <code class="docutil
 <span class="pre">inline</span></code>.</p>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># The plotting package</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">shuffled_differences</span><span class="p">)</span>
@@ -450,7 +450,7 @@ ordinary variation in chick weight.</p>
       &#169;2016, Matthew Brett.
       
       |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
       |

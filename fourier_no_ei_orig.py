@@ -483,9 +483,9 @@ sketch.title('Forward DFT for complex input vector')
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 5))
 dftp.show_array(axes[0], dftp.scale_array(C))
-axes[0].set_title("$\mathbf{C}$")
+axes[0].set_title(r"$\mathbf{C}$")
 dftp.show_array(axes[1], dftp.scale_array(S))
-axes[1].set_title("$\mathbf{S}$")
+axes[1].set_title(r"$\mathbf{S}$")
 
 # ## Mirror symmetry
 #
@@ -507,7 +507,7 @@ axes[1].set_title("$\mathbf{S}$")
 
 center_rows = [N / 2. - 1, N / 2., N / 2. + 1]
 fig = dftp.plot_cs_rows('C', N, center_rows)
-fig.suptitle('Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{C}$',
+fig.suptitle(r'Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{C}$',
              fontsize=20)
 
 # The first plot in this grid is for row $k = N / 2 - 1$. This row
@@ -525,17 +525,17 @@ fig.suptitle('Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{C}$',
 # This might be more obvious plotting rows 1 and N-1 of $\C$:
 
 fig = dftp.plot_cs_rows('C', N, [1, N-1])
-fig.suptitle('Rows $1$ and $N - 1$ of $\mathbf{C}$',
+fig.suptitle(r'Rows $1$ and $N - 1$ of $\mathbf{C}$',
              fontsize=20)
 
 # Of course we get the same kind of effect for $\S$:
 
 fig = dftp.plot_cs_rows('S', N, center_rows)
-fig.suptitle('Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{S}$',
+fig.suptitle(r'Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{S}$',
              fontsize=20)
 
 fig = dftp.plot_cs_rows('S', N, [1, N-1])
-fig.suptitle('Rows $1$ and $N - 1$ of $\mathbf{S}$',
+fig.suptitle(r'Rows $1$ and $N - 1$ of $\mathbf{S}$',
              fontsize=20)
 
 # Notice that for $\S$, the sine waves after $k = N / 2$ are
@@ -612,7 +612,7 @@ assert np.allclose(S, S.T)
 # with the matrix multiplication $\C^T \C$:
 
 dftp.show_array(plt.gca(), dftp.scale_array(C.T.dot(C)))
-plt.title("$\mathbf{C^TC}$")
+plt.title(r"$\mathbf{C^TC}$")
 
 # The image shows us that the dot product between the rows of $\C$
 # is 0 everywhere except:
@@ -636,7 +636,7 @@ np.diag(C.T.dot(C))
 # We can do the same for $\S$:
 
 dftp.show_array(plt.gca(), dftp.scale_array(S.T.dot(S)))
-plt.title("$\mathbf{S^TS}$")
+plt.title(r"$\mathbf{S^TS}$")
 
 # Remember that $\vec{s_0}$ and $\vec{s_{n/2}}$ are all 0
 # vectors. The dot product of these rows with any other row, including
