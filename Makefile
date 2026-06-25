@@ -7,6 +7,9 @@ SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
 
+# Also read from conf.py
+KERNEL_NAME   = teaching-pages
+
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
 $(error The '$(SPHINXBUILD)' command was not found. Make sure you have Sphinx installed, then set the SPHINXBUILD environment variable to point to the full path of the '$(SPHINXBUILD)' executable. Alternatively you can add the directory with the executable to your PATH. If you don't have Sphinx installed, grab it from http://sphinx-doc.org/)
@@ -51,7 +54,17 @@ help:
 clean:
 	rm -rf $(BUILDDIR)/*
 
-html:
+# Install local jupyter kernel to rebuild notebooks.
+# The notebooks get rebuilt with the "full" option to the nbplot
+# directive, which causes the notebook to be rebuilt from the page,
+# and then "filled" by executing the notebook.  This in turn will
+# pick up a Jupyter kernel.  Here we ensure that kernel picks up
+# our env.
+build-kernel:
+	python -m ipykernel install --user --name $(KERNEL_NAME) \
+		--display-name "Python (teaching)"
+
+html: build-kernel
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
@@ -194,8 +207,7 @@ pseudoxml:
 graphics:
 	python3 tools/vector_projection.py images/vector_projection
 
-github:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+github: html
 	ghp-import -n $(BUILDDIR)/html/
 	git push origin gh-pages:gh-pages --force
 	@echo

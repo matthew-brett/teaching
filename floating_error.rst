@@ -46,6 +46,10 @@ in our example), and $e$ is the exponent.
 
 where there are $p-1$ zeros in the significand. This is also:
 
+.. math::
+
+    1.0 \times \beta^{e-(p-1)}
+
 .. note:: Normalized representation in floating point
 
     Short version: The floating point representation of a number is *normalized*
@@ -59,9 +63,6 @@ where there are $p-1$ zeros in the significand. This is also:
     number in a particular floating point representation, so a normalized
     representation is unique.
 
-.. math::
-
-    1.0 \times \beta^{e-(p-1)}
 
 Note that any normalized floating point number with exponent $e$ has the same
 value for 1 ULP.  Let's define:

@@ -12,8 +12,15 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
+from copy import deepcopy
 import os
+from pathlib import Path
+import re
+import sys
+
+import nbconvert as nbc
+import nb2plots.runroles as runroles
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -319,10 +326,32 @@ mathcode_plot_context = 'nb2plots.nbplots.plot_context'
 # Set highlight language to make copybutton >>> hiding work
 highlight_language = "python"
 
+# Kernel used when nb2plots executes full notebooks (code-links :full:)
+_kname_re = re.compile(
+    r'^[ \t]*KERNEL_NAME\ *=\ *(?P<kname>[\w-]+)\ *$',
+    flags=re.MULTILINE | re.VERBOSE)
+if not (match := _kname_re.search(Path('Makefile').read_text())):
+    raise RuntimeError('Could not find KERNEL_NAME in Makefile')
+fill_notebook_kernel_name = match.group('kname')
+
 # Add the 'copybutton' javascript, to hide/show the prompt in code
 # examples
+# Patch fill_notebook to use named kernel.
 def setup(app):
     app.add_js_file('copybutton.js')
+
+    def fill_notebook(nb, timeout=30):
+        preprocessor = nbc.preprocessors.execute.ExecutePreprocessor(
+            timeout=timeout, kernel_name=fill_notebook_kernel_name)
+        preprocessor.enabled = True
+        RD = nbc.exporters.exporter.ResourcesDict
+        res = RD()
+        res['metadata'] = RD()
+        output_nb, _ = preprocessor(deepcopy(nb), res)
+        return output_nb
+
+    runroles.fill_notebook = fill_notebook
+
 
 # Use local mathjax when environment variable IN_CUBA is set
 if os.environ.get('IN_CUBA'):
