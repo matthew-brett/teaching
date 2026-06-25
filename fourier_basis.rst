@@ -124,10 +124,10 @@ First we build :math:`\C` and :math:`\S` for our case with :math:`N=32`:
 
     >>> fig, axes = plt.subplots(1, 2, figsize=(10, 5))
     >>> dftp.show_array(axes[0], dftp.scale_array(C))
-    >>> axes[0].set_title("$\mathbf{C}$")
+    >>> axes[0].set_title(r"$\mathbf{C}$")
     <...>
     >>> dftp.show_array(axes[1], dftp.scale_array(S))
-    >>> axes[1].set_title("$\mathbf{S}$")
+    >>> axes[1].set_title(r"$\mathbf{S}$")
     <...>
 
 Mirror symmetry
@@ -153,7 +153,7 @@ of :math:`\C`:
 
     >>> center_rows = [N / 2. - 1, N / 2., N / 2. + 1]
     >>> fig = dftp.plot_cs_rows('C', N, center_rows)
-    >>> fig.suptitle('Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{C}$',
+    >>> fig.suptitle(r'Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{C}$',
     ...              fontsize=20)
     <...>
 
@@ -174,7 +174,7 @@ This might be more obvious plotting rows 1 and N-1 of :math:`\C`:
 .. nbplot::
 
     >>> fig = dftp.plot_cs_rows('C', N, [1, N-1])
-    >>> fig.suptitle('Rows $1$ and $N - 1$ of $\mathbf{C}$',
+    >>> fig.suptitle(r'Rows $1$ and $N - 1$ of $\mathbf{C}$',
     ...              fontsize=20)
     <...>
 
@@ -185,14 +185,14 @@ Of course we get the same kind of effect for :math:`\S`:
 .. nbplot::
 
     >>> fig = dftp.plot_cs_rows('S', N, center_rows)
-    >>> fig.suptitle('Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{S}$',
+    >>> fig.suptitle(r'Rows $N / 2 - 1$ through $N / 2 + 1$ of $\mathbf{S}$',
     ...              fontsize=20)
     <...>
 
 .. nbplot::
 
     >>> fig = dftp.plot_cs_rows('S', N, [1, N-1])
-    >>> fig.suptitle('Rows $1$ and $N - 1$ of $\mathbf{S}$',
+    >>> fig.suptitle(r'Rows $1$ and $N - 1$ of $\mathbf{S}$',
     ...              fontsize=20)
     <...>
 
@@ -279,7 +279,7 @@ with the matrix multiplication :math:`\C^T \C`:
 .. nbplot::
 
     >>> dftp.show_array(plt.gca(), dftp.scale_array(C.T.dot(C)))
-    >>> plt.title("$\mathbf{C^TC}$")
+    >>> plt.title(r"$\mathbf{C^TC}$")
     <...>
 
 The image shows us that the dot product between the rows of :math:`\C`
@@ -310,7 +310,7 @@ We can do the same for :math:`\S`:
 .. nbplot::
 
     >>> dftp.show_array(plt.gca(), dftp.scale_array(S.T.dot(S)))
-    >>> plt.title("$\mathbf{S^TS}$")
+    >>> plt.title(r"$\mathbf{S^TS}$")
     <...>
 
 Remember that :math:`\vec{s_0}` and :math:`\vec{s_{n/2}}` are all 0

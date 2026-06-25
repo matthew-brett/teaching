@@ -270,7 +270,7 @@ Let's project all the points onto that line:
     (...)
     >>> plt.legend(loc='upper left')
     <...>
-    >>> plt.title("Actual and projected points for guessed $\hat{u}$")
+    >>> plt.title(r"Actual and projected points for guessed $\hat{u}$")
     <...>
     >>> plt.xlabel('Feature 1')
     <...>
@@ -452,7 +452,7 @@ Do the projections for this best line look better than before?
     (...)
     >>> plt.legend(loc='upper left')
     <...>
-    >>> plt.title("Actual and projected points for $\hat{u_{best}}$")
+    >>> plt.title(r"Actual and projected points for $\hat{u_{best}}$")
     <...>
     >>> plt.xlabel('Feature 1')
     <...>
@@ -474,7 +474,7 @@ between the projected and actual points.
     <...>
     >>> plt.arrow(0, 0, u_best[0], u_best[1], width=0.01, color='r')
     <...>
-    >>> plt.annotate('$\hat{u_{best}}$', u_best, xytext=(20, 20), textcoords='offset points', fontsize=20)
+    >>> plt.annotate(r'$\hat{u_{best}}$', u_best, xytext=(20, 20), textcoords='offset points', fontsize=20)
     <...>
     >>> plt.legend(loc='upper left')
     <...>
@@ -515,9 +515,9 @@ orthogonal to $\hat{u_{best}}$:
     <...>
     >>> plt.arrow(0, 0, u_best_orth[0], u_best_orth[1], width=0.01, color='g')
     <...>
-    >>> plt.annotate('$\hat{u_{best}}$', u_best, xytext=(20, 20), textcoords='offset points', fontsize=20)
+    >>> plt.annotate(r'$\hat{u_{best}}$', u_best, xytext=(20, 20), textcoords='offset points', fontsize=20)
     <...>
-    >>> plt.annotate('$\hat{u_{orth}}$', u_best_orth, xytext=(20, 20), textcoords='offset points', fontsize=20)
+    >>> plt.annotate(r'$\hat{u_{orth}}$', u_best_orth, xytext=(20, 20), textcoords='offset points', fontsize=20)
     <...>
     >>> plt.axis('equal')
     (...)
